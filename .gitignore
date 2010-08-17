@@ -2,6 +2,9 @@
 *.pyc
 *.pyo
 *.mo
-var/
+.installed.cfg
+bin/
+develop-eggs/
 parts/
+var/
 
