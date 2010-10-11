@@ -55,23 +55,7 @@ class File(ATFile):
 
     def index_html(self, REQUEST, RESPONSE):
         """ download the file as an attachment """
-        #!/usr/bin/env python
-        import os
-        import subprocess
-        tm_file = os.environ['TM_FILEPATH']
-
-        pyflakes_cmd = '%s %s' % ('pyflakes', tm_file)
-        out = subprocess.Popen(pyflakes_cmd,
-                               shell=True,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE).communicate()
-        if not out[1].find('command not found') > 0:
-            if out[0]:
-                out = ''.join(out[0])
-            else:
-                out = ''.join(out[1])
-            out = out.replace('%s:' % tm_file, '')
-            print out
+        field = self.getPrimaryField()
         return field.download(self, REQUEST, RESPONSE)
 
     security.declarePrivate('getIndexValue')
