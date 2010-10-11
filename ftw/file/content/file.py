@@ -1,16 +1,17 @@
 from AccessControl import ClassSecurityInfo
-from plone.app.blob.field import FileField
-from Products.CMFCore.permissions import View
-from Products.Archetypes import atapi
-from logging import getLogger
-from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.validation import V_REQUIRED
-from ZODB.POSException import ConflictError
-from zope.interface import implements
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
 from ftw.file.interfaces import IFile
+from logging import getLogger
+from plone.app.blob.field import FileField
+from Products.Archetypes import atapi
+from Products.ATContentTypes.content.file import ATFile, ATFileSchema
+from Products.CMFCore.permissions import ManagePortal
+from Products.CMFCore.permissions import View
+from Products.CMFCore.utils import getToolByName
+from Products.validation import V_REQUIRED
+from ZODB.POSException import ConflictError
+from zope.interface import implements
 
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
@@ -33,6 +34,14 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
 ))
 
 
+# clean up schemata, means: set manage portal as write permission
+schematas = ['categorization', 'dates', 'ownership', 'settings']
+for f in FileSchema.keys():
+    field = FileSchema[f]
+    if field.schemata in schematas:
+        field.write_permission = ManagePortal
+
+
 class File(ATFile):
     """A file content type based on blobs.
     """
@@ -43,12 +52,30 @@ class File(ATFile):
     security = ClassSecurityInfo()
 
     security.declareProtected(View, 'index_html')
+
     def index_html(self, REQUEST, RESPONSE):
         """ download the file as an attachment """
-        field = self.getPrimaryField()
+        #!/usr/bin/env python
+        import os
+        import subprocess
+        tm_file = os.environ['TM_FILEPATH']
+
+        pyflakes_cmd = '%s %s' % ('pyflakes', tm_file)
+        out = subprocess.Popen(pyflakes_cmd,
+                               shell=True,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE).communicate()
+        if not out[1].find('command not found') > 0:
+            if out[0]:
+                out = ''.join(out[0])
+            else:
+                out = ''.join(out[1])
+            out = out.replace('%s:' % tm_file, '')
+            print out
         return field.download(self, REQUEST, RESPONSE)
 
     security.declarePrivate('getIndexValue')
+
     def getIndexValue(self, mimetype='text/plain'):
         """ an accessor method used for indexing the field's value
             XXX: the implementation is mostly based on archetype's
