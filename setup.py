@@ -30,6 +30,7 @@ setup(name='ftw.file',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'ftw.journal',
           # -*- Extra requirements: -*-
       ],
       tests_require=tests_require,

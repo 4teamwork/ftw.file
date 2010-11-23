@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+    <browser:viewlet
+        name="plone.belowcontentbody.inlinecontenthistory"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        view="ftw.file.browser.file_view.FileView"
+        class=".content_history.ContentHistoryViewlet"
+        template="content_history.pt"
+        permission="zope2.View"
+        />
+
+</configure>

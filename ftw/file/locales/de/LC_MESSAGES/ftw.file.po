@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-11-23 09:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./ftw/file/viewlets/content_history.pt:8
+msgid "Action"
+msgstr "Aktion"
+
+#: ./ftw/file/browser/file_view.pt:35
+#: ./ftw/file/viewlets/content_history.pt:10
+msgid "Author"
+msgstr "Autor"
+
+#: ./ftw/file/browser/file_view.pt:47
+msgid "Classification"
+msgstr "Abgelegt unter"
+
+#: ./ftw/file/viewlets/content_history.pt:11
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ./ftw/file/browser/file_view.pt:27
+#: ./ftw/file/viewlets/content_history.pt:9
+msgid "Date"
+msgstr "Datum"
+
+#: ./ftw/file/browser/file_view.pt:31
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ./ftw/file/browser/file_view.pt:19
+msgid "File"
+msgstr "Datei"
+
+#: ./ftw/file/viewlets/content_history.pt:5
+msgid "Journal"
+msgstr "Journal"
+
+#: ./ftw/file/viewlets/content_history.pt:30
+msgid "download"
+msgstr "herunterladen"
+
+#. Default: "${action}"
+#: ./ftw/file/viewlets/content_history.pt:22
+msgid "history_action"
+msgstr ""
+
+#. Default: "File"
+#: ./ftw/file/content/file.py:30
+msgid "label_file"
+msgstr "Datei"
+
+#. Default: "File downloaded"
+#: ./ftw/file/fields.py:42
+msgid "label_file_downloaded"
+msgstr "Datei heruntergeladen"
+
+

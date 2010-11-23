@@ -3,7 +3,7 @@ from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
 from ftw.file.interfaces import IFile
 from logging import getLogger
-from plone.app.blob.field import FileField
+from ftw.file.fields import FileField
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.CMFCore.permissions import ManagePortal
@@ -12,7 +12,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
 from zope.interface import implements
-
+from ftw.journal.interfaces import IWorkflowHistoryJournalizable
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
     FileField(
@@ -41,11 +41,13 @@ for f in FileSchema.keys():
     if field.schemata in schematas:
         field.write_permission = ManagePortal
 
+if 'effectiveDate' in FileSchema.keys():
+    FileSchema['effectiveDate'].schemata = 'default'
 
 class File(ATFile):
     """A file content type based on blobs.
     """
-    implements(IFile)
+    implements(IFile, IWorkflowHistoryJournalizable)
 
     meta_type = "FtwFile"
     schema = FileSchema

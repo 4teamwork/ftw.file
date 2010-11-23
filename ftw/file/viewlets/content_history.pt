@@ -1,0 +1,39 @@
+<div i18n:domain="ftw.file"
+     tal:define="history view/fullHistory;"
+     tal:condition="python:history and view.show_viewlet()"
+     tal:omit-tag="">
+     <h2 i18n:translate="">Journal</h2>
+     <table class="contentHistory">
+        <tr>
+            <th i18n:translate="">Action</th>
+            <th i18n:translate="">Date</th>
+            <th i18n:translate="">Author</th>
+            <th i18n:translate="">Comment</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr tal:repeat="item history">
+            <tal:def define="rhComments item/comments|nothing;
+                             actor item/actor;
+                             actor_name python:actor and actor.get('fullname','username') or item['actorid'];
+                             actor_home item/actor_home;
+                             action item/transition_title;
+                             isVersion python:item['type']=='versioning'">
+                <td i18n:translate="history_action">
+                    <span class="historyAction" tal:content="action" i18n:translate="" i18n:name="action"
+                          tal:attributes="class string:historyAction state-${action}"
+                          />
+                </td>
+                <td tal:content="python:view.toLocalizedTime(item['time'])" />
+                <td tal:content="actor_name" />
+                <td tal:content="item/comments" />
+                <td>
+                    <a tal:condition="isVersion"
+                       tal:attributes="href string:${context/absolute_url}/file_download_version?version_id=${item/version_id}"
+                       i18n:translate="">
+                        download
+                    </a>
+                </td>
+            </tal:def>
+        </tr>
+    </table>
+</div>
