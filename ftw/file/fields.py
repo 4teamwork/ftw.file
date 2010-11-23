@@ -29,15 +29,11 @@ class FileField(field.FileField):
             RESPONSE = REQUEST.RESPONSE
         filename = self.getFilename(instance)
         if filename is not None:
-            # IE, Safari fix: they can not handle utf8 encoded filenames in content disposition headers 
             user_agent = REQUEST.get('HTTP_USER_AGENT', '')
-            if 'MSIE' in user_agent or 'Safari' in user_agent:
-                filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'ISO-8859-1')
-                RESPONSE.setHeader("Content-disposition", 'attachment; filename=%s' % filename)
-            else:
-                filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'utf-8')
-                header_value = contentDispositionHeader('attachment', instance.getCharset(), filename=filename)
-                RESPONSE.setHeader("Content-disposition", header_value)
+            filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'ISO-8859-1')
+            RESPONSE.setHeader("Content-disposition", 'attachment; filename=%s' % filename)
+
+        filename = self.getFilename(instance)
 
         action = _(u"label_file_downloaded", default=u"File downloaded")
         notify(JournalEntryEvent(instance, filename, action))
