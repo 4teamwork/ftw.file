@@ -2,7 +2,7 @@ from plone.app.blob import field
 from ftw.file import fileMessageFactory as _
 from zope.event import notify
 from ftw.journal.events.events import JournalEntryEvent
-from Products.Archetypes.utils import contentDispositionHeader
+from webdav.common import rfc1123_date
 
 
 def reencode(filename, charset, charset_fallback, charset_output):
@@ -27,9 +27,11 @@ class FileField(field.FileField):
             REQUEST = instance.REQUEST
         if not RESPONSE:
             RESPONSE = REQUEST.RESPONSE
+        RESPONSE.setHeader('Last-Modified', rfc1123_date(instance._p_mtime))
+        RESPONSE.setHeader('Content-Type', self.getContentType(instance))
+        RESPONSE.setHeader('Accept-Ranges', 'bytes')
         filename = self.getFilename(instance)
         if filename is not None:
-            user_agent = REQUEST.get('HTTP_USER_AGENT', '')
             filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'ISO-8859-1')
             RESPONSE.setHeader("Content-disposition", 'attachment; filename=%s' % filename)
 
@@ -38,3 +40,4 @@ class FileField(field.FileField):
         action = _(u"label_file_downloaded", default=u"File downloaded")
         notify(JournalEntryEvent(instance, filename, action))
         return raw_file
+ 
