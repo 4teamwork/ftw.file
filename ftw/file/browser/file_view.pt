@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <th i18n:translate="">Date</th>
-                <td tal:content="python:toLocalizedTime(context.effective())"/>
+                <td tal:content="python:toLocalizedTime(view.get_effective_date())"/>
             </tr>
             <tr>
                 <th i18n:translate="">Description</th>
