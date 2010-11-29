@@ -1,6 +1,4 @@
 from plone.app.blob import field
-#from ftw.file import fileMessageFactory as _
-#from ftw.journal.events.events import JournalEntryEvent
 from zope.event import notify
 from webdav.common import rfc1123_date
 from ftw.file.events.events import FileDownloadedEvent
@@ -18,7 +16,7 @@ def reencode(filename, charset, charset_fallback, charset_output):
 
 
 class FileField(field.FileField):
-    
+
     def index_html(self, instance, REQUEST=None, RESPONSE=None, no_output=False, disposition=None):
         """Kicks download.
         Writes data including file name and content type to RESPONSE
@@ -34,11 +32,10 @@ class FileField(field.FileField):
         filename = self.getFilename(instance)
         if filename is not None:
             filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'ISO-8859-1')
-            RESPONSE.setHeader("Content-disposition", 'attachment; filename=%s' % filename)
+            RESPONSE.setHeader(
+                "Content-disposition", 'attachment; filename=%s' % filename)
 
         filename = self.getFilename(instance)
 
         notify(FileDownloadedEvent(instance, filename))
-#        notify(JournalEntryEvent(instance, filename, action))
         return raw_file
- 

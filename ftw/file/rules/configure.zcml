@@ -11,5 +11,5 @@
     <!-- Rule triggers -->
     <subscriber for="ftw.file.interfaces.IFileDownloadedEvent"
                 handler=".handlers.downloaded" />
-     
+
 </configure>
