@@ -1,8 +1,9 @@
 from plone.app.blob import field
-from ftw.file import fileMessageFactory as _
+#from ftw.file import fileMessageFactory as _
+#from ftw.journal.events.events import JournalEntryEvent
 from zope.event import notify
-from ftw.journal.events.events import JournalEntryEvent
 from webdav.common import rfc1123_date
+from ftw.file.events.events import FileDownloadedEvent
 
 
 def reencode(filename, charset, charset_fallback, charset_output):
@@ -37,7 +38,7 @@ class FileField(field.FileField):
 
         filename = self.getFilename(instance)
 
-        action = _(u"label_file_downloaded", default=u"File downloaded")
-        notify(JournalEntryEvent(instance, filename, action))
+        notify(FileDownloadedEvent(instance, filename))
+#        notify(JournalEntryEvent(instance, filename, action))
         return raw_file
  

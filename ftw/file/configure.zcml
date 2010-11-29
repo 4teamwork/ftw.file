@@ -7,13 +7,14 @@
 
   <includeDependencies package="." />
   <five:registerPackage package="." initialize=".initialize" />
-  
+
   <i18n:registerTranslations directory="locales" />
-  
-  <include package=".content" />
+
   <include package=".browser" />
+  <include package=".content" />
+  <include package=".rules" />
   <include package=".viewlets" />
- 
+
   <genericsetup:registerProfile
       name="default"
       title="ftw.file"
@@ -22,5 +23,4 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
- 
 </configure>

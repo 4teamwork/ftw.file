@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+    <!-- Make the event selectable -->
+    <interface 
+      interface="ftw.file.interfaces.IFileDownloadedEvent" 
+      type="plone.contentrules.rule.interfaces.IRuleEventType"
+      name="ftw.file downloaded"
+      />
+
+    <!-- Rule triggers -->
+    <subscriber for="ftw.file.interfaces.IFileDownloadedEvent"
+                handler=".handlers.downloaded" />
+     
+</configure>
