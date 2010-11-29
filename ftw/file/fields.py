@@ -2,6 +2,7 @@ from plone.app.blob import field
 from zope.event import notify
 from webdav.common import rfc1123_date
 from ftw.file.events.events import FileDownloadedEvent
+from zope.component import getMultiAdapter
 
 
 def reencode(filename, charset, charset_fallback, charset_output):
@@ -37,5 +38,9 @@ class FileField(field.FileField):
 
         filename = self.getFilename(instance)
 
-        notify(FileDownloadedEvent(instance, filename))
+        ps = getMultiAdapter(
+            (instance, instance.REQUEST),
+            name='plone_portal_state')
+        if not ps.anonymous():
+            notify(FileDownloadedEvent(instance, filename))
         return raw_file
