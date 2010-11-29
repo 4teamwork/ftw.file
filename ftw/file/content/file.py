@@ -42,6 +42,8 @@ for f in FileSchema.keys():
         field.write_permission = ManagePortal
 
 if 'effectiveDate' in FileSchema.keys():
+    FileSchema['effectiveDate'].widget.visible = {'view': 'visible',
+                                                  'edit': 'visible'}
     FileSchema['effectiveDate'].schemata = 'default'
 
 class File(ATFile):
