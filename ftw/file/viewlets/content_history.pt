@@ -2,7 +2,7 @@
      tal:define="history view/fullHistory;"
      tal:condition="python:history and view.show_viewlet()"
      tal:omit-tag="">
-     <h2 i18n:translate="">Journal</h2>
+     <h2 i18n:translate="" class="contentHistoryTitle">Journal</h2>
      <table class="contentHistory">
         <tr>
             <th i18n:translate="">Action</th>
