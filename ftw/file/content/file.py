@@ -1,9 +1,11 @@
 from AccessControl import ClassSecurityInfo
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
-from ftw.file.interfaces import IFile
-from logging import getLogger
 from ftw.file.fields import FileField
+from ftw.file.interfaces import IFile
+from ftw.journal.interfaces import IWorkflowHistoryJournalizable
+from logging import getLogger
+from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.CMFCore.permissions import ManagePortal
@@ -12,7 +14,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
 from zope.interface import implements
-from ftw.journal.interfaces import IWorkflowHistoryJournalizable
+
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
     FileField(
@@ -33,6 +35,11 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
     ),
 ))
 
+# Register BlobMarshaller for the marshall layer so it gets
+# used when de-marshalling files that are saved with the
+# ExternalEditor / WebDav PUT
+# This fixes https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/465
+FileSchema.registerLayer('marshall', BlobMarshaller())
 
 # clean up schemata, means: set manage portal as write permission
 schematas = ['categorization', 'dates', 'ownership', 'settings']
