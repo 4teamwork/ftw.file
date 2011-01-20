@@ -61,6 +61,8 @@ if 'effectiveDate' in FileSchema.keys():
         default=u"")
         
     FileSchema['effectiveDate'].default_method = DateTime
+    FileSchema['effectiveDate'].widget.show_hm = False
+
 
 class File(ATFile):
     """A file content type based on blobs.

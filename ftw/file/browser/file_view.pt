@@ -18,16 +18,16 @@
             <tr>
                 <th i18n:translate="">File</th>
                 <td>
-                    <a tal:attributes="href string:${context/absolute_url}/at_download/file"
-                       tal:content="python:context.getFile().filename"
-                       />
+                    <metal:field use-macro="python:context.widget('file', mode='view')">
+                    File
+                    </metal:field>
                 </td>
             </tr>
-            <tr>
+            <tr tal:condition="context/effective">
                 <th i18n:translate="">Date</th>
                 <td tal:content="python:toLocalizedTime(view.get_effective_date())"/>
             </tr>
-            <tr>
+            <tr tal:condition="here/Description">
                 <th i18n:translate="">Description</th>
                 <td tal:content="context/Description" />
             </tr>
@@ -43,7 +43,7 @@
                        />
                 </td>
             </tr>
-            <tr>
+            <tr tal:condition="context/Subject">
                 <th i18n:translate="">Classification</th>
                 <td>
                     <tal:subjects repeat="subject context/Subject">
