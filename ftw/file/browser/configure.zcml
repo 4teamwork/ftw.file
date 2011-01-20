@@ -3,11 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="tamedia.phonebook">
 
-    <browser:resourceDirectory
-        name="ftw.file.stylesheet"
-        directory="stylesheet"
-        />
-
     <browser:page
         for="..interfaces.IFile"
         name="file_view"
