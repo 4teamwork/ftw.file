@@ -4,6 +4,8 @@ Changelog
 
 1.3
 ---
+* Some translations / Added default_method to effectiveDate.
+  [20.01.2011, mathias.leimgruber]
 
 
 1.2

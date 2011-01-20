@@ -14,6 +14,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
 from zope.interface import implements
+from DateTime import DateTime
 
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
@@ -52,6 +53,14 @@ if 'effectiveDate' in FileSchema.keys():
     FileSchema['effectiveDate'].widget.visible = {'view': 'visible',
                                                   'edit': 'visible'}
     FileSchema['effectiveDate'].schemata = 'default'
+    FileSchema['effectiveDate'].widget.description=_(
+        u'help_effective_date',
+        default=u"")
+    FileSchema['effectiveDate'].widget.label=_(
+        u'label_date',
+        default=u"")
+        
+    FileSchema['effectiveDate'].default_method = DateTime
 
 class File(ATFile):
     """A file content type based on blobs.

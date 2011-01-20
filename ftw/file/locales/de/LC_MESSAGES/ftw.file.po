@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-23 09:37+0000\n"
+"POT-Creation-Date: 2011-01-20 09:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,19 +50,22 @@ msgstr "Journal"
 msgid "download"
 msgstr "herunterladen"
 
+#: ./ftw/file/content/file.py:56
+msgid "help_effective_date"
+msgstr "Gaben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
+
 #. Default: "${action}"
 #: ./ftw/file/viewlets/content_history.pt:22
 msgid "history_action"
 msgstr ""
 
+#: ./ftw/file/content/file.py:59
+msgid "label_date"
+msgstr "Datum"
+
 #. Default: "File"
-#: ./ftw/file/content/file.py:30
+#: ./ftw/file/content/file.py:33
 msgid "label_file"
 msgstr "Datei"
-
-#. Default: "File downloaded"
-#: ./ftw/file/fields.py:42
-msgid "label_file_downloaded"
-msgstr "Datei heruntergeladen"
 
 
