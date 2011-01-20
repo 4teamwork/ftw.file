@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-20 09:34+0000\n"
+"POT-Creation-Date: 2011-01-20 10:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,12 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:35
+#: ./ftw/file/browser/file_view.pt:34
 #: ./ftw/file/viewlets/content_history.pt:10
 msgid "Author"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:47
+#: ./ftw/file/browser/file_view.pt:50
 msgid "Classification"
 msgstr ""
 
@@ -34,21 +34,25 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:27
+#: ./ftw/file/browser/file_view.pt:26
 #: ./ftw/file/viewlets/content_history.pt:9
 msgid "Date"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:31
+#: ./ftw/file/browser/file_view.pt:30
 msgid "Description"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:19
+#: ./ftw/file/browser/file_view.pt:18
 msgid "File"
 msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:5
 msgid "Journal"
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:46
+msgid "Modified"
 msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:30

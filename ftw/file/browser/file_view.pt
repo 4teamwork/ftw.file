@@ -11,8 +11,7 @@
         <!-- no description -->
     </metal:description>
 </metal:content-description>
-<metal:content-core fill-slot="content-core"
-  tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+<metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
         <table class="fileListing">
             <tr>
@@ -25,7 +24,7 @@
             </tr>
             <tr tal:condition="context/effective">
                 <th i18n:translate="">Date</th>
-                <td tal:content="python:toLocalizedTime(view.get_effective_date())"/>
+                <td tal:content="view/get_effective_date"/>
             </tr>
             <tr tal:condition="here/Description">
                 <th i18n:translate="">Description</th>
@@ -42,6 +41,10 @@
                        tal:content="author/name"
                        />
                 </td>
+            </tr>
+            <tr>
+                <th i18n:translate="">Modified</th>
+                <td tal:content="view/get_modified_date"/>
             </tr>
             <tr tal:condition="context/Subject">
                 <th i18n:translate="">Classification</th>

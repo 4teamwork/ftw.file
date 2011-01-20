@@ -27,3 +27,11 @@ class FileView(BrowserView):
             return self.context.toLocalizedTime(effective)
         except ValueError:
             return '-'
+
+    def get_modified_date(self):
+        """ returns the Modifieddate """
+        modified = self.context.modified()
+        try:
+            return self.context.toLocalizedTime(modified, long_format=True)
+        except ValueError:
+            return '-'
