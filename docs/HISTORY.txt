@@ -4,6 +4,12 @@ Changelog
 
 1.3
 ---
+* Link to author's site
+  [20.01.2011, mathias.leimgruber]
+
+* Removed styles, this should be done by theme
+  [20.01.2011, mathias.leimgruber]
+  
 * Some translations / Added default_method to effectiveDate.
   [20.01.2011, mathias.leimgruber]
 

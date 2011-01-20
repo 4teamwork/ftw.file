@@ -15,7 +15,7 @@ class FileView(BrowserView):
         if member:
             return dict(id = userid,
                         name = member.getProperty('fullname') or userid,
-                        url = member.absolute_url())
+                        url = self.context.portal_url() + '/author/' + userid)
         return dict(id = userid,
                     name = userid,
                     url = '')
