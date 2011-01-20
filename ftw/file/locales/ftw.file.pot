@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-01-20 10:23+0000\n"
+"POT-Creation-Date: 2011-01-20 12:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,5 +75,10 @@ msgstr ""
 #. Default: "File"
 #: ./ftw/file/content/file.py:33
 msgid "label_file"
+msgstr ""
+
+#. Default: "File downloaded"
+#: ./ftw/file/fields.py:42
+msgid "label_file_downloaded"
 msgstr ""
 
