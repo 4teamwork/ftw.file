@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+1.4
+---
+
+
 1.3
 ---
 * Link to author's site
