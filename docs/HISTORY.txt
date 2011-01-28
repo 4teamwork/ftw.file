@@ -4,7 +4,8 @@ Changelog
 
 1.4
 ---
-
+* Show Journal to members with Reader-role. 
+  [28.01.2011, mathias.leimgruber]
 
 1.3
 ---
