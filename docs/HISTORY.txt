@@ -2,6 +2,10 @@ Changelog
 =========
 
 
+1.4.1
+-----
+
+
 1.4
 ---
 * Show Journal to members with Reader-role. 
