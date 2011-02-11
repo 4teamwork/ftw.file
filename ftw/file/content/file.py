@@ -8,7 +8,7 @@ from logging import getLogger
 from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.CMFCore.permissions import ManagePortal, ModifyPortalContent, View
+from Products.CMFCore.permissions import ManagePortal, View
 from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
@@ -61,9 +61,7 @@ if 'effectiveDate' in FileSchema.keys():
         
     FileSchema['effectiveDate'].default_method = DateTime
     FileSchema['effectiveDate'].widget.show_hm = False
-    FileSchema['effectiveDate'].write_permission = ModifyPortalContent
 
-    FileSchema['relatedItems'].write_permission = ModifyPortalContent
 
 class File(ATFile):
     """A file content type based on blobs.
