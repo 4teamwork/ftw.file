@@ -3,6 +3,8 @@ from zope.event import notify
 from webdav.common import rfc1123_date
 from ftw.file.events.events import FileDownloadedEvent
 from zope.component import getMultiAdapter
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
 
 
 def reencode(filename, charset, charset_fallback, charset_output):
@@ -42,5 +44,7 @@ class FileField(field.FileField):
             (instance, instance.REQUEST),
             name='plone_portal_state')
         if not ps.anonymous():
-            notify(FileDownloadedEvent(instance, filename))
+            registry = getUtility(IRegistry)
+            if not ps.member().id in registry['ftw.file.filesettings.user_ids']:
+                notify(FileDownloadedEvent(instance, filename))
         return raw_file

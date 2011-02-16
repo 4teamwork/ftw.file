@@ -5,10 +5,13 @@ Changelog
 1.4.1
 -----
 
+* Do not show specific users in Journal
+  [16.02.2011, ttschanz]
+
 
 1.4
 ---
-* Show Journal to members with Reader-role. 
+* Show Journal to members with Reader-role.
   [28.01.2011, mathias.leimgruber]
 
 1.3
@@ -18,7 +21,7 @@ Changelog
 
 * Removed styles, this should be done by theme
   [20.01.2011, mathias.leimgruber]
-  
+
 * Some translations / Added default_method to effectiveDate.
   [20.01.2011, mathias.leimgruber]
 
