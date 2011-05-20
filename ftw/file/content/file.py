@@ -41,12 +41,6 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
 # This fixes https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/465
 FileSchema.registerLayer('marshall', BlobMarshaller())
 
-# clean up schemata, means: set manage portal as write permission
-schematas = ['categorization', 'dates', 'ownership', 'settings']
-for f in FileSchema.keys():
-    field = FileSchema[f]
-    if field.schemata in schematas:
-        field.write_permission = ManagePortal
 
 if 'effectiveDate' in FileSchema.keys():
     FileSchema['effectiveDate'].widget.visible = {'view': 'visible',
@@ -61,6 +55,14 @@ if 'effectiveDate' in FileSchema.keys():
         
     FileSchema['effectiveDate'].default_method = DateTime
     FileSchema['effectiveDate'].widget.show_hm = False
+
+
+# clean up schemata, means: set manage portal as write permission
+schematas = ['categorization', 'dates', 'ownership', 'settings']
+for f in FileSchema.keys():
+    field = FileSchema[f]
+    if field.schemata in schematas:
+        field.write_permission = ManagePortal
 
 
 class File(ATFile):
