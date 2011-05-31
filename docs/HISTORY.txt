@@ -5,6 +5,9 @@ Changelog
 1.4.2
 -----
 
+* First move effectiveDate field to default schemata, then change write 
+  permissions on all other fields (except default schemata) 
+  [31.05.2011, mathias.leimgruber]
 
 1.4.1
 -----
