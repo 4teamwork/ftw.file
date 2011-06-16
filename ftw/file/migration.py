@@ -1,6 +1,7 @@
 try:
     from Products.contentmigration.archetypes import InplaceATItemMigrator
     from Products.contentmigration.migrator import BaseInlineMigrator
+    from Products.contentmigration.walker import CustomQueryWalker
     haveContentMigrations = True
     BaseMigrator = InplaceATItemMigrator
     InlineMigrator = BaseInlineMigrator
@@ -9,7 +10,8 @@ except ImportError:
     InlineMigrator = object
     haveContentMigrations = False
 
-from plone.app.blob.migrations import migrate, getMigrationWalker
+from plone.app.blob.migrations import migrate
+from Products.CMFCore.utils import getToolByName
 
 # # migration of file content to blob content type
 class FtwFileMigrator(BaseMigrator):
@@ -31,8 +33,10 @@ class FtwFileMigrator(BaseMigrator):
             'Type', 'UID'])
 
 
-def getFtwFileMigrationWalker(self):
-    return getMigrationWalker(self, migrator=FtwFileMigrator)
+def getFtwFileMigrationWalker(context):
+    """ set up migration walker """
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    return CustomQueryWalker(portal, FtwFileMigrator, transaction_size=100)
 
 
 def migrateFtwFiles(self):
