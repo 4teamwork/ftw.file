@@ -12,6 +12,9 @@ except ImportError:
 
 from plone.app.blob.migrations import migrate
 from Products.CMFCore.utils import getToolByName
+from Products.contentmigration.catalogpatch import applyCatalogPatch
+from Products.contentmigration.catalogpatch import removeCatalogPatch
+
 
 # # migration of file content to blob content type
 class FtwFileMigrator(BaseMigrator):
@@ -39,5 +42,14 @@ def getFtwFileMigrationWalker(context):
     return CustomQueryWalker(portal, FtwFileMigrator, transaction_size=100)
 
 
-def migrateFtwFiles(self):
-    return migrate(self, walker=getFtwFileMigrationWalker)
+def migrateFtwFiles(context):
+
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    out = ''
+    try:
+        catalog_class = applyCatalogPatch(portal)
+        out = migrate(context, walker=getFtwFileMigrationWalker)
+    finally:
+        removeCatalogPatch(catalog_class)
+
+    return out
