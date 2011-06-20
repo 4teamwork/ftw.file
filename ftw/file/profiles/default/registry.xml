@@ -1,9 +1,15 @@
-<record name="ftw.file.filesettings.user_ids">
-<field type="plone.registry.field.List">
-    <title>user_ids</title>
-    <description>Defines the user_ids which will not call the IFileDownloadedEvent</description>
-    <value_type type="plone.registry.field.TextLine" />
-</field>
-<value>
-<element>testuserid</element>
-</value>
+<?xml version="1.0"?>
+<registry>
+
+    <record name="ftw.file.filesettings.user_ids">
+        <field type="plone.registry.field.List">
+            <title>user_ids</title>
+            <description>Defines the user_ids which will not call the IFileDownloadedEvent</description>
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value>
+            <element>testuserid</element>
+        </value>
+    </record>
+
+</registry>
