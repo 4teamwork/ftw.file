@@ -14,6 +14,7 @@ from plone.app.blob.migrations import migrate
 from Products.CMFCore.utils import getToolByName
 from Products.contentmigration.catalogpatch import applyCatalogPatch
 from Products.contentmigration.catalogpatch import removeCatalogPatch
+from Products.contentmigration.common import HAS_LINGUA_PLONE
 
 
 # # migration of file content to blob content type
@@ -36,10 +37,43 @@ class FtwFileMigrator(BaseMigrator):
             'Type', 'UID'])
 
 
+class FtwFileMigrationWalker(CustomQueryWalker):
+    """
+    """
+    def walk(self):
+        """Walks around and returns all objects which needs migration
+
+        :return: objects (with acquisition wrapper) that needs migration
+        :rtype: generator
+        """
+        catalog = self.catalog
+        query = self.additionalQuery.copy()
+        query['portal_type'] = self.src_portal_type
+        query['meta_type'] = self.src_meta_type
+
+        if HAS_LINGUA_PLONE and 'Language' in catalog.indexes():
+            #query['Language'] = catalog.uniqueValuesFor('Language')
+            query['Language'] = 'all'
+            
+        for brain in catalog(query)[:500]:
+            obj = brain.getObject()
+            
+            if self.callBefore is not None and callable(self.callBefore):
+                if self.callBefore(obj, **self.kwargs) == False:
+                    continue
+            
+            try: state = obj._p_changed
+            except: state = 0
+            if obj is not None:
+                yield obj
+                # safe my butt
+                if state is None: obj._p_deactivate()
+
+
 def getFtwFileMigrationWalker(context):
     """ set up migration walker """
     portal = getToolByName(context, 'portal_url').getPortalObject()
-    return CustomQueryWalker(portal, FtwFileMigrator, transaction_size=100)
+    return FtwFileMigrationWalker(portal, FtwFileMigrator, transaction_size=100)
 
 
 def migrateFtwFiles(context):
