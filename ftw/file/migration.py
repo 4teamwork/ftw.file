@@ -18,7 +18,7 @@ from Products.contentmigration.common import HAS_LINGUA_PLONE
 from Products.contentmigration.archetypes import BaseATMigrator
 from zope.app.component.hooks import getSite
 from zope.component import getUtility
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_base, aq_parent
 from zope.component.interfaces import IFactory
 from Products.Archetypes.interfaces import IReferenceable
 from Products.Archetypes.ArchetypeTool import getType
@@ -38,7 +38,9 @@ class FtwFileMigrator(BaseMigrator):
     }
 
     def migrate_data(self):
-        self.new.getField('file').getMutator(self.new)(self.old)
+        oldfield = self.old.getField('file')
+        value = oldfield.get(self.old)
+        self.new.getField('file').getMutator(self.new)(value)
 
     def last_migrate_reindex(self):
         self.new.reindexObject(idxs=['object_provides', 'portal_type',
@@ -63,6 +65,24 @@ class FtwFileVersionMigrator(BaseATMigrator):
     fields_map = {
         'file': None,
     }
+
+    def __init__(self, obj, src_portal_type = None, dst_portal_type = None,
+                 **kwargs):
+        self.old = aq_inner(obj)
+        self.orig_id = self.old.getId()
+        self.old_id = '%s_MIGRATION_' % self.orig_id
+        self.new = None
+        self.new_id = self.orig_id
+        self.parent = aq_parent(self.old)
+        if src_portal_type is not None:
+            self.src_portal_type = src_portal_type
+        if dst_portal_type is not None:
+            self.dst_portal_type = dst_portal_type
+        self.kwargs = kwargs
+
+        # safe id generation
+        while hasattr(aq_base(self.parent), self.old_id):
+            self.old_id+='X'
 
     def renameOld(self):
         """Renames the old object
