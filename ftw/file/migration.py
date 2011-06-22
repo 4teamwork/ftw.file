@@ -320,9 +320,11 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
         if isinstance(file_data, list):
             # start with oldest version
             file_data.reverse()
+            principals = []
             for version in file_data:
                 field.set(obj, base64.b64decode(version.get('data')))
                 field.get(obj).filename = version.get('filename')
+                principals.append(version['version_sysmetadata']['principal'])
                 repo_tool._recursiveSave(obj, {},
                                          version.get('version_sysmetadata'),
                                          autoapply=repo_tool.autoapply)
@@ -330,8 +332,8 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
             #fix principal in metadata
             hm = repo_tool.getHistoryMetadata(obj)
             for version_id, metadata in hm._full.items():
-                principal = file_data[version_id]['version_sysmetadata']['principal']
-                hm._full[version_id]['metadata']['sys_metadata']['principal'] = principal
+                metadata['metadata']['sys_metadata']['principal'] = principals[version_id]
+                hm._full[version_id] = metadata
 
         # Do nothing if we didn't get multiple versions
 
