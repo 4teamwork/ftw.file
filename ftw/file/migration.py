@@ -326,6 +326,12 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
                 repo_tool._recursiveSave(obj, {},
                                          version.get('version_sysmetadata'),
                                          autoapply=repo_tool.autoapply)
+            
+            #fix principal in metadata
+            hm = repo_tool.getHistoryMetadata(obj)
+            for version_id, metadata in hm._full.items():
+                principal = file_data[version_id]['version_sysmetadata']['principal']
+                hm._full[version_id]['metadata']['sys_metadata']['principal'] = principal
 
         # Do nothing if we didn't get multiple versions
 
