@@ -46,13 +46,14 @@ class FtwFileMigrator(BaseMigrator):
         self.new.reindexObject(idxs=['object_provides', 'portal_type',
             'Type', 'UID'])
 
-    def last_migrate_versions(self):
-        atool = getToolByName(self.old, 'portal_archivist')
-        history = atool.getHistory(self.old)
-        for version in history:
-            obj = version.data.object
-            migrator = FtwFileVersionMigrator(obj)
-            migrator.migrate()
+    # XXX: doesn't work yet, trying transmogrifier instead
+    # def last_migrate_versions(self):
+    #     atool = getToolByName(self.old, 'portal_archivist')
+    #     history = atool.getHistory(self.old)
+    #     for version in history:
+    #         obj = version.data.object
+    #         migrator = FtwFileVersionMigrator(obj)
+    #         migrator.migrate()
             
 
 class FtwFileVersionMigrator(BaseATMigrator):
