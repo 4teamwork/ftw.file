@@ -211,7 +211,7 @@ class FtwFileMigrationWalker(CustomQueryWalker):
             #query['Language'] = catalog.uniqueValuesFor('Language')
             query['Language'] = 'all'
             
-        for brain in catalog(query)[:500]:
+        for brain in catalog(query)[:1000]:
             obj = brain.getObject()
             
             if self.callBefore is not None and callable(self.callBefore):
