@@ -243,3 +243,71 @@ def migrateFtwFiles(context):
         removeCatalogPatch(catalog_class)
 
     return out
+
+
+# version migration using collective.jsonify
+import urllib
+import urlparse
+import logging
+logger = logging.getLogger('ftw.file.migration')
+
+class UrllibrpcException(Exception):
+    """Raised when reading an url fails.
+    """
+    def __init__(self, code, url):
+        self.code = code
+        self.url = url
+
+    def __str__(self):
+        return '%s:%s' % (self.code, self.url)
+
+
+class Urllibrpc(object):
+    def __init__(self, url, username, password):
+        self.url = url
+        self.username = username
+        self.password = password
+
+    def __getattr__(self, item):
+        def callable():
+            scheme, netloc, path, params, query, fragment = urlparse.urlparse(self.url)
+            if '@' not in netloc:
+                netloc = '%s:%s@%s'%(self.username, self.password, netloc)
+            if path.endswith("/"):
+                path = path[:-1]
+            path = path + '/' + item
+            url = urlparse.urlunparse( (scheme,netloc,path,params,query,fragment) )
+            f = urllib.urlopen(url)
+            content = f.read()
+            if f.getcode() != 200:
+                raise UrllibrpcException(f.getcode(), f.geturl())
+            f.close()
+            return content
+        return callable
+
+
+def migrate_file_versions(context, remote_user='admin', remote_password='admin'):
+    """Migrate file version using collective.jsonify as data source.
+    """
+    remote_url = 'http://127.0.0.1:9080'
+    catalog = getToolByName(context, 'portal_catalog')
+    files = catalog(portal_type='File')
+    for file_ in files:
+        url = '%s%s' % (remote_url, file_.getPath())
+        remote = Urllibrpc(url, remote_user, remote_password)
+
+        try:
+            remote_data = remote.get_item_with_file()
+        except UrllibrpcException, e:
+            logger.warn("Failed reading url '%s' with error code %s." %
+                         (e.url, e.code))
+            continue
+
+        obj = file_.getObject()
+        field = obj.getField('fiele')
+        import pdb; pdb.set_trace( )
+
+        
+        
+
+    
