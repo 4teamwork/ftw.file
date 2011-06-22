@@ -249,6 +249,8 @@ def migrateFtwFiles(context):
 import urllib
 import urlparse
 import logging
+import json
+import base64
 logger = logging.getLogger('ftw.file.migration')
 
 class UrllibrpcException(Exception):
@@ -291,7 +293,8 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
     """
     remote_url = 'http://127.0.0.1:9080'
     catalog = getToolByName(context, 'portal_catalog')
-    files = catalog(portal_type='File')
+    repo_tool = getToolByName(context, 'portal_repository')
+    files = catalog(portal_type='File', path='/extranet.4teamwork.ch/projects/intranet/03-kunden/0285-tamedia-ag/relaunch-tamedia-intranet/4tw_intranet_tamedia_20100416-1.odt')
     for file_ in files:
         url = '%s%s' % (remote_url, file_.getPath())
         remote = Urllibrpc(url, remote_user, remote_password)
@@ -303,11 +306,27 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
                          (e.url, e.code))
             continue
 
-        obj = file_.getObject()
-        field = obj.getField('fiele')
-        import pdb; pdb.set_trace( )
+        try:
+            remote_data = json.loads(remote_data)
+        except ValueError:
+            logger.warn("No JSON object could be decoded using data from url '%s'." % url)
+            continue
 
+        obj = file_.getObject()
+        field = obj.getField('file')
+        file_data = remote_data.get('_datafield_file')
         
-        
+        # a list indicates multiple versions
+        if isinstance(file_data, list):
+            # start with oldest version
+            file_data.reverse()
+            for version in file_data:
+                field.set(obj, base64.b64decode(version.get('data')))
+                field.get(obj).filename = version.get('filename')
+                repo_tool._recursiveSave(obj, {},
+                                         version.get('version_sysmetadata'),
+                                         autoapply=repo_tool.autoapply)
+
+        # Do nothing if we didn't get multiple versions
 
     
