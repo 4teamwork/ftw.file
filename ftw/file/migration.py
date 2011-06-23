@@ -294,7 +294,7 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
     remote_url = 'http://127.0.0.1:9080'
     catalog = getToolByName(context, 'portal_catalog')
     repo_tool = getToolByName(context, 'portal_repository')
-    files = catalog(portal_type='File', path='/extranet.4teamwork.ch/projects/intranet/03-kunden/0285-tamedia-ag/relaunch-tamedia-intranet/4tw_intranet_tamedia_20100416-1.odt')
+    files = catalog(portal_type='File')
     for file_ in files:
         url = '%s%s' % (remote_url, file_.getPath())
         remote = Urllibrpc(url, remote_user, remote_password)
