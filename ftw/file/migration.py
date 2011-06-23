@@ -314,7 +314,7 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
 
         obj = file_.getObject()
         field = obj.getField('file')
-        file_data = remote_data.get('_datafield_file')
+        file_data = to_utf8(remote_data.get('_datafield_file'))
         
         # a list indicates multiple versions
         if isinstance(file_data, list):
@@ -342,3 +342,18 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
         # Do nothing if we didn't get multiple versions
 
     
+def to_utf8(obj):
+    """Recursively convert unicode to uft-8 strings in lists and dicts."""
+    if isinstance(obj, unicode):
+        obj = obj.encode('utf8')
+    elif isinstance(obj, list):
+        for i,v in enumerate(obj):
+            obj[i] = to_utf8(v)
+    elif isinstance(obj, dict):
+        new_obj = {}
+        for k,v in obj.iteritems():
+            if isinstance(k, unicode):
+                k = k.encode('utf8')
+            new_obj[k] = to_utf8(v)
+        obj = new_obj
+    return obj
