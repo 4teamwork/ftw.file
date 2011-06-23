@@ -318,22 +318,26 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
         
         # a list indicates multiple versions
         if isinstance(file_data, list):
-            # start with oldest version
-            file_data.reverse()
             principals = []
             for version in file_data:
                 field.set(obj, base64.b64decode(version.get('data')))
-                field.get(obj).filename = version.get('filename')
-                principals.append(version['version_sysmetadata']['principal'])
-                repo_tool._recursiveSave(obj, {},
+                field.getUnwrapped(obj).filename = version.get('filename')
+                field.getUnwrapped(obj).content_type = version.get('content_type')
+                if version.get('version_id') != 'WORKING_COPY':
+                    principals.append(version['version_sysmetadata']['principal'])
+                    repo_tool._recursiveSave(obj, {},
                                          version.get('version_sysmetadata'),
                                          autoapply=repo_tool.autoapply)
+                else:
+                    mdate_mutator = obj.getField('modification_date').getMutator(obj)
+                    mdate_mutator(remote_data.get('modification_date'))
             
             #fix principal in metadata
             hm = repo_tool.getHistoryMetadata(obj)
             for version_id, metadata in hm._full.items():
-                metadata['metadata']['sys_metadata']['principal'] = principals[version_id]
-                hm._full[version_id] = metadata
+                if version_id<len(principals):
+                    metadata['metadata']['sys_metadata']['principal'] = principals[version_id]
+                    hm._full[version_id] = metadata
 
         # Do nothing if we didn't get multiple versions
 
