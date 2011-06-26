@@ -2,10 +2,15 @@ Changelog
 =========
 
 
-1.4.3
------
+1.4.3 (unreleased)
+------------------
+
 * Added registry.xml for user_ids field. 
   [20.06.2011, mathias.leimgruber]
+
+* Added setFilename() method.
+  [Thomas Buchberger]
+
 
 1.4.2
 -----

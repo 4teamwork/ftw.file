@@ -8,7 +8,7 @@ from logging import getLogger
 from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.CMFCore.permissions import ManagePortal, View
+from Products.CMFCore.permissions import ManagePortal, View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
@@ -104,5 +104,11 @@ class File(ATFile):
         except:
             getLogger(__name__).exception('exception while trying to convert '
                'blob contents to "text/plain" for %r', self)
+
+    security.declareProtected(ModifyPortalContent, 'setFilename')
+    def setFilename(self, value, **kw):
+        field = self.getField('file')
+        field.getUnwrapped(self).filename = value
+
 
 atapi.registerType(File, PROJECTNAME)
