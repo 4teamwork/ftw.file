@@ -35,3 +35,10 @@ class FileView(BrowserView):
             return self.context.toLocalizedTime(modified, long_format=True)
         except ValueError:
             return '-'
+
+    def is_image(self):
+        file_ = self.context.getFile()
+        mimetype = file_.getContentType()
+        if 'image' in mimetype and not 'bmp' in mimetype:
+            return True
+        return False

@@ -5,6 +5,11 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
+* Issue #512 In AR's Datei-Ansicht Bilder anzeigen   
+  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/512
+  created imagepreview in file_view
+  [ttschanz]
+
 * Added registry.xml for user_ids field. 
   [20.06.2011, mathias.leimgruber]
 

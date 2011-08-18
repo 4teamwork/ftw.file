@@ -11,4 +11,18 @@
         permission="zope2.View"
         />
 
+	  <browser:page
+	      for="ftw.file.interfaces.IFile"
+	      name="images"	
+	      class=".scaling.FtwImageScaling"
+	      allowed_interface="plone.app.imaging.interfaces.IImageScaling"
+	      permission="zope2.View" />
+
+	 <browser:page
+		for="ftw.file.interfaces.IFile"
+		class=".big_img.BigImg"
+		name="big_img"
+		template="big_img.pt"
+		permission="zope2.View" />
+
 </configure>
