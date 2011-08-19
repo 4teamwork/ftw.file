@@ -23,4 +23,9 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+
+  <adapter
+      for="ftw.file.fields.FileField"
+      factory="plone.app.imaging.scaling.ImageScaleFactory" />
+
 </configure>
