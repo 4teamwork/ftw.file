@@ -2,68 +2,65 @@ Changelog
 =========
 
 
-1.4.5
------
+1.4.5 (unreleased)
+------------------
 
 
-1.4.4
------
+1.4.4 (2011-08-22)
+------------------
 
 
 1.4.3 (unreleased)
 ------------------
 
-* Issue #512 In AR's Datei-Ansicht Bilder anzeigen   
-  https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/512
-  created imagepreview in file_view
+- created imagepreview in file_view
   [ttschanz]
 
-* Added registry.xml for user_ids field. 
-  [20.06.2011, mathias.leimgruber]
+- Added registry.xml for user_ids field. 
+  [mathias.leimgruber]
 
-* Added setFilename() method.
+- Added setFilename() method.
   [Thomas Buchberger]
 
 
 1.4.2
 -----
 
-* First move effectiveDate field to default schemata, then change write 
+- First move effectiveDate field to default schemata, then change write 
   permissions on all other fields (except default schemata) 
   [31.05.2011, mathias.leimgruber]
 
 1.4.1
 -----
 
-* Do not show specific users in Journal
+- Do not show specific users in Journal
   [16.02.2011, ttschanz]
 
 
 1.4
 ---
-* Show Journal to members with Reader-role.
-  [28.01.2011, mathias.leimgruber]
+- Show Journal to members with Reader-role.
+  [mathias.leimgruber]
 
 1.3
 ---
-* Link to author's site
-  [20.01.2011, mathias.leimgruber]
+- Link to author's site
+  [mathias.leimgruber]
 
-* Removed styles, this should be done by theme
-  [20.01.2011, mathias.leimgruber]
+- Removed styles, this should be done by theme
+  [mathias.leimgruber]
 
-* Some translations / Added default_method to effectiveDate.
-  [20.01.2011, mathias.leimgruber]
+- Some translations / Added default_method to effectiveDate.
+  [mathias.leimgruber]
 
 
 1.2
 ---
 
-
 1.1
 ---
 
-1.0dev (unreleased)
--------------------
+1.0
+---
 
 - Initial release
