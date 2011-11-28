@@ -13,10 +13,11 @@ Install
 
 - Add ``ftw.file`` to yout buidlout configuration
 
-:: 
-  [instance]
-  eggs = 
-    ftw.file
+::
+
+    [instance]
+    eggs = 
+        ftw.file
     
 - Run buildout
 
