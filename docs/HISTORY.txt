@@ -5,6 +5,9 @@ Changelog
 1.4.5 (unreleased)
 ------------------
 
+- fix: error when uploading a not scalable image mimetype (i.e. .dwg)
+  we now check for allowed mimetypes to fix the error
+  [eschmutz]
 
 1.4.4 (2011-08-22)
 ------------------

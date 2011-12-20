@@ -37,8 +37,13 @@ class FileView(BrowserView):
             return '-'
 
     def is_image(self):
+        allowed_types = [
+            'jpeg',
+            'jpg',
+            'png']
+
         file_ = self.context.getFile()
         mimetype = file_.getContentType()
-        if 'image' in mimetype and not 'bmp' in mimetype:
+        if [allowed for allowed in allowed_types if allowed in mimetype]:
             return True
         return False
