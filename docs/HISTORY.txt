@@ -5,6 +5,9 @@ Changelog
 1.4.5 (unreleased)
 ------------------
 
+- add test for is_image method in FileView
+  [eschmutz]
+
 - fix: error when uploading a not scalable image mimetype (i.e. .dwg)
   we now check for allowed mimetypes to fix the error
   [eschmutz]
