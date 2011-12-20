@@ -8,9 +8,9 @@ Ensure the content type is correctly installed.
 
 Test creation
 
-    >>> from plone.app.testing import TEST_USER_NAME
+    >>> from plone.app.testing import TEST_USER_ID
     >>> from plone.app.testing import setRoles
-    >>> setRoles(portal, TEST_USER_NAME, ['Contributor',])
+    >>> setRoles(portal, TEST_USER_ID, ['Contributor',])
     >>> portal.invokeFactory('File', 'file1')
     'file1'
     >>> 'file1' in portal.objectIds()
