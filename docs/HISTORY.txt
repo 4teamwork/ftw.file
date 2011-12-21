@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.7 (unreleased)
+1.4.7 (2011-12-21)
 ------------------
 
 - The image preview, should no be squarish. 
