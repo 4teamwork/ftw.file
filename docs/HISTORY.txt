@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.5 (unreleased)
+1.4.5 (2011-12-21)
 ------------------
 
 - add test for is_image method in FileView
