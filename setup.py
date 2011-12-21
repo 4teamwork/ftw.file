@@ -7,6 +7,7 @@ maintainer = 'Thomas Buchberger'
 tests_require = [
     'plone.app.testing',
     'plone.mocktestcase',
+    'plone.registry',
 ]
 
 setup(name='ftw.file',
