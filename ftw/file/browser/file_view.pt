@@ -71,7 +71,7 @@
 	<a id="preview" tal:attributes="href string:${context/absolute_url}/big_img">
 <img tal:define="scale context/@@images"
      tal:replace="structure python: scale.scale('file',
-                  width=200, height=200, direction='down').tag()" />        		
+                  width=200, direction='down').tag()" />        		
 </a>
 </td>
 			</tr>
