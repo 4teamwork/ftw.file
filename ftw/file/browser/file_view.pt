@@ -22,7 +22,7 @@
 </metal:content-description>
 <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
-        <table class="fileListing">
+        <table class="vertical listing fileListing">
             <tr>
                 <th i18n:translate="">File</th>
                 <td>
