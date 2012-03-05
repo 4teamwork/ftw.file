@@ -9,7 +9,7 @@ such as:
 
 
 Install
-======
+=======
 
 - Add ``ftw.file`` to yout buidlout configuration
 
