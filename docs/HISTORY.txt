@@ -5,7 +5,8 @@ Changelog
 1.4.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Table head should be in thead, body in tbody.
+  [Julian Infanger]
 
 
 1.4.8 (2012-03-05)
@@ -18,7 +19,7 @@ Changelog
 1.4.7 (2011-12-21)
 ------------------
 
-- The image preview, should no be squarish. 
+- The image preview, should no be squarish.
   [mathias.leimgruber]
 
 
@@ -49,7 +50,7 @@ Changelog
 - created imagepreview in file_view
   [ttschanz]
 
-- Added registry.xml for user_ids field. 
+- Added registry.xml for user_ids field.
   [mathias.leimgruber]
 
 - Added setFilename() method.
@@ -59,8 +60,8 @@ Changelog
 1.4.2
 -----
 
-- First move effectiveDate field to default schemata, then change write 
-  permissions on all other fields (except default schemata) 
+- First move effectiveDate field to default schemata, then change write
+  permissions on all other fields (except default schemata)
   [31.05.2011, mathias.leimgruber]
 
 1.4.1
