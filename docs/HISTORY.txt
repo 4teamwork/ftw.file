@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.9 (unreleased)
+1.4.9 (2012-03-12)
 ------------------
 
 - Table head should be in thead, body in tbody.
