@@ -5,17 +5,7 @@ from ftw.file.events.events import FileDownloadedEvent
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
-
-
-def reencode(filename, charset, charset_fallback, charset_output):
-    try:
-        filename = unicode(filename, charset).encode(charset_output)
-    except (UnicodeDecodeError, UnicodeEncodeError):
-        try:
-            filename = unicode(filename, charset_fallback).encode(charset_output)
-        except (UnicodeDecodeError, UnicodeEncodeError):
-            pass # leave unchanged
-    return filename
+from urllib import quote
 
 
 class FileField(field.FileField):
@@ -33,10 +23,15 @@ class FileField(field.FileField):
         RESPONSE.setHeader('Content-Type', self.getContentType(instance))
         RESPONSE.setHeader('Accept-Ranges', 'bytes')
         filename = self.getFilename(instance)
-        if filename is not None:
-            filename = reencode(filename, 'utf-8', 'ISO-8859-1', 'ISO-8859-1')
+        if isinstance(filename, unicode):
+            filename = filename.encode('utf8')
+        user_agent = REQUEST.get('HTTP_USER_AGENT', '')
+        if 'MSIE' in user_agent:
+            filename = quote(filename)
+            RESPONSE.setHeader("Content-disposition", 'attachment; filename=%s' % filename)
+        else:
             RESPONSE.setHeader(
-                "Content-disposition", 'attachment; filename=%s' % filename)
+                "Content-disposition", 'attachment; filename="%s"' % filename)
 
         filename = self.getFilename(instance)
 
