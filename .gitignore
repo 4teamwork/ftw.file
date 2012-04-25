@@ -1,10 +1,11 @@
 *.egg-info
+*.mo
 *.pyc
 *.pyo
-*.mo
 .installed.cfg
 bin/
+buildout.cfg
 develop-eggs/
+eggs/
 parts/
 var/
-
