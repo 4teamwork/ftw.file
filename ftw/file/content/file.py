@@ -62,9 +62,9 @@ if 'effectiveDate' in FileSchema.keys():
 # clean up schemata, means: set manage portal as write permission
 schematas = ['categorization', 'dates', 'ownership', 'settings']
 for f in FileSchema.keys():
-    field = FileSchema[f]
-    if field.schemata in schematas:
-        field.write_permission = ManagePortal
+    field_ = FileSchema[f]
+    if field_.schemata in schematas:
+        field_.write_permission = ManagePortal
 
 
 class File(ATFile):
@@ -80,8 +80,7 @@ class File(ATFile):
 
     def index_html(self, REQUEST, RESPONSE):
         """ download the file as an attachment """
-        field = self.getPrimaryField()
-        return field.download(self, REQUEST, RESPONSE)
+        return self.getPrimaryField().download(self, REQUEST, RESPONSE)
 
     security.declarePrivate('getIndexValue')
 
@@ -94,6 +93,7 @@ class File(ATFile):
         field = self.getPrimaryField()
         source = field.getContentType(self)
         transforms = getToolByName(self, 'portal_transforms')
+
         if transforms._findPath(source, mimetype) is None:
             return ''
         value = str(field.get(self))
