@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-18 13:45+0000\n"
+"POT-Creation-Date: 2012-04-30 12:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,12 +12,12 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ./ftw/file/viewlets/content_history.pt:8
+#: ./ftw/file/viewlets/content_history.pt:9
 msgid "Action"
 msgstr "Aktion"
 
 #: ./ftw/file/browser/file_view.pt:43
-#: ./ftw/file/viewlets/content_history.pt:10
+#: ./ftw/file/viewlets/content_history.pt:11
 msgid "Author"
 msgstr "Autor"
 
@@ -25,12 +25,12 @@ msgstr "Autor"
 msgid "Classification"
 msgstr "Abgelegt unter"
 
-#: ./ftw/file/viewlets/content_history.pt:11
+#: ./ftw/file/viewlets/content_history.pt:12
 msgid "Comment"
 msgstr "Kommentar"
 
 #: ./ftw/file/browser/file_view.pt:35
-#: ./ftw/file/viewlets/content_history.pt:9
+#: ./ftw/file/viewlets/content_history.pt:10
 msgid "Date"
 msgstr "Datum"
 
@@ -54,30 +54,25 @@ msgstr "Letzte Änderung"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ./ftw/file/viewlets/content_history.pt:30
+#: ./ftw/file/viewlets/content_history.pt:33
 msgid "download"
 msgstr "herunterladen"
 
-#: ./ftw/file/content/file.py:49
+#: ./ftw/file/content/file.py:51
 msgid "help_effective_date"
 msgstr "Gaben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
 
-#. Default: "${action}"
-#: ./ftw/file/viewlets/content_history.pt:22
-msgid "history_action"
-msgstr ""
-
 #. Default: "Anonymous User"
-#: ./ftw/file/viewlets/content_history.py:70
+#: ./ftw/file/viewlets/content_history.py:68
 msgid "label_anonymous_user"
-msgstr ""
+msgstr "Anonymer Benutzer"
 
-#: ./ftw/file/content/file.py:52
+#: ./ftw/file/content/file.py:54
 msgid "label_date"
 msgstr "Datum"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:32
+#: ./ftw/file/content/file.py:33
 msgid "label_file"
 msgstr "Datei"
 

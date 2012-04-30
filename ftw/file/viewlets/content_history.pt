@@ -21,9 +21,9 @@
                          actor_home item/actor_home;
                          action item/transition_title;
                          isVersion python:item['type']=='versioning'">
-          <td i18n:translate="history_action">
-            <span class="historyAction" tal:content="action" i18n:translate="" i18n:name="action"
-                  tal:attributes="class string:historyAction state-${action}"
+          <td>
+            <span class="historyAction" tal:content="action"
+                tal:attributes="class string:historyAction state-${action}"
                   />
           </td>
           <td tal:content="python:view.toLocalizedTime(item['time'])" />
