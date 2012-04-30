@@ -13,12 +13,12 @@ class FileView(BrowserView):
         userid = self.context.Creator()
         member = pm.getMemberById(userid)
         if member:
-            return dict(id = userid,
-                        name = member.getProperty('fullname') or userid,
-                        url = self.context.portal_url() + '/author/' + userid)
-        return dict(id = userid,
-                    name = userid,
-                    url = '')
+            return dict(id=userid,
+                        name=member.getProperty('fullname') or userid,
+                        url=self.context.portal_url() + '/author/' + userid)
+        return dict(id=userid,
+                    name=userid,
+                    url='')
 
     def get_effective_date(self):
         """ returns the effectiveDate """

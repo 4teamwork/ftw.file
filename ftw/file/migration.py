@@ -25,8 +25,9 @@ from Products.Archetypes.ArchetypeTool import getType
 from Products.Archetypes.config import REFERENCE_ANNOTATION
 
 
-# # migration of file content to blob content type
 class FtwFileMigrator(BaseMigrator):
+    """ Migration of file content to blob content type
+    """
     src_portal_type = 'ftw_File'
     src_meta_type = 'ftw_File'
     dst_portal_type = 'File'
@@ -45,7 +46,6 @@ class FtwFileMigrator(BaseMigrator):
     def last_migrate_reindex(self):
         self.new.reindexObject(idxs=['object_provides', 'portal_type',
             'Type', 'UID'])
-
     # XXX: doesn't work yet, trying transmogrifier instead
     # def last_migrate_versions(self):
     #     atool = getToolByName(self.old, 'portal_archivist')
@@ -54,7 +54,7 @@ class FtwFileMigrator(BaseMigrator):
     #         obj = version.data.object
     #         migrator = FtwFileVersionMigrator(obj)
     #         migrator.migrate()
-            
+
 
 class FtwFileVersionMigrator(BaseATMigrator):
     src_portal_type = 'ftw_File'
@@ -67,7 +67,7 @@ class FtwFileVersionMigrator(BaseATMigrator):
         'file': None,
     }
 
-    def __init__(self, obj, src_portal_type = None, dst_portal_type = None,
+    def __init__(self, obj, src_portal_type=None, dst_portal_type=None,
                  **kwargs):
         self.old = aq_inner(obj)
         self.orig_id = self.old.getId()
@@ -83,7 +83,7 @@ class FtwFileVersionMigrator(BaseATMigrator):
 
         # safe id generation
         while hasattr(aq_base(self.parent), self.old_id):
-            self.old_id+='X'
+            self.old_id += 'X'
 
     def renameOld(self):
         """Renames the old object
@@ -128,7 +128,7 @@ class FtwFileVersionMigrator(BaseATMigrator):
         typesTool = getToolByName(portal, 'portal_types')
         fti = typesTool.getTypeInfo(self.dst_portal_type)
         archetype = getType(self.dst_meta_type, fti.product)
-        new_schema = archetype['klass'].schema 
+        new_schema = archetype['klass'].schema
 
         if self.only_fields_map:
             old_field_names = self.fields_map.keys()
@@ -181,7 +181,8 @@ class FtwFileVersionMigrator(BaseATMigrator):
         """Migrate AT universal uid
         """
         if not IReferenceable.providedBy(self.old):
-            return # old object doesn't support AT uuids
+            return  # old object doesn't support AT uuids
+
         uid = self.old.UID()
         self.new._setUID(uid)
 
@@ -196,6 +197,7 @@ class FtwFileVersionMigrator(BaseATMigrator):
 class FtwFileMigrationWalker(CustomQueryWalker):
     """
     """
+
     def walk(self):
         """Walks around and returns all objects which needs migration
 
@@ -210,26 +212,30 @@ class FtwFileMigrationWalker(CustomQueryWalker):
         if HAS_LINGUA_PLONE and 'Language' in catalog.indexes():
             #query['Language'] = catalog.uniqueValuesFor('Language')
             query['Language'] = 'all'
-            
+
         for brain in catalog(query)[:1000]:
             obj = brain.getObject()
-            
+
             if self.callBefore is not None and callable(self.callBefore):
                 if self.callBefore(obj, **self.kwargs) == False:
                     continue
-            
-            try: state = obj._p_changed
-            except: state = 0
+
+            try:
+                state = obj._p_changed
+            except:
+                state = 0
             if obj is not None:
                 yield obj
                 # safe my butt
-                if state is None: obj._p_deactivate()
+                if state is None:
+                    obj._p_deactivate()
 
 
 def getFtwFileMigrationWalker(context):
     """ set up migration walker """
     portal = getToolByName(context, 'portal_url').getPortalObject()
-    return FtwFileMigrationWalker(portal, FtwFileMigrator, transaction_size=100)
+    return FtwFileMigrationWalker(
+        portal, FtwFileMigrator, transaction_size=100)
 
 
 def migrateFtwFiles(context):
@@ -253,9 +259,11 @@ import json
 import base64
 logger = logging.getLogger('ftw.file.migration')
 
+
 class UrllibrpcException(Exception):
     """Raised when reading an url fails.
     """
+
     def __init__(self, code, url):
         self.code = code
         self.url = url
@@ -265,20 +273,24 @@ class UrllibrpcException(Exception):
 
 
 class Urllibrpc(object):
+
     def __init__(self, url, username, password):
         self.url = url
         self.username = username
         self.password = password
 
     def __getattr__(self, item):
+
         def callable():
-            scheme, netloc, path, params, query, fragment = urlparse.urlparse(self.url)
+            scheme, netloc, path, params, query, fragment = urlparse.urlparse(
+                self.url)
             if '@' not in netloc:
-                netloc = '%s:%s@%s'%(self.username, self.password, netloc)
+                netloc = '%s:%s@%s' % (self.username, self.password, netloc)
             if path.endswith("/"):
                 path = path[:-1]
             path = path + '/' + item
-            url = urlparse.urlunparse( (scheme,netloc,path,params,query,fragment) )
+            url = urlparse.urlunparse(
+                (scheme, netloc, path, params, query, fragment))
             f = urllib.urlopen(url)
             content = f.read()
             if f.getcode() != 200:
@@ -288,7 +300,8 @@ class Urllibrpc(object):
         return callable
 
 
-def migrate_file_versions(context, remote_user='admin', remote_password='admin'):
+def migrate_file_versions(
+    context, remote_user='admin', remote_password='admin'):
     """Migrate file version using collective.jsonify as data source.
     """
     remote_url = 'http://127.0.0.1:9080'
@@ -309,49 +322,55 @@ def migrate_file_versions(context, remote_user='admin', remote_password='admin')
         try:
             remote_data = json.loads(remote_data)
         except ValueError:
-            logger.warn("No JSON object could be decoded using data from url '%s'." % url)
+            logger.warn(
+                "No JSON object could be decoded using data from url '%s'." % \
+                url)
             continue
 
         obj = file_.getObject()
         field = obj.getField('file')
         file_data = to_utf8(remote_data.get('_datafield_file'))
-        
+
         # a list indicates multiple versions
         if isinstance(file_data, list):
             principals = []
             for version in file_data:
                 field.set(obj, base64.b64decode(version.get('data')))
                 field.getUnwrapped(obj).filename = version.get('filename')
-                field.getUnwrapped(obj).content_type = version.get('content_type')
+                field.getUnwrapped(obj).content_type = version.get(
+                    'content_type')
                 if version.get('version_id') != 'WORKING_COPY':
-                    principals.append(version['version_sysmetadata']['principal'])
+                    principals.append(
+                        version['version_sysmetadata']['principal'])
                     repo_tool._recursiveSave(obj, {},
                                          version.get('version_sysmetadata'),
                                          autoapply=repo_tool.autoapply)
                 else:
-                    mdate_mutator = obj.getField('modification_date').getMutator(obj)
+                    mdate_mutator = obj.getField(
+                        'modification_date').getMutator(obj)
                     mdate_mutator(remote_data.get('modification_date'))
-            
+
             #fix principal in metadata
             hm = repo_tool.getHistoryMetadata(obj)
             for version_id, metadata in hm._full.items():
-                if version_id<len(principals):
-                    metadata['metadata']['sys_metadata']['principal'] = principals[version_id]
+                if version_id < len(principals):
+                    metadata['metadata']['sys_metadata']['principal'] = \
+                        principals[version_id]
                     hm._full[version_id] = metadata
 
         # Do nothing if we didn't get multiple versions
 
-    
+
 def to_utf8(obj):
     """Recursively convert unicode to uft-8 strings in lists and dicts."""
     if isinstance(obj, unicode):
         obj = obj.encode('utf8')
     elif isinstance(obj, list):
-        for i,v in enumerate(obj):
+        for i, v in enumerate(obj):
             obj[i] = to_utf8(v)
     elif isinstance(obj, dict):
         new_obj = {}
-        for k,v in obj.iteritems():
+        for k, v in obj.iteritems():
             if isinstance(k, unicode):
                 k = k.encode('utf8')
             new_obj[k] = to_utf8(v)

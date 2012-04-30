@@ -9,9 +9,10 @@ import AccessControl
 import logging
 
 
-
 class ContentHistoryViewlet(content.ContentHistoryViewlet):
-    """ History viewlet for ftw.file """
+    """ History viewlet for ftw.file
+    """
+
     def show_viewlet(self):
         """ Permission Access previous versions is required"""
         if _checkPermission('CMFEditions: Access previous versions',
@@ -19,12 +20,11 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
             return True
         return False
 
-
     def workflowHistory(self, complete=False):
         """Return workflow history of this context.
 
         Taken from plone_scripts/getWorkflowHistory.py
-        
+
         Do not check for 'Request review'
         """
         context = aq_inner(self.context)
@@ -47,7 +47,7 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
             AccessControl.SecurityManagement.newSecurityManager(
                 context.REQUEST,
                 _new_user)
-            
+
             try:
                 review_history = workflow.getInfoFor(context, 'review_history')
             except:
@@ -56,9 +56,7 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
                 raise
             else:
                 AccessControl.SecurityManagement.setSecurityManager(
-                    _old_security_manager) 
-            
-            
+                    _old_security_manager)
 
             if not complete:
                 # filter out automatic transitions.
@@ -71,8 +69,8 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
 
             for r in review_history:
                 r['type'] = 'workflow'
-                r['transition_title'] = workflow.getTitleForTransitionOnType(r['action'],
-                                                                             portal_type)
+                r['transition_title'] = workflow.getTitleForTransitionOnType(
+                    r['action'], portal_type)
                 actorid = r['actor']
                 r['actorid'] = actorid
                 if actorid is None:
@@ -82,7 +80,8 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
                 else:
                     r['actor'] = membership.getMemberInfo(actorid)
                     if r['actor'] is not None:
-                        r['actor_home'] = self.navigation_root_url + '/author/' + actorid
+                        r['actor_home'] = \
+                            self.navigation_root_url + '/author/' + actorid
                     else:
                         # member info is not available
                         # the user was probably deleted

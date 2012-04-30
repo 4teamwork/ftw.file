@@ -8,7 +8,8 @@ from logging import getLogger
 from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.CMFCore.permissions import ManagePortal, View, ModifyPortalContent
+from Products.CMFCore.permissions import \
+    ManagePortal, View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
@@ -30,7 +31,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
         widget=atapi.FileWidget(
             description='',
             label=_(u'label_file', default=u'File'),
-            show_content_type = False,
+            show_content_type=False,
         ),
     ),
 ))
@@ -38,7 +39,8 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
 # Register BlobMarshaller for the marshall layer so it gets
 # used when de-marshalling files that are saved with the
 # ExternalEditor / WebDav PUT
-# This fixes https://extranet.4teamwork.ch/intranet/10-interne-projekte/4teamwork-egov/tracker-4teamwork-egov/465
+# This fixes https://extranet.4teamwork.ch/intranet/10-interne-projekte/
+# 4teamwork-egov/tracker-4teamwork-egov/465
 FileSchema.registerLayer('marshall', BlobMarshaller())
 
 
@@ -46,13 +48,13 @@ if 'effectiveDate' in FileSchema.keys():
     FileSchema['effectiveDate'].widget.visible = {'view': 'visible',
                                                   'edit': 'visible'}
     FileSchema['effectiveDate'].schemata = 'default'
-    FileSchema['effectiveDate'].widget.description=_(
+    FileSchema['effectiveDate'].widget.description = _(
         u'help_effective_date',
         default=u"")
-    FileSchema['effectiveDate'].widget.label=_(
+    FileSchema['effectiveDate'].widget.label = _(
         u'label_date',
         default=u"")
-        
+
     FileSchema['effectiveDate'].default_method = DateTime
     FileSchema['effectiveDate'].widget.show_hm = False
 
@@ -105,10 +107,10 @@ class File(ATFile):
             getLogger(__name__).exception('exception while trying to convert '
                'blob contents to "text/plain" for %r', self)
 
-    security.declareProtected(ModifyPortalContent, 'setFilename')
     def setFilename(self, value, **kw):
         field = self.getField('file')
         field.getUnwrapped(self).filename = value
+    security.declareProtected(ModifyPortalContent, 'setFilename')
 
 
 atapi.registerType(File, PROJECTNAME)

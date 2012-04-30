@@ -12,4 +12,3 @@ class IFileDownloadedEvent(IObjectEvent):
     """An event fired when a file is downloaded"""
 
     context = Attribute("The file object that was downloaded")
-

@@ -9,12 +9,13 @@ from plone.testing.z2 import installProduct
 
 class FtwFileLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE,)
+    defaultBases = (PLONE_FIXTURE, )
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
         import ftw.file
-        xmlconfig.file('configure.zcml', ftw.file, context=configurationContext)
+        xmlconfig.file(
+            'configure.zcml', ftw.file, context=configurationContext)
         installProduct(app, 'ftw.file')
 
     def setUpPloneSite(self, portal):
@@ -24,6 +25,6 @@ class FtwFileLayer(PloneSandboxLayer):
 
 FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(FTW_FILE_FIXTURE,), name="ftw.file:Integration")
+    bases=(FTW_FILE_FIXTURE, ), name="ftw.file:Integration")
 FTW_FILE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(FTW_FILE_FIXTURE,), name="ftw.file:Functional")
+    bases=(FTW_FILE_FIXTURE, ), name="ftw.file:Functional")
