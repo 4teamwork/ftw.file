@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.11 (unreleased)
+1.4.11 (2012-05-01)
 -------------------
 
 - Readded i18n:translate for content history viewlet action.
