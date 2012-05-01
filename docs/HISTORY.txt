@@ -5,7 +5,8 @@ Changelog
 1.4.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Readded i18n:translate for content history viewlet action.
+  [mathias.leimgruber]
 
 
 1.4.10 (2012-04-30)
