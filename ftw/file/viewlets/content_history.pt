@@ -25,7 +25,7 @@
             <span class="historyAction" tal:content="action" i18n:translate=""
                   tal:attributes="class string:historyAction state-${action}">action</span>
           </td>
-          <td tal:content="python:view.toLocalizedTime(item['time'])" />
+          <td tal:content="python:view.toLocalizedTime(item['time'], long_format=True)" />
           <td tal:content="actor_name" />
           <td tal:content="item/comments" />
           <td>

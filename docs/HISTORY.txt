@@ -5,7 +5,8 @@ Changelog
 1.4.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Show time too on contenthostory viewlet.
+  [mathias.leimgruber]
 
 
 1.4.11 (2012-05-01)
