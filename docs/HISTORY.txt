@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.4.12 (unreleased)
+1.4.12 (2012-05-09)
 -------------------
 
 - Show time too on contenthostory viewlet.
