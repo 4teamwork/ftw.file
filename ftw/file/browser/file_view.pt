@@ -33,7 +33,7 @@
             </tr>
             <tr tal:condition="context/effective">
                 <th i18n:translate="">Date</th>
-                <td tal:content="view/get_effective_date"/>
+                <td tal:content="view/get_document_date"/>
             </tr>
             <tr tal:condition="here/Description">
                 <th i18n:translate="">Description</th>

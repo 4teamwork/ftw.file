@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-04-30 12:54+0000\n"
+"POT-Creation-Date: 2012-08-10 11:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,12 +59,12 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: ./ftw/file/viewlets/content_history.pt:33
+#: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"
 msgstr ""
 
-#: ./ftw/file/content/file.py:51
-msgid "help_effective_date"
+#: ./ftw/file/content/file.py:45
+msgid "help_document_date"
 msgstr ""
 
 #. Default: "Anonymous User"
@@ -72,12 +72,13 @@ msgstr ""
 msgid "label_anonymous_user"
 msgstr ""
 
-#: ./ftw/file/content/file.py:54
-msgid "label_date"
+#. Default: "Document Date"
+#: ./ftw/file/content/file.py:44
+msgid "label_document_date"
 msgstr ""
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:33
+#: ./ftw/file/content/file.py:35
 msgid "label_file"
 msgstr ""
 
