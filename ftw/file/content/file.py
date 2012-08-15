@@ -14,9 +14,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
 from zope.interface import implements
-from DateTime import DateTime
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
-from Products.Archetypes.Widget import CalendarWidget
 
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
@@ -43,7 +41,6 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
         widget=FtwCalendarWidget(
             label=_(u'label_document_date', default=u'Document Date'),
             description=_(u'help_document_date', default=u'')),
-
 )))
 
 # Register BlobMarshaller for the marshall layer so it gets
@@ -53,16 +50,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
 # 4teamwork-egov/tracker-4teamwork-egov/465
 FileSchema.registerLayer('marshall', BlobMarshaller())
 
-
-if 'effectiveDate' in FileSchema.keys():
-    FileSchema['effectiveDate'].widget.visible = {'view': 'visible',
-                                                  'edit': 'visible'}
-    FileSchema['effectiveDate'].schemata = 'default'
-
-    FileSchema['effectiveDate'].default_method = DateTime
-    FileSchema['effectiveDate'].widget.show_hm = False
-    FileSchema['document_date'].widget.show_hm = False
-
+FileSchema['document_date'].widget.show_hm = False
 # clean up schemata, means: set manage portal as write permission
 schematas = ['categorization', 'dates', 'ownership', 'settings']
 for f in FileSchema.keys():
