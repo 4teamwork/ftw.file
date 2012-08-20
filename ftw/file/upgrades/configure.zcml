@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.file">
+
+    <!-- 1 -> 1500 -->
+    <genericsetup:upgradeStep
+        title="Add document_date index"
+        description=""
+        source="1"
+        destination="1500"
+        handler="ftw.file.upgrades.to_1500.AddDocumentDateIndex"
+        profile="ftw.file:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1500"
+        title="ftw.file.upgrades.1500: Add document_date Index"
+        description=""
+        directory="profiles/1500"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+</configure>

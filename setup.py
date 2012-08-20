@@ -35,6 +35,7 @@ setup(name='ftw.file',
           'setuptools',
           'ftw.journal',
           'plone.app.registry',
+          'ftw.upgrade',
           # -*- Extra requirements: -*-
       ],
       tests_require=tests_require,
