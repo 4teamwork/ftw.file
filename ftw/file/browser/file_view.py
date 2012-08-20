@@ -22,7 +22,7 @@ class FileView(BrowserView):
 
     def get_document_date(self):
         """ returns the effectiveDate """
-        date = self.context.getDocument_date()
+        date = self.context.getDocumentDate()
         try:
             return self.context.toLocalizedTime(date)
         except ValueError:

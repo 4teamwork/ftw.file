@@ -5,6 +5,9 @@ Changelog
 1.4.13 (unreleased)
 -------------------
 
+- switch to switchCase and set default date.
+  [tschanzt]
+
 - use new document_date instead of effectiveDate.
   [tschanzt]
 

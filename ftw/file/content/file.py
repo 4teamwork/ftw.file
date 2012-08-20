@@ -15,7 +15,7 @@ from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
 from zope.interface import implements
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
-
+from DateTime import DateTime
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
     FileField(
@@ -34,10 +34,11 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
             show_content_type=False,
         ),
     ),
-    
+
      atapi.DateTimeField(
-        'document_date',
+        'documentDate',
         required=False,
+        default_method=DateTime,
         widget=FtwCalendarWidget(
             label=_(u'label_document_date', default=u'Document Date'),
             description=_(u'help_document_date', default=u'')),
@@ -50,7 +51,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
 # 4teamwork-egov/tracker-4teamwork-egov/465
 FileSchema.registerLayer('marshall', BlobMarshaller())
 
-FileSchema['document_date'].widget.show_hm = False
+FileSchema['documentDate'].widget.show_hm = False
 # clean up schemata, means: set manage portal as write permission
 schematas = ['categorization', 'dates', 'ownership', 'settings']
 for f in FileSchema.keys():

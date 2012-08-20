@@ -7,4 +7,4 @@ ADD_PERMISSIONS = {
     'File': 'ftw.file: Add File',
 }
 
-INDEXES = (("document_date", "DateIndex"),)
+INDEXES = (("documentDate", "DateIndex"),)
