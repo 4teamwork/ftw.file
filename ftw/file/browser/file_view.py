@@ -20,11 +20,11 @@ class FileView(BrowserView):
                     name=userid,
                     url='')
 
-    def get_effective_date(self):
+    def get_document_date(self):
         """ returns the effectiveDate """
-        effective = self.context.effective()
+        date = self.context.getDocumentDate()
         try:
-            return self.context.toLocalizedTime(effective)
+            return self.context.toLocalizedTime(date)
         except ValueError:
             return '-'
 
