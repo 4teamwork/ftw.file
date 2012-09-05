@@ -5,6 +5,9 @@ Changelog
 1.4.13 (unreleased)
 -------------------
 
+- Add missing dependency in setup.py
+  [tschanzt]
+
 - use new document_date instead of effectiveDate.
   [tschanzt]
 
