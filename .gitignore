@@ -3,9 +3,11 @@
 *.pyc
 *.pyo
 .installed.cfg
+.mr.developer.cfg
 bin/
 buildout.cfg
 develop-eggs/
 eggs/
 parts/
+src/
 var/
