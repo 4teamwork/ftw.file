@@ -15,7 +15,7 @@
 
     <genericsetup:registerProfile
         name="1500"
-        title="ftw.file.upgrades.1500: Add document_date Index"
+        title="ftw.file.upgrades.1500: Add documentDate Index"
         description=""
         directory="profiles/1500"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
