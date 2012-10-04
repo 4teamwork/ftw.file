@@ -24,6 +24,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+   <genericsetup:importStep
+     name="ftw.file"
+     title="Various ftw.file imports"
+     description=""
+     handler="ftw.file.setuphandlers.import_various"
+    />
 
   <adapter
       for="ftw.file.fields.FileField"
