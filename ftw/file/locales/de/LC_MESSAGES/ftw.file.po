@@ -70,7 +70,7 @@ msgstr "Anonymer Benutzer"
 #. Default: "Document Date"
 #: ./ftw/file/content/file.py:44
 msgid "label_document_date"
-msgstr "Datum"
+msgstr "Dokumentdatum"
 
 #. Default: "File"
 #: ./ftw/file/content/file.py:35
@@ -81,5 +81,3 @@ msgstr "Datei"
 #: ./ftw/file/fields.py:42
 msgid "label_file_downloaded"
 msgstr "Datei heruntergeladen   "
-
-
