@@ -1,8 +1,8 @@
 Overview
 ========
 
-This is a file content for plone which provides some usefull functions, 
-such as:
+This is a file content for plone which provides some usefull functions,  such as:
+
 - Write downloader-name in history (ftw.journal)
 - Image preview
 - New FileField (stores more informations in the RESPONSE header)
@@ -16,9 +16,9 @@ Install
 ::
 
     [instance]
-    eggs = 
+    eggs =
         ftw.file
-    
+
 - Run buildout
 
 - Install ``ftw.file`` in portal_setup
