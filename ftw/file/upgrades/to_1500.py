@@ -1,9 +1,7 @@
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
 from ftw.upgrade import ProgressLogger
 from ftw.upgrade import UpgradeStep
 from zope.annotation import IAnnotations
-from zope.app.component.hooks import getSite
 
 
 ANN_KEY = 'ftw.file-upgrade-1500-migrated-data'
