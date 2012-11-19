@@ -22,4 +22,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 1500 -> 1510 -->
+    <genericsetup:upgradeStep
+        title="Hide view action"
+        description=""
+        source="1500"
+        destination="1510"
+        handler="ftw.file.upgrades.to_1510.HideViewAction"
+        profile="ftw.file:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1510"
+        title="ftw.file.upgrades.1510: Hide view action"
+        description=""
+        directory="profiles/1510"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
