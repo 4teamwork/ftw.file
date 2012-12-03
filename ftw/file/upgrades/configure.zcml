@@ -41,4 +41,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 1500 -> 1510 -->
+    <genericsetup:upgradeStep
+        title="Change portal_properties and install ftw.calendarwidget"
+        description=""
+        source="1510"
+        destination="1511"
+        handler="ftw.file.upgrades.to_1511.ChangePortalPropertiesInstallMissing"
+        profile="ftw.file:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1511"
+        title="ftw.file.upgrades.1511: Change portal properties and install ftw.calendarwidget"
+        description=""
+        directory="profiles/1511"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>
