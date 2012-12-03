@@ -70,10 +70,9 @@ class File(ATFile):
     security = ClassSecurityInfo()
 
     security.declareProtected(View, 'index_html')
-
     def index_html(self, REQUEST, RESPONSE):
-        """ download the file as an attachment """
-        return self.getPrimaryField().download(self, REQUEST, RESPONSE)
+        """ Redirect to the default view """
+        return RESPONSE.redirect(self.absolute_url() + "/view")
 
     security.declarePrivate('getIndexValue')
 
