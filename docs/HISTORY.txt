@@ -5,7 +5,8 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Lawgiver support: map permissions.
+  [jone]
 
 
 1.6 (2013-01-21)
