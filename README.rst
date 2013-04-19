@@ -39,3 +39,7 @@ Copyright
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.file`` is licensed under GNU General Public License, version 2.
+
+.. image:: https://cruel-carlota.pagodabox.com/80251b972c0dc6e8dc874e620780619e
+   :alt: githalytics.com
+   :target: http://githalytics.com/4teamwork/ftw.file
