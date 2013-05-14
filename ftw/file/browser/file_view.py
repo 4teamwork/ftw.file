@@ -5,6 +5,17 @@ from Products.Five import BrowserView
 class FileView(BrowserView):
     """ View for ftw.file """
 
+    def show_author(self):
+        """Checks if the user is anonymous and is not allowAnonymousViewAbout.
+        """
+        site_props = getToolByName(self.context, 'portal_properties').site_properties
+        mt = getToolByName(self.context, 'portal_membership')
+
+        if not site_props.getProperty('allowAnonymousViewAbout', False) \
+                and mt.isAnonymousUser():
+            return False
+        return True
+
     def get_author(self):
         """ returns the fullname from creator or the id if there isn't a
             fullname.
