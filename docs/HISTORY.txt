@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.6.2 (unreleased)
+1.6.2 (2013-05-17)
 ------------------
 
 - Hide author in file view if anonymous and allowAnonymousViewAbout is False.
