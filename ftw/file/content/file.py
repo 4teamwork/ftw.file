@@ -8,8 +8,7 @@ from logging import getLogger
 from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.CMFCore.permissions import \
-    ManagePortal, View, ModifyPortalContent
+from Products.CMFCore.permissions import  View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
@@ -53,11 +52,11 @@ FileSchema.registerLayer('marshall', BlobMarshaller())
 
 FileSchema['documentDate'].widget.show_hm = False
 # clean up schemata, means: set manage portal as write permission
-schematas = ['categorization', 'dates', 'ownership', 'settings']
+schematas = ['categorization', 'dates', 'ownership', 'settings', 'creators']
 for f in FileSchema.keys():
     field_ = FileSchema[f]
     if field_.schemata in schematas:
-        field_.write_permission = ManagePortal
+        field_.write_permission = 'ftw.file: Edit advanced fields'
 
 
 class File(ATFile):
