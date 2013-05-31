@@ -5,7 +5,10 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add additional Schemata for removal since it was renamed.
+  [tschanzt]
+- Add permission to edit advanced fields.
+  [tschanzt]
 
 
 1.6.2 (2013-05-17)

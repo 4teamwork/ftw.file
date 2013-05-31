@@ -41,7 +41,7 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <!-- 1500 -> 1510 -->
+    <!-- 1510 -> 1511 -->
     <genericsetup:upgradeStep
         title="Change portal_properties and install ftw.calendarwidget"
         description=""
@@ -56,6 +56,25 @@
         title="ftw.file.upgrades.1511: Change portal properties and install ftw.calendarwidget"
         description=""
         directory="profiles/1511"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <!-- 1511 -> 1512 -->
+    <genericsetup:upgradeStep
+        title="Change portal_properties and install ftw.calendarwidget"
+        description=""
+        source="1511"
+        destination="1512"
+        handler="ftw.file.upgrades.to_1512.AddRolemapForNewPermission"
+        profile="ftw.file:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1512"
+        title="ftw.file.upgrades.1512: Add Rolemap for New Permission"
+        description=""
+        directory="profiles/1512"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
