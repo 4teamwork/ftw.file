@@ -62,7 +62,7 @@
 
     <!-- 1511 -> 1512 -->
     <genericsetup:upgradeStep
-        title="Change portal_properties and install ftw.calendarwidget"
+        title="ftw.file.upgrades.1512: Add Rolemap for New Permission"
         description=""
         source="1511"
         destination="1512"
