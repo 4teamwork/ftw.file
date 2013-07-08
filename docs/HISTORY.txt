@@ -5,7 +5,11 @@ Changelog
 1.6.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Redirect users without any modifying permissions (without editable border)
+  to the download when not hitting a specific view.
+  Also add File back to allowAnonymousViewAbout for making sure that /view
+  is added in the navigation.
+  [jone]
 
 
 1.6.4 (2013-06-04)
