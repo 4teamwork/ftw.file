@@ -37,7 +37,7 @@ class TestFileName(TestCase):
         transaction.commit()
 
     def is_author_visible(self):
-        self.browser.open(self.context.absolute_url())
+        self.browser.open(self.context.absolute_url() + '/view')
         return '<th>Author</th>' in self.browser.contents
 
     def test_logged_in_user_sees_author_when_allowAnonymousViewAbout(self):

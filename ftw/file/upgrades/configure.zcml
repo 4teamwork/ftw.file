@@ -79,4 +79,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 1512 -> 1513 -->
+    <genericsetup:upgradeStep
+        title="ftw.file.upgrades.1513: Enable view action in listings (typesUseViewActionInListings)"
+        description=""
+        source="1512"
+        destination="1513"
+        handler="ftw.file.upgrades.to_1513.EnableViewActionInListings"
+        profile="ftw.file:default"
+        />
+
+    <genericsetup:registerProfile
+        name="1513"
+        title="ftw.file.upgrades.1513"
+        description=""
+        directory="profiles/1513"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 </configure>

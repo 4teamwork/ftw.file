@@ -8,6 +8,8 @@ tests_require = [
     'plone.app.testing',
     'plone.mocktestcase',
     'pyquery',
+    'ftw.builder',
+    'ftw.testing[splinter]',
     ]
 
 setup(name='ftw.file',
