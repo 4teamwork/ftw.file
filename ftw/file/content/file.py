@@ -1,20 +1,21 @@
 from AccessControl import ClassSecurityInfo
-from ftw.file import fileMessageFactory as _
-from ftw.file.config import PROJECTNAME
-from ftw.file.fields import FileField
-from ftw.file.interfaces import IFile
-from ftw.journal.interfaces import IWorkflowHistoryJournalizable
-from logging import getLogger
-from plone.app.blob.field import BlobMarshaller
-from Products.Archetypes import atapi
+from DateTime import DateTime
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
+from Products.Archetypes import atapi
 from Products.CMFCore.permissions import  View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.validation import V_REQUIRED
 from ZODB.POSException import ConflictError
-from zope.interface import implements
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
-from DateTime import DateTime
+from ftw.file import fileMessageFactory as _
+from ftw.file.config import PROJECTNAME
+from ftw.file.fields import FileField
+from ftw.file.interfaces import IFile
+from ftw.file.utils import redirect_to_download_by_default
+from ftw.journal.interfaces import IWorkflowHistoryJournalizable
+from logging import getLogger
+from plone.app.blob.field import BlobMarshaller
+from zope.interface import implements
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
     FileField(
@@ -70,8 +71,12 @@ class File(ATFile):
 
     security.declareProtected(View, 'index_html')
     def index_html(self, REQUEST, RESPONSE):
-        """ Redirect to the default view """
-        return RESPONSE.redirect(self.absolute_url() + "/view")
+        """ Redirect to the default view or download view """
+
+        if redirect_to_download_by_default(self):
+            return RESPONSE.redirect(self.absolute_url() + '/download')
+        else:
+            return RESPONSE.redirect(self.absolute_url() + "/view")
 
     security.declarePrivate('getIndexValue')
 
