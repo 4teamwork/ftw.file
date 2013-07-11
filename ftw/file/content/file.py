@@ -78,8 +78,13 @@ class File(ATFile):
         else:
             return RESPONSE.redirect(self.absolute_url() + "/view")
 
-    security.declarePrivate('getIndexValue')
+    security.declareProtected(View, 'download')
+    def download(self, REQUEST=None, RESPONSE=None):
+        """Download the file (use default index_html)
+        """
+        return self.restrictedTraverse('@@download')()
 
+    security.declarePrivate('getIndexValue')
     def getIndexValue(self, mimetype='text/plain'):
         """ an accessor method used for indexing the field's value
             XXX: the implementation is mostly based on archetype's

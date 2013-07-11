@@ -4,8 +4,10 @@ from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testing import browser
 from ftw.testing.pages import Plone
+from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_PASSWORD
 from plone.app.testing import login
+from plone.app.testing import setRoles
 from unittest2 import TestCase
 
 
@@ -33,10 +35,48 @@ class TestDownloadRedirection(TestCase):
                           browser().url)
 
     def test_redirects_to_download_when_i_cannot_edit(self):
-        obj = create(Builder('file'))
+        obj = create(Builder('file')
+                     .with_dummy_content())
         Plone().login('reader')
 
         browser().visit(obj.absolute_url())
 
-        self.assertEquals('http://nohost/plone/file/download',
-                          browser().url)
+        self.assertEquals(
+            'http://nohost/plone/file/@@download/file/test.doc',
+            browser().url)
+
+
+
+class TestDownloadRedirectToURLWithFilename(TestCase):
+
+    layer = FTW_FILE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        portal = self.layer['portal']
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    def test_download_view_redirects_to_url_with_filename(self):
+        obj = create(Builder('file')
+                     .titled('Document')
+                     .attach_file_containing('PDF CONTENT', name='doc.pdf'))
+
+        Plone().login().visit(obj, '@@download')
+
+        self.assertEquals(
+            'http://nohost/plone/document/@@download/file/doc.pdf',
+            browser().url)
+
+        self.assertEquals('PDF CONTENT', browser().html)
+
+    def test_download_method_redirects_to_url_with_filename(self):
+        obj = create(Builder('file')
+                     .titled('Document')
+                     .attach_file_containing('PDF CONTENT', name='doc.pdf'))
+
+        Plone().login().visit(obj, 'download')
+
+        self.assertEquals(
+            'http://nohost/plone/document/@@download/file/doc.pdf',
+            browser().url)
+
+        self.assertEquals('PDF CONTENT', browser().html)
