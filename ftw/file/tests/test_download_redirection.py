@@ -80,3 +80,20 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
             browser().url)
 
         self.assertEquals('PDF CONTENT', browser().html)
+
+    def test_supports_special_characters_and_umlauts_in_filename(self):
+        obj = create(
+            Builder('file')
+            .titled('Document')
+            .attach_file_containing(
+                'PDF CONTENT',
+                name='w\xc3\xb6rter & bilder.pdf'))
+
+        Plone().login().visit(obj, 'download')
+
+        self.assertEquals(
+            'http://nohost/plone/document/@@download/' + \
+                'file/w%C3%B6rter%20%26%20bilder.pdf',
+            browser().url)
+
+        self.assertEquals('PDF CONTENT', browser().html)

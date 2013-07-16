@@ -1,4 +1,5 @@
 from Products.ATContentTypes.browser.download import DownloadArchetypeFile
+import urllib
 
 
 class DownloadFileView(DownloadArchetypeFile):
@@ -12,7 +13,7 @@ class DownloadFileView(DownloadArchetypeFile):
         if not content:
             return super(DownloadFileView, self).__call__()
 
-        filename = content.filename
+        filename = urllib.quote(content.filename)
         download_url = '/'.join((
                 self.context.absolute_url(),
                 '@@download',
