@@ -2,8 +2,15 @@ Changelog
 =========
 
 
-1.6.5 (unreleased)
+1.7.0 (unreleased)
 ------------------
+
+- Drop Plone 4.1 support.
+  [jone]
+
+- File download: redirect to URL containing filename.
+  This allows us to easily track downloads in statistics tools.
+  [jone]
 
 - Redirect users without any modifying permissions (without editable border)
   to the download when not hitting a specific view.
