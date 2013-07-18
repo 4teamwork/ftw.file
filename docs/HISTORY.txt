@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.0 (unreleased)
+1.7.0 (2013-07-18)
 ------------------
 
 - Drop Plone 4.1 support.
