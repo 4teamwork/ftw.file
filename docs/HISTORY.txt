@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.1 (unreleased)
+1.7.1 (2013-07-19)
 ------------------
 
 - Fix regression in download redirect with unicode filenames.
