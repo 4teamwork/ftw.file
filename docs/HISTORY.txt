@@ -5,7 +5,8 @@ Changelog
 1.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix regression in download redirect with unicode filenames.
+  [jone]
 
 
 1.7.0 (2013-07-18)
