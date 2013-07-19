@@ -13,7 +13,11 @@ class DownloadFileView(DownloadArchetypeFile):
         if not content:
             return super(DownloadFileView, self).__call__()
 
-        filename = urllib.quote(content.filename)
+        filename = content.filename
+        if isinstance(filename, unicode):
+            filename = filename.encode('utf-8')
+        filename = urllib.quote(filename)
+
         download_url = '/'.join((
                 self.context.absolute_url(),
                 '@@download',
