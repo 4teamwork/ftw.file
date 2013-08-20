@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2012-08-10 11:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./ftw/file/viewlets/content_history.pt:9
+msgid "Action"
+msgstr "Action"
+
+#: ./ftw/file/browser/file_view.pt:43
+#: ./ftw/file/viewlets/content_history.pt:11
+msgid "Author"
+msgstr "Auteur"
+
+#: ./ftw/file/browser/file_view.pt:59
+msgid "Classification"
+msgstr "Mots-clés associés"
+
+#: ./ftw/file/viewlets/content_history.pt:12
+msgid "Comment"
+msgstr "Commentaire"
+
+#: ./ftw/file/browser/file_view.pt:35
+#: ./ftw/file/viewlets/content_history.pt:10
+msgid "Date"
+msgstr "Date"
+
+#: ./ftw/file/browser/file_view.pt:39
+msgid "Description"
+msgstr "Description"
+
+#: ./ftw/file/browser/file_view.pt:27
+msgid "File"
+msgstr "Fichier"
+
+#: ./ftw/file/viewlets/content_history.pt:5
+msgid "Journal"
+msgstr "Historique"
+
+#: ./ftw/file/browser/file_view.pt:55
+msgid "Modified"
+msgstr "Dernière modification"
+
+#: ./ftw/file/browser/file_view.pt:69
+msgid "Preview"
+msgstr "Aperçu avant impression"
+
+#: ./ftw/file/viewlets/content_history.pt:32
+msgid "download"
+msgstr "télécharger"
+
+#: ./ftw/file/content/file.py:45
+msgid "help_document_date"
+msgstr "Saisissez la date du document"
+
+#. Default: "Anonymous User"
+#: ./ftw/file/viewlets/content_history.py:68
+msgid "label_anonymous_user"
+msgstr "Utilisateur anonyme"
+
+#. Default: "Document Date"
+#: ./ftw/file/content/file.py:44
+msgid "label_document_date"
+msgstr "Date du document"
+
+#. Default: "File"
+#: ./ftw/file/content/file.py:35
+msgid "label_file"
+msgstr "Fichier"
+
+#. Default: "File downloaded"
+#: ./ftw/file/fields.py:42
+msgid "label_file_downloaded"
+msgstr "Fichier téléchargé"
+
+
