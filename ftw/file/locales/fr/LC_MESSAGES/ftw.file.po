@@ -23,7 +23,7 @@ msgstr "Auteur"
 
 #: ./ftw/file/browser/file_view.pt:59
 msgid "Classification"
-msgstr "Mots-clés associés"
+msgstr "Téléchargé sous"
 
 #: ./ftw/file/viewlets/content_history.pt:12
 msgid "Comment"
@@ -52,7 +52,7 @@ msgstr "Dernière modification"
 
 #: ./ftw/file/browser/file_view.pt:69
 msgid "Preview"
-msgstr "Aperçu avant impression"
+msgstr "Aperçu"
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"
