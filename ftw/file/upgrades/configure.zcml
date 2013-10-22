@@ -98,4 +98,14 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- 1513 -> 1514 -->
+    <genericsetup:upgradeStep
+        title="Reeindex getIcon index"
+        description=""
+        source="1513"
+        destination="1514"
+        handler="ftw.file.upgrades.to_1514.ReindexIcons"
+        profile="ftw.file:default"
+        />
+
 </configure>
