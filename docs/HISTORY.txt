@@ -5,7 +5,8 @@ Changelog
 1.7.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Customize getIcon method. Search MimetypeRegistry before using iconmaps.
+  [tschanzt]
 
 
 1.7.2 (2013-10-16)
