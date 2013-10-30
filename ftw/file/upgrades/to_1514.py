@@ -10,7 +10,6 @@ class ReindexIcons(UpgradeStep):
             if value.startswith('image'):
                 values.append(value)
         values.append('application/pdf')
-        results = cat({'portal_type':'File', 'getContentType': values})
-        for result in results:
-            obj = result.getObject()
+        query = {'portal_type':'File', 'getContentType': values}
+        for obj in self.objects(query,'update getIcon metadata'):
             cat.reindexObject(obj, idxs=['Title'], update_metadata=True)
