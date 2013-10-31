@@ -27,8 +27,10 @@ class TestFileName(TestCase):
         self.assertEqual('plone/image.png', plonefile.getIcon())
 
     def test_contenttype_not_found(self):
+        #To test the behavior of our function when a contenttype is not found in mimetyperegistry we add a mimetype
+        #so everything is indexed and created correctly.
         self.mtr.manage_addMimeType('customimage type', ['image/x-custom-image'], ['NonsenseExtension'], '')
         plonefile = self.portal.get(self.portal.invokeFactory('File', 'myfile', file=self.file_))
+        #and then we remove it again so we won't find it in the registry.
         self.mtr.manage_delObjects(['image/x-custom-image'])
-        plonefile.getField('file').setContentType('image/blubber', plonefile)
         self.assertEqual('plone/image_icon.gif', plonefile.getIcon())
