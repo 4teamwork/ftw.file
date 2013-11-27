@@ -5,7 +5,8 @@ Changelog
 1.7.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Require ftw.upgrade >= 1.4.0 required by upgrade 1514.
+  [jone]
 
 
 1.7.3 (2013-11-04)

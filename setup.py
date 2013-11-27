@@ -45,7 +45,7 @@ setup(name='ftw.file',
         'setuptools',
         'ftw.journal',
         'plone.app.registry',
-        'ftw.upgrade',
+        'ftw.upgrade>=1.4.0',
         'ftw.calendarwidget'
         # -*- Extra requirements: -*-
         ],
