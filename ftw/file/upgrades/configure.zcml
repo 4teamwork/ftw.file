@@ -108,4 +108,14 @@
         profile="ftw.file:default"
         />
 
+    <!-- 1513 -> 1514 -->
+    <genericsetup:upgradeStep
+        title="Reeindex getIcon index"
+        description=""
+        source="1514"
+        destination="1515"
+        handler="ftw.file.upgrades.to_1515.UpdateContenttype"
+        profile="ftw.file:default"
+        />
+
 </configure>
