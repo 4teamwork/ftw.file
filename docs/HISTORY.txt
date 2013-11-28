@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.4 (unreleased)
+1.7.4 (2013-11-28)
 ------------------
 
 - Require ftw.upgrade >= 1.4.0 required by upgrade 1514.
