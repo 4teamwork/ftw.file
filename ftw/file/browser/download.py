@@ -16,6 +16,11 @@ class DownloadFileView(DownloadArchetypeFile):
         filename = content.filename
         if isinstance(filename, unicode):
             filename = filename.encode('utf-8')
+
+        # We will use the filename in the url and having a percent sign (even
+        # a quoted one) in the url seems to cause problems with apache
+        # mod_rewrite and look-ahead variables. Thus remove it.
+        filename = filename.replace('%', '')
         filename = urllib.quote(filename)
 
         download_url = '/'.join((
