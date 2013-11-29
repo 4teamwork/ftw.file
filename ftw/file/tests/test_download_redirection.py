@@ -114,3 +114,20 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
             browser().url)
 
         self.assertEquals('PDF CONTENT', browser().html)
+
+    def test_remove_percent_signs_form_filename(self):
+        obj = create(
+            Builder('file')
+            .titled('Document')
+            .attach_file_containing(
+                'PDF CONTENT',
+                name='50%to80%.pdf'.decode('utf-8')))
+
+        Plone().login().visit(obj, 'download')
+
+        self.assertEquals(
+            'http://nohost/plone/document/@@download/' + \
+                'file/50to80.pdf',
+            browser().url)
+
+        self.assertEquals('PDF CONTENT', browser().html)

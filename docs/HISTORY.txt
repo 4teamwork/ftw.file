@@ -5,7 +5,9 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove percent signs from download URL to fix problems in combination with
+  Apache mod_rewrite.
+  [buchi]
 
 
 1.7.4 (2013-11-28)
