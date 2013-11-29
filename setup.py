@@ -47,7 +47,8 @@ setup(name='ftw.file',
         'plone.app.registry',
         'ftw.upgrade>=1.4.0',
         'ftw.calendarwidget',
-        'Pillow'
+        'Pillow',
+        'ftw.colorbox',
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
