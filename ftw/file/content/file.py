@@ -14,8 +14,10 @@ from Products.Archetypes import atapi
 from Products.Archetypes.BaseContent import BaseContent
 from Products.Archetypes.Widget import StringWidget
 from Products.ATContentTypes.config import ICONMAP
-from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.CMFCore.permissions import  View, ModifyPortalContent
+from Products.ATContentTypes.content.file import ATFile
+from Products.ATContentTypes.content.file import ATFileSchema
+from Products.CMFCore.permissions import ModifyPortalContent
+from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
 from Products.validation import V_REQUIRED
@@ -47,9 +49,11 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
         required=False,
         widget=StringWidget(
             label=_(u'label_origin_filename', default=u'Filename'),
-            description=_(u'help_origin_filename',
-                default=u"Insert a filename if you want to change the original"
-                    " filename. The extension (i.e. .docx) will not be modified")
+            description=_(
+                u'help_origin_filename',
+                default=u"Insert a filename if you want to change the "
+                        "original filename. The extension (i.e. .docx) "
+                        "will not be modified")
         ),
     ),
     atapi.DateTimeField(
@@ -120,19 +124,24 @@ class File(ATFile):
         value = str(field.get(self))
         filename = field.getFilename(self)
         try:
-            return str(transforms.convertTo(mimetype, value,
-                mimetype=source, filename=filename))
+            return str(transforms.convertTo(
+                mimetype,
+                value,
+                mimetype=source,
+                filename=filename))
         except (ConflictError, KeyboardInterrupt):
             raise
         except:
-            getLogger(__name__).exception('exception while trying to convert '
-               'blob contents to "text/plain" for %r', self)
+            getLogger(__name__).exception(
+                'exception while trying to convert '
+                'blob contents to "text/plain" for %r', self)
 
+    security.declareProtected(ModifyPortalContent, 'setFilename')
     def setFilename(self, value, **kw):
         field = self.getField('file')
         field.getUnwrapped(self).filename = value
-    security.declareProtected(ModifyPortalContent, 'setFilename')
 
+    security.declareProtected(ModifyPortalContent, 'setOriginFilename')
     def setOriginFilename(self, value, **kw):
         """Overrides the filename with the given value.
         It keeps the old extenstion.
@@ -146,8 +155,7 @@ class File(ATFile):
 
         self.setFilename('{0}{1}'.format(value, path.splitext(filename)[1]))
 
-    security.declareProtected(ModifyPortalContent, 'setOriginFilename')
-
+    security.declareProtected(ModifyPortalContent, 'getOriginFilename')
     def getOriginFilename(self):
         """Gets the filename without extension
         """
@@ -155,7 +163,6 @@ class File(ATFile):
         if not filename:
             return None
         return path.splitext(filename)[0]
-    security.declareProtected(ModifyPortalContent, 'getOriginFilename')
 
     security.declarePublic('getIcon')
     def getIcon(self, relative_to_portal=0):
@@ -178,7 +185,8 @@ class File(ATFile):
             mimetypeitem = mtr.lookup(contenttype)
         except MimeTypeException, msg:
             LOG = logging.getLogger('ATCT')
-            LOG.error('MimeTypeException for %s. Error is: %s' % (self.absolute_url(), str(msg)))
+            LOG.error('MimeTypeException for %s. Error is: %s' % (
+                self.absolute_url(), str(msg)))
         if not mimetypeitem:
             icon = None
         else:
@@ -191,7 +199,6 @@ class File(ATFile):
                 icon = quote(ICONMAP[contenttype_major])
             else:
                 return BaseContent.getIcon(self, relative_to_portal)
-
 
         if relative_to_portal:
             return icon

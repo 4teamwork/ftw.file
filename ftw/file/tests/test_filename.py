@@ -1,10 +1,10 @@
-from StringIO import StringIO
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
-from ZPublisher.HTTPResponse import HTTPResponse
-from ZPublisher.HTTPRequest import HTTPRequest
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from StringIO import StringIO
 from unittest2 import TestCase
+from ZPublisher.HTTPRequest import HTTPRequest
+from ZPublisher.HTTPResponse import HTTPResponse
 
 
 class TestFileName(TestCase):
@@ -66,7 +66,7 @@ class TestFileName(TestCase):
         self.set_filedata('dummyfile.txt')
         self.assertEqual('dummyfile', self.context.getOriginFilename())
 
-    def test_set_origin_filename_overrides_the_filename(self):
+    def test_set_origin_filename_overrides_the_filename_and_keeps_the_extension(self):
         self.set_filedata('dummyfile.txt')
         self.context.setOriginFilename(u'\xfcber')
         self.assertEqual('\xc3\xbcber.txt', self.context.getFilename())
