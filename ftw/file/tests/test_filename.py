@@ -22,12 +22,15 @@ class TestFileName(TestCase):
         if not request:
             request = HTTPRequest('', dict(HTTP_HOST='nohost:8080'),
                                   {}, response)
-        data = StringIO(100 * "dummy")
-        setattr(data, 'filename', filename)
-        self.context.setFile(data)
+        self.set_filedata(filename)
         self.context.getField('file').index_html(self.context, REQUEST=request,
                                                  RESPONSE=response)
         return response
+
+    def set_filedata(self, filename):
+        data = StringIO(100 * "dummy")
+        setattr(data, 'filename', filename)
+        self.context.setFile(data)
 
     def test_whitespace(self):
         response = self.get_response_for(filename='ein file.doc')
@@ -58,3 +61,34 @@ class TestFileName(TestCase):
         self.assertEqual(
             response.getHeader('Content-disposition'),
             'attachment; filename=%C3%BCber%C3%A2%C2%80%C2%93uns.html')
+
+    def test_get_origin_filename_has_no_extension(self):
+        self.set_filedata('dummyfile.txt')
+        self.assertEqual('dummyfile', self.context.getOriginFilename())
+
+    def test_set_origin_filename_overrides_the_filename(self):
+        self.set_filedata('dummyfile.txt')
+        self.context.setOriginFilename(u'\xfcber')
+        self.assertEqual('\xc3\xbcber.txt', self.context.getFilename())
+
+    def test_set_origin_filename_does_not_override_filename_if_its_empty(self):
+        self.set_filedata('dummyfile.txt')
+        self.context.setOriginFilename('')
+        self.assertEqual('dummyfile.txt', self.context.getFilename())
+
+    def test_set_origin_filename_if_no_filename_exists(self):
+        self.assertEqual(None, self.context.getFilename())
+        self.context.setOriginFilename('testfile')
+        self.assertEqual(None, self.context.getFilename())
+
+    def test_get_origin_filename_if_no_filename_exists(self):
+        self.assertEqual(None, self.context.getOriginFilename())
+
+    def test_get_origin_filename_if_no_extension_exists(self):
+        self.set_filedata('dummyfile')
+        self.assertEqual('dummyfile', self.context.getOriginFilename())
+
+    def test_set_origin_filename_if_no_extension_exists(self):
+        self.set_filedata('dummyfile')
+        self.context.setOriginFilename(u'\xfcber')
+        self.assertEqual('\xc3\xbcber', self.context.getFilename())

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-08-10 11:37+0000\n"
+"POT-Creation-Date: 2013-12-09 14:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,9 +58,13 @@ msgstr "Aperçu avant impression"
 msgid "download"
 msgstr "télécharger"
 
-#: ./ftw/file/content/file.py:45
+#: ./ftw/file/content/file.py:57
 msgid "help_document_date"
 msgstr "Saisissez la date du document"
+
+#: ./ftw/file/content/file.py:48
+msgid "help_origin_filename"
+msgstr "Insérez un nom de fichier si vous souhaitez modifier le nom de fichier original. L'extension (à savoir. Docx) ne sera pas modifié"
 
 #. Default: "Anonymous User"
 #: ./ftw/file/viewlets/content_history.py:68
@@ -68,12 +72,12 @@ msgid "label_anonymous_user"
 msgstr "Utilisateur anonyme"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:44
+#: ./ftw/file/content/file.py:56
 msgid "label_document_date"
 msgstr "Date du document"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:35
+#: ./ftw/file/content/file.py:39
 msgid "label_file"
 msgstr "Fichier"
 
@@ -81,5 +85,10 @@ msgstr "Fichier"
 #: ./ftw/file/fields.py:42
 msgid "label_file_downloaded"
 msgstr "Fichier téléchargé"
+
+#. Default: "Filename"
+#: ./ftw/file/content/file.py:47
+msgid "label_origin_filename"
+msgstr "Nom du document"
 
 

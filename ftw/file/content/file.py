@@ -1,11 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
-from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.Archetypes import atapi
-from Products.CMFCore.permissions import  View, ModifyPortalContent
-from Products.CMFCore.utils import getToolByName
-from Products.validation import V_REQUIRED
-from ZODB.POSException import ConflictError
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
@@ -14,13 +8,22 @@ from ftw.file.interfaces import IFile
 from ftw.file.utils import redirect_to_download_by_default
 from ftw.journal.interfaces import IWorkflowHistoryJournalizable
 from logging import getLogger
+from os import path
 from plone.app.blob.field import BlobMarshaller
-from zope.interface import implements
+from Products.Archetypes import atapi
 from Products.Archetypes.BaseContent import BaseContent
+from Products.Archetypes.Widget import StringWidget
 from Products.ATContentTypes.config import ICONMAP
-from urllib import quote
+from Products.ATContentTypes.content.file import ATFile, ATFileSchema
+from Products.CMFCore.permissions import  View, ModifyPortalContent
+from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
+from Products.validation import V_REQUIRED
+from urllib import quote
+from ZODB.POSException import ConflictError
+from zope.interface import implements
 import logging
+
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
     FileField(
@@ -39,15 +42,27 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
             show_content_type=False,
         ),
     ),
-
-     atapi.DateTimeField(
+    atapi.StringField(
+        name='originFilename',
+        required=False,
+        widget=StringWidget(
+            label=_(u'label_origin_filename', default=u'Filename'),
+            description=_(u'help_origin_filename',
+                default=u"Insert a filename if you want to change the original"
+                    " filename. The extension (i.e. .docx) will not be modified")
+        ),
+    ),
+    atapi.DateTimeField(
         'documentDate',
         required=False,
         default_method=DateTime,
         widget=FtwCalendarWidget(
             label=_(u'label_document_date', default=u'Document Date'),
-            description=_(u'help_document_date', default=u'')),
-)))
+            description=_(u'help_document_date', default=u'')
+        ),
+    ),
+
+))
 
 # Register BlobMarshaller for the marshall layer so it gets
 # used when de-marshalling files that are saved with the
@@ -117,6 +132,30 @@ class File(ATFile):
         field = self.getField('file')
         field.getUnwrapped(self).filename = value
     security.declareProtected(ModifyPortalContent, 'setFilename')
+
+    def setOriginFilename(self, value, **kw):
+        """Overrides the filename with the given value.
+        It keeps the old extenstion.
+        """
+        filename = self.getFilename()
+        if not value or not filename:
+            return
+
+        if isinstance(value, unicode):
+            value = value.encode('utf-8')
+
+        self.setFilename('{0}{1}'.format(value, path.splitext(filename)[1]))
+
+    security.declareProtected(ModifyPortalContent, 'setOriginFilename')
+
+    def getOriginFilename(self):
+        """Gets the filename without extension
+        """
+        filename = self.getFilename()
+        if not filename:
+            return None
+        return path.splitext(filename)[0]
+    security.declareProtected(ModifyPortalContent, 'getOriginFilename')
 
     security.declarePublic('getIcon')
     def getIcon(self, relative_to_portal=0):
