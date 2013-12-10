@@ -11,7 +11,7 @@ class TestFileName(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.file_ = open("%s/testfile.NonsenseExtension" % os.path.split(__file__)[0], 'r')
+        self.file_ = open("%s/assets/testfile.NonsenseExtension" % os.path.split(__file__)[0], 'r')
         self.mtr = getToolByName(self.portal, 'mimetypes_registry')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)

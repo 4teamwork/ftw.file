@@ -65,15 +65,14 @@
                     </tal:subjects>
                 </td>
             </tr>
-			<tr tal:condition="view/is_image">
+			<tr tal:define="tag view/get_image_tag"
+			    tal:condition="tag">
 				<th i18n:translate="">Preview</th>
 				<td>
-	<a id="preview" tal:attributes="href string:${context/absolute_url}/big_img">
-<img tal:define="scale context/@@images"
-     tal:replace="structure python: scale.scale('file',
-                  width=200, direction='down').tag()" />
-</a>
-</td>
+	                <a id="preview" tal:attributes="href string:${context/absolute_url}/big_img">
+                        <img tal:replace="structure tag" />
+                    </a>
+                </td>
 			</tr>
     </table>
     </metal:content-core>

@@ -10,6 +10,9 @@ Changelog
   You can set a new filename without touching its extension.
   [elioschmutz]
 
+- Use PIL itself to detect images.
+  [tschanzt]
+
 - Remove percent signs from download URL to fix problems in combination with
   Apache mod_rewrite.
   [buchi]
