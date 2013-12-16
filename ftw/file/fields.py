@@ -15,7 +15,6 @@ class FileField(field.FileField):
         """Kicks download.
         Writes data including file name and content type to RESPONSE
         """
-
         raw_file = self.get(instance, raw=True)
         if not REQUEST:
             REQUEST = instance.REQUEST

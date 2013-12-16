@@ -14,81 +14,81 @@ msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:9
 msgid "Action"
-msgstr "Aktion"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:43
 #: ./ftw/file/viewlets/content_history.pt:11
 msgid "Author"
-msgstr "Autor"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:59
 msgid "Classification"
-msgstr "Abgelegt unter"
+msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:12
 msgid "Comment"
-msgstr "Kommentar"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:35
 #: ./ftw/file/viewlets/content_history.pt:10
 msgid "Date"
-msgstr "Datum"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:39
 msgid "Description"
-msgstr "Beschreibung"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:27
 msgid "File"
-msgstr "Datei"
+msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:5
 msgid "Journal"
-msgstr "Journal"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:55
 msgid "Modified"
-msgstr "Letzte Änderung"
+msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:69
 msgid "Preview"
-msgstr "Vorschau"
+msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"
-msgstr "herunterladen"
+msgstr ""
 
 #: ./ftw/file/content/file.py:57
 msgid "help_document_date"
-msgstr "Geben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
+msgstr ""
 
 #: ./ftw/file/content/file.py:48
 msgid "help_origin_filename"
-msgstr "Geben Sie einen Dokumentnamen ein falls Sie den Namen der Originaldatei ändern möchten. Die Dateierweiterung (z.B. .docx) wird dabei nicht geändert."
+msgstr ""
 
 #. Default: "Anonymous User"
 #: ./ftw/file/viewlets/content_history.py:68
 msgid "label_anonymous_user"
-msgstr "Anonymer Benutzer"
+msgstr ""
 
 #. Default: "Document Date"
 #: ./ftw/file/content/file.py:56
 msgid "label_document_date"
-msgstr "Dokumentdatum"
+msgstr ""
 
 #. Default: "File"
 #: ./ftw/file/content/file.py:39
 msgid "label_file"
-msgstr "Datei"
+msgstr ""
 
 #. Default: "File downloaded"
 #: ./ftw/file/fields.py:42
 msgid "label_file_downloaded"
-msgstr "Datei heruntergeladen   "
+msgstr ""
 
 #. Default: "Filename"
 #: ./ftw/file/content/file.py:47
 msgid "label_origin_filename"
-msgstr "Dokumentname"
+msgstr ""
 
 
