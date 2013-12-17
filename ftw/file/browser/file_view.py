@@ -1,6 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
-
+from PIL import Image
 
 class FileView(BrowserView):
     """ View for ftw.file """
@@ -47,14 +47,30 @@ class FileView(BrowserView):
         except ValueError:
             return '-'
 
-    def is_image(self):
-        allowed_types = [
-            'jpeg',
-            'jpg',
-            'png']
+    def get_image_tag(self):
+        if not self.is_image():
+            return None
+        scale = self.context.restrictedTraverse('@@images')
+        img = scale.scale('file', width=200, direction='down')
+        if img:
+            return img.tag()
+        return None
 
+    def is_image(self):
         file_ = self.context.getFile()
         mimetype = file_.getContentType()
-        if [allowed for allowed in allowed_types if allowed in mimetype]:
-            return True
+        Image.init()
+        open_handlers = Image.OPEN.keys()
+        extensions = []
+        for key, value in Image.EXTENSION.items():
+            if value in open_handlers:
+                extensions.append(key.strip('.'))
+        mr = self.context.mimetypes_registry
+        mime_extensions = mr.lookup(mimetype)[0].extensions
+        for ext in mime_extensions:
+            if ext in extensions:
+                return True
+        for glob in mr.lookup(mimetype)[0].globs:
+            if glob.strip("*.") in extensions:
+                return True
         return False

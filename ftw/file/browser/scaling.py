@@ -20,10 +20,12 @@ class FtwImageScaling(ImageScaling):
         create = queryAdapter(field, IImageScaleFactory).create
         try:
             return create(self.context, direction=direction, **parameters)
+        except IOError:
+            return None
         except (ConflictError, KeyboardInterrupt):
             raise
         except Exception:
-            if not field.swallowResizeExceptions:
+            if not getattr(field, 'swallowResizeExceptions', False):
                 raise
             else:
                 exception('could not scale "%r" of %r',
