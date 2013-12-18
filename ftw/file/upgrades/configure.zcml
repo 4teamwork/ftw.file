@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.file">
 
     <!-- 1 -> 1500 -->
@@ -117,5 +118,16 @@
         handler="ftw.file.upgrades.to_1515.UpdateContenttype"
         profile="ftw.file:default"
         />
+
+    <!-- 1513 -> 1514 -->
+    <genericsetup:upgradeStep
+        title="install ftw.colorbox"
+        description=""
+        source="1515"
+        destination="1516"
+        handler="ftw.file.upgrades.to_1516.InstallColorbox"
+        profile="ftw.file:default"
+        />
+
 
 </configure>
