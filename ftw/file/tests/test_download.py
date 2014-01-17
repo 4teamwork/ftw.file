@@ -6,6 +6,7 @@ from StringIO import StringIO
 from unittest2 import TestCase
 from webdav.common import rfc1123_date
 from zope.component import eventtesting
+from zope.component import queryMultiAdapter
 import transaction
 
 
@@ -65,3 +66,35 @@ class TestFileDownload(TestCase):
         events = [e for e in eventtesting.getEvents()
                   if IFileDownloadedEvent.providedBy(e)]
         self.assertEqual(1, len(events))
+
+
+class TestFileDownloadView(TestCase):
+
+    layer = FTW_FILE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.file = StringIO(1234 * 'dummy')
+        setattr(self.file, 'filename', 'file.doc')
+        self.portal.invokeFactory('File', 'f1', file=self.file)
+        self.context = self.portal.f1
+
+        # Patch our index_html method for simpler testing
+        def index_html(self, *args, **kwargs):
+            return 'My index_html'
+        field = self.context.getField('file')
+        self.index_html_orig = field.index_html
+        field.index_html = index_html.__get__(field, field.__class__)
+
+    def tearDown(self):
+        # Revert patch
+        field = self.context.getField('file')
+        field.index_html = self.index_html_orig
+        
+    def test_download_view_uses_our_index_html(self):
+        view = queryMultiAdapter((self.context, self.layer['request']),
+                                 name=u'download')
+        view.fieldname = 'file'
+        self.assertEqual('My index_html', view())
+

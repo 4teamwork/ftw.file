@@ -9,6 +9,9 @@ Changelog
   supporting range and if-modified-since requests.
   [buchi]
 
+- Make download view use our file download implementation.
+  [buchi]
+
 
 1.8 (2013-12-23)
 ----------------
