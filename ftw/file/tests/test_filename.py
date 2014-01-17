@@ -24,7 +24,8 @@ class TestFileName(TestCase):
                                   {}, response)
         self.set_filedata(filename)
         self.context.getField('file').index_html(self.context, REQUEST=request,
-                                                 RESPONSE=response)
+                                                 RESPONSE=response,
+                                                 disposition='attachment')
         return response
 
     def set_filedata(self, filename):
