@@ -5,7 +5,12 @@ Changelog
 1.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve file download implementation by using a stream iterator and
+  supporting range and if-modified-since requests.
+  [buchi]
+
+- Make download view use our file download implementation.
+  [buchi]
 
 
 1.8 (2013-12-23)

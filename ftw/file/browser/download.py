@@ -1,4 +1,6 @@
+from AccessControl import Unauthorized
 from Products.ATContentTypes.browser.download import DownloadArchetypeFile
+from zope.publisher.interfaces import NotFound
 import urllib
 
 
@@ -6,12 +8,12 @@ class DownloadFileView(DownloadArchetypeFile):
 
     def __call__(self):
         if self.fieldname is not None:
-            return super(DownloadFileView, self).__call__()
+            return self.call_download()
 
         field = self.context.getPrimaryField()
         content = field.get(self.context)
         if not content:
-            return super(DownloadFileView, self).__call__()
+            return self.call_download()
 
         filename = content.filename
         if isinstance(filename, unicode):
@@ -30,3 +32,13 @@ class DownloadFileView(DownloadArchetypeFile):
                 filename))
 
         return self.request.RESPONSE.redirect(download_url)
+
+    def call_download(self):
+        context = getattr(self.context, 'aq_explicit', self.context)
+        field = context.getField(self.fieldname)
+        if field is None:
+            raise NotFound(self, self.fieldname, self.request)
+        if not field.checkPermission('r', context):
+            raise Unauthorized()
+
+        return field.index_html(context, disposition='attachment')
