@@ -8,7 +8,7 @@ from webdav.common import rfc1123_date
 from zope.component import eventtesting
 from zope.component import queryMultiAdapter
 import transaction
-
+import AccessControl
 
 class TestFileDownload(TestCase):
 
@@ -67,7 +67,20 @@ class TestFileDownload(TestCase):
                   if IFileDownloadedEvent.providedBy(e)]
         self.assertEqual(1, len(events))
 
+    def test_file_download_no_notification_when_system(self):
+        eventtesting.setUp()
+        _original_security = AccessControl.getSecurityManager()
 
+        _system_user = AccessControl.SecurityManagement.SpecialUsers.system
+        AccessControl.SecurityManagement.newSecurityManager(None, _system_user)
+        self.index_html()
+        events = [e for e in eventtesting.getEvents()
+                  if IFileDownloadedEvent.providedBy(e)]
+        self.assertEqual(0, len(events))
+        AccessControl.SecurityManagement.setSecurityManager(
+            _original_security)
+        _original_security = None
+        
 class TestFileDownloadView(TestCase):
 
     layer = FTW_FILE_FUNCTIONAL_TESTING
