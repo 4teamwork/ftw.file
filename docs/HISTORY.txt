@@ -5,7 +5,8 @@ Changelog
 1.8.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Don't journalize when our user has no id.
+  [tschanzt]
 
 
 1.8.1 (2014-02-10)
