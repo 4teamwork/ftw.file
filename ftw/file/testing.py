@@ -8,6 +8,7 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile
 from plone.testing.z2 import installProduct
 from zope.configuration import xmlconfig
+from zope.component import eventtesting
 
 
 def functional_session_factory():
@@ -31,6 +32,7 @@ class FtwFileLayer(PloneSandboxLayer):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'plone.app.registry:default')
         applyProfile(portal, 'ftw.file:default')
+        eventtesting.setUp()
 
 FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(

@@ -21,9 +21,13 @@ class TestFileDownload(TestCase):
         setattr(self.file, 'filename', 'file.doc')
         self.portal.invokeFactory('File', 'f1', file=self.file)
         self.context = self.portal.f1
-
+        # eventtesting.setUp()
         # We need a modification date in ._p_mtime
         transaction.commit()
+
+    def tearDown(self):
+        super(TestFileDownload, self).tearDown()
+        eventtesting.clearEvents()
 
     def index_html(self, disposition='attachment'):
         request = self.layer['request']
@@ -61,14 +65,12 @@ class TestFileDownload(TestCase):
         self.assertEqual(self.file.getvalue(),self.index_html().next())
 
     def test_file_download_notification(self):
-        eventtesting.setUp()
         self.index_html()
         events = [e for e in eventtesting.getEvents()
                   if IFileDownloadedEvent.providedBy(e)]
         self.assertEqual(1, len(events))
 
     def test_file_download_no_notification_when_system(self):
-        eventtesting.setUp()
         _original_security = AccessControl.getSecurityManager()
 
         _system_user = AccessControl.SecurityManagement.SpecialUsers.system
@@ -80,7 +82,7 @@ class TestFileDownload(TestCase):
         AccessControl.SecurityManagement.setSecurityManager(
             _original_security)
         _original_security = None
-        
+
 class TestFileDownloadView(TestCase):
 
     layer = FTW_FILE_FUNCTIONAL_TESTING
