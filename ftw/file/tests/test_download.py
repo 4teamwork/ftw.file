@@ -21,7 +21,6 @@ class TestFileDownload(TestCase):
         setattr(self.file, 'filename', 'file.doc')
         self.portal.invokeFactory('File', 'f1', file=self.file)
         self.context = self.portal.f1
-        # eventtesting.setUp()
         # We need a modification date in ._p_mtime
         transaction.commit()
 
