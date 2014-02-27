@@ -11,4 +11,14 @@
         permission="zope2.View"
         />
 
+    <!-- The related items -->
+    <browser:viewlet
+        name="plone.belowcontentbody.relateditems"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        class=".related_items.FileRelatedItems"
+        view="ftw.file.browser.file_view.FileView"
+        for="ftw.file.interfaces.IFile"
+        permission="zope2.View"
+        />
+
 </configure>

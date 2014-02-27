@@ -10,6 +10,7 @@ tests_require = [
     'pyquery',
     'ftw.builder',
     'ftw.testing[splinter]',
+    'ftw.testbrowser',
     ]
 
 setup(name='ftw.file',
