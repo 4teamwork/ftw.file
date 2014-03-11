@@ -58,7 +58,7 @@ class FileField(field.FileField):
             if not portal_state.anonymous():
                 registry = getUtility(IRegistry)
                 user_ids = registry['ftw.file.filesettings.user_ids']
-                if not portal_state.member().id in user_ids:
+                if portal_state.member().id and not portal_state.member().id in user_ids:
                     notify(FileDownloadedEvent(instance, filename))
 
         return self.get(instance).getIterator(**request_range)
