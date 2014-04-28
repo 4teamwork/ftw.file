@@ -184,7 +184,7 @@ Changelog
 1.4.6 (2011-12-21)
 ------------------
 
-- Fixed MANIFEST.in (include *.rst)
+- Fixed MANIFEST.in (include ``*.rst``)
   [mathias.leimgruber]
 
 
