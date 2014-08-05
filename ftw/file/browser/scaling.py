@@ -22,6 +22,11 @@ class FtwImageScaling(ImageScaling):
             return create(self.context, direction=direction, **parameters)
         except IOError:
             return None
+        except OverflowError:
+            # Some PSDs throw an OverflowError, probably because of unsupported
+            # file formats.
+            # https://github.com/4teamwork/ftw.file/issues/29
+            return None
         except (ConflictError, KeyboardInterrupt):
             raise
         except Exception:
