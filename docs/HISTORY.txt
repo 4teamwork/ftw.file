@@ -5,6 +5,9 @@ Changelog
 1.8.2 (unreleased)
 ------------------
 
+- Catch OverflowError for unkown PSD formats.
+  [jone]
+
 - Don't journalize when our user has no id.
   [tschanzt]
 
