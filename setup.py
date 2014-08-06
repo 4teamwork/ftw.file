@@ -9,6 +9,7 @@ tests_require = [
     'plone.mocktestcase',
     'pyquery',
     'ftw.builder',
+    'ftw.testbrowser',
     'ftw.testing[splinter]',
     ]
 

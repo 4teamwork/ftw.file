@@ -5,6 +5,9 @@ Changelog
 1.8.2 (unreleased)
 ------------------
 
+- When replacing the file, use the new filename given by the file.
+  [lknoepfel]
+
 - Catch OverflowError for unkown PSD formats.
   [jone]
 
