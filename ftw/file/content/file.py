@@ -48,6 +48,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
         name='originFilename',
         required=False,
         widget=StringWidget(
+            helper_js=("++resource++hideOriginFilenameField.js", ),
             label=_(u'label_origin_filename', default=u'Filename'),
             description=_(
                 u'help_origin_filename',
@@ -146,6 +147,10 @@ class File(ATFile):
         """Overrides the filename with the given value.
         It keeps the old extenstion.
         """
+        # file_delete contains '' if a file is uploaded, otherwise 'nochange'
+        if self.REQUEST.form.get('file_delete', 'nochange') != 'nochange':
+            return
+
         filename = self.getFilename()
         if not value or not filename:
             return

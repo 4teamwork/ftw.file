@@ -1,4 +1,7 @@
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from StringIO import StringIO
@@ -93,3 +96,20 @@ class TestFileName(TestCase):
         self.set_filedata('dummyfile')
         self.context.setOriginFilename(u'\xfcber')
         self.assertEqual('\xc3\xbcber', self.context.getFilename())
+
+    @browsing
+    def test_origin_filename_is_set_if_no_file_is_uploaded(self, browser):
+        existingfile = create(Builder('file').with_dummy_content())
+        browser.login().open(existingfile, view='edit')
+        browser.fill({'Filename': 'newFilename'}).submit()
+        self.assertEquals('newFilename.doc', existingfile.getFilename())
+
+    @browsing
+    def test_origin_filename_is_filename_of_uploaded_file(self, browser):
+        existingfile = create(Builder('file').with_dummy_content())
+        browser.login().open(existingfile, view='edit')
+        browser.fill({
+            'file_delete': '',
+            'file_file': ('Raw file data', 'newfile.txt', 'text/plain')
+        }).submit()
+        self.assertEqual('newfile.txt', existingfile.getFilename())

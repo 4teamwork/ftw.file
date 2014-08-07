@@ -4,6 +4,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.file">
 
   <includeDependencies package="." />
@@ -39,5 +40,9 @@
   <adapter
       for="ftw.file.fields.FileField"
       factory="plone.app.imaging.scaling.ImageScaleFactory" />
+
+  <browser:resource
+      file="resources/hideOriginFilenameField.js"
+      name="hideOriginFilenameField.js" />
 
 </configure>
