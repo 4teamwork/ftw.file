@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.2 (unreleased)
+1.8.2 (2014-08-07)
 ------------------
 
 - When replacing the file, use the new filename given by the file.
