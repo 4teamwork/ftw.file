@@ -11,6 +11,7 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing[splinter]',
+    'ftw.testbrowser',
     ]
 
 setup(name='ftw.file',
