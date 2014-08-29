@@ -5,10 +5,13 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:profilehook="http://namespaces.zope.org/profilehook"
     i18n_domain="ftw.file">
 
   <includeDependencies package="." />
   <five:registerPackage package="." initialize=".initialize" />
+
+  <include package="ftw.profilehook" />
 
   <i18n:registerTranslations directory="locales" />
 
@@ -30,12 +33,10 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-   <genericsetup:importStep
-     name="ftw.file"
-     title="Various ftw.file imports"
-     description=""
-     handler="ftw.file.setuphandlers.import_various"
-    />
+  <profilehook:hook
+      profile="ftw.file:default"
+      handler=".hooks.installed"
+      />
 
   <adapter
       for="ftw.file.fields.FileField"
