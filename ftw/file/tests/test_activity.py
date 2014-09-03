@@ -26,17 +26,21 @@ class TestActivityRepresentation(TestCase):
         self.render_representation(browser, file_)
         self.assertEqual('An important file',
                          browser.css('.title').first.text)
+
         self.assertTrue(browser.css('.colorboxLink'))
+        self.assertFalse(browser.css('.file-download a'))
 
     @browsing
-    def test_renders_no_preview_for_files(self, browser):
+    def test_renders_download_link_for_files(self, browser):
         file_ = create(Builder('file')
                        .titled('An important file')
                        .with_dummy_content())
         self.render_representation(browser, file_)
         self.assertEqual('An important file',
                          browser.css('.title').first.text)
+
         self.assertFalse(browser.css('.colorboxLink'))
+        self.assertTrue(browser.css('.file-download a'))
 
     def render_representation(self, browser, file_):
         repr = getMultiAdapter((file_, self.layer['request']),
