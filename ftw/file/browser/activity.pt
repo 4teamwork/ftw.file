@@ -1,0 +1,14 @@
+<metal:wrapper use-macro="context/@@activity_macros/macros/event">
+  <metal:CONTENT fill-slot="body-content">
+
+    <tal:preview tal:define="tag view/get_image_tag"
+                 tal:condition="tag">
+      <a class="colorboxLink"
+         rel="activity"
+         tal:attributes="href string:${context/absolute_url}/@@images/file">
+        <img tal:replace="structure tag" />
+      </a>
+    </tal:preview>
+
+  </metal:CONTENT>
+</metal:wrapper>

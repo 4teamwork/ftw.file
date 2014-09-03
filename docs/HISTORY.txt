@@ -5,6 +5,9 @@ Changelog
 1.8.3 (unreleased)
 ------------------
 
+- ftw.activity integration: dispaly preview image in activity stream.
+  [jone]
+
 - Use ftw.profilehook instead of custom import steps (setuphandlers).
   [jone]
 
