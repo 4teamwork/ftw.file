@@ -224,8 +224,13 @@ class File(ATFile):
         for key, value in Image.EXTENSION.items():
             if value in open_handlers:
                 extensions.append(key.strip('.'))
+
         mr = getToolByName(self, 'mimetypes_registry')
-        mime_extensions = mr.lookup(mimetype)[0].extensions
+        mimetypes = mr.lookup(mimetype)
+        if not mimetypes:
+            return False  # unknown mimetype
+
+        mime_extensions = mimetypes[0].extensions
         for ext in mime_extensions:
             if ext in extensions:
                 return True
