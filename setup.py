@@ -5,12 +5,13 @@ version = '1.8.3.dev0'
 maintainer = 'Thomas Buchberger'
 
 tests_require = [
-    'plone.app.testing',
-    'plone.mocktestcase',
-    'pyquery',
+    'ftw.activity',
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing[splinter]',
+    'plone.app.testing',
+    'plone.mocktestcase',
+    'pyquery',
     ]
 
 setup(name='ftw.file',

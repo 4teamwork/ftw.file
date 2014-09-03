@@ -22,10 +22,14 @@ class FtwFileLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
-        # Load ZCML
-        import ftw.file
-        xmlconfig.file(
-            'configure.zcml', ftw.file, context=configurationContext)
+        xmlconfig.string(
+            '<configure xmlns="http://namespaces.zope.org/zope">'
+            '  <include package="z3c.autoinclude" file="meta.zcml" />'
+            '  <includePlugins package="plone" />'
+            '  <includePluginsOverrides package="plone" />'
+            '</configure>',
+            context=configurationContext)
+
         installProduct(app, 'ftw.file')
 
     def setUpPloneSite(self, portal):

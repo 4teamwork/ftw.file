@@ -1,0 +1,23 @@
+<metal:wrapper use-macro="context/@@activity_macros/macros/event">
+  <metal:CONTENT fill-slot="body-content"
+                 tal:define="is_image context/is_image">
+
+    <tal:IMAGE tal:condition="is_image">
+      <tal:preview tal:define="tag view/get_image_tag"
+                   tal:condition="tag">
+        <a class="colorboxLink"
+           rel="activity"
+           tal:attributes="href string:${context/absolute_url}/@@images/file">
+          <img tal:replace="structure tag" />
+        </a>
+      </tal:preview>
+    </tal:IMAGE>
+
+    <tal:FILE tal:condition="not:is_image">
+      <div class="file-download">
+        <metal:field use-macro="python:context.widget('file', mode='view')" />
+      </div>
+    </tal:FILE>
+
+  </metal:CONTENT>
+</metal:wrapper>
