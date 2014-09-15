@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.3 (unreleased)
+1.9.0 (2014-09-15)
 ------------------
 
 - ftw.activity integration: dispaly preview image in activity stream.
