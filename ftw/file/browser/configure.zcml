@@ -12,18 +12,26 @@
         permission="zope2.View"
         />
 
-	  <browser:page
-	      for="ftw.file.interfaces.IFile"
-	      name="images"
-	      class=".scaling.FtwImageScaling"
-	      allowed_interface="plone.app.imaging.interfaces.IImageScaling"
-	      permission="zope2.View" />
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="images"
+        class=".scaling.FtwImageScaling"
+        allowed_interface="plone.app.imaging.interfaces.IImageScaling"
+        permission="zope2.View"
+        />
 
     <browser:page
         for="ftw.file.interfaces.IFile"
         name="download"
         class=".download.DownloadFileView"
         permission="zope2.View"
+        />
+
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="ajax-upload"
+        class=".upload.FileUpload"
+        permission="cmf.ModifyPortalContent"
         />
 
     <configure zcml:condition="installed ftw.activity">

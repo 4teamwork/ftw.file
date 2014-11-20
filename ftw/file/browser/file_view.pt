@@ -5,6 +5,21 @@
       lang="en"
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="ftw.file">
+
+<head>
+<metal:css fill-slot="style_slot">
+    <link rel="stylesheet" type="text/css" href="++resource++ftw.file-uploader.css">
+</metal:css>
+
+<metal:js fill-slot="javascript_head_slot" tal:condition="view/can_edit">
+    <script src="++resource++ftw.file-progress.js"></script>
+    <script src="++resource++ftw.file-uploader.js"></script>
+    <script src="++resource++ftw.file-main.js"></script>
+</metal:js>
+
+
+</head>
+
 <body>
 <metal:content-description fill-slot="content-description">
     <metal:description define-macro="content-description">
@@ -13,6 +28,17 @@
 </metal:content-description>
 <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
+        <div tal:condition="view/can_edit" id="dropzone">
+            <div class="progress-radial" id="uploadprogress">
+            </div>
+            <img id="ftw-file-upload" src="++resource++ftw.file-upload.png" />
+        </div>
+
+        <p tal:condition="view/can_edit" id="dnd-file-replacement-hint" i18n:translate="">Hint: Drag and drop a file from your computer into the browser in order to replace the file.</p>
+
+        <!-- TAL expressions are not evaluated inside script tags. -->
+        <script tal:content="string:var context_url = '${context/absolute_url}'"></script>
+
         <table class="vertical listing fileListing">
             <tr>
                 <th i18n:translate="">File</th>
