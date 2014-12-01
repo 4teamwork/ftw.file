@@ -21,7 +21,8 @@
     margin-top: 5px;
     text-align: center;
     line-height: 90px;
-    font-size: 16px; }
+    font-size: 16px;
+    padding: 0; }
   .progress-radial #tick {
     display: none;
     position: absolute;
@@ -83,3 +84,5 @@ progress {
 
 progress:after {
   content: '%'; }
+
+/*# sourceMappingURL=uploader.css.map */

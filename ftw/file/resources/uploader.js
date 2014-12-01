@@ -110,9 +110,10 @@ var uploader = (function($) {
       overlay = $('#dropzone').overlay({
         top: 80,
         mask: {
+          maskId: 'upload-overlay',
           color: '#ededf1',
           opacity: 0.94
-        }
+        },
       });
       bindEvents();
     },
