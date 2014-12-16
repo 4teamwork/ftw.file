@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-12-09 14:13+0000\n"
+"POT-Creation-Date: 2014-11-26 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,18 +10,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: DOMAIN\n"
 
 #: ./ftw/file/viewlets/content_history.pt:9
 msgid "Action"
 msgstr "Aktion"
 
-#: ./ftw/file/browser/file_view.pt:43
+#: ./ftw/file/browser/file_view.pt:60
 #: ./ftw/file/viewlets/content_history.pt:11
 msgid "Author"
 msgstr "Autor"
 
-#: ./ftw/file/browser/file_view.pt:59
+#: ./ftw/file/browser/file_view.pt:76
 msgid "Classification"
 msgstr "Abgelegt unter"
 
@@ -29,28 +28,36 @@ msgstr "Abgelegt unter"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ./ftw/file/browser/file_view.pt:35
+#: ./ftw/file/browser/file_view.pt:52
 #: ./ftw/file/viewlets/content_history.pt:10
 msgid "Date"
 msgstr "Datum"
 
-#: ./ftw/file/browser/file_view.pt:39
+#: ./ftw/file/browser/file_view.pt:56
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ./ftw/file/browser/file_view.pt:27
+#: ./ftw/file/browser/file_view.pt:44
 msgid "File"
 msgstr "Datei"
+
+#: ./ftw/file/browser/upload.py:30
+msgid "File replaced with Drag & Drop."
+msgstr "Datei ersetzt mit Drag & Drop."
+
+#: ./ftw/file/browser/file_view.pt:37
+msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
+msgstr "Hinweis: Ziehen Sie eine Datei von ihrem Computer in den Browser, um sie zu ersetzen."
 
 #: ./ftw/file/viewlets/content_history.pt:5
 msgid "Journal"
 msgstr "Journal"
 
-#: ./ftw/file/browser/file_view.pt:55
+#: ./ftw/file/browser/file_view.pt:72
 msgid "Modified"
 msgstr "Letzte Änderung"
 
-#: ./ftw/file/browser/file_view.pt:69
+#: ./ftw/file/browser/file_view.pt:87
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -58,11 +65,12 @@ msgstr "Vorschau"
 msgid "download"
 msgstr "herunterladen"
 
-#: ./ftw/file/content/file.py:57
+#: ./ftw/file/content/file.py:67
 msgid "help_document_date"
 msgstr "Geben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
 
-#: ./ftw/file/content/file.py:48
+#. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
+#: ./ftw/file/content/file.py:54
 msgid "help_origin_filename"
 msgstr "Geben Sie einen Dokumentnamen ein falls Sie den Namen der Originaldatei ändern möchten. Die Dateierweiterung (z.B. .docx) wird dabei nicht geändert."
 
@@ -72,12 +80,12 @@ msgid "label_anonymous_user"
 msgstr "Anonymer Benutzer"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:56
+#: ./ftw/file/content/file.py:66
 msgid "label_document_date"
 msgstr "Dokumentdatum"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:39
+#: ./ftw/file/content/file.py:44
 msgid "label_file"
 msgstr "Datei"
 
@@ -87,7 +95,7 @@ msgid "label_file_downloaded"
 msgstr "Datei heruntergeladen   "
 
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:47
+#: ./ftw/file/content/file.py:53
 msgid "label_origin_filename"
 msgstr "Dokumentname"
 

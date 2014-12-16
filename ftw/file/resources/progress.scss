@@ -1,0 +1,56 @@
+$barColor: #75ad0a;
+$overlayColor: #ffffff;
+$backColor: #000000;
+/* -------------------------------------
+ * Bar container
+ * ------------------------------------- */
+
+.progress-radial {
+  float: left;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid $backColor; // remove gradient color
+  background-color: $barColor; // default 100%
+  display: none;
+  .overlay {
+    display: block;
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: $overlayColor;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 90px;
+    font-size: 16px;
+    padding: 0;
+  }
+  #tick {
+    display: none;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    box-shadow: none;
+    width: 80px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
+  #fail {
+    display: none;
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    box-shadow: none;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+  }
+}

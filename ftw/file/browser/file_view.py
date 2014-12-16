@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
+from plone import api
 
 class FileView(BrowserView):
     """ View for ftw.file """
@@ -54,3 +55,7 @@ class FileView(BrowserView):
         if img:
             return img.tag()
         return None
+
+    def can_edit(self):
+        mtool = getToolByName(self.context, 'portal_membership')
+        return mtool.checkPermission('Modify portal content', self.context)

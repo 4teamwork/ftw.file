@@ -1,17 +1,17 @@
 Overview
 ========
 
-This is a file content for plone which provides some usefull functions,  such as:
+This is a file content for plone which provides some useful functions, such as:
 
 - Write downloader-name in history (ftw.journal)
 - Image preview
-- New FileField (stores more informations in the RESPONSE header)
+- New FileField (stores more information in the RESPONSE header)
 
 
 Install
 =======
 
-- Add ``ftw.file`` to yout buidlout configuration
+- Add ``ftw.file`` to your buildout configuration
 
 ::
 
