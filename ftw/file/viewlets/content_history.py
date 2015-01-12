@@ -1,10 +1,12 @@
 from Acquisition import aq_inner
 from plone.app.layout.viewlets import content
-from Products.CMFCore.utils import getToolByName
+from plone.app.layout.viewlets.content import ContentHistoryView
+from plone.batching.batch import Batch
 from Products.CMFCore.utils import _checkPermission
+from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.WorkflowCore import WorkflowException
-from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone.utils import log
+from Products.CMFPlone import PloneMessageFactory as _
 import AccessControl
 import logging
 
@@ -93,3 +95,16 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
                 severity=logging.DEBUG)
 
         return review_history
+
+    def history_batch(self):
+        batch_size = 50
+        if 'b_start' in self.context.REQUEST.form:
+            b_start = self.context.REQUEST.form['b_start']
+        else:
+            b_start = 0
+
+        batch = Batch(
+            ContentHistoryView(self.context, self.context.REQUEST).fullHistory(),
+            size=batch_size)
+
+        return batch
