@@ -58,9 +58,11 @@ var uploader = (function($) {
       unbindEvents();
       if (tests.dnd) {
         $(document).on('dragenter', function(event) {
-          dragging++;
-          overlay.overlay().load();
-          event.preventDefault();
+          if(event.dataTransfer.types[0] === 'Files') {
+            dragging++;
+            overlay.overlay().load();
+            event.preventDefault();
+          }
         }).on('drop', function(event) {
           event.preventDefault();
           $target = $(event.target);
