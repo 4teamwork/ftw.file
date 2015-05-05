@@ -34,4 +34,4 @@ class FtwImageScaling(ImageScaling):
                 raise
             else:
                 exception('could not scale "%r" of %r',
-                    field, self.context.absolute_url())
+                          field, self.context.absolute_url())

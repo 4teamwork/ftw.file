@@ -1,6 +1,7 @@
 from ftw.file.events.events import FileDownloadedEvent
 from plone.app.blob import field
 from plone.app.blob.download import handleIfModifiedSince, handleRequestRange
+from plone.app.blob.mixins import ImageFieldMixin
 from plone.registry.interfaces import IRegistry
 from urllib import quote
 from webdav.common import rfc1123_date
@@ -9,7 +10,7 @@ from zope.component import getUtility
 from zope.event import notify
 
 
-class FileField(field.FileField):
+class FileField(field.FileField, ImageFieldMixin):
 
     def index_html(self, instance, REQUEST=None, RESPONSE=None,
                    charset='utf-8', disposition='inline'):

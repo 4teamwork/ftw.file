@@ -42,4 +42,9 @@
       </configure>
     </configure>
 
+    <adapter
+        for="Products.Archetypes.interfaces.base.IBaseFolder"
+        provides="Products.TinyMCE.adapters.interfaces.JSONFolderListing.IJSONFolderListing"
+        factory=".tinymce.FtwJSONFolderListing"
+        />
 </configure>

@@ -239,4 +239,9 @@ class File(ATFile):
                 return True
         return False
 
+    def getField(self, key, *args, **kwargs):
+        if key == 'image':
+            key = 'file'
+        return super(File, self).getField(key, *args, **kwargs)
+
 atapi.registerType(File, PROJECTNAME)
