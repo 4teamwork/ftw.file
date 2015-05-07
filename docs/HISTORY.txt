@@ -5,6 +5,9 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
+- Make sure object modified is fired on quickupload.
+  [lknoepfel]
+
 - Check for file type before dragging
   [Kevin Bieri]
 
