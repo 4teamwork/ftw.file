@@ -1,9 +1,11 @@
 import json
 
-from Products.CMFCore.utils import getToolByName
 from plone import api
+from Products.CMFCore.utils import getToolByName
 from zExceptions import BadRequest
+from zope.event import notify
 from zope.i18n import translate
+from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
 
 from ftw.file import fileMessageFactory as _
@@ -31,4 +33,5 @@ class FileUpload(BrowserView):
                                   context=self.request)
             )
 
+        notify(ObjectModifiedEvent(self.context))
         return json.dumps({'success': True})
