@@ -33,7 +33,7 @@ setup(name='ftw.file',
 
       keywords='plone file contenttype',
       maintainer=maintainer,
-      author='4teamwork GmbH',
+      author='4teamwork AG',
       author_email='mailto:info@4teamwork.ch',
       url='https://github.com/4teamwork/ftw.file',
       license='GPL2',
