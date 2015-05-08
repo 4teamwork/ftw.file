@@ -27,9 +27,9 @@ Install
 Links
 =====
 
-- Package repository: https://github.com/4teamwork/ftw.file
-- Issue tracker: https://github.com/4teamwork/ftw.file/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.file
+- Github: https://github.com/4teamwork/ftw.file
+- Issues: https://github.com/4teamwork/ftw.file/issues
+- Pypi: http://pypi.python.org/pypi/ftw.file
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.file
 
 
