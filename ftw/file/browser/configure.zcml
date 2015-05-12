@@ -47,4 +47,10 @@
         provides="Products.TinyMCE.adapters.interfaces.JSONFolderListing.IJSONFolderListing"
         factory=".tinymce.FtwJSONFolderListing"
         />
+
+    <adapter
+        for="Products.Archetypes.interfaces.base.IBaseFolder"
+        provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
+        factory=".upload.TinyMCEFileUpload"
+        />
 </configure>

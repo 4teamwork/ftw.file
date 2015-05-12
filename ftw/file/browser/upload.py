@@ -1,7 +1,9 @@
 import json
 
 from plone import api
+from plone.app.uuid.utils import uuidToObject
 from Products.CMFCore.utils import getToolByName
+from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
 from zope.event import notify
 from zope.i18n import translate
@@ -35,3 +37,15 @@ class FileUpload(BrowserView):
 
         notify(ObjectModifiedEvent(self.context))
         return json.dumps({'success': True})
+
+
+class TinyMCEFileUpload(Upload):
+
+    def okMessage(self, path, folder):
+        ret = super(TinyMCEFileUpload, self).okMessage(path, folder)
+
+        obj = uuidToObject(path.split('/')[1])
+        if (obj.Title() == ''):
+            obj.setTitle(obj.getFilename())
+
+        return ret
