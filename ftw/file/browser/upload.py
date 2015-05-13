@@ -4,7 +4,6 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 from ftw.file.utils import is_image
 from plone import api
-from plone.app.uuid.utils import uuidToObject
 from plone.outputfilters.browser.resolveuid import uuidFor
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
@@ -55,21 +54,13 @@ class FileUpload(BrowserView):
 
 class TinyMCEFileUpload(Upload):
 
-    def okMessage(self, path, folder):
-        ret = super(TinyMCEFileUpload, self).okMessage(path, folder)
-
-        obj = uuidToObject(path.split('/')[1])
-        if (obj.Title() == ''):
-            obj.setTitle(obj.getFilename())
-
-        return ret
-
     def upload(self):
         """Adds uploaded file.
 
         Required params: uploadfile, uploadtitle, uploaddescription
         """
         context = aq_inner(self.context)
+        self.request = context.REQUEST
         if not IFolderish.providedBy(context):
             context = aq_parent(context)
 
@@ -83,7 +74,9 @@ class TinyMCEFileUpload(Upload):
 
         # check mime type to make sure an image is uploaded
         if not is_image(content_type):
-            return self.errorMessage(_('Only image upload allowed.'))
+            return self.errorMessage(
+                translate(_('Only image upload allowed.'),
+                          context=self.request))
 
         # Permission checks based on code by Danny Bloemendaal
 
@@ -119,10 +112,13 @@ class TinyMCEFileUpload(Upload):
             except ValueError:
                 continue
             except BadRequest:
-                return self.errorMessage(_("Bad filename, please rename."))
+                return self.errorMessage(
+                    translate(_("Bad filename, please rename."),
+                              context=self.request))
         else:
-            return self.errorMessage(
-                _("Not allowed to upload a file of this type to this folder"))
+            return self.errorMessage(translate(
+                _("Not allowed to upload a file of this type to this folder"),
+                context=self.request))
 
         obj = getattr(context, newid, None)
 
@@ -132,12 +128,6 @@ class TinyMCEFileUpload(Upload):
         title = request['uploadtitle']
         description = request['uploaddescription']
 
-        if title:
-            try:
-                obj.setTitle(title)
-            except AttributeError:
-                obj.title = title
-
         if description:
             try:
                 obj.setDescription(description)
@@ -146,8 +136,9 @@ class TinyMCEFileUpload(Upload):
 
         if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
             if not self.setDexterityImage(obj):
-                return self.errorMessage(
-                    _("The content-type '%s' has no image-field!" % metatype))
+                return self.errorMessage(translate(
+                    _("The content-type '%s' has no image-field!" % metatype),
+                    context=self.request))
         else:
             # set primary field
             pf = obj.getPrimaryField()
@@ -155,6 +146,11 @@ class TinyMCEFileUpload(Upload):
 
         if not obj:
             return self.errorMessage("Could not upload the file")
+
+        if title and title is not '':
+            obj.setTitle(title)
+        else:
+            obj.setTitle(obj.getFilename())
 
         obj.reindexObject()
         folder = obj.aq_parent.absolute_url()
