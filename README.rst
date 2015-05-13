@@ -23,6 +23,29 @@ Install
 
 - Install ``ftw.file`` in portal_setup
 
+Use `ftw.file` in TinyMCE
+-------------------------
+- Make sure `File` is addable on the Type you use TinyMCE.
+
+::
+
+    <object name="Meeting Item">
+        <property name="allowed_content_types">
+            <element value="File" />
+        </property>
+    </object>
+
+- Configure TinyMCE to create `ftw.file` Files with uploaded images. `tinymce.xml`:
+
+::
+
+    <object>
+     <resourcetypes>
+      <imageobjects purge="True">
+        <element value="File"/>
+      </imageobjects>
+     </resourcetypes>
+    </object>
 
 Links
 =====
