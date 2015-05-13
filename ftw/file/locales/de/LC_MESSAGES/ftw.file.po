@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-13 10:06+0000\n"
+"POT-Creation-Date: 2014-11-26 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,11 @@ msgstr "Aktion"
 msgid "Author"
 msgstr "Autor"
 
-#: ./ftw/file/browser/file_view.pt:77
+#: ./ftw/file/browser/upload.py:122
+msgid "Bad filename, please rename."
+msgstr "Ungültiger Dateiname. Bitte umbenennen."
+
+#: ./ftw/file/browser/file_view.pt:76
 msgid "Classification"
 msgstr "Abgelegt unter"
 
@@ -57,13 +61,25 @@ msgstr "Journal"
 msgid "Modified"
 msgstr "Letzte Änderung"
 
-#: ./ftw/file/browser/file_view.pt:88
+#: ./ftw/file/browser/upload.py:125
+msgid "Not allowed to upload a file of this type to this folder"
+msgstr "Ungenügende Berechtigungen um eine Datei hochzuladen."
+
+#: ./ftw/file/browser/upload.py:86
+msgid "Only image upload allowed."
+msgstr "Es dürfen nur Bilder hochgeladen werden."
+
+#: ./ftw/file/browser/file_view.pt:87
 msgid "Preview"
 msgstr "Vorschau"
 
 #: ./ftw/file/browser/file_view.pt:32
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Sie ESC um abzubrechen."
+
+#: ./ftw/file/browser/upload.py:144
+msgid "The content-type '%s' has no image-field!"
+msgstr "Der Inhaltstyp '%s' hat kein image-Feld!"
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"

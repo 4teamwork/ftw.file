@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-13 10:06+0000\n"
+"POT-Creation-Date: 2014-11-26 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,11 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:77
+#: ./ftw/file/browser/upload.py:122
+msgid "Bad filename, please rename."
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:76
 msgid "Classification"
 msgstr ""
 
@@ -57,8 +61,20 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:88
+#: ./ftw/file/browser/upload.py:125
+msgid "Not allowed to upload a file of this type to this folder"
+msgstr ""
+
+#: ./ftw/file/browser/upload.py:86
+msgid "Only image upload allowed."
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:87
 msgid "Preview"
+msgstr ""
+
+#: ./ftw/file/browser/upload.py:144
+msgid "The content-type '%s' has no image-field!"
 msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:32

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-13 10:06+0000\n"
+"POT-Creation-Date: 2014-11-26 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,11 @@ msgstr "Action"
 msgid "Author"
 msgstr "Auteur"
 
+#: ./ftw/file/browser/upload.py:122
+msgid "Bad filename, please rename."
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:76
 #: ./ftw/file/browser/file_view.pt:77
 msgid "Classification"
 msgstr "Mots-clés associés"
@@ -41,7 +46,7 @@ msgstr "Description"
 msgid "File"
 msgstr "Fichier"
 
-#: ./ftw/file/browser/upload.py:32
+#: ./ftw/file/browser/upload.py:30
 msgid "File replaced with Drag & Drop."
 msgstr "Fichier remplacé avec Drag & Drop."
 
@@ -57,6 +62,14 @@ msgstr "Historique"
 msgid "Modified"
 msgstr "Dernière modification"
 
+#: ./ftw/file/browser/upload.py:125
+msgid "Not allowed to upload a file of this type to this folder"
+msgstr ""
+
+#: ./ftw/file/browser/upload.py:86
+msgid "Only image upload allowed."
+msgstr ""
+
 #: ./ftw/file/browser/file_view.pt:88
 msgid "Preview"
 msgstr "Aperçu avant impression"
@@ -64,6 +77,10 @@ msgstr "Aperçu avant impression"
 #: ./ftw/file/browser/file_view.pt:32
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr "Vous êtes sur le point de remplacer le fichier existant. <br />Appuyez ESC pour annuler."
+
+#: ./ftw/file/browser/upload.py:144
+msgid "The content-type '%s' has no image-field!"
+msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"
