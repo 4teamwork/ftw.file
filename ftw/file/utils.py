@@ -30,8 +30,7 @@ def redirect_to_download_by_default(context):
             request.other['enable_border'] = border_was_force_enabled
 
 
-def is_image(file_):
-    mimetype = file_.getContentType()
+def is_image(mimetype):
     Image.init()
     open_handlers = Image.OPEN.keys()
     extensions = []

@@ -216,7 +216,8 @@ class File(ATFile):
             return res
 
     def is_image(self):
-        return is_image(self.getFile())
+        file_ = self.getFile()
+        return is_image(file_.getContentType())
 
     def getField(self, key, *args, **kwargs):
         if key == 'image':

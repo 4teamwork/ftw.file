@@ -2,7 +2,7 @@ import json
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from ftw.file.content.file import File
+from ftw.file.utils import is_image
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.outputfilters.browser.resolveuid import uuidFor
@@ -81,6 +81,10 @@ class TinyMCEFileUpload(Upload):
         content_type = request['uploadfile'].headers["Content-Type"]
         typename = ctr_tool.findTypeName(id, content_type, "")
 
+        # check mime type to make sure an image is uploaded
+        if not is_image(content_type):
+            return self.errorMessage(_('Only image upload allowed.'))
+
         # Permission checks based on code by Danny Bloemendaal
 
         # 1) check if the current user has permissions to add stuff
@@ -140,7 +144,7 @@ class TinyMCEFileUpload(Upload):
             except AttributeError:
                 obj.description = description
 
-        if Upload.HAS_DEXTERITY and IDexterityContent.providedBy(obj):
+        if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
             if not self.setDexterityImage(obj):
                 return self.errorMessage(
                     _("The content-type '%s' has no image-field!" % metatype))
