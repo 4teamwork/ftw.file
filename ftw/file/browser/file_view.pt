@@ -29,6 +29,7 @@
 <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
         <div tal:condition="view/can_edit" id="dropzone">
+            <p id="dropzone-replacement-warning" i18n:translate="">You're about to replace the existing file.<br />Press ESC to abort.</p>
             <div class="progress-radial" id="uploadprogress">
             </div>
             <img id="ftw-file-upload" src="++resource++ftw.file-upload.png" />
