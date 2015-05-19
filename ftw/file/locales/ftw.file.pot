@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-11-26 07:55+0000\n"
+"POT-Creation-Date: 2015-05-19 08:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Bad filename, please rename."
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:76
+#: ./ftw/file/browser/file_view.pt:77
 msgid "Classification"
 msgstr ""
 
@@ -48,7 +48,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:32
+#: ./ftw/file/browser/upload.py:48
 msgid "File replaced with Drag & Drop."
 msgstr ""
 
@@ -64,19 +64,23 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:125
+#: ./ftw/file/browser/upload.py:126
 msgid "Not allowed to upload a file of this type to this folder"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:86
+#: ./ftw/file/browser/upload.py:84
 msgid "Only image upload allowed."
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:87
+#: ./ftw/file/browser/upload.py:79
+msgid "Please save the object first to enable image upload."
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:88
 msgid "Preview"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:144
+#: ./ftw/file/browser/upload.py:146
 msgid "The content-type '%s' has no image-field!"
 msgstr ""
 

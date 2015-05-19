@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-11-26 07:55+0000\n"
+"POT-Creation-Date: 2015-05-19 08:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr "Autor"
 msgid "Bad filename, please rename."
 msgstr "Ungültiger Dateiname. Bitte umbenennen."
 
-#: ./ftw/file/browser/file_view.pt:76
+#: ./ftw/file/browser/file_view.pt:77
 msgid "Classification"
 msgstr "Abgelegt unter"
 
@@ -45,7 +45,7 @@ msgstr "Beschreibung"
 msgid "File"
 msgstr "Datei"
 
-#: ./ftw/file/browser/upload.py:32
+#: ./ftw/file/browser/upload.py:48
 msgid "File replaced with Drag & Drop."
 msgstr "Datei ersetzt mit Drag & Drop."
 
@@ -61,25 +61,29 @@ msgstr "Journal"
 msgid "Modified"
 msgstr "Letzte Änderung"
 
-#: ./ftw/file/browser/upload.py:125
+#: ./ftw/file/browser/upload.py:126
 msgid "Not allowed to upload a file of this type to this folder"
 msgstr "Ungenügende Berechtigungen um eine Datei hochzuladen."
 
-#: ./ftw/file/browser/upload.py:86
+#: ./ftw/file/browser/upload.py:84
 msgid "Only image upload allowed."
 msgstr "Es dürfen nur Bilder hochgeladen werden."
 
-#: ./ftw/file/browser/file_view.pt:87
+#: ./ftw/file/browser/upload.py:79
+msgid "Please save the object first to enable image upload."
+msgstr "Bitte speichern sie das Objekt um den Bildupload zu ermöglichen."
+
+#: ./ftw/file/browser/file_view.pt:88
 msgid "Preview"
 msgstr "Vorschau"
+
+#: ./ftw/file/browser/upload.py:146
+msgid "The content-type '%s' has no image-field!"
+msgstr "Der Inhaltstyp '%s' hat kein image-Feld!"
 
 #: ./ftw/file/browser/file_view.pt:32
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Sie ESC um abzubrechen."
-
-#: ./ftw/file/browser/upload.py:144
-msgid "The content-type '%s' has no image-field!"
-msgstr "Der Inhaltstyp '%s' hat kein image-Feld!"
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"

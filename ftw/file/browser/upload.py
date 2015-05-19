@@ -2,6 +2,7 @@ import json
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+from Acquisition import aq_base
 from ftw.file.utils import is_image
 from plone import api
 from plone.outputfilters.browser.resolveuid import uuidFor
@@ -71,6 +72,11 @@ class TinyMCEFileUpload(Upload):
         id = request['uploadfile'].filename
         content_type = request['uploadfile'].headers["Content-Type"]
         typename = ctr_tool.findTypeName(id, content_type, "")
+
+        # check if container is ready to store images
+        if self.is_temporary(context):
+            return self.errorMessage(
+                translate(_('Please save the object first to enable image upload.'), context=self.request))
 
         # check mime type to make sure an image is uploaded
         if not is_image(content_type):
@@ -160,3 +166,23 @@ class TinyMCEFileUpload(Upload):
         else:
             path = obj.absolute_url()
         return self.okMessage(path, folder)
+
+    def is_temporary(self, obj, checkId=True):
+        """Checks, whether an object is a temporary object (means it's in the
+        `portal_factory`) or has no acquisition chain set up.
+        Source: http://svn.plone.org/svn/collective/collective.indexing/trunk/collective/indexing/subscribers.py
+        """
+        parent = aq_parent(aq_inner(obj))
+        if parent is None:
+            return True
+        if checkId and getattr(obj, 'getId', None):
+            if getattr(aq_base(parent), obj.getId(), None) is None:
+                return True
+        isTemporary = getattr(obj, 'isTemporary', None)
+        if isTemporary is not None:
+            try:
+                if obj.isTemporary():
+                    return True
+            except TypeError:
+                return True # `isTemporary` on the `FactoryTool` expects 2 args
+        return False
