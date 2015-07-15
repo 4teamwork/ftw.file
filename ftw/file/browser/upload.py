@@ -66,13 +66,10 @@ class TinyMCEFileUpload(Upload):
             context = aq_parent(context)
 
         request = context.REQUEST
-        ctr_tool = getToolByName(context, 'content_type_registry')
         utility = getToolByName(context, 'portal_tinymce')
 
-        id = request['uploadfile'].filename
+        id_ = request['uploadfile'].filename
         content_type = request['uploadfile'].headers["Content-Type"]
-        typename = ctr_tool.findTypeName(id, content_type, "")
-
         # check if container is ready to store images
         if self.is_temporary(context):
             return self.errorMessage(
@@ -95,25 +92,21 @@ class TinyMCEFileUpload(Upload):
         # 2) check image types uploadable in folder.
         #    priority is to content_type_registry image type
         allowed_types = [t.id for t in context.getAllowedTypes()]
-        if typename in allowed_types:
-            uploadable_types = [typename]
-        else:
-            uploadable_types = []
+        tiny_image_types = utility.imageobjects.split('\n')
+        uploadable_types = []
+        for typename in tiny_image_types:
+            if typename in allowed_types:
+                uploadable_types.append(typename)
 
-        if content_type.split('/')[0] == 'image':
-            image_portal_types = utility.imageobjects.split('\n')
-            uploadable_types += [t for t in image_portal_types
-                                    if t in allowed_types
-                                       and t not in uploadable_types]
 
         # Get an unused filename without path
-        id = self.cleanupFilename(id)
+        id_ = self.cleanupFilename(id_)
 
         for metatype in uploadable_types:
             try:
-                newid = context.invokeFactory(type_name=metatype, id=id)
+                newid = context.invokeFactory(type_name=metatype, id=id_)
                 if newid is None or newid == '':
-                    newid = id
+                    newid = id_
                 break
             except ValueError:
                 continue
