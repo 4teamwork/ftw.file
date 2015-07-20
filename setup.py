@@ -14,6 +14,11 @@ tests_require = [
     'pyquery',
     ]
 
+bumblebee_require = [
+    'ftw.bumblebee',
+    'collective.prettydate'
+    ]
+
 setup(name='ftw.file',
       version=version,
       description="A file content type for gov usecases",
@@ -53,11 +58,12 @@ setup(name='ftw.file',
         'Pillow',
         'ftw.colorbox',
         'plone.api'
-        'ftw.bumblebee'
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
-      extras_require=dict(tests=tests_require),
+      extras_require=dict(
+        tests=tests_require,
+        bumblebee=bumblebee_require),
 
       entry_points="""
       # -*- Entry points: -*-

@@ -1,0 +1,132 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Proxima Nova W08', Arial, FreeSans, sans-serif;
+  color: #555;
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  height: 100%;
+}
+
+.preview {
+  display: block;
+  margin-right: 330px;
+  height: 100%;
+}
+
+.preview iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.sidebar {
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 25px;
+  bottom: 0px;
+  width: 300px;
+  padding-right: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+a {
+  color: #205C90;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.discreet {
+  font-size: 80%;
+  color: #AAA;
+}
+
+.filename {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-details a {
+  display: block;
+  padding-top: 5px;
+  border: 1px solid #DFDFDF;
+  border-radius: 3px;
+  background-color: #F8F8F8;
+  margin-top: 10px;
+  padding: 3px 5px;
+}
+
+.file-details a img {
+  vertical-align: -2px;
+}
+
+
+.document-details-link {
+  padding-bottom: 0px;
+}
+
+.document-details-link:before {
+  height: 16px;
+  width: 16px;
+  content: " ";
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAdElEQVR4AWM0lmTYz6DOgB3cZHBkNIn93/w/Ars84wrGWkajBMYKBg0cJtz430G0AnOGPIZoxin/ZeCS7QwnkRT802IMZWhkLGIQg8n/W8RwjYkUK4wYUhiygMZKwiUnMZwjSQFWQNiRxHiT8pAkGFkEoxsAZIFQo4rVFpgAAAAASUVORK5CYII9275e4da99a784928cab38121cf3bb37');
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+  padding: 0;
+  margin: 0;
+  margin-top: 1px;
+  margin-right: 5px;
+}
+
+
+.mimetype_icon {
+  padding-right: 5px;
+}
+
+
+.journal {
+  margin-top: 1em;
+}
+
+.journal-item {
+  position: relative;
+  border: 1px solid #DFDFDF;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 36px;
+  padding: 5px;
+  min-height: 36px;
+}
+
+.journal-item-actor {
+  position: absolute;
+  left: -36px;
+  margin-right: 5px;
+}
+
+.journal-item-download {
+  float: right;
+  opacity: 0.5;
+}
+
+.journal-item-download img {
+  height: 15px;
+}
+
+.journal-item-download:hover {
+  opacity: 1;
+}

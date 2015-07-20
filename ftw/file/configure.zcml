@@ -74,4 +74,8 @@
       file="resources/upload.png"
       name="ftw.file-upload.png" />
 
+<browser:resource
+      file="resources/file_preview.css"
+      name="ftw.file-preview.css" />
+
 </configure>

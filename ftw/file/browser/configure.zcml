@@ -12,6 +12,16 @@
         permission="zope2.View"
         />
 
+    <configure zcml:condition="installed ftw.bumblebee">
+        <browser:page
+            for="..interfaces.IFile"
+            name="file_preview"
+            class=".file_preview.FilePreview"
+            template="file_preview.pt"
+            permission="zope2.View"
+            />
+    </configure>
+
     <browser:page
         for="ftw.file.interfaces.IFile"
         name="images"
