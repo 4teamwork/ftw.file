@@ -53,6 +53,7 @@ setup(name='ftw.file',
         'Pillow',
         'ftw.colorbox',
         'plone.api'
+        'ftw.bumblebee'
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
