@@ -130,3 +130,16 @@ a:hover {
 .journal-item-download:hover {
   opacity: 1;
 }
+
+.portaltype-file .filePreview {
+  height: 720px;
+}
+
+.portaltype-file .filePreview .preview{
+  float: none;
+}
+
+.portaltype-file .filePreview .sidebar{
+  float: right;
+  position: relative;
+}

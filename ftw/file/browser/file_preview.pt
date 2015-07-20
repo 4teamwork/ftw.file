@@ -3,8 +3,7 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
-      i18n:domain="ftw.file"
-      tal:define="resource string:${here/portal_url}/++resource++ftw.file">
+      i18n:domain="ftw.file">
 
     <head>
         <title>File metadata</title>
@@ -108,7 +107,7 @@
         </div>
 
         <div class="preview">
-            <iframe tal:attributes="src view/get_preview_pdf_url" />
+            <iframe tal:attributes="src view/get_preview_pdf_url"></iframe>
         </div>
 
     </body>
