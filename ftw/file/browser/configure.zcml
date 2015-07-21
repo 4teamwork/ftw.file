@@ -4,7 +4,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.file">
 
-    <configure zcml:condition="not-installed ftw.bumblebee">
+    <!-- <configure zcml:condition="not-installed ftw.bumblebee"> -->
         <browser:page
             for="..interfaces.IFile"
             name="file_view"
@@ -12,7 +12,7 @@
             template="file_view.pt"
             permission="zope2.View"
             />
-    </configure>
+    <!-- </configure> -->
     <configure zcml:condition="installed ftw.bumblebee">
         <browser:page
             for="..interfaces.IFile"
