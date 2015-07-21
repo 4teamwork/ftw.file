@@ -165,10 +165,13 @@ a:hover {
 }
 
 .documentFirstHeading,
-#content div.documentByLine {
+#content div.documentByLine,
+.contentHistory,
+.contentHistoryTitle {
   display: none;
 }
 
 #content a.link-overlay {
   border-bottom: 0.1em solid #ccc !important;
 }
+
