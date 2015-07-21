@@ -5,6 +5,7 @@ version = '1.10.1.dev0'
 maintainer = 'Thomas Buchberger'
 
 tests_require = [
+    'ftw.file [bumblebee]',
     'ftw.activity',
     'ftw.builder',
     'ftw.testbrowser',
@@ -14,10 +15,13 @@ tests_require = [
     'pyquery',
     ]
 
-bumblebee_require = [
-    'ftw.bumblebee',
-    'collective.prettydate'
-    ]
+extras_require = {
+    'tests': tests_require,
+    'bumblebee': [
+        'ftw.bumblebee',
+        'collective.prettydate'
+        ]
+    }
 
 setup(name='ftw.file',
       version=version,
@@ -61,9 +65,7 @@ setup(name='ftw.file',
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
-      extras_require=dict(
-        tests=tests_require,
-        bumblebee=bumblebee_require),
+      extras_require=extras_require,
 
       entry_points="""
       # -*- Entry points: -*-
