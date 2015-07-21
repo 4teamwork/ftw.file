@@ -3,15 +3,15 @@ from ftw.bumblebee.mimetypes import get_mimetype_image_url
 from ftw.bumblebee.mimetypes import get_mimetype_title
 from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
+from ftw.file import fileMessageFactory as _
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
-from zope.interface import Interface
-from ftw.file import fileMessageFactory as _
-from zope.i18n import translate
+from ftw.file.interfaces import IFilePreviewActions
 
 
 def format_filesize(num):
@@ -22,28 +22,35 @@ def format_filesize(num):
     return "%.1f %s" % (num, 'GB')
 
 
-class IFilePreviewActions(Interface):
-    """
-    """
-
-
 class FilePreviewActions(object):
     """
     """
+    actions_to_list = [
+        'open_pdf',
+        'download_original',
+        'edit',
+        'delete']
 
     def __init__(self, context):
         self.context = context
         self.request = context.REQUEST
 
     def __call__(self):
-        return self._get_actions()
+        return self.get_actions()
 
-    def _get_actions(self):
-        return [
-            self._action_download_original(),
-            self._action_open_pdf(),
-            self._action_delete(),
-            self._action_edit()]
+    def get_actions(self):
+        actions_list = []
+        for action in self.actions_to_list:
+            action_function = getattr(self, "_action_{0}".format(action), None)
+            if not action_function:
+                continue
+
+            action_value = action_function()
+            if not action_value:
+                continue
+
+            actions_list.append(action_value)
+        return actions_list
 
     def _action_download_original(self):
         mimetype = self.context.getContentType()
@@ -62,6 +69,13 @@ class FilePreviewActions(object):
             }
 
     def _action_open_pdf(self):
+        mimetype = self.context.getContentType()
+        if mimetype == 'application/pdf':
+            return {}
+
+        if not is_mimetype_supported(mimetype):
+            return {}
+
         portal_url = getToolByName(self.context, 'portal_url')()
         fallback_url = portal_url + '/preview_not_available'
         return {
@@ -107,18 +121,7 @@ class FilePreview(BrowserView):
     """ View for ftw.file with document preview functionality"""
 
     def actions(self):
-        """"""
         return IFilePreviewActions(self.context)()
-
-    def thumbnail_url(self):
-        portal_url = getToolByName(self.context, 'portal_url')()
-        fallback_url = "{0}/spinner.gif".format(portal_url)
-        return get_representation_url('thumbnail', obj=self.context, fallback_url=fallback_url)
-
-    def preview_url(self):
-        portal_url = getToolByName(self.context, 'portal_url')()
-        fallback_url = "{0}/spinner.gif".format(portal_url)
-        return get_representation_url('preview', obj=self.context, fallback_url=fallback_url)
 
     def get_preview_pdf_url(self):
         portal_url = getToolByName(self.context, 'portal_url')()
@@ -137,23 +140,6 @@ class FilePreview(BrowserView):
                 'file_url': self.context.absolute_url() + '/download',
                 'filename': filename,
                 'filesize': format_filesize(filesize)}
-
-    def get_pdf_info(self):
-        mimetype = self.context.getContentType()
-        if mimetype == 'application/pdf':
-            return False
-
-        if not is_mimetype_supported(mimetype):
-            return False
-
-        portal_url = getToolByName(self.context, 'portal_url')()
-        fallback_url = portal_url + '/preview_not_available'
-        pdf_url = get_representation_url('pdf', obj=self.context,
-                                         fallback_url=fallback_url)
-
-        return {'mimetype_icon_url': get_mimetype_image_url('application/pdf'),
-                'mimetype_title': get_mimetype_title('application/pdf'),
-                'pdf_url': pdf_url}
 
     def get_journal(self):
         viewlet = self.get_content_history_viewlet()
