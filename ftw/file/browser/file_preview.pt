@@ -18,7 +18,8 @@
         <div class="sidebar">
             <div class="file-details"
                  tal:define="file_info view/get_file_info;
-                             pdf_info view/get_pdf_info">
+                             pdf_info view/get_pdf_info;
+                             actions view/actions">
 
                 <div class="filename" tal:content="here/Title" />
 
@@ -38,28 +39,19 @@
                           i18n:name="file_metadata_created" />
                 </div>
 
-                <a tal:attributes="href file_info/file_url"
-                   target="_top"
-                   class="original-file-link">
-                    <img tal:attributes="src file_info/mimetype_icon_url;
-                                         title file_info/mimetype_title;
-                                         alt file_info/mimetype_title"
-                         border="0"
-                         class="mimetype_icon" />
-                    <span i18n:translate="file_metadata_download_original">Download Original</span>
-                </a>
-
-                <a tal:condition="pdf_info"
-                   tal:attributes="href pdf_info/pdf_url"
-                   target="_top"
-                   class="pdf-file-link">
-                    <img tal:attributes="src pdf_info/mimetype_icon_url;
-                                         title pdf_info/mimetype_title;
-                                         alt pdf_info/mimetype_title"
-                         border="0"
-                         class="mimetype_icon" />
-                    <span i18n:translate="file_metadata_open_pdf">Open PDF</span>
-                </a>
+                <!-- Actions -->
+                <tal:actions repeat="action view/actions">
+                    <a tal:attributes="href action/url; target action/target; class action/cssclass">
+                        <tal:image condition="action/image">
+                            <img tal:attributes="src action/image/src;
+                                                 title action/image/title;
+                                                 alt action/image/alt;
+                                                 class action/image/cssclass" />
+                             </tal:image>
+                        <span tal:content="action/text">link text</span>
+                    </a>
+                </tal:actions>
+                <!-- End actions -->
 
                 <a tal:attributes="href string:${context/absolute_url}/view"
                    target="_top"

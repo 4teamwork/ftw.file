@@ -9,6 +9,9 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
+from zope.interface import Interface
+from ftw.file import fileMessageFactory as _
+from zope.i18n import translate
 
 
 def format_filesize(num):
@@ -19,8 +22,93 @@ def format_filesize(num):
     return "%.1f %s" % (num, 'GB')
 
 
+class IFilePreviewActions(Interface):
+    """
+    """
+
+
+class FilePreviewActions(object):
+    """
+    """
+
+    def __init__(self, context):
+        self.context = context
+        self.request = context.REQUEST
+
+    def __call__(self):
+        return self._get_actions()
+
+    def _get_actions(self):
+        return [
+            self._action_download_original(),
+            self._action_open_pdf(),
+            self._action_delete(),
+            self._action_edit()]
+
+    def _action_download_original(self):
+        mimetype = self.context.getContentType()
+        return {
+            'url': self.context.absolute_url() + '/download',
+            'target': '_top',
+            'cssclass': 'original-file-link',
+            'image': {'src': get_mimetype_image_url(mimetype),
+                      'title': get_mimetype_title(mimetype),
+                      'alt': get_mimetype_title(mimetype),
+                      'cssclass': 'mimetype_icon'},
+            'text': translate(_(
+                u'file_metadata_download_original',
+                default=u'Download Original'),
+                context=self.context.REQUEST)
+            }
+
+    def _action_open_pdf(self):
+        portal_url = getToolByName(self.context, 'portal_url')()
+        fallback_url = portal_url + '/preview_not_available'
+        return {
+            'url': get_representation_url(
+                'pdf', obj=self.context, fallback_url=fallback_url),
+            'target': '_top',
+            'cssclass': 'pdf-file-link',
+            'image': {'src': get_mimetype_image_url('application/pdf'),
+                      'title': get_mimetype_title('application/pdf'),
+                      'alt': get_mimetype_title('application/pdf'),
+                      'cssclass': 'mimetype_icon'},
+            'text': translate(
+                _(u'file_metadata_open_pdf', default=u'Open PDF'),
+                context=self.context.REQUEST)
+            }
+
+    def _action_delete(self):
+        return {
+            'url': "{0}/delete_confirmation".format(
+                self.context.absolute_url()),
+            'target': '_top',
+            'cssclass': 'delete-object-link',
+            'image': None,
+            'text': translate(
+                _(u'file_metadata_delete_file', default=u'Delete File'),
+                context=self.context.REQUEST)
+            }
+
+    def _action_edit(self):
+        return {
+            'url': "{0}/edit".format(
+                self.context.absolute_url()),
+            'target': '_top',
+            'cssclass': 'edit-object-link',
+            'image': None,
+            'text': translate(
+                _(u'file_metadata_edit_file', default=u'Edit File'),
+                context=self.context.REQUEST)
+            }
+
+
 class FilePreview(BrowserView):
     """ View for ftw.file with document preview functionality"""
+
+    def actions(self):
+        """"""
+        return IFilePreviewActions(self.context)()
 
     def thumbnail_url(self):
         portal_url = getToolByName(self.context, 'portal_url')()
@@ -32,6 +120,13 @@ class FilePreview(BrowserView):
         fallback_url = "{0}/spinner.gif".format(portal_url)
         return get_representation_url('preview', obj=self.context, fallback_url=fallback_url)
 
+    def get_preview_pdf_url(self):
+        portal_url = getToolByName(self.context, 'portal_url')()
+        preview_fallback = portal_url + '/iframe_preview_not_available'
+        return get_representation_url('preview',
+                                      obj=self.context,
+                                      fallback_url=preview_fallback)
+
     def get_file_info(self):
         mimetype = self.context.getContentType()
         filename = self.context.getPrimaryField().getFilename(self.context)
@@ -42,13 +137,6 @@ class FilePreview(BrowserView):
                 'file_url': self.context.absolute_url() + '/download',
                 'filename': filename,
                 'filesize': format_filesize(filesize)}
-
-    def get_preview_pdf_url(self):
-        portal_url = getToolByName(self.context, 'portal_url')()
-        preview_fallback = portal_url + '/iframe_preview_not_available'
-        return get_representation_url('preview',
-                                      obj=self.context,
-                                      fallback_url=preview_fallback)
 
     def get_pdf_info(self):
         mimetype = self.context.getContentType()

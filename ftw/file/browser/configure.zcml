@@ -29,6 +29,12 @@
             template="file_view_bumblebee.pt"
             permission="zope2.View"
             />
+
+         <adapter
+            for="ftw.file.interfaces.IFile"
+            factory=".file_preview.FilePreviewActions"
+            provides=".file_preview.IFilePreviewActions"
+            />
     </configure>
 
     <browser:page
