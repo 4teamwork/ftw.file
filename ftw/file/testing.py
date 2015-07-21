@@ -2,13 +2,14 @@ from ftw.builder.session import BuilderSession
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import FunctionalSplinterTesting
+from plone.app.testing import applyProfile
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.testing.z2 import installProduct
-from zope.configuration import xmlconfig
 from zope.component import eventtesting
+from zope.configuration import xmlconfig
+import os
 
 
 def functional_session_factory():
@@ -32,11 +33,22 @@ class FtwFileLayer(PloneSandboxLayer):
 
         installProduct(app, 'ftw.file')
 
+        os.environ['BUMBLEBEE_APP_ID'] = 'local'
+        os.environ['BUMBLEBEE_SECRET'] = 'secret'
+        os.environ['BUMBLEBEE_URL'] = 'http://bumblebee/api/v1'
+        os.environ['BUMBLEBEE_DEACTIVATE'] = "True"
+
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
         applyProfile(portal, 'plone.app.registry:default')
         applyProfile(portal, 'ftw.file:default')
         eventtesting.setUp()
+
+    def tearDownZope(self, app):
+        del os.environ['BUMBLEBEE_APP_ID']
+        del os.environ['BUMBLEBEE_SECRET']
+        del os.environ['BUMBLEBEE_URL']
+        del os.environ['BUMBLEBEE_DEACTIVATE']
 
 FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(
