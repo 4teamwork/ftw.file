@@ -168,3 +168,7 @@ a:hover {
 #content div.documentByLine {
   display: none;
 }
+
+#content a.link-overlay {
+  border-bottom: 0.1em solid #ccc !important;
+}
