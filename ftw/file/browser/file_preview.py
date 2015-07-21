@@ -4,6 +4,8 @@ from ftw.bumblebee.mimetypes import get_mimetype_title
 from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
+from ftw.file.interfaces import IFilePreviewActions
+from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
@@ -11,7 +13,6 @@ from zope.component import getUtility
 from zope.i18n import translate
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
-from ftw.file.interfaces import IFilePreviewActions
 
 
 def format_filesize(num):
@@ -93,6 +94,8 @@ class FilePreviewActions(object):
             }
 
     def _action_delete(self):
+        if not _checkPermission("Delete objects", self.context):
+            return {}
         return {
             'url': "{0}/delete_confirmation".format(
                 self.context.absolute_url()),
@@ -105,6 +108,8 @@ class FilePreviewActions(object):
             }
 
     def _action_edit(self):
+        if not _checkPermission("Modify portal content", self.context):
+            return {}
         return {
             'url': "{0}/edit".format(
                 self.context.absolute_url()),

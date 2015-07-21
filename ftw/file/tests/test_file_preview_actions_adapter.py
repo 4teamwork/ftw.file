@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.interfaces import IFilePreviewActions
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest2 import TestCase
@@ -136,6 +137,13 @@ class TestDeleteAction(TestCase):
         self.assertEqual(
             'http://nohost/plone/file/delete_confirmation', action.get('url'))
 
+    def test_do_not_show_action_if_user_has_no_delete_permission(self):
+        logout()
+        actions = IFilePreviewActions(self.dummyfile)
+        action = actions._action_delete()
+
+        self.assertEqual({}, action)
+
 
 class TestEditAction(TestCase):
 
@@ -151,3 +159,10 @@ class TestEditAction(TestCase):
         action = actions._action_edit()
 
         self.assertEqual('http://nohost/plone/file/edit', action.get('url'))
+
+    def test_do_not_show_action_if_user_has_no_edit_permission(self):
+        logout()
+        actions = IFilePreviewActions(self.dummyfile)
+        action = actions._action_edit()
+
+        self.assertEqual({}, action)
