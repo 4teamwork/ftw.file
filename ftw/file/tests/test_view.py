@@ -1,13 +1,13 @@
-import transaction
-
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
-from Products.CMFCore.utils import getToolByName
-from plone.app.testing import setRoles
+from plone.browserlayer.utils import unregister_layer
 from plone.testing.z2 import Browser
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
+import transaction
 
 
 class TestFileName(TestCase):
@@ -23,6 +23,9 @@ class TestFileName(TestCase):
 
         self.portal.invokeFactory('File', 'f1')
         self.context = self.portal.f1
+
+        unregister_layer('ftw_bumblebee')
+
         transaction.commit()
         self._set_allowAnonymousViewAbout_property(True)
 

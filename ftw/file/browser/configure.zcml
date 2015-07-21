@@ -4,15 +4,13 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.file">
 
-    <!-- <configure zcml:condition="not-installed ftw.bumblebee"> -->
-        <browser:page
-            for="..interfaces.IFile"
-            name="file_view"
-            class=".file_view.FileView"
-            template="file_view.pt"
-            permission="zope2.View"
-            />
-    <!-- </configure> -->
+    <browser:page
+        for="..interfaces.IFile"
+        name="file_view"
+        class=".file_view.FileView"
+        template="file_view.pt"
+        permission="zope2.View"
+        />
     <configure zcml:condition="installed ftw.bumblebee">
         <browser:page
             for="..interfaces.IFile"
@@ -24,10 +22,11 @@
 
         <browser:page
             for="..interfaces.IFile"
-            name="file_view_bumblebee"
+            name="file_view"
             class=".file_view.FileViewBumblebee"
             template="file_view_bumblebee.pt"
             permission="zope2.View"
+            layer="ftw.bumblebee.interfaces.IFtwBumblebeeLayer"
             />
 
          <adapter

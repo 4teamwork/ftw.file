@@ -1,14 +1,13 @@
-import transaction
-
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
-from Products.CMFCore.utils import getToolByName
-from plone.app.testing import setRoles
+from plone.browserlayer.utils import unregister_layer
 from plone.testing.z2 import Browser
-from unittest2 import TestCase
 from StringIO import StringIO
+from unittest2 import TestCase
+import transaction
 
 
 class TestFileOverlay(TestCase):
@@ -23,12 +22,15 @@ class TestFileOverlay(TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
         self.file_ = StringIO(
-                    'GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00'
-                    '\x00!\xf9\x04\x04\x00\x00\x00\x00,\x00\x00\x00\x00\x01'
-                    '\x00\x01\x00\x00\x02\x02D\x01\x00;')
+            'GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00'
+            '\x00!\xf9\x04\x04\x00\x00\x00\x00,\x00\x00\x00\x00\x01'
+            '\x00\x01\x00\x00\x02\x02D\x01\x00;')
 
         self.portal.invokeFactory('File', 'f1', file=self.file_)
         self.context = self.portal.f1
+
+        unregister_layer('ftw_bumblebee')
+
         transaction.commit()
 
     def login(self):
