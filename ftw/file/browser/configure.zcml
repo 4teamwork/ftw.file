@@ -29,6 +29,14 @@
             layer="ftw.bumblebee.interfaces.IFtwBumblebeeLayer"
             />
 
+        <browser:page
+            for="..interfaces.IFile"
+            name="version_preview"
+            class=".version_preview.VersionPreview"
+            template="version_preview.pt"
+            permission="zope2.View"
+            />
+
          <adapter
             for="ftw.file.interfaces.IFile"
             factory=".file_preview.FilePreviewActions"

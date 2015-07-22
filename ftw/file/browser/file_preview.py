@@ -146,6 +146,11 @@ class FilePreview(BrowserView):
                 'filename': filename,
                 'filesize': format_filesize(filesize)}
 
+    def get_version_preview_image_url(self, version_id):
+        prtool = getToolByName(self.context, 'portal_repository')
+        version_context = prtool.retrieve(self.context, version_id).object
+        return get_representation_url('thumbnail', obj=version_context)
+
     def get_journal(self):
         viewlet = self.get_content_history_viewlet()
         date_utility = getUtility(IPrettyDate)

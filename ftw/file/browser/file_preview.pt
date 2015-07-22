@@ -56,39 +56,31 @@
 
             <div class="journal">
                 <b i18n:translate="file_metadata_journal_heading">Journal</b>
+                <tal:journal repeat="item view/get_journal">
+                    <a class="journal-item-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                        <div class="journal-item">
+                            <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
+                                <img tal:attributes="src python:view.get_version_preview_image_url(item.get('version_id'))" />
+                            </div>
+                            <div tal:content="item/relative_time"
+                                 tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"
+                                 class="journal-item-time discreet">
+                            </div>
 
-                <div class="journal-item" tal:repeat="item view/get_journal">
-                    <div class="journal-item-actor">
-                        <tal:ACTOR tal:define="actor item/actor" tal:condition="actor">
-                            <!-- <img tal:attributes="src string:${actor/portrait_url}?size=30;
-                                                 title actor/fullname"
-                                 border="0" /> -->
-                        </tal:ACTOR>
-                    </div>
+                            <div tal:content="item/action"
+                                 i18n:translate=""
+                                 i18n:domain="plone"
+                                 class="journal-item-action">
+                            </div>
 
-                    <a class="journal-item-download"
-                       tal:condition="item/downloadable_version"
-                       tal:attributes="href string:${context/absolute_url}/file_download_version?version_id=${item/version_id}">
-                        <span class="downloadVersion"></span><img tal:attributes="src string:${resource}/download.png"
-                             title="Download this version"
-                             i18n:attributes="title file_metadata_download_version"
-                             border="0" />
+                            <div tal:content="item/comment"
+                                 class="journal-item-comment discreet">
+                            </div>
+
+                            <span class="clearfix"><!-- --></span>
+                        </div>
                     </a>
-
-                    <div tal:content="item/relative_time"
-                         tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"
-                         class="journal-item-time discreet" />
-
-                    <div tal:content="item/action"
-                         i18n:translate=""
-                         i18n:domain="plone"
-                         class="journal-item-action" />
-
-                    <div tal:content="item/comment"
-                         class="journal-item-comment discreet" />
-
-                    <span class="clearfix"><!-- --></span>
-                </div>
+                </tal:journal>
             </div>
         </div>
 

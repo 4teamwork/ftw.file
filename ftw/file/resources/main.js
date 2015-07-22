@@ -13,4 +13,12 @@ $(document).ready(function(){
         width:'50%'
     }
     );
+
+   $('.journal > a').prepOverlay({
+        subtype: 'ajax',
+        width: '90%',
+        height: '90%',
+        cssclass: 'overlay-version-preview',
+    });
+
 });

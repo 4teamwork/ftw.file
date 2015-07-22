@@ -132,18 +132,35 @@ a:hover {
   border-radius: 4px;
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-left: 36px;
   padding: 5px;
   min-height: 36px;
+  opacity: 0.65;
+  cursor: default;
+}
+.journal-item:hover {
+  opacity: 1;
+  background-color: #F8F8F8;
 }
 
+.journal-item-link .journal-item {
+  cursor: pointer;
+}
 .journal-item-actor {
   position: absolute;
   left: -36px;
   margin-right: 5px;
 }
 
-.journal-item-download {
+.journal-version-preview-image {
+  height: 80%;
+  position: absolute;
+  right: 5px;
+}
+.journal-version-preview-image img{
+  height: 100%;
+}
+.journal-item-download,
+.journal-version-preview {
   float: right;
   opacity: 0.5;
 }
