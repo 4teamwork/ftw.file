@@ -56,31 +56,33 @@
 
             <div class="journal">
                 <b i18n:translate="file_metadata_journal_heading">Journal</b>
-                <tal:journal repeat="item view/get_journal">
-                    <a class="journal-item-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                <div class="journalListing">
+                    <tal:journal repeat="item view/get_journal">
                         <div class="journal-item">
-                            <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
-                                <img tal:attributes="src python:view.get_version_preview_image_url(item.get('version_id'))" />
-                            </div>
-                            <div tal:content="item/relative_time"
-                                 tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"
-                                 class="journal-item-time discreet">
-                            </div>
+                            <a class="journal-item-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                                <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
+                                    <img tal:attributes="src python:view.get_version_preview_image_url(item.get('version_id'))" />
+                                </div>
+                                <div tal:content="item/relative_time"
+                                     tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"
+                                     class="journal-item-time discreet">
+                                </div>
 
-                            <div tal:content="item/action"
-                                 i18n:translate=""
-                                 i18n:domain="plone"
-                                 class="journal-item-action">
-                            </div>
+                                <div tal:content="item/action"
+                                     i18n:translate=""
+                                     i18n:domain="plone"
+                                     class="journal-item-action">
+                                </div>
 
-                            <div tal:content="item/comment"
-                                 class="journal-item-comment discreet">
-                            </div>
+                                <div tal:content="item/comment"
+                                     class="journal-item-comment discreet">
+                                </div>
 
-                            <span class="clearfix"><!-- --></span>
+                                <span class="clearfix"><!-- --></span>
+                            </a>
                         </div>
-                    </a>
-                </tal:journal>
+                    </tal:journal>
+                </div>
             </div>
         </div>
 

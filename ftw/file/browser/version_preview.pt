@@ -1,7 +1,7 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="python: 1"
-      i18n:domain="ftw.simplelayout">
+      i18n:domain="ftw.file">
 
     <div class="filePreview" tal:content="structure context/file_preview"></div>
 </html>

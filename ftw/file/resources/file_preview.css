@@ -176,11 +176,9 @@ a:hover {
 .portaltype-file .filePreview {
   height: 720px;
 }
-
-.portaltype-file .filePreview .preview{
-
+.portaltype-file .file-version-preview-colorbox .filePreview {
+  height: 100%;
 }
-
 .documentFirstHeading,
 #content div.documentByLine,
 .contentHistory,
@@ -192,3 +190,14 @@ a:hover {
   border-bottom: 0.1em solid #ccc !important;
 }
 
+.file-version-preview-colorbox .journal,
+.file-version-preview-colorbox .delete-object-link,
+.file-version-preview-colorbox .edit-object-link,
+.file-version-preview-colorbox .original-file-link {
+  display: none;
+}
+.journalListing {
+  overflow-y: scroll;
+  height: 350px;
+  margin-top: 10px;
+}

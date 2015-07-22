@@ -5,6 +5,7 @@ from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.interfaces import IFilePreviewActions
+from plone.app.layout.viewlets.content import ContentHistoryView
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
@@ -30,7 +31,8 @@ class FilePreviewActions(object):
         'open_pdf',
         'download_original',
         'edit',
-        'delete']
+        'delete',
+        'download_this_version']
 
     def __init__(self, context):
         self.context = context
@@ -121,6 +123,26 @@ class FilePreviewActions(object):
                 context=self.context.REQUEST)
             }
 
+    def _action_download_this_version(self):
+        if not hasattr(self.context, 'versioned_context'):
+            return {}
+
+        mimetype = self.context.getContentType()
+        return {
+            'url': "{0}/file_download_version?version_id={1}".format(
+                self.context.absolute_url(), self.context.version_id),
+            'target': '_top',
+            'cssclass': 'download-version-link',
+            'image': {'src': get_mimetype_image_url(mimetype),
+                      'title': get_mimetype_title(mimetype),
+                      'alt': get_mimetype_title(mimetype),
+                      'cssclass': 'mimetype_icon'},
+            'text': translate(
+                _(u'file_metadata_download_this_version',
+                  default=u'Download this version'),
+                context=self.context.REQUEST)
+            }
+
 
 class FilePreview(BrowserView):
     """ View for ftw.file with document preview functionality"""
@@ -149,6 +171,7 @@ class FilePreview(BrowserView):
     def get_version_preview_image_url(self, version_id):
         prtool = getToolByName(self.context, 'portal_repository')
         version_context = prtool.retrieve(self.context, version_id).object
+
         return get_representation_url('thumbnail', obj=version_context)
 
     def get_journal(self):

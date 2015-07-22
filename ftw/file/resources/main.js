@@ -14,11 +14,25 @@ $(document).ready(function(){
     }
     );
 
-   $('.journal > a').prepOverlay({
-        subtype: 'ajax',
-        width: '90%',
-        height: '90%',
-        cssclass: 'overlay-version-preview',
-    });
+   $('.journal-item > a').colorbox({
+      iframe: false,
+      width: '90%',
+      height: '90%',
 
+      trapFocus: true,
+      fixed: true,
+      reposition: false,
+      scrolling: true,
+
+      transition: 'none',
+      onOpen: function() {
+        $('body').css('overflow', 'hidden');
+        $('#colorbox').addClass('file-version-preview-colorbox');
+        $('#cboxOverlay').addClass('file-version-preview-colorbox-background');
+      },
+
+      onCleanup: function() {
+        $('body').css('overflow', 'scroll');
+      }
+    });
 });
