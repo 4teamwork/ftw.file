@@ -50,7 +50,8 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
         name='originFilename',
         required=False,
         widget=StringWidget(
-            helper_js=("++resource++hideOriginFilenameField.js", ),
+            helper_js=(
+                "++resource++ftw.file.resources/hideOriginFilenameField.js", ),
             label=_(u'label_origin_filename', default=u'Filename'),
             description=_(
                 u'help_origin_filename',

@@ -42,40 +42,9 @@
       for="ftw.file.fields.FileField"
       factory="plone.app.imaging.scaling.ImageScaleFactory" />
 
-  <browser:resource
-      file="resources/hideOriginFilenameField.js"
-      name="hideOriginFilenameField.js" />
-
-  <browser:resource
-      file="resources/uploader.js"
-      name="ftw.file-uploader.js" />
-
-  <browser:resource
-      file="resources/main.js"
-      name="ftw.file-main.js" />
-
-  <browser:resource
-      file="resources/progress.js"
-      name="ftw.file-progress.js" />
-
-  <browser:resource
-      file="resources/uploader.css"
-      name="ftw.file-uploader.css" />
-
-  <browser:resource
-      file="resources/fail.svg"
-      name="ftw.file-fail.svg" />
-
-  <browser:resource
-      file="resources/tick.png"
-      name="ftw.file-tick.png" />
-
-<browser:resource
-      file="resources/upload.png"
-      name="ftw.file-upload.png" />
-
-<browser:resource
-      file="resources/file_preview.css"
-      name="ftw.file-preview.css" />
+  <browser:resourceDirectory
+      name="ftw.file.resources"
+      directory="resources"
+      />
 
 </configure>

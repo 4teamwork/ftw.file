@@ -8,13 +8,13 @@
 
 <head>
 <metal:css fill-slot="style_slot">
-    <link rel="stylesheet" type="text/css" href="++resource++ftw.file-uploader.css">
+    <link rel="stylesheet" type="text/css" href="++resource++ftw.file.resources/uploader.css">
 </metal:css>
 
 <metal:js fill-slot="javascript_head_slot" tal:condition="view/can_edit">
-    <script src="++resource++ftw.file-progress.js"></script>
-    <script src="++resource++ftw.file-uploader.js"></script>
-    <script src="++resource++ftw.file-main.js"></script>
+    <script src="++resource++ftw.file.resources/progress.js"></script>
+    <script src="++resource++ftw.file.resources/uploader.js"></script>
+    <script src="++resource++ftw.file.resources/main.js"></script>
 </metal:js>
 
 
@@ -32,7 +32,7 @@
             <p id="dropzone-replacement-warning" i18n:translate="">You're about to replace the existing file.<br />Press ESC to abort.</p>
             <div class="progress-radial" id="uploadprogress">
             </div>
-            <img id="ftw-file-upload" src="++resource++ftw.file-upload.png" />
+            <img id="ftw-file-upload" src="++resource++ftw.file.resources/upload.png" />
         </div>
 
         <p tal:condition="view/can_edit" id="dnd-file-replacement-hint" i18n:translate="">Hint: Drag and drop a file from your computer into the browser in order to replace the file.</p>

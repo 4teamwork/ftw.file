@@ -3,13 +3,14 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
-      i18n:domain="ftw.file">
+      i18n:domain="ftw.file"
+      tal:define="resource string:${here/portal_url}/++resource++ftw.file.resources">
 
     <head>
         <link rel="stylesheet" type="text/css" media="screen"
               href="https://fast.fonts.net/cssapi/05ba7042-9884-4870-9fe8-095c4f2e9cc6.css" />
         <link rel="stylesheet" type="text/css" media="screen"
-              href="++resource++ftw.file-preview.css"/>
+              href="++resource++ftw.file.resources/file_preview.css"/>
     </head>
 
     <body>
@@ -59,16 +60,16 @@
                 <div class="journal-item" tal:repeat="item view/get_journal">
                     <div class="journal-item-actor">
                         <tal:ACTOR tal:define="actor item/actor" tal:condition="actor">
-                            <img tal:attributes="src string:${actor/portrait_url}?size=30;
+                            <!-- <img tal:attributes="src string:${actor/portrait_url}?size=30;
                                                  title actor/fullname"
-                                 border="0" />
+                                 border="0" /> -->
                         </tal:ACTOR>
                     </div>
 
                     <a class="journal-item-download"
                        tal:condition="item/downloadable_version"
                        tal:attributes="href string:${context/absolute_url}/file_download_version?version_id=${item/version_id}">
-                        <img tal:attributes="src string:${resource}/download.png"
+                        <span class="downloadVersion"></span><img tal:attributes="src string:${resource}/download.png"
                              title="Download this version"
                              i18n:attributes="title file_metadata_download_version"
                              border="0" />
