@@ -23,6 +23,8 @@ var showmore = (function($) {
       $('.journalItem:lt('+ shown +')').css("display", "block");
       if(shown >= journalitems){
         button.hide();
+      }else{
+        button.show();
       }
     },
     initOverlays = function() {

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-23 08:52+0000\n"
+"POT-Creation-Date: 2015-07-23 15:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:32
+#: ./ftw/file/browser/upload.py:33
 msgid "File replaced with Drag & Drop."
 msgstr ""
 
@@ -65,12 +65,17 @@ msgid "Preview"
 msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:32
-#: ./ftw/file/browser/file_view_bumblebee.pt:28
+#: ./ftw/file/browser/file_view_bumblebee.pt:29
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:32
 msgid "download"
+msgstr ""
+
+#. Default: "Show more"
+#: ./ftw/file/browser/file_preview.pt:112
+msgid "filePreviewShowMore"
 msgstr ""
 
 #. Default: "Author: ${file_metadata_author}"
@@ -84,7 +89,7 @@ msgid "file_metadata_dates"
 msgstr ""
 
 #. Default: "Delete File"
-#: ./ftw/file/browser/file_preview.py:109
+#: ./ftw/file/browser/file_preview.py:100
 msgid "file_metadata_delete_file"
 msgstr ""
 
@@ -99,17 +104,17 @@ msgid "file_metadata_documentdate"
 msgstr ""
 
 #. Default: "Download Original"
-#: ./ftw/file/browser/file_preview.py:69
+#: ./ftw/file/browser/file_preview.py:60
 msgid "file_metadata_download_original"
 msgstr ""
 
 #. Default: "Download this version"
-#: ./ftw/file/browser/file_preview.py:142
+#: ./ftw/file/browser/file_preview.py:131
 msgid "file_metadata_download_this_version"
 msgstr ""
 
 #. Default: "Edit File"
-#: ./ftw/file/browser/file_preview.py:123
+#: ./ftw/file/browser/file_preview.py:115
 msgid "file_metadata_edit_file"
 msgstr ""
 
@@ -124,7 +129,7 @@ msgid "file_metadata_journal_heading"
 msgstr ""
 
 #. Default: "Open PDF"
-#: ./ftw/file/browser/file_preview.py:95
+#: ./ftw/file/browser/file_preview.py:86
 msgid "file_metadata_open_pdf"
 msgstr ""
 
