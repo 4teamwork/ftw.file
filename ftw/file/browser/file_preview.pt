@@ -16,30 +16,57 @@
     <body>
 
         <div class="sidebar">
+
+            <!-- Detail information -->
             <div class="file-details"
-                 tal:define="file_info view/get_file_info;
-                             actions view/actions">
+                 tal:define="file_info view/get_file_info;">
 
-                <!-- Detail information -->
                 <h3  tal:content="here/Title">Title</h3>
-                <div class="filedata discreet">
-                    <span tal:content="file_info/mimetype_title" />
-                    &mdash;
-                    <span tal:content="file_info/filesize" />
+
+                <!-- Mimetype and filesize -->
+                <div class="detailItem discreet infoMimeAndSize">
+                    <span tal:content="file_info/mimetype_title"></span>
+                    <span tal:content="file_info/filesize"></span>
                 </div>
 
-                <div class="discreet"
-                     i18n:translate="file_metadata_dates">
-                    Modified
-                    <span tal:replace="python:here.toLocalizedTime(context.modified())"
-                          i18n:name="file_metadata_modified" />,
-                    created
-                    <span tal:replace="python:here.toLocalizedTime(context.created())"
-                          i18n:name="file_metadata_created" />
+                <!-- Filename -->
+                <div class="detailItem discreet infoFilename" i18n:translate="file_metadata_filenname_info">
+                    Filename:
+                    <span i18n:name="file_medatata_filename" tal:content="file_info/filename"></span>
                 </div>
-                <!-- End detail information -->
 
-                <!-- Edit Actions -->
+                <!-- Modified-date -->
+                <div class="detailItem discreet infoModified" i18n:translate="file_metadata_dates">
+                    Modified:
+                    <span tal:content="file_info/modified"
+                          i18n:name="file_metadata_modified"></span>
+                </div>
+                <!-- Creation-date -->
+                <div class="detailItem discreet infoCreation" i18n:translate="file_metadata_documentdate">
+                    Documentdate:
+                    <span tal:content="file_info/created"
+                          i18n:name="file_metadata_created"></span>
+                </div>
+                <!-- Author -->
+                <div tal:condition="view/show_author" class="detailItem discreet infoAuthor" i18n:translate="file_metadata_author">
+                    Author:
+                    <span tal:define="author file_info/author" i18n:name="file_metadata_author">
+                      <span tal:condition="not: author/url" tal:content="author/name"></span>
+                      <a tal:condition="author/url"
+                       tal:attributes="href author/url"
+                       tal:content="author/name" />
+                    </span>
+                </div>
+                <!-- Description -->
+                <div tal:condition="context/Description" class="detailItem discreet infoDescription" i18n:translate="file_metadata_description">
+                    Description:
+                    <span tal:content="context/Description" i18n:name="file_metadata_description"></span>
+                </div>
+            </div>
+            <!-- End detail information -->
+
+            <!-- Edit Actions -->
+            <div class="fileActions">
                 <tal:actions repeat="action view/actions">
                     <a tal:attributes="href action/url; target action/target; class action/cssclass">
                         <tal:image condition="action/image">
@@ -51,13 +78,14 @@
                         <span tal:content="action/text">link text</span>
                     </a>
                 </tal:actions>
-                <!-- End actions -->
             </div>
+            <!-- End actions -->
 
-            <div class="journal">
+            <!-- Journal -->
+            <div class="journal" tal:define="journal view/get_journal" tal:condition="journal">
                 <b i18n:translate="file_metadata_journal_heading">Journal</b>
                 <div class="journalListing">
-                    <tal:journal repeat="item view/get_journal">
+                    <tal:journal repeat="item journal">
                         <div class="journal-item">
                             <a class="journal-item-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
                                 <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
@@ -69,7 +97,7 @@
                                 <div class="journal-item-time discreet"
                                      i18n:translate="file_preview_time_and_actor">
                                      <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
-                                     <span tal:replace="item/actor/fullname" i18n:name="file_preview_modified_by" />:
+                                     <span tal:replace="item/actor" i18n:name="file_preview_modified_by" />:
                                 </div>
                                 <div tal:content="item/comment"
                                      class="journal-item-comment discreet">
@@ -81,6 +109,8 @@
                     </tal:journal>
                 </div>
             </div>
+            <!-- End journal -->
+
         </div>
 
         <div class="preview">

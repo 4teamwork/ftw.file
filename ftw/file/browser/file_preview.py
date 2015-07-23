@@ -5,15 +5,14 @@ from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.interfaces import IFilePreviewActions
-from plone.app.layout.viewlets.content import ContentHistoryView
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.i18n import translate
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
+from ftw.file.browser.file_view import FileView
 
 
 def format_filesize(num):
@@ -25,6 +24,7 @@ def format_filesize(num):
 
 
 class FilePreviewActions(object):
+
     """
     """
     actions_to_list = [
@@ -69,7 +69,7 @@ class FilePreviewActions(object):
                 u'file_metadata_download_original',
                 default=u'Download Original'),
                 context=self.context.REQUEST)
-            }
+        }
 
     def _action_open_pdf(self):
         mimetype = self.context.getContentType()
@@ -93,7 +93,7 @@ class FilePreviewActions(object):
             'text': translate(
                 _(u'file_metadata_open_pdf', default=u'Open PDF'),
                 context=self.context.REQUEST)
-            }
+        }
 
     def _action_delete(self):
         if not _checkPermission("Delete objects", self.context):
@@ -107,7 +107,7 @@ class FilePreviewActions(object):
             'text': translate(
                 _(u'file_metadata_delete_file', default=u'Delete File'),
                 context=self.context.REQUEST)
-            }
+        }
 
     def _action_edit(self):
         if not _checkPermission("Modify portal content", self.context):
@@ -121,7 +121,7 @@ class FilePreviewActions(object):
             'text': translate(
                 _(u'file_metadata_edit_file', default=u'Edit File'),
                 context=self.context.REQUEST)
-            }
+        }
 
     def _action_download_this_version(self):
         if not hasattr(self.context, 'versioned_context'):
@@ -141,21 +141,25 @@ class FilePreviewActions(object):
                 _(u'file_metadata_download_this_version',
                   default=u'Download this version'),
                 context=self.context.REQUEST)
-            }
+        }
 
 
-class FilePreview(BrowserView):
+class FilePreview(FileView):
+
     """ View for ftw.file with document preview functionality"""
 
     def actions(self):
         return IFilePreviewActions(self.context)()
 
-    def get_preview_pdf_url(self):
+    def get_fallback_url(self):
         portal_url = getToolByName(self.context, 'portal_url')()
-        preview_fallback = portal_url + '/iframe_preview_not_available'
+        return "{0}/++resource++ftw.file.resources/image_not_found.png".format(
+            portal_url)
+
+    def get_preview_pdf_url(self):
         return get_representation_url('preview',
                                       obj=self.context,
-                                      fallback_url=preview_fallback)
+                                      fallback_url=self.get_fallback_url())
 
     def get_file_info(self):
         mimetype = self.context.getContentType()
@@ -166,31 +170,34 @@ class FilePreview(BrowserView):
                 'mimetype_title': get_mimetype_title(mimetype),
                 'file_url': self.context.absolute_url() + '/download',
                 'filename': filename,
-                'filesize': format_filesize(filesize)}
+                'filesize': format_filesize(filesize),
+                'modified': self.get_modified_date(),
+                'created': self.get_document_date(),
+                'author': self.get_author()}
 
     def get_version_preview_image_url(self, version_id):
         prtool = getToolByName(self.context, 'portal_repository')
         version_context = prtool.retrieve(self.context, version_id).object
 
-        return get_representation_url('thumbnail', obj=version_context)
+        return get_representation_url(
+            'thumbnail',
+            obj=version_context,
+            fallback_url=self.get_fallback_url())
 
     def get_journal(self):
         viewlet = self.get_content_history_viewlet()
         date_utility = getUtility(IPrettyDate)
-
+        journal_items = []
         for item in viewlet.fullHistory() or ():
-            comment = item['comments']
-            if comment.strip() == '-':
-                comment = ''
-
-            yield {'time': item['time'],
-                   'relative_time': date_utility.date(item['time']),
-                   'action': item['transition_title'],
-                   'actor': self.get_user_info(item['actorid']),
-                   'actor_name': item['actorid'],
-                   'comment': comment,
-                   'downloadable_version': item['type'] == 'versioning',
-                   'version_id': item.get('version_id')}
+            journal_items.append({
+                'time': item['time'],
+                'relative_time': date_utility.date(item['time']),
+                'action': item['transition_title'],
+                'actor': self.get_user_info(item['actorid']),
+                'comment': item['comments'],
+                'downloadable_version': item['type'] == 'versioning',
+                'version_id': item.get('version_id')})
+        return journal_items
 
     def get_content_history_viewlet(self):
         view = getMultiAdapter((self.context, self.request),
@@ -210,6 +217,6 @@ class FilePreview(BrowserView):
 
         membership_tool = getToolByName(self.context, 'portal_membership')
         member = membership_tool.getMemberById(userid)
-        return {'userid': userid,
-                'fullname': member.getProperty('fullname') or userid,
-                'portrait_url': membership_tool.getPersonalPortrait(userid).absolute_url()}
+        if not member:
+            return userid
+        return member.getProperty('fullname') or userid

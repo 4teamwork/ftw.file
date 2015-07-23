@@ -16,6 +16,7 @@ class FileUpload(BrowserView):
 
     def __call__(self):
         self.file = self.request.get('file')
+
         if not self.file:
             raise BadRequest('No content provided.')
 

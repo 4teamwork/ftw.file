@@ -1,6 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
-from plone import api
+
 
 class FileView(BrowserView):
     """ View for ftw.file """
@@ -8,7 +8,8 @@ class FileView(BrowserView):
     def show_author(self):
         """Checks if the user is anonymous and is not allowAnonymousViewAbout.
         """
-        site_props = getToolByName(self.context, 'portal_properties').site_properties
+        site_props = getToolByName(
+            self.context, 'portal_properties').site_properties
         mt = getToolByName(self.context, 'portal_membership')
 
         if not site_props.getProperty('allowAnonymousViewAbout', False) \
