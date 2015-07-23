@@ -5,9 +5,8 @@ from Products.CMFCore.utils import getToolByName
 from zExceptions import BadRequest
 from zope.event import notify
 from zope.i18n import translate
-from zope.lifecycleevent import ObjectModifiedEvent
+from Products.Archetypes.event import ObjectEditedEvent
 from zope.publisher.browser import BrowserView
-
 from ftw.file import fileMessageFactory as _
 
 
@@ -21,6 +20,7 @@ class FileUpload(BrowserView):
             raise BadRequest('No content provided.')
 
         self.filename = self.file.filename
+
         self.context.update(file=self.file, originFilename=self.filename)
 
         portal = api.portal.get()
@@ -34,5 +34,5 @@ class FileUpload(BrowserView):
                                   context=self.request)
             )
 
-        notify(ObjectModifiedEvent(self.context))
+        notify(ObjectEditedEvent(self.context))
         return json.dumps({'success': True})
