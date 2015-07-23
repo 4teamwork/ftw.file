@@ -63,17 +63,14 @@
                                 <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
                                     <img tal:attributes="src python:view.get_version_preview_image_url(item.get('version_id'))" />
                                 </div>
-                                <div tal:content="item/relative_time"
-                                     tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"
-                                     class="journal-item-time discreet">
-                                </div>
-
-                                <div tal:content="item/action"
-                                     i18n:translate=""
-                                     i18n:domain="plone"
+                                <div tal:content="item/action" i18n:translate="" i18n:domain="plone"
                                      class="journal-item-action">
                                 </div>
-
+                                <div class="journal-item-time discreet"
+                                     i18n:translate="file_preview_time_and_actor">
+                                     <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
+                                     <span tal:replace="item/actor/fullname" i18n:name="file_preview_modified_by" />:
+                                </div>
                                 <div tal:content="item/comment"
                                      class="journal-item-comment discreet">
                                 </div>
