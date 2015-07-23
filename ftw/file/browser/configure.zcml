@@ -33,7 +33,6 @@
             for="..interfaces.IFile"
             name="version_preview"
             class=".version_preview.VersionPreview"
-            template="version_preview.pt"
             permission="zope2.View"
             />
 

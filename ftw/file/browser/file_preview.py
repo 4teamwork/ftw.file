@@ -124,7 +124,8 @@ class FilePreviewActions(object):
         }
 
     def _action_download_this_version(self):
-        if not hasattr(self.context, 'versioned_context'):
+        prtool = getToolByName(self.context, 'portal_repository')
+        if prtool.isUpToDate(self.context):
             return {}
 
         mimetype = self.context.getContentType()
@@ -145,8 +146,12 @@ class FilePreviewActions(object):
 
 
 class FilePreview(FileView):
+    """ View for ftw.file with document preview functionality
+    """
 
-    """ View for ftw.file with document preview functionality"""
+    def __call__(self, show_history=True):
+        self.show_history = show_history
+        return super(FilePreview, self).__call__()
 
     def actions(self):
         return IFilePreviewActions(self.context)()
@@ -177,14 +182,27 @@ class FilePreview(FileView):
 
     def get_version_preview_image_url(self, version_id):
         prtool = getToolByName(self.context, 'portal_repository')
-        version_context = prtool.retrieve(self.context, version_id).object
 
-        return get_representation_url(
+        version_copy = int(self.context.version_id)
+        version_context = prtool.retrieve(self.context, version_id).object
+        representation_url = get_representation_url(
             'thumbnail',
             obj=version_context,
             fallback_url=self.get_fallback_url())
 
+        # It is nessesary to revert the old version on a versioned context (if this view is called
+        # from the version_preview-view the context is a reverted context) because the retrieve
+        # function changes the context itself if we are on a versioned context and we'll loose
+        # all the information of the active version
+        if not prtool.isUpToDate(self.context):
+            prtool.retrieve(self.context, version_copy)
+
+        return representation_url
+
     def get_journal(self):
+        if not self.show_history:
+            return []
+
         viewlet = self.get_content_history_viewlet()
         date_utility = getUtility(IPrettyDate)
         journal_items = []
