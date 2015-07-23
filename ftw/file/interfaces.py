@@ -19,15 +19,13 @@ class IFilePreviewActions(Interface):
     """Adapter interface to generate an actions-listing in the file_preview-view
     """
 
-    actions_to_list = Attribute(
-        """Only actions in this list will be returned from the adapter.
-        You can override this attribute to change sort order or to add or
-        remove actions.
-        The action-names listed in this attribute are without
-        the prefix _action_.""")
+    def get_actions(actions_to_list=[]):
+        """Returns a dict with actions defined in it actions_to_list.
 
-    def get_actions():
-        """Returns a dict with actions defined in it.
+        Only actions in this list will be returned from the adapter.
+        You can set the sort order or add or remove actions.
+        The action-names listed in this attribute are without
+        the prefix _action_.
 
         An action looks like this:
 

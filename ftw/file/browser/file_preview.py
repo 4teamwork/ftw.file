@@ -24,7 +24,6 @@ def format_filesize(num):
 
 
 class FilePreviewActions(object):
-
     """
     """
     def __init__(self, context):
@@ -179,20 +178,11 @@ class FilePreview(FileView):
 
     def get_version_preview_image_url(self, version_id):
         prtool = getToolByName(self.context, 'portal_repository')
-
-        version_copy = int(self.context.version_id)
         version_context = prtool.retrieve(self.context, version_id).object
         representation_url = get_representation_url(
             'thumbnail',
             obj=version_context,
             fallback_url=self.get_fallback_url())
-
-        # It is nessesary to revert the old version on a versioned context (if this view is called
-        # from the version_preview-view the context is a reverted context) because the retrieve
-        # function changes the context itself if we are on a versioned context and we'll loose
-        # all the information of the active version
-        if not prtool.isUpToDate(self.context):
-            prtool.retrieve(self.context, version_copy)
 
         return representation_url
 
