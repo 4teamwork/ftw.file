@@ -51,7 +51,7 @@ a:hover {
   text-overflow: ellipsis;
 }
 
-.fileActions a {
+.fileActions a{
   display: block;
   padding-top: 5px;
   border: 1px solid #DFDFDF;
@@ -125,7 +125,7 @@ a:hover {
   margin-top: 1em;
 }
 
-.journal-item {
+#content .journalItem {
   position: relative;
   border: 1px solid #DFDFDF;
   border-radius: 4px;
@@ -135,16 +135,17 @@ a:hover {
   min-height: 36px;
   opacity: 0.65;
   cursor: default;
+  display: none;
 }
-.journal-item:hover {
+.journalItem:hover {
   opacity: 1;
   background-color: #F8F8F8;
 }
 
-.journal-item-link .journal-item {
+.journalItem-link .journalItem {
   cursor: pointer;
 }
-.journal-item-actor {
+.journalItem-actor {
   position: absolute;
   left: -36px;
   margin-right: 5px;
@@ -158,17 +159,17 @@ a:hover {
 .journal-version-preview-image img{
   height: 100%;
 }
-.journal-item-download,
+.journalItem-download,
 .journal-version-preview {
   float: right;
   opacity: 0.5;
 }
 
-.journal-item-download img {
+.journalItem-download img {
   height: 15px;
 }
 
-.journal-item-download:hover {
+.journalItem-download:hover {
   opacity: 1;
 }
 
@@ -183,12 +184,20 @@ a:hover {
   border-bottom: 0.1em solid #ccc !important;
 }
 
-.journalListing {
-  overflow-y: scroll;
-  height: 350px;
+#content .journalListing {
   margin-top: 10px;
+  margin-left: 0px;
 }
-
+.showMore {
+  text-align: center;
+  padding: 0.5em;
+  background-color: #F8F8F8;
+  cursor: pointer;
+  border: 1px solid #DFDFDF;
+}
+.showMore:hover {
+  background-color: #EEEEEE;
+}
 .documentFirstHeading,
 #content div.documentByLine,
 .contentHistory,

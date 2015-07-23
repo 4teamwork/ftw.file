@@ -84,29 +84,32 @@
             <!-- Journal -->
             <div class="journal" tal:define="journal view/get_journal" tal:condition="journal">
                 <b i18n:translate="file_metadata_journal_heading">Journal</b>
-                <div class="journalListing">
+                <ul class="journalListing">
                     <tal:journal repeat="item journal">
-                        <div class="journal-item">
-                            <a class="journal-item-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                        <li class="journalItem">
+                            <a class="journalItem-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
                                 <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
                                     <img tal:attributes="src python:view.get_version_preview_image_url(item.get('version_id'))" />
                                 </div>
                                 <div tal:content="item/action" i18n:translate="" i18n:domain="plone"
-                                     class="journal-item-action">
+                                     class="journalItem-action">
                                 </div>
-                                <div class="journal-item-time discreet"
+                                <div class="journalItem-time discreet"
                                      i18n:translate="file_preview_time_and_actor">
                                      <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
                                      <span tal:replace="item/actor" i18n:name="file_preview_modified_by" />:
                                 </div>
                                 <div tal:content="item/comment"
-                                     class="journal-item-comment discreet">
+                                     class="journalItem-comment discreet">
                                 </div>
 
                                 <span class="clearfix"><!-- --></span>
                             </a>
-                        </div>
+                        </li>
                     </tal:journal>
+                </ul>
+                <div class="showMore">
+                  <span i18n:translate="filePreviewShowMore">Show more</span>
                 </div>
             </div>
             <!-- End journal -->
