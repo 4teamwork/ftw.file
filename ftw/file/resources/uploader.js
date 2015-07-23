@@ -126,12 +126,22 @@ var uploader = (function($) {
         var $data = $(data);
         var $fileTable = $('.fileListing');
         var $historyTable = $('table.contentHistory');
+
         $fileTable.empty();
         $fileTable.html($('.fileListing tbody', $data));
+
         if ($historyTable.length > 0) {
           $($historyTable).empty();
           $historyTable.html($('table.contentHistory thead, table.contentHistory tbody', $data));
         }
+
+        // Bumblebee integration
+        var $sidebar = $('.sidebar');
+        $sidebar.html($('.sidebar > div', $data));
+
+        var $preview = $('.preview');
+        $preview.html($('.preview > iframe', $data));
+
       });
       updateRequest.fail(function(data) {
         window.location.reload();
