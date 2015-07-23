@@ -9,7 +9,12 @@ class VersionPreview(BrowserView):
     def __call__(self):
         version = self.get_version()
         view = version.restrictedTraverse('@@file_preview')
-        return view(show_history=False)
+        return view(
+            show_history=False,
+            actions_list=[
+                'open_pdf',
+                'download_this_version']
+            )
 
     def get_version(self):
         prtool = getToolByName(self.context, 'portal_repository')

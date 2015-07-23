@@ -45,11 +45,6 @@ a:hover {
   text-decoration: underline;
 }
 
-.discreet {
-  font-size: 80%;
-  color: #AAA;
-}
-
 .filename {
   font-weight: bold;
   overflow: hidden;
@@ -198,10 +193,6 @@ a:hover {
 #content div.documentByLine,
 .contentHistory,
 .contentHistoryTitle,
-.documentDescription,
-.file-version-preview-colorbox .journal,
-.file-version-preview-colorbox .delete-object-link,
-.file-version-preview-colorbox .edit-object-link,
-.file-version-preview-colorbox .original-file-link {
+.documentDescription {
   display: none;
 }

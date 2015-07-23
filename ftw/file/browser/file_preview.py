@@ -4,6 +4,7 @@ from ftw.bumblebee.mimetypes import get_mimetype_title
 from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
+from ftw.file.browser.file_view import FileView
 from ftw.file.interfaces import IFilePreviewActions
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
@@ -12,7 +13,6 @@ from zope.component import getUtility
 from zope.i18n import translate
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
-from ftw.file.browser.file_view import FileView
 
 
 def format_filesize(num):
@@ -27,23 +27,16 @@ class FilePreviewActions(object):
 
     """
     """
-    actions_to_list = [
-        'open_pdf',
-        'download_original',
-        'edit',
-        'delete',
-        'download_this_version']
-
     def __init__(self, context):
         self.context = context
         self.request = context.REQUEST
 
-    def __call__(self):
-        return self.get_actions()
+    def __call__(self, actions_to_list=[]):
+        return self.get_actions(actions_to_list)
 
-    def get_actions(self):
+    def get_actions(self, actions_to_list=[]):
         actions_list = []
-        for action in self.actions_to_list:
+        for action in actions_to_list:
             action_function = getattr(self, "_action_{0}".format(action), None)
             if not action_function:
                 continue
@@ -112,6 +105,7 @@ class FilePreviewActions(object):
     def _action_edit(self):
         if not _checkPermission("Modify portal content", self.context):
             return {}
+
         return {
             'url': "{0}/edit".format(
                 self.context.absolute_url()),
@@ -124,10 +118,6 @@ class FilePreviewActions(object):
         }
 
     def _action_download_this_version(self):
-        prtool = getToolByName(self.context, 'portal_repository')
-        if prtool.isUpToDate(self.context):
-            return {}
-
         mimetype = self.context.getContentType()
         return {
             'url': "{0}/file_download_version?version_id={1}".format(
@@ -149,12 +139,19 @@ class FilePreview(FileView):
     """ View for ftw.file with document preview functionality
     """
 
-    def __call__(self, show_history=True):
+    default_actions_list = [
+        'open_pdf',
+        'download_original',
+        'edit',
+        'delete']
+
+    def __call__(self, show_history=True, actions_list=default_actions_list):
         self.show_history = show_history
+        self.actions_list = actions_list
         return super(FilePreview, self).__call__()
 
     def actions(self):
-        return IFilePreviewActions(self.context)()
+        return IFilePreviewActions(self.context)(self.actions_list)
 
     def get_fallback_url(self):
         portal_url = getToolByName(self.context, 'portal_url')()
