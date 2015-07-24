@@ -95,9 +95,9 @@ class FilePreviewCollector(object):
         self.function_prefix = '_data_'
 
     def __call__(self, collector_list=[]):
-        return self.get_data(collector_list)
+        return self.collect(collector_list)
 
-    def get_data(self, collector_list=[]):
+    def collect(self, collector_list=[]):
         collected = []
         for function_name in collector_list:
             function_ = getattr(self, "{0}{1}".format(
