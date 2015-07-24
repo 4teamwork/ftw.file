@@ -35,8 +35,11 @@
         />
 
     <configure zcml:condition="installed ftw.activity">
-      <adapter factory=".activity.FileRepresentation"
-               provides="ftw.activity.interfaces.IActivityRepresentation" />
+      <include package="ftw.activity" />
+      <configure zcml:condition="not-have ftw-activity-2">
+        <adapter factory=".activity.FileRepresentation"
+                 provides="ftw.activity.interfaces.IActivityRepresentation" />
+      </configure>
     </configure>
 
 </configure>
