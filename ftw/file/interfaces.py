@@ -15,7 +15,7 @@ class IFileDownloadedEvent(IObjectEvent):
     context = Attribute("The file object that was downloaded")
 
 
-class IFilePreviewActions(Interface):
+class IFilePreviewActionsCollector(Interface):
     """Adapter interface to generate an actions-listing in the file_preview-view
     """
 
@@ -46,5 +46,14 @@ class IFilePreviewJournal(Interface):
     """
 
     def get_journal():
+        """
+        """
+
+
+class IFilePreviewFileInfoCollector(Interface):
+    """
+    """
+
+    def get_infos():
         """
         """
