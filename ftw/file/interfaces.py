@@ -20,12 +20,7 @@ class IFilePreviewActionsCollector(Interface):
     """
 
     def get_actions(actions_to_list=[]):
-        """Returns a dict with actions defined in it actions_to_list.
-
-        Only actions in this list will be returned from the adapter.
-        You can set the sort order or add or remove actions.
-        The action-names listed in this attribute are without
-        the prefix _action_.
+        """Returns a dict with actions.
 
         An action looks like this:
 
@@ -42,18 +37,26 @@ class IFilePreviewActionsCollector(Interface):
 
 
 class IFilePreviewJournal(Interface):
-    """
+    """Adapter interface to generate the history in the file_preview-view
     """
 
     def get_journal():
-        """
+        """Returns the versionhistory in a dict.
         """
 
 
 class IFilePreviewFileInfoCollector(Interface):
-    """
+    """Adapter interface to generate filedata-listing in the file_preview-view
     """
 
     def get_infos():
-        """
+        """Returns a dict with fileinfos.
+
+         An fileinfo looks like this:
+
+            {
+                'leftcolumn': 'Filename:',
+                'rightcolumn': 'wonder.png',
+            }
+
         """

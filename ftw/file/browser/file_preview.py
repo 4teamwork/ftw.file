@@ -79,7 +79,12 @@ class FilePreviewJournal(object):
 
 
 class FilePreviewCollector(object):
+    """Returns a list with collected data.
 
+    Calls each function defined in collector_list
+    and adds appends the returned value to the list.
+    The prefix _data_ will be prepended to the function-names.
+    """
     def __init__(self, context, browserview):
         self.context = context
         self.view = browserview
@@ -267,7 +272,6 @@ class FilePreviewActionsCollector(FilePreviewCollector):
 class FilePreview(FileView):
     """ View for ftw.file with document preview functionality
     """
-
     default_actions_list = [
         'open_pdf',
         'download_original',
