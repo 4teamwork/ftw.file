@@ -6,6 +6,7 @@ from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
 from ftw.file.interfaces import IFilePreviewActions
+from ftw.file.interfaces import IFilePreviewJournal
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
@@ -21,6 +22,54 @@ def format_filesize(num):
             return "%3.1f %s" % (num, unit)
         num /= 1024.0
     return "%.1f %s" % (num, 'GB')
+
+
+class FilePreviewJournal(object):
+    """
+    """
+    def __init__(self, context):
+        self.context = context
+        self.request = context.REQUEST
+
+    def __call__(self):
+        return self.get_journal()
+
+    def get_journal(self):
+        viewlet = self._get_content_history_viewlet()
+        date_utility = getUtility(IPrettyDate)
+        journal_items = []
+        for item in viewlet.fullHistory() or ():
+            journal_items.append({
+                'time': item['time'],
+                'relative_time': date_utility.date(item['time']),
+                'action': item['transition_title'],
+                'actor': self._get_user_info(item['actorid']),
+                'comment': item['comments'],
+                'downloadable_version': item['type'] == 'versioning',
+                'version_id': item.get('version_id')})
+        return journal_items
+
+    def _get_content_history_viewlet(self):
+        view = getMultiAdapter((self.context, self.request),
+                               name='file_view')
+        manager = getMultiAdapter((self.context, self.request, view),
+                                  IViewletManager,
+                                  name='plone.belowcontentbody')
+        viewlet = getMultiAdapter((self.context, self.request, view, manager),
+                                  IViewlet,
+                                  name='plone.belowcontentbody.inlinecontenthistory')
+        viewlet.update()
+        return viewlet
+
+    def _get_user_info(self, userid):
+        if not userid:
+            return None
+
+        membership_tool = getToolByName(self.context, 'portal_membership')
+        member = membership_tool.getMemberById(userid)
+        if not member:
+            return userid
+        return member.getProperty('fullname') or userid
 
 
 class FilePreviewActions(object):
@@ -152,6 +201,11 @@ class FilePreview(FileView):
     def actions(self):
         return IFilePreviewActions(self.context)(self.actions_list)
 
+    def journal(self):
+        if not self.show_history:
+            return []
+        return IFilePreviewJournal(self.context)()
+
     def get_fallback_url(self):
         portal_url = getToolByName(self.context, 'portal_url')()
         return "{0}/++resource++ftw.file.resources/image_not_found.png".format(
@@ -185,43 +239,3 @@ class FilePreview(FileView):
             fallback_url=self.get_fallback_url())
 
         return representation_url
-
-    def get_journal(self):
-        if not self.show_history:
-            return []
-
-        viewlet = self.get_content_history_viewlet()
-        date_utility = getUtility(IPrettyDate)
-        journal_items = []
-        for item in viewlet.fullHistory() or ():
-            journal_items.append({
-                'time': item['time'],
-                'relative_time': date_utility.date(item['time']),
-                'action': item['transition_title'],
-                'actor': self.get_user_info(item['actorid']),
-                'comment': item['comments'],
-                'downloadable_version': item['type'] == 'versioning',
-                'version_id': item.get('version_id')})
-        return journal_items
-
-    def get_content_history_viewlet(self):
-        view = getMultiAdapter((self.context, self.request),
-                               name='file_view')
-        manager = getMultiAdapter((self.context, self.request, view),
-                                  IViewletManager,
-                                  name='plone.belowcontentbody')
-        viewlet = getMultiAdapter((self.context, self.request, view, manager),
-                                  IViewlet,
-                                  name='plone.belowcontentbody.inlinecontenthistory')
-        viewlet.update()
-        return viewlet
-
-    def get_user_info(self, userid):
-        if not userid:
-            return None
-
-        membership_tool = getToolByName(self.context, 'portal_membership')
-        member = membership_tool.getMemberById(userid)
-        if not member:
-            return userid
-        return member.getProperty('fullname') or userid

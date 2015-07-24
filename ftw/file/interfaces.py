@@ -39,3 +39,12 @@ class IFilePreviewActions(Interface):
                           'alt': 'Chuck Norris'}
             }
         """
+
+
+class IFilePreviewJournal(Interface):
+    """
+    """
+
+    def get_journal():
+        """
+        """

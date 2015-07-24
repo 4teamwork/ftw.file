@@ -41,6 +41,12 @@
             factory=".file_preview.FilePreviewActions"
             provides=".file_preview.IFilePreviewActions"
             />
+
+         <adapter
+            for="ftw.file.interfaces.IFile"
+            factory=".file_preview.FilePreviewJournal"
+            provides=".file_preview.IFilePreviewJournal"
+            />
     </configure>
 
     <browser:page

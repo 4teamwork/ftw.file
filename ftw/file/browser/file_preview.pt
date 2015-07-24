@@ -82,7 +82,7 @@
             <!-- End actions -->
 
             <!-- Journal -->
-            <div class="journal" tal:define="journal view/get_journal" tal:condition="journal">
+            <div class="journal" tal:define="journal view/journal" tal:condition="journal">
                 <b i18n:translate="file_metadata_journal_heading">Journal</b>
                 <ul class="journalListing">
                     <tal:journal repeat="item journal">
