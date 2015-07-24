@@ -1,15 +1,24 @@
-from ftw.activity.interfaces import IActivityRepresentation
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from unittest2 import skipUnless
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 import os.path
 
 
+HAS_ACTIVITY_1 = False
+try:
+    from ftw.activity.interfaces import IActivityRepresentation
+    HAS_ACTIVITY_1 = True
+except ImportError:
+    HAS_ACTIVITY_1 = False
+
+
+@skipUnless(HAS_ACTIVITY_1, 'Detected ftw.activity 2.0')
 class TestActivityRepresentation(TestCase):
     layer = FTW_FILE_FUNCTIONAL_TESTING
 

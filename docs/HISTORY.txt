@@ -5,6 +5,9 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
+- Only load ftw.activity 1.x representation if ftw.activity 1.x is installed.
+  [mathias.leimgruber]
+
 - Show a hint about the imminent file replacement in the dropzone overlay.
   [mbaechtold]
 
