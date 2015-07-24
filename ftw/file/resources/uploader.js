@@ -142,6 +142,9 @@ var uploader = (function($) {
         var $preview = $('.preview');
         $preview.html($('.preview > iframe', $data));
 
+        showmore.init();
+        initFilePreviewOverlays.init();
+        // End bumblebee integration
       });
       updateRequest.fail(function(data) {
         window.location.reload();
