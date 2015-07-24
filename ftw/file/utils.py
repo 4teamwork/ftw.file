@@ -25,3 +25,11 @@ def redirect_to_download_by_default(context):
             request.other['disable_border'] = border_was_force_disabled
         if border_was_force_enabled:
             request.other['enable_border'] = border_was_force_enabled
+
+
+def format_filesize(num):
+    for unit in ('B', 'KB', 'MB'):
+        if abs(num) < 1024.0:
+            return "%3.1f %s" % (num, unit)
+        num /= 1024.0
+    return "%.1f %s" % (num, 'GB')

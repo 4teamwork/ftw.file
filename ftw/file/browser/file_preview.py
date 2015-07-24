@@ -6,8 +6,9 @@ from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
 from ftw.file.interfaces import IFilePreviewActionsCollector
-from ftw.file.interfaces import IFilePreviewJournal
 from ftw.file.interfaces import IFilePreviewFileInfoCollector
+from ftw.file.interfaces import IFilePreviewJournal
+from ftw.file.utils import format_filesize
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
@@ -15,14 +16,6 @@ from zope.component import getUtility
 from zope.i18n import translate
 from zope.viewlet.interfaces import IViewlet
 from zope.viewlet.interfaces import IViewletManager
-
-
-def format_filesize(num):
-    for unit in ('B', 'KB', 'MB'):
-        if abs(num) < 1024.0:
-            return "%3.1f %s" % (num, unit)
-        num /= 1024.0
-    return "%.1f %s" % (num, 'GB')
 
 
 class FilePreviewJournal(object):
