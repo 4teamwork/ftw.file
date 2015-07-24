@@ -139,7 +139,7 @@ class FilePreviewFileInfoCollector(FilePreviewCollector):
         return {
             'leftcolumn': translate(_(
                 u'file_metadata_dates',
-                default=u'Modified::'),
+                default=u'Modified:'),
                 context=self.context.REQUEST),
             'rightcolumn': self.view.get_modified_date(),
         }
@@ -284,6 +284,7 @@ class FilePreview(FileView):
         'delete']
 
     default_file_infos_list = [
+        'mimetype_and_filesize',
         'filename',
         'modified_date',
         'document_date',
