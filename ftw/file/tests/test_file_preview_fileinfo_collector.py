@@ -16,10 +16,6 @@ class FileInfoCollectorBaseTest(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.dummyfile = create(Builder('file').with_dummy_content())
-        self.view = self.dummyfile.unrestrictedTraverse('@@file_preview')
-        self.adapter = getMultiAdapter(
-            (self.dummyfile, self.view), IFilePreviewFileInfoCollector)
 
 
 class TestMimetypeAndFilesize(FileInfoCollectorBaseTest):

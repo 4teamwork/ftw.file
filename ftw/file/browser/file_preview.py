@@ -67,11 +67,9 @@ class FilePreviewJournal(object):
         return viewlet
 
     def _get_user_info(self, userid):
-        if not userid:
-            return None
-
         membership_tool = getToolByName(self.context, 'portal_membership')
         member = membership_tool.getMemberById(userid)
+
         if not member:
             return userid
         return member.getProperty('fullname') or userid
