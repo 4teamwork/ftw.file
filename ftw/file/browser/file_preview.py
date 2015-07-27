@@ -68,6 +68,8 @@ class FilePreviewJournal(object):
         return member.getProperty('fullname') or userid
 
     def _get_version_preview_image_url(self, version_id):
+        if version_id is None:
+            return ""
         prtool = getToolByName(self.context, 'portal_repository')
         version_context = prtool.retrieve(self.context, version_id).object
         representation_url = get_representation_url(
