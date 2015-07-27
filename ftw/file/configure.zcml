@@ -33,6 +33,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <configure zcml:condition="installed ftw.bumblebee">
+    <genericsetup:registerProfile
+        name="bumblebee"
+        title="ftw.file: Bumblebee"
+        directory="profiles/bumblebee"
+        description="Installs the ftw.file package with bumblebee integration"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+  </configure>
   <profilehook:hook
       profile="ftw.file:default"
       handler=".hooks.installed"

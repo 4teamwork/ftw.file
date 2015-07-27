@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.file">
 
     <class class=".file.File">
@@ -9,5 +10,11 @@
             interface="..interfaces.IFile"
         />
     </class>
+
+    <configure zcml:condition="installed ftw.bumblebee">
+        <class class="Products.ATContentTypes.content.file.ATFile">
+            <implements interface="ftw.bumblebee.interfaces.IBumblebeeable" />
+        </class>
+    </configure>
 
 </configure>

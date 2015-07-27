@@ -4,6 +4,5 @@
     <dependencies>
         <dependency>profile-ftw.calendarwidget:default</dependency>
         <dependency>profile-ftw.colorbox:default</dependency>
-        <dependency>profile-ftw.bumblebee:default</dependency>
     </dependencies>
 </metadata>

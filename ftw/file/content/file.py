@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
-from ftw.bumblebee.interfaces import IBumblebeeable
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
@@ -91,7 +90,7 @@ for f in FileSchema.keys():
 class File(ATFile):
     """A file content type based on blobs.
     """
-    implements(IFile, IWorkflowHistoryJournalizable, IBumblebeeable)
+    implements(IFile, IWorkflowHistoryJournalizable)
 
     meta_type = "FtwFile"
     schema = FileSchema
