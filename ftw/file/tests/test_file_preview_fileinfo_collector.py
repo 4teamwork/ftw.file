@@ -1,7 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.interfaces import IFilePreviewFileInfoCollector
-from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
+from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest2 import TestCase
@@ -11,7 +11,7 @@ from DateTime import DateTime
 
 class FileInfoCollectorBaseTest(TestCase):
 
-    layer = FTW_FILE_INTEGRATION_TESTING
+    layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']

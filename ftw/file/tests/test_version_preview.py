@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
@@ -11,7 +11,7 @@ from zope.component import getMultiAdapter
 
 class TestVersionPreview(TestCase):
 
-    layer = FTW_FILE_FUNCTIONAL_TESTING
+    layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']

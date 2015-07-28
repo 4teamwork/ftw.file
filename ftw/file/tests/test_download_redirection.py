@@ -46,7 +46,6 @@ class TestDownloadRedirection(TestCase):
             browser().url)
 
 
-
 class TestDownloadRedirectToURLWithFilename(TestCase):
 
     layer = FTW_FILE_FUNCTIONAL_TESTING

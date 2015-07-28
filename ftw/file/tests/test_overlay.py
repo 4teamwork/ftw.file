@@ -3,7 +3,6 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
-from plone.browserlayer.utils import unregister_layer
 from plone.testing.z2 import Browser
 from StringIO import StringIO
 from unittest2 import TestCase
@@ -28,8 +27,6 @@ class TestFileOverlay(TestCase):
 
         self.portal.invokeFactory('File', 'f1', file=self.file_)
         self.context = self.portal.f1
-
-        unregister_layer('ftw_bumblebee')
 
         transaction.commit()
 

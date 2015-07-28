@@ -1,11 +1,11 @@
 from ftw.file.browser.file_preview import FilePreviewCollector
-from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
+from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from unittest2 import TestCase
 
 
 class TestFilePreviewActionsCollectorAdapter(TestCase):
 
-    layer = FTW_FILE_INTEGRATION_TESTING
+    layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
