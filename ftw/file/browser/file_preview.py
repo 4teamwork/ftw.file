@@ -277,7 +277,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         return {
             'url': self.context.absolute_url(),
             'target': '_top',
-            'cssclass': 'download-original-version-link',
+            'cssclass': 'goto-original-version-link',
             'image': None,
             'text': translate(
                 _(u'file_metadata_goto_original',
