@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-28 14:16+0000\n"
+"POT-Creation-Date: 2015-07-28 14:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,6 +118,11 @@ msgstr ""
 #. Default: "Filename:"
 #: ./ftw/file/browser/file_preview.py:128
 msgid "file_metadata_filenname_info"
+msgstr ""
+
+#. Default: "Open original document"
+#: ./ftw/file/browser/file_preview.py:280
+msgid "file_metadata_goto_original"
 msgstr ""
 
 #. Default: "Journal"
