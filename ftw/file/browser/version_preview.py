@@ -11,16 +11,15 @@ class VersionPreview(BrowserView):
     def __call__(self):
         version = self.get_version()
         view = version.restrictedTraverse('@@file_preview')
-        import pdb; pdb.set_trace()
         return view(
             documentTitle=translate(_(
                 u'file_version_title',
-                default=u'${title} - Version ${version} of ${version_num}'),
+                default=u'${title} - Version ${version} of ${version_num}',
                 mapping={
                     u'title': version.Title(),
                     u'version': version.version_id + 1,
-                    u'version_num': self.context.version_id + 1},
-                context=self.request),
+                    u'version_num': self.context.version_id + 1}),
+                context=self.context.REQUEST),
             show_history=False,
             actions_list=[
                 'open_pdf',
