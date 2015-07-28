@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-28 13:39+0000\n"
+"POT-Creation-Date: 2015-07-28 14:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,9 +136,9 @@ msgid "file_preview_time_and_actor"
 msgstr "${file_preview_relative_time} von ${file_preview_modified_by}"
 
 #. Default: "${title} - Version ${version} of ${version_num}"
-#: ./ftw/file/browser/version_preview.py:16
+#: ./ftw/file/browser/version_preview.py:15
 msgid "file_version_title"
-msgstr ""${title} - Version ${version} von ${version_num}"
+msgstr "${title} - Version ${version} von ${version_num}"
 
 #: ./ftw/file/content/file.py:68
 msgid "help_document_date"
