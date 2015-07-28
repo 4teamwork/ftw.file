@@ -17,7 +17,7 @@
 
         <!-- Detail information -->
         <div class="file-details">
-            <h3  tal:content="context/Title">Title</h3>
+            <h3  tal:content="view/title">Title</h3>
             <tal:information repeat="info view/fileinfos">
               <div class="discreet detailItem">
                   <span class="left" tal:content="structure info/leftcolumn">leftcolumn</span>

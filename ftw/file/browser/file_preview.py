@@ -290,11 +290,13 @@ class FilePreview(FileView):
 
     def __call__(
             self,
+            documentTitle=None,
             show_history=True,
             actions_list=default_actions_list,
             file_infos_list=default_file_infos_list,
             preview_fallback_url="",
             ):
+        self.documentTitle = documentTitle
         self.show_history = show_history
         self.actions_list = actions_list
         self.file_infos_list = file_infos_list
@@ -317,6 +319,11 @@ class FilePreview(FileView):
             return []
         return IFilePreviewJournal(self.context)(
             preview_fallback_url=self.preview_fallback_url)
+
+    def title(self):
+        if self.documentTitle:
+            return self.documentTitle
+        return self.context.Title()
 
     def get_preview_pdf_url(self):
         return get_representation_url('preview',

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-24 10:02+0000\n"
+"POT-Creation-Date: 2015-07-28 13:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,47 +76,47 @@ msgid "filePreviewShowMore"
 msgstr ""
 
 #. Default: "Author:"
-#: ./ftw/file/browser/file_preview.py:166
+#: ./ftw/file/browser/file_preview.py:164
 msgid "file_metadata_author"
 msgstr ""
 
 #. Default: "Modified:"
-#: ./ftw/file/browser/file_preview.py:140
+#: ./ftw/file/browser/file_preview.py:138
 msgid "file_metadata_dates"
 msgstr ""
 
 #. Default: "Delete File"
-#: ./ftw/file/browser/file_preview.py:239
+#: ./ftw/file/browser/file_preview.py:237
 msgid "file_metadata_delete_file"
 msgstr ""
 
 #. Default: "Description:"
-#: ./ftw/file/browser/file_preview.py:178
+#: ./ftw/file/browser/file_preview.py:176
 msgid "file_metadata_description"
 msgstr ""
 
 #. Default: "Documentdate:"
-#: ./ftw/file/browser/file_preview.py:149
+#: ./ftw/file/browser/file_preview.py:147
 msgid "file_metadata_documentdate"
 msgstr ""
 
 #. Default: "Download Original"
-#: ./ftw/file/browser/file_preview.py:199
+#: ./ftw/file/browser/file_preview.py:197
 msgid "file_metadata_download_original"
 msgstr ""
 
 #. Default: "Download this version"
-#: ./ftw/file/browser/file_preview.py:270
+#: ./ftw/file/browser/file_preview.py:268
 msgid "file_metadata_download_this_version"
 msgstr ""
 
 #. Default: "Edit File"
-#: ./ftw/file/browser/file_preview.py:254
+#: ./ftw/file/browser/file_preview.py:252
 msgid "file_metadata_edit_file"
 msgstr ""
 
 #. Default: "Filename:"
-#: ./ftw/file/browser/file_preview.py:130
+#: ./ftw/file/browser/file_preview.py:128
 msgid "file_metadata_filenname_info"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgid "file_metadata_journal_heading"
 msgstr ""
 
 #. Default: "Open PDF"
-#: ./ftw/file/browser/file_preview.py:225
+#: ./ftw/file/browser/file_preview.py:223
 msgid "file_metadata_open_pdf"
 msgstr ""
 
@@ -135,12 +135,17 @@ msgstr ""
 msgid "file_preview_time_and_actor"
 msgstr ""
 
-#: ./ftw/file/content/file.py:69
+#. Default: "${title} - Version ${version} of ${version_num}"
+#: ./ftw/file/browser/version_preview.py:16
+msgid "file_version_title"
+msgstr ""
+
+#: ./ftw/file/content/file.py:68
 msgid "help_document_date"
 msgstr "Saisissez la date du document"
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:56
+#: ./ftw/file/content/file.py:55
 msgid "help_origin_filename"
 msgstr "Insérez un nom de fichier si vous souhaitez modifier le nom de fichier original. L'extension (à savoir. Docx) ne sera pas modifié"
 
@@ -150,12 +155,12 @@ msgid "label_anonymous_user"
 msgstr "Utilisateur anonyme"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:68
+#: ./ftw/file/content/file.py:67
 msgid "label_document_date"
 msgstr "Date du document"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:45
+#: ./ftw/file/content/file.py:44
 msgid "label_file"
 msgstr "Fichier"
 
@@ -165,7 +170,7 @@ msgid "label_file_downloaded"
 msgstr "Fichier téléchargé"
 
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:55
+#: ./ftw/file/content/file.py:54
 msgid "label_origin_filename"
 msgstr "Nom du document"
 

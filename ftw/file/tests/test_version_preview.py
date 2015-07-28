@@ -45,6 +45,6 @@ class TestVersionPreview(TestCase):
 
         # Old Version
         self.assertEqual(
-            'Chuck Norris',
+            'Chuck Norris - Version 1 of 2',
             browser.css('.file-details h3').first.text,
             'The title of the last version should be visible')

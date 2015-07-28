@@ -136,3 +136,23 @@ class TestFilePreview(TestCase):
             [container.text for container in browser.css('.detailItem')],
             'Only the filename and the description infos should be visible '
             'in the given order')
+
+    @browsing
+    def test_set_empty_default_title_gets_context_title(self, browser):
+        view = self.dummyfile.unrestrictedTraverse('@@file_preview')
+
+        browser.open_html(view(documentTitle=None))
+        self.assertEqual(
+            self.dummyfile.Title(),
+            browser.css('.file-details h3').first.text,
+            'The default title should be the title of the context')
+
+    @browsing
+    def test_set_default_title(self, browser):
+        view = self.dummyfile.unrestrictedTraverse('@@file_preview')
+
+        browser.open_html(view(documentTitle="This is the title"))
+        self.assertEqual(
+            "This is the title",
+            browser.css('.file-details h3').first.text,
+            'The default title should be overridden by the documentTitle')
