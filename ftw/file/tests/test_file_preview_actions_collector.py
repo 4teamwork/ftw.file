@@ -105,3 +105,14 @@ class TestDownloadTisVersionAction(ActionsCollectorBaseTest):
         self.assertEqual(
             'http://nohost/plone/file/file_download_version?version_id=20',
             action.get('url'))
+
+
+class TestGoToOriginalAction(ActionsCollectorBaseTest):
+
+    def test_goto_original_url_is_correct(self):
+        self.dummyfile.version_id = 20
+        action = self.adapter._data_goto_original_file()
+
+        self.assertEqual(
+            'http://nohost/plone/file',
+            action.get('url'))

@@ -22,6 +22,7 @@ class VersionPreview(BrowserView):
                 context=self.context.REQUEST),
             show_history=False,
             actions_list=[
+                'goto_original_file',
                 'open_pdf',
                 'download_this_version']
             )

@@ -270,6 +270,18 @@ class FilePreviewActionsCollector(FilePreviewCollector):
                 context=self.context.REQUEST)
         }
 
+    def _data_goto_original_file(self):
+        return {
+            'url': self.context.absolute_url(),
+            'target': '_top',
+            'cssclass': 'download-original-version-link',
+            'image': None,
+            'text': translate(
+                _(u'file_metadata_goto_original',
+                  default=u'Open original document'),
+                context=self.context.REQUEST)
+        }
+
 
 class FilePreview(FileView):
     """ View for ftw.file with document preview functionality
