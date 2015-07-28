@@ -271,6 +271,9 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         }
 
     def _data_goto_original_file(self):
+        if not _checkPermission("Modify portal content", self.context):
+            return {}
+
         return {
             'url': self.context.absolute_url(),
             'target': '_top',

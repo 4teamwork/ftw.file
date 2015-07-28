@@ -116,3 +116,9 @@ class TestGoToOriginalAction(ActionsCollectorBaseTest):
         self.assertEqual(
             'http://nohost/plone/file',
             action.get('url'))
+
+    def test_do_not_show_action_if_user_has_no_edit_permission(self):
+        logout()
+        action = self.adapter._data_goto_original_file()
+
+        self.assertEqual({}, action)
