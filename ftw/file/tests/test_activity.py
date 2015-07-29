@@ -21,8 +21,7 @@ class TestActivityRepresentation(TestCase):
         file_ = create(
             Builder('file')
             .titled('An important file')
-            .attach_file_containing(self.asset('transparent.gif'),
-                                    'transparent.gif'))
+            .attach_asset('transparent.gif'))
         self.render_representation(browser, file_)
         self.assertEqual('An important file',
                          browser.css('.title').first.text)
@@ -49,10 +48,3 @@ class TestActivityRepresentation(TestCase):
                         'The activity representation is invisible.')
         html = repr.render()
         browser.open_html(html)
-
-    def asset(self, filename):
-        path = os.path.join(os.path.dirname(__file__),
-                            'assets',
-                            filename)
-        with open(path, 'r') as fh:
-            return fh.read()

@@ -1,3 +1,4 @@
+from ftw.file.interfaces import IFile
 from Products.CMFCore.utils import getToolByName
 
 
@@ -40,6 +41,10 @@ class FileMetadata(object):
     """Handles some metadata of an object
     """
     def __init__(self, context):
+        # if not IFile.providedBy(context):
+        #     import pdb; pdb.set_trace()
+        #     raise(ValueError)
+
         self.context = context
 
     @property
@@ -73,27 +78,26 @@ class FileMetadata(object):
 
     @property
     def document_date(self):
-        """ returns the effectiveDate """
+        """ returns the documentDate """
         date = self.context.getDocumentDate()
-        try:
-            return self.context.toLocalizedTime(date)
-        except ValueError:
-            return '-'
+        return self.context.toLocalizedTime(date)
 
     @property
     def modified_date(self):
         """ returns the Modifieddate """
         modified = self.context.modified()
-        try:
-            return self.context.toLocalizedTime(modified, long_format=True)
-        except ValueError:
-            return '-'
+        return self.context.toLocalizedTime(modified, long_format=True)
 
-    def get_image_tag(self, scale, width, direction):
+    def get_image_tag(
+            self, fieldname, width=None, height=None, direction="down"):
         if not self.context.is_image():
             return None
         scale = self.context.restrictedTraverse('@@images')
-        img = scale.scale(scale, width=width, direction=direction)
+        img = scale.scale(
+            fieldname=fieldname,
+            width=width,
+            height=height,
+            direction=direction)
         if img:
             return img.tag()
         return None

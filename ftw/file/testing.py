@@ -1,6 +1,7 @@
 from ftw.builder.session import BuilderSession
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import set_builder_session_factory
+from ftw.file.tests import builders
 from ftw.testing import FunctionalSplinterTesting
 from plone.app.testing import applyProfile
 from plone.app.testing import IntegrationTesting
