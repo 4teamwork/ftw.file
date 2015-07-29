@@ -12,7 +12,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
         self.request = self.layer['request']
 
     def test_collect_without_collection_to_list_returns_empty_list(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
 
         self.assertEqual(
             [], collector(),
@@ -20,7 +20,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
             'it should return an empty list')
 
     def test_collect_with_not_existing_function(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
 
         self.assertEqual(
             [], collector(collector_list=['not-existing']),
@@ -28,7 +28,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
             'by the collector')
 
     def test_do_not_collect_if_collectionfunction_returns_none(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
         collector._data_testdata = lambda: {}
 
         self.assertEqual(
@@ -37,7 +37,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
             'be ignored by the collector')
 
     def test_collectorfunction_method_needs_a_data_prefix(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
         collector.without_prefix = lambda: {'chuck': 'norris'}
         collector._data_with_prefix = lambda: {'chuck': 'norris'}
 
@@ -52,7 +52,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
             'collector. Please check the collector.')
 
     def test_collect_data_if_function_exists_and_it_returns_data(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
         collector._data_testfunction = lambda: {'chuck': 'norris'}
 
         self.assertEqual(
@@ -61,7 +61,7 @@ class TestFilePreviewActionsCollectorAdapter(TestCase):
             'collector. Please check the collector.')
 
     def test_collecting_data_in_order_of_collector_list_parameter(self):
-        collector = FilePreviewCollector(self.portal, self.request, object)
+        collector = FilePreviewCollector(self.portal, self.request)
 
         collector._data_test1 = lambda: {'url': 'test1'}
         collector._data_test2 = lambda: {'url': 'test2'}

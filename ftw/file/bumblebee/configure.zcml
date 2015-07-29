@@ -45,8 +45,7 @@
      <adapter
         for="
             ftw.file.interfaces.IFile
-            zope.publisher.interfaces.browser.IBrowserRequest
-            zope.publisher.interfaces.browser.IBrowserView"
+            zope.publisher.interfaces.browser.IBrowserRequest"
         factory=".file_preview.FilePreviewActionsCollector"
         provides=".interfaces.IFilePreviewActionsCollector"
         />
@@ -54,8 +53,7 @@
     <adapter
         for="
             ftw.file.interfaces.IFile
-            zope.publisher.interfaces.browser.IBrowserRequest
-            zope.publisher.interfaces.browser.IBrowserView"
+            zope.publisher.interfaces.browser.IBrowserRequest"
         factory=".file_preview.FilePreviewFileInfoCollector"
         provides=".interfaces.IFilePreviewFileInfoCollector"
         />
@@ -63,8 +61,7 @@
     <adapter
         for="
             ftw.file.interfaces.IFile
-            zope.publisher.interfaces.browser.IBrowserRequest
-            zope.publisher.interfaces.browser.IBrowserView"
+            zope.publisher.interfaces.browser.IBrowserRequest"
         factory=".file_preview.FilePreviewCollectorDefaultLists"
         provides=".interfaces.IFilePreviewCollectorDefaultLists"
         />

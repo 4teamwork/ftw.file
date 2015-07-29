@@ -20,9 +20,8 @@ class ActionsCollectorBaseTest(TestCase):
         self.actions_tool = getToolByName(self.portal, 'portal_actions')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.dummyfile = create(Builder('file').with_dummy_content())
-        self.view = self.dummyfile.unrestrictedTraverse('@@file_preview')
         self.adapter = getMultiAdapter(
-            (self.dummyfile, self.request, self.view),
+            (self.dummyfile, self.request),
             IFilePreviewActionsCollector)
 
 
@@ -69,9 +68,8 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
     def test_do_not_display_action_if_document_is_already_a_pdf(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 
@@ -80,9 +78,8 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
     def test_do_not_display_action_if_mimetype_is_not_supported(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.bad-mimetype'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 
@@ -91,9 +88,8 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
     def test_if_the_mimetype_is_supported_it_will_create_an_action(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.doc'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 

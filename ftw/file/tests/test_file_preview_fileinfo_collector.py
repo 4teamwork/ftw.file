@@ -1,12 +1,17 @@
+from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.bumblebee.interfaces import IFilePreviewFileInfoCollector
 from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
+from plone import api
+from plone.app.testing import login
+from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
-from DateTime import DateTime
 
 
 class FileInfoCollectorBaseTest(TestCase):
@@ -24,9 +29,9 @@ class TestMimetypeAndFilesize(FileInfoCollectorBaseTest):
     def test_values_are_correct(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_mimetype_and_filesize()
 
         self.assertEqual('PDF document', action.get('leftcolumn'))
@@ -38,9 +43,9 @@ class TestFilename(FileInfoCollectorBaseTest):
     def test_filename_is_correct(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='chucknorris.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_filename()
 
         self.assertEqual('Filename:', action.get('leftcolumn'))
@@ -54,9 +59,9 @@ class TestModificationDate(FileInfoCollectorBaseTest):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
         dummyfile.setModificationDate(modified_date)
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_modified_date()
 
         self.assertEqual('Modified:', action.get('leftcolumn'))
@@ -70,9 +75,9 @@ class TestDocumentDate(FileInfoCollectorBaseTest):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf')
             .having(documentDate=document_date))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_document_date()
 
         self.assertEqual('Documentdate:', action.get('leftcolumn'))
@@ -84,9 +89,9 @@ class TestDescription(FileInfoCollectorBaseTest):
     def test_return_empty_list_if_no_description_is_available(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_description()
 
         self.assertEqual({}, action)
@@ -95,9 +100,9 @@ class TestDescription(FileInfoCollectorBaseTest):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf')
             .having(description="Chuck is the best"))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
+
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_description()
 
         self.assertEqual('Description:', action.get('leftcolumn'))
@@ -109,40 +114,64 @@ class TestAuthor(FileInfoCollectorBaseTest):
     def test_do_not_show_author_if_show_author_returns_false(self):
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
-        view.show_author = lambda: False
 
+        site_props = getToolByName(
+            self.portal, 'portal_properties').site_properties
+        site_props.allowAnonymousViewAbout = False
+        logout()
+
+        # self.portal.portal_properties.
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual({}, action)
 
     def test_return_author_name_if_author_url_is_not_available(self):
+        api.user.create(
+            email='chuck@norris.org',
+            username='chuck',
+            properties={'fullname': 'Chuck Norris'})
+        setRoles(self.portal, 'chuck', ['Manager'])
+
+        logout()
+        login(self.portal, 'chuck')
+
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
-        view.get_author = lambda: {'url': '', 'name': 'Chuck Norris'}
+
+        logout()
+        login(self.portal, TEST_USER_NAME)
+        api.user.delete(username='chuck')
 
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual('Author:', action.get('leftcolumn'))
-        self.assertEqual('Chuck Norris', action.get('rightcolumn'))
+        self.assertEqual('chuck', action.get('rightcolumn'))
 
     def test_return_author_name_as_a_link_if_author_url_is_available(self):
+        api.user.create(
+            email='chuck@norris.org',
+            username='chuck',
+            properties={'fullname': 'Chuck Norris'})
+        setRoles(self.portal, 'chuck', ['Manager'])
+
+        logout()
+        login(self.portal, 'chuck')
+
         dummyfile = create(Builder('file').attach_file_containing(
             'File content', name='filename.pdf'))
-        view = dummyfile.unrestrictedTraverse('@@file_preview')
-        view.get_author = lambda: {'url': 'url-to-author',
-                                   'name': 'Chuck Norris'}
+
+        logout()
+        login(self.portal, TEST_USER_NAME)
 
         adapter = getMultiAdapter(
-            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual('Author:', action.get('leftcolumn'))
         self.assertEqual(
-            "<a href='url-to-author'>Chuck Norris</a>",
+            "<a href='http://nohost/plone/author/chuck'>Chuck Norris</a>",
             action.get('rightcolumn'))

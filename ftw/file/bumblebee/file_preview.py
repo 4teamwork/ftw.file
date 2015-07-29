@@ -6,9 +6,10 @@ from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
 from ftw.file.bumblebee.interfaces import IFilePreviewActionsCollector
+from ftw.file.bumblebee.interfaces import IFilePreviewCollectorDefaultLists
 from ftw.file.bumblebee.interfaces import IFilePreviewFileInfoCollector
 from ftw.file.bumblebee.interfaces import IFilePreviewJournal
-from ftw.file.bumblebee.interfaces import IFilePreviewCollectorDefaultLists
+from ftw.file.utils import FileMetadata
 from ftw.file.utils import format_filesize
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
@@ -88,10 +89,10 @@ class FilePreviewCollector(object):
     and adds appends the returned value to the list.
     The prefix _data_ will be prepended to the function-names.
     """
-    def __init__(self, context, request, browserview):
+    def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.view = browserview
+        self.metadata = FileMetadata(self.context)
         self.function_prefix = '_data_'
 
     def __call__(self, collector_list=[]):
@@ -141,7 +142,7 @@ class FilePreviewFileInfoCollector(FilePreviewCollector):
                 u'file_metadata_dates',
                 default=u'Modified:'),
                 context=self.context.REQUEST),
-            'rightcolumn': self.view.get_modified_date(),
+            'rightcolumn': self.metadata.modified_date,
         }
 
     def _data_document_date(self):
@@ -150,13 +151,13 @@ class FilePreviewFileInfoCollector(FilePreviewCollector):
                 u'file_metadata_documentdate',
                 default=u'Documentdate:'),
                 context=self.context.REQUEST),
-            'rightcolumn': self.view.get_document_date(),
+            'rightcolumn': self.metadata.document_date,
         }
 
     def _data_author(self):
-        if not self.view.show_author():
+        if not self.metadata.show_author:
             return {}
-        author = self.view.get_author()
+        author = self.metadata.author
         authorname = author.get('name')
         if author.get('url', None):
             authorname = "<a href='{0}'>{1}</a>".format(
@@ -331,10 +332,9 @@ class FilePreviewCollectorDefaultLists(object):
         'author',
         'description']
 
-    def __init__(self, context, request, browserview):
+    def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.view = browserview
         self.list_prefix = "_list_"
 
     def __call__(self, listname):
@@ -367,12 +367,12 @@ class FilePreview(FileView):
 
     def actions(self):
         return getMultiAdapter(
-            (self.context, self.request, self),
+            (self.context, self.request),
             IFilePreviewActionsCollector)(self.actions_list)
 
     def fileinfos(self):
         return getMultiAdapter(
-            (self.context, self.request, self),
+            (self.context, self.request),
             IFilePreviewFileInfoCollector)(self.file_infos_list)
 
     def journal(self):
@@ -399,6 +399,6 @@ class FilePreview(FileView):
 
     def _get_collector_list(self, listname):
         adapter = getMultiAdapter(
-            (self.context, self.request, self),
+            (self.context, self.request),
             IFilePreviewCollectorDefaultLists)
         return adapter(listname)
