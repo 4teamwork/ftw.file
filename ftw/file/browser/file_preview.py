@@ -8,6 +8,7 @@ from ftw.file.browser.file_view import FileView
 from ftw.file.interfaces import IFilePreviewActionsCollector
 from ftw.file.interfaces import IFilePreviewFileInfoCollector
 from ftw.file.interfaces import IFilePreviewJournal
+from ftw.file.interfaces import IFilePreviewCollectorDefaultLists
 from ftw.file.utils import format_filesize
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName
@@ -286,16 +287,16 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         }
 
 
-class FilePreview(FileView):
-    """ View for ftw.file with document preview functionality
+class FilePreviewCollectorDefaultLists(object):
+    """Returns the default list
     """
-    default_actions_list = [
+    actions_list = [
         'open_pdf',
         'download_original',
         'edit',
         'delete']
 
-    default_file_infos_list = [
+    file_infos_list = [
         'mimetype_and_filesize',
         'filename',
         'modified_date',
@@ -303,18 +304,35 @@ class FilePreview(FileView):
         'author',
         'description']
 
+    def __init__(self, context, browserview):
+        self.context = context
+        self.view = browserview
+        self.listprefix = "_list_"
+
+    def __call__(self, listname):
+        collectorlist = getattr(self, "{0}{1}".format(
+            self.list_prefix, listname), None)
+
+        return collectorlist and collectorlist or []
+
+
+class FilePreview(FileView):
+    """ View for ftw.file with document preview functionality
+    """
     def __call__(
             self,
             documentTitle=None,
             show_history=True,
-            actions_list=default_actions_list,
-            file_infos_list=default_file_infos_list,
+            actions_list=[],
+            file_infos_list=[],
             preview_fallback_url="",
             ):
         self.documentTitle = documentTitle
         self.show_history = show_history
-        self.actions_list = actions_list
-        self.file_infos_list = file_infos_list
+        self.actions_list = actions_list and actions_list or \
+            self._get_collector_list('actions_list')
+        self.file_infos_list = file_infos_list and file_infos_list or \
+            self._get_collector_list('file_infos_list')
         self.preview_fallback_url = \
             preview_fallback_url or self._get_preview_fallback_url()
         return super(FilePreview, self).__call__()
@@ -349,3 +367,8 @@ class FilePreview(FileView):
         portal_url = getToolByName(self.context, 'portal_url')()
         return "{0}/++resource++ftw.file.resources/image_not_found.png".format(
             portal_url)
+
+    def _get_collector_list(self, listname):
+        adapter = getMultiAdapter(
+            (self.context, self), IFilePreviewCollectorDefaultLists)
+        return adapter(listname)

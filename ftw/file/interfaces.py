@@ -60,3 +60,7 @@ class IFilePreviewFileInfoCollector(Interface):
             }
 
         """
+
+class IFilePreviewCollectorDefaultLists(Interface):
+    """Adapter interface to get the default collector-lists
+    """

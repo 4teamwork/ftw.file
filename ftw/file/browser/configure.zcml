@@ -52,6 +52,13 @@
             factory=".file_preview.FilePreviewFileInfoCollector"
             provides=".file_preview.IFilePreviewFileInfoCollector"
             />
+        <adapter
+            for="
+                ftw.file.interfaces.IFile
+                zope.publisher.interfaces.browser.IBrowserView"
+            factory=".file_preview.FilePreviewCollectorDefaultLists"
+            provides=".file_preview.IFilePreviewCollectorDefaultLists"
+            />
     </configure>
 
     <browser:page
