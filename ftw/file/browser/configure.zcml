@@ -11,60 +11,6 @@
         template="file_view.pt"
         permission="zope2.View"
         />
-    <configure zcml:condition="installed ftw.bumblebee">
-        <browser:page
-            for="..interfaces.IFile"
-            name="file_preview"
-            class=".file_preview.FilePreview"
-            template="file_preview.pt"
-            permission="zope2.View"
-            />
-        <browser:page
-            for="..interfaces.IFile"
-            name="file_view"
-            class=".file_view.FileViewBumblebee"
-            template="file_view_bumblebee.pt"
-            permission="zope2.View"
-            layer="ftw.bumblebee.interfaces.IFtwBumblebeeLayer"
-            />
-        <browser:page
-            for="..interfaces.IFile"
-            name="version_preview"
-            class=".version_preview.VersionPreview"
-            permission="zope2.View"
-            />
-         <adapter
-            for="
-                ftw.file.interfaces.IFile
-                zope.publisher.interfaces.browser.IBrowserRequest"
-            factory=".file_preview.FilePreviewJournal"
-            provides=".file_preview.IFilePreviewJournal"
-            />
-         <adapter
-            for="
-                ftw.file.interfaces.IFile
-                zope.publisher.interfaces.browser.IBrowserRequest
-                zope.publisher.interfaces.browser.IBrowserView"
-            factory=".file_preview.FilePreviewActionsCollector"
-            provides=".file_preview.IFilePreviewActionsCollector"
-            />
-        <adapter
-            for="
-                ftw.file.interfaces.IFile
-                zope.publisher.interfaces.browser.IBrowserRequest
-                zope.publisher.interfaces.browser.IBrowserView"
-            factory=".file_preview.FilePreviewFileInfoCollector"
-            provides=".file_preview.IFilePreviewFileInfoCollector"
-            />
-        <adapter
-            for="
-                ftw.file.interfaces.IFile
-                zope.publisher.interfaces.browser.IBrowserRequest
-                zope.publisher.interfaces.browser.IBrowserView"
-            factory=".file_preview.FilePreviewCollectorDefaultLists"
-            provides=".file_preview.IFilePreviewCollectorDefaultLists"
-            />
-    </configure>
 
     <browser:page
         for="ftw.file.interfaces.IFile"

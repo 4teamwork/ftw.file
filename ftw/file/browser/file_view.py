@@ -60,7 +60,3 @@ class FileView(BrowserView):
     def can_edit(self):
         mtool = getToolByName(self.context, 'portal_membership')
         return mtool.checkPermission('Modify portal content', self.context)
-
-
-class FileViewBumblebee(FileView):
-    """ View for ftw.file with bumblebee integration """

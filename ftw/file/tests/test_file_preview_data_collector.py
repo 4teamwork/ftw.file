@@ -1,4 +1,4 @@
-from ftw.file.browser.file_preview import FilePreviewCollector
+from ftw.file.bumblebee.file_preview import FilePreviewCollector
 from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from unittest2 import TestCase
 

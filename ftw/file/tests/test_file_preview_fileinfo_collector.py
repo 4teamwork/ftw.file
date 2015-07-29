@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.file.interfaces import IFilePreviewFileInfoCollector
+from ftw.file.bumblebee.interfaces import IFilePreviewFileInfoCollector
 from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID

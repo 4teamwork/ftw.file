@@ -5,10 +5,10 @@ from ftw.bumblebee.mimetypes import is_mimetype_supported
 from ftw.bumblebee.utils import get_representation_url
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
-from ftw.file.interfaces import IFilePreviewActionsCollector
-from ftw.file.interfaces import IFilePreviewFileInfoCollector
-from ftw.file.interfaces import IFilePreviewJournal
-from ftw.file.interfaces import IFilePreviewCollectorDefaultLists
+from ftw.file.bumblebee.interfaces import IFilePreviewActionsCollector
+from ftw.file.bumblebee.interfaces import IFilePreviewFileInfoCollector
+from ftw.file.bumblebee.interfaces import IFilePreviewJournal
+from ftw.file.bumblebee.interfaces import IFilePreviewCollectorDefaultLists
 from ftw.file.utils import format_filesize
 from Products.CMFCore.utils import _checkPermission
 from Products.CMFCore.utils import getToolByName

@@ -1,0 +1,66 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.file">
+
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="file_view"
+        class="ftw.file.browser.file_view.FileView"
+        template="file_view.pt"
+        permission="zope2.View"
+        layer="ftw.bumblebee.interfaces.IFtwBumblebeeLayer"
+        />
+
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="file_preview"
+        class=".file_preview.FilePreview"
+        template="file_preview.pt"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="version_preview"
+        class=".version_preview.VersionPreview"
+        permission="zope2.View"
+        />
+
+     <adapter
+        for="
+            ftw.file.interfaces.IFile
+            zope.publisher.interfaces.browser.IBrowserRequest"
+        factory=".file_preview.FilePreviewJournal"
+        provides=".interfaces.IFilePreviewJournal"
+        />
+
+     <adapter
+        for="
+            ftw.file.interfaces.IFile
+            zope.publisher.interfaces.browser.IBrowserRequest
+            zope.publisher.interfaces.browser.IBrowserView"
+        factory=".file_preview.FilePreviewActionsCollector"
+        provides=".interfaces.IFilePreviewActionsCollector"
+        />
+
+    <adapter
+        for="
+            ftw.file.interfaces.IFile
+            zope.publisher.interfaces.browser.IBrowserRequest
+            zope.publisher.interfaces.browser.IBrowserView"
+        factory=".file_preview.FilePreviewFileInfoCollector"
+        provides=".interfaces.IFilePreviewFileInfoCollector"
+        />
+
+    <adapter
+        for="
+            ftw.file.interfaces.IFile
+            zope.publisher.interfaces.browser.IBrowserRequest
+            zope.publisher.interfaces.browser.IBrowserView"
+        factory=".file_preview.FilePreviewCollectorDefaultLists"
+        provides=".interfaces.IFilePreviewCollectorDefaultLists"
+        />
+</configure>
