@@ -5,6 +5,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.file">
 
+
+    <class class="Products.ATContentTypes.content.file.ATFile">
+        <implements interface="ftw.bumblebee.interfaces.IBumblebeeable" />
+    </class>
+
     <browser:page
         for="ftw.file.interfaces.IFile"
         name="file_view"

@@ -33,9 +33,6 @@ class FtwFileLayer(PloneSandboxLayer):
 
         installProduct(app, 'ftw.file')
 
-        os.environ['BUMBLEBEE_APP_ID'] = 'local'
-        os.environ['BUMBLEBEE_SECRET'] = 'secret'
-        os.environ['BUMBLEBEE_URL'] = 'http://bumblebee/api/v1'
         os.environ['BUMBLEBEE_DEACTIVATE'] = "True"
 
     def setUpPloneSite(self, portal):
@@ -44,6 +41,8 @@ class FtwFileLayer(PloneSandboxLayer):
         applyProfile(portal, 'ftw.file:default')
         eventtesting.setUp()
 
+    def tearDownZope(self, app):
+        del os.environ['BUMBLEBEE_DEACTIVATE']
 
 FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(
@@ -62,7 +61,6 @@ class FtwFileBumblebeeLayer(FtwFileLayer):
         os.environ['BUMBLEBEE_APP_ID'] = 'local'
         os.environ['BUMBLEBEE_SECRET'] = 'secret'
         os.environ['BUMBLEBEE_URL'] = 'http://bumblebee/api/v1'
-        os.environ['BUMBLEBEE_DEACTIVATE'] = "True"
 
     def setUpPloneSite(self, portal):
         super(FtwFileBumblebeeLayer, self).setUpPloneSite(portal)
@@ -73,7 +71,6 @@ class FtwFileBumblebeeLayer(FtwFileLayer):
         del os.environ['BUMBLEBEE_APP_ID']
         del os.environ['BUMBLEBEE_SECRET']
         del os.environ['BUMBLEBEE_URL']
-        del os.environ['BUMBLEBEE_DEACTIVATE']
 
 
 FTW_FILE_BUMBLEBEE_FIXTURE = FtwFileBumblebeeLayer()
