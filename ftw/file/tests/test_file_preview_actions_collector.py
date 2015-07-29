@@ -16,12 +16,14 @@ class ActionsCollectorBaseTest(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
         self.actions_tool = getToolByName(self.portal, 'portal_actions')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.dummyfile = create(Builder('file').with_dummy_content())
         self.view = self.dummyfile.unrestrictedTraverse('@@file_preview')
         self.adapter = getMultiAdapter(
-            (self.dummyfile, self.view), IFilePreviewActionsCollector)
+            (self.dummyfile, self.request, self.view),
+            IFilePreviewActionsCollector)
 
 
 class TestDownloadOriginalAction(ActionsCollectorBaseTest):
@@ -69,7 +71,7 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
             'File content', name='filename.pdf'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request, view), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 
@@ -80,7 +82,7 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
             'File content', name='filename.bad-mimetype'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request, view), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 
@@ -91,7 +93,7 @@ class TestOpenPdfAction(ActionsCollectorBaseTest):
             'File content', name='filename.doc'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewActionsCollector)
+            (dummyfile, self.request, view), IFilePreviewActionsCollector)
 
         action = adapter._data_open_pdf()
 

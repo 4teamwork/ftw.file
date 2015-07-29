@@ -14,11 +14,13 @@ class TestCollectorDefaultLists(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.dummyfile = create(Builder('file').with_dummy_content())
         self.view = self.dummyfile.unrestrictedTraverse('@@file_preview')
         self.adapter = getMultiAdapter(
-            (self.dummyfile, self.view), IFilePreviewCollectorDefaultLists)
+            (self.dummyfile, self.request, self.view),
+            IFilePreviewCollectorDefaultLists)
 
     def test_get_list_if_listname_is_available(self):
         self.adapter._list_my_list = ['chuck', 'norris']

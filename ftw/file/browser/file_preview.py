@@ -22,9 +22,9 @@ from zope.viewlet.interfaces import IViewletManager
 class FilePreviewJournal(object):
     """
     """
-    def __init__(self, context):
+    def __init__(self, context, request):
         self.context = context
-        self.request = context.REQUEST
+        self.request = request
 
     def __call__(self, preview_fallback_url=""):
         self.preview_fallback_url = preview_fallback_url
@@ -88,8 +88,9 @@ class FilePreviewCollector(object):
     and adds appends the returned value to the list.
     The prefix _data_ will be prepended to the function-names.
     """
-    def __init__(self, context, browserview):
+    def __init__(self, context, request, browserview):
         self.context = context
+        self.request = request
         self.view = browserview
         self.function_prefix = '_data_'
 
@@ -319,7 +320,7 @@ class FilePreviewCollectorDefaultLists(object):
         'open_pdf',
         'download_original',
         'edit',
-        'external_edit'
+        'external_edit',
         'delete']
 
     _list_file_infos_list = [
@@ -330,8 +331,9 @@ class FilePreviewCollectorDefaultLists(object):
         'author',
         'description']
 
-    def __init__(self, context, browserview):
+    def __init__(self, context, request, browserview):
         self.context = context
+        self.request = request
         self.view = browserview
         self.list_prefix = "_list_"
 
@@ -365,18 +367,19 @@ class FilePreview(FileView):
 
     def actions(self):
         return getMultiAdapter(
-            (self.context, self),
+            (self.context, self.request, self),
             IFilePreviewActionsCollector)(self.actions_list)
 
     def fileinfos(self):
         return getMultiAdapter(
-            (self.context, self),
+            (self.context, self.request, self),
             IFilePreviewFileInfoCollector)(self.file_infos_list)
 
     def journal(self):
         if not self.show_history:
             return []
-        return IFilePreviewJournal(self.context)(
+        return getMultiAdapter(
+            (self.context, self.request), IFilePreviewJournal)(
             preview_fallback_url=self.preview_fallback_url)
 
     def title(self):
@@ -396,5 +399,6 @@ class FilePreview(FileView):
 
     def _get_collector_list(self, listname):
         adapter = getMultiAdapter(
-            (self.context, self), IFilePreviewCollectorDefaultLists)
+            (self.context, self.request, self),
+            IFilePreviewCollectorDefaultLists)
         return adapter(listname)

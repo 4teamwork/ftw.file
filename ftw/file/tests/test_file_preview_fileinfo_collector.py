@@ -15,6 +15,7 @@ class FileInfoCollectorBaseTest(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
 
@@ -25,7 +26,7 @@ class TestMimetypeAndFilesize(FileInfoCollectorBaseTest):
             'File content', name='filename.pdf'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_mimetype_and_filesize()
 
         self.assertEqual('PDF document', action.get('leftcolumn'))
@@ -39,7 +40,7 @@ class TestFilename(FileInfoCollectorBaseTest):
             'File content', name='chucknorris.pdf'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_filename()
 
         self.assertEqual('Filename:', action.get('leftcolumn'))
@@ -55,7 +56,7 @@ class TestModificationDate(FileInfoCollectorBaseTest):
         dummyfile.setModificationDate(modified_date)
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_modified_date()
 
         self.assertEqual('Modified:', action.get('leftcolumn'))
@@ -71,7 +72,7 @@ class TestDocumentDate(FileInfoCollectorBaseTest):
             .having(documentDate=document_date))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_document_date()
 
         self.assertEqual('Documentdate:', action.get('leftcolumn'))
@@ -85,7 +86,7 @@ class TestDescription(FileInfoCollectorBaseTest):
             'File content', name='filename.pdf'))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_description()
 
         self.assertEqual({}, action)
@@ -96,7 +97,7 @@ class TestDescription(FileInfoCollectorBaseTest):
             .having(description="Chuck is the best"))
         view = dummyfile.unrestrictedTraverse('@@file_preview')
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_description()
 
         self.assertEqual('Description:', action.get('leftcolumn'))
@@ -112,7 +113,7 @@ class TestAuthor(FileInfoCollectorBaseTest):
         view.show_author = lambda: False
 
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual({}, action)
@@ -124,7 +125,7 @@ class TestAuthor(FileInfoCollectorBaseTest):
         view.get_author = lambda: {'url': '', 'name': 'Chuck Norris'}
 
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual('Author:', action.get('leftcolumn'))
@@ -138,7 +139,7 @@ class TestAuthor(FileInfoCollectorBaseTest):
                                    'name': 'Chuck Norris'}
 
         adapter = getMultiAdapter(
-            (dummyfile, view), IFilePreviewFileInfoCollector)
+            (dummyfile, self.request, view), IFilePreviewFileInfoCollector)
         action = adapter._data_author()
 
         self.assertEqual('Author:', action.get('leftcolumn'))
