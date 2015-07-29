@@ -307,7 +307,7 @@ class FilePreviewCollectorDefaultLists(object):
     def __init__(self, context, browserview):
         self.context = context
         self.view = browserview
-        self.listprefix = "_list_"
+        self.list_prefix = "_list_"
 
     def __call__(self, listname):
         collectorlist = getattr(self, "{0}{1}".format(
