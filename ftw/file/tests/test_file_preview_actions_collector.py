@@ -5,6 +5,7 @@ from ftw.file.testing import FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
 from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 
@@ -15,6 +16,7 @@ class ActionsCollectorBaseTest(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.actions_tool = getToolByName(self.portal, 'portal_actions')
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.dummyfile = create(Builder('file').with_dummy_content())
         self.view = self.dummyfile.unrestrictedTraverse('@@file_preview')
@@ -122,3 +124,49 @@ class TestGoToOriginalAction(ActionsCollectorBaseTest):
         action = self.adapter._data_goto_original_file()
 
         self.assertEqual({}, action)
+
+
+class TestExternalEdit(ActionsCollectorBaseTest):
+
+    def test_do_not_show_action_if_user_has_no_edit_permission(self):
+        action_extedit = self.actions_tool.document_actions.extedit
+
+        action_extedit.visible = True
+
+        action = self.adapter._data_external_edit()
+        self.assertNotEqual(
+            {}, action,
+            "The action should be visible")
+
+        logout()
+
+        action = self.adapter._data_external_edit()
+
+        self.assertEqual(
+            {}, action,
+            "The action should be invisible if the user has no permission")
+
+    def test_do_not_show_action_if_extedit_action_is_not_visible(self):
+        action_extedit = self.actions_tool.document_actions.extedit
+
+        action_extedit.visible = True
+
+        action = self.adapter._data_external_edit()
+        self.assertNotEqual(
+            {}, action,
+            "THe action should be visible")
+
+        action_extedit.visible = False
+
+        action = self.adapter._data_external_edit()
+        self.assertEqual(
+            {}, action,
+            "The action should be invisible if the visibility "
+            "of the portal_action action is false")
+
+    def test_externaledit_url_is_correct(self):
+        action = self.adapter._data_external_edit()
+
+        self.assertEqual(
+            'http://nohost/plone/file/external_edit',
+            action.get('url'))

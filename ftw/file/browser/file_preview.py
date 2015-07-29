@@ -286,6 +286,31 @@ class FilePreviewActionsCollector(FilePreviewCollector):
                 context=self.context.REQUEST)
         }
 
+    def _data_external_edit(self):
+        actions_tool = getToolByName(self.context, 'portal_actions')
+
+        # Do not check condition because its a bad condition
+        action = actions_tool.listActionInfos(
+            'document_actions/extedit',
+            object=self.context,
+            check_visibility=1,
+            check_permissions=1,
+            check_condition=0)
+
+        if not action:
+            return {}
+
+        return {
+            'url': "{0}/external_edit".format(self.context.absolute_url()),
+            'target': '_top',
+            'cssclass': 'external-edit-link',
+            'image': None,
+            'text': translate(
+                _(u'file_metadata_external_edit',
+                  default=u'Open in external editor'),
+                context=self.context.REQUEST)
+        }
+
 
 class FilePreviewCollectorDefaultLists(object):
     """Returns the default list
@@ -294,6 +319,7 @@ class FilePreviewCollectorDefaultLists(object):
         'open_pdf',
         'download_original',
         'edit',
+        'external_edit'
         'delete']
 
     file_infos_list = [
