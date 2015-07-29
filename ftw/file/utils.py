@@ -41,10 +41,6 @@ class FileMetadata(object):
     """Handles some metadata of an object
     """
     def __init__(self, context):
-        # if not IFile.providedBy(context):
-        #     import pdb; pdb.set_trace()
-        #     raise(ValueError)
-
         self.context = context
 
     @property
