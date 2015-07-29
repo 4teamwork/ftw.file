@@ -125,6 +125,15 @@ class TestFilePreview(TestCase):
             'in the given order')
 
     @browsing
+    def test_check_if_actions_are_listed_by_default(self, browser):
+        view = self.dummyfile.unrestrictedTraverse('@@file_preview')
+
+        browser.open_html(view())
+        self.assertTrue(
+            0 < len(browser.css('.fileActions a')),
+            'Show some fileactions by default')
+
+    @browsing
     def test_set_default_fileinfos(self, browser):
         self.dummyfile.setDescription('Chuck')
         view = self.dummyfile.unrestrictedTraverse('@@file_preview')

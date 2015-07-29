@@ -315,14 +315,14 @@ class FilePreviewActionsCollector(FilePreviewCollector):
 class FilePreviewCollectorDefaultLists(object):
     """Returns the default list
     """
-    actions_list = [
+    _list_actions_list = [
         'open_pdf',
         'download_original',
         'edit',
         'external_edit'
         'delete']
 
-    file_infos_list = [
+    _list_file_infos_list = [
         'mimetype_and_filesize',
         'filename',
         'modified_date',
