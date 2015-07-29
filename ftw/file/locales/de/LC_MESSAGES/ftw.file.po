@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-28 14:26+0000\n"
+"POT-Creation-Date: 2015-07-29 09:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,52 +76,57 @@ msgid "filePreviewShowMore"
 msgstr "Mehr anzeigen"
 
 #. Default: "Author:"
-#: ./ftw/file/browser/file_preview.py:164
+#: ./ftw/file/browser/file_preview.py:166
 msgid "file_metadata_author"
 msgstr "Autor:"
 
 #. Default: "Modified:"
-#: ./ftw/file/browser/file_preview.py:138
+#: ./ftw/file/browser/file_preview.py:140
 msgid "file_metadata_dates"
 msgstr "Letzte Änderung:"
 
 #. Default: "Delete File"
-#: ./ftw/file/browser/file_preview.py:237
+#: ./ftw/file/browser/file_preview.py:239
 msgid "file_metadata_delete_file"
 msgstr "Dokument löschen"
 
 #. Default: "Description:"
-#: ./ftw/file/browser/file_preview.py:176
+#: ./ftw/file/browser/file_preview.py:178
 msgid "file_metadata_description"
 msgstr "Beschreibung"
 
 #. Default: "Documentdate:"
-#: ./ftw/file/browser/file_preview.py:147
+#: ./ftw/file/browser/file_preview.py:149
 msgid "file_metadata_documentdate"
 msgstr "Dokumentdatum:"
 
 #. Default: "Download Original"
-#: ./ftw/file/browser/file_preview.py:197
+#: ./ftw/file/browser/file_preview.py:199
 msgid "file_metadata_download_original"
 msgstr "Original herunterladen"
 
 #. Default: "Download this version"
-#: ./ftw/file/browser/file_preview.py:268
+#: ./ftw/file/browser/file_preview.py:270
 msgid "file_metadata_download_this_version"
 msgstr "Diese Version herunterladen"
 
 #. Default: "Edit File"
-#: ./ftw/file/browser/file_preview.py:252
+#: ./ftw/file/browser/file_preview.py:254
 msgid "file_metadata_edit_file"
 msgstr "Dokument bearbeiten"
 
+#. Default: "Open in external editor"
+#: ./ftw/file/browser/file_preview.py:310
+msgid "file_metadata_external_edit"
+msgstr "Dokuemnt im Editor öffnen"
+
 #. Default: "Filename:"
-#: ./ftw/file/browser/file_preview.py:128
+#: ./ftw/file/browser/file_preview.py:130
 msgid "file_metadata_filenname_info"
 msgstr "Dateiname"
 
 #. Default: "Open original document"
-#: ./ftw/file/browser/file_preview.py:280
+#: ./ftw/file/browser/file_preview.py:285
 msgid "file_metadata_goto_original"
 msgstr "Original anzeigen"
 
@@ -131,7 +136,7 @@ msgid "file_metadata_journal_heading"
 msgstr "Journal"
 
 #. Default: "Open PDF"
-#: ./ftw/file/browser/file_preview.py:223
+#: ./ftw/file/browser/file_preview.py:225
 msgid "file_metadata_open_pdf"
 msgstr "Dokument als PDF öffnen"
 
