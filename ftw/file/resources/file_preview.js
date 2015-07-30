@@ -55,9 +55,14 @@ var initShowmore = (function($) {
     journalitems = 0,
     button,
     init = function(){
-      journalitems = $('.journalItem').length;
-      shown = 0,
-      button = $('.showMore');
+      $base = $('#file-preview')
+      if ($base.length <= 0){
+        $base = $('#file-preview', $('iframe').contents());
+      }
+      journalitems = $('.journalItem', $base).length;
+      shown = 0;
+      button = $('.showMore', $base);
+
       showMoreElements(start);
       bindEvents();
     },
@@ -68,7 +73,7 @@ var initShowmore = (function($) {
     },
     showMoreElements = function(nextElements){
       shown = shown + nextElements;
-      $('.journalItem:lt('+ shown +')').css("display", "block");
+      $('.journalItem:lt('+ shown +')', $base).css("display", "block");
       if(shown >= journalitems){
         button.hide();
       }else{
