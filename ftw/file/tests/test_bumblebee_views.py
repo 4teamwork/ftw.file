@@ -9,6 +9,45 @@ from unittest2 import TestCase
 from zope.component import getMultiAdapter
 
 
+class TestFilePreview(TestCase):
+
+    layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+
+        self.dummyfile = create(
+            Builder('file').titled('Chuck Norris').with_dummy_content())
+
+    @browsing
+    def test_render_view(self, browser):
+        browser.login().visit(self.dummyfile, view="file_preview")
+
+        self.assertEqual(
+            'Chuck Norris', browser.css('h3').first.text,
+            "View isn't rendered correctly")
+
+
+class TestFileView(TestCase):
+
+    layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+
+        self.dummyfile = create(
+            Builder('file').titled('Chuck Norris').with_dummy_content())
+
+    @browsing
+    def test_render_view(self, browser):
+        browser.login().visit(self.dummyfile, view="file_view")
+        self.assertEqual(1, len(browser.css('.filePreview')))
+
+
 class TestVersionPreview(TestCase):
 
     layer = FTW_FILE_BUMBLEBEE_FUNCTIONAL_TESTING
