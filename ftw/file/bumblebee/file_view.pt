@@ -14,7 +14,6 @@
 <metal:js fill-slot="javascript_head_slot" tal:condition="view/metadata/can_edit">
     <script src="++resource++ftw.file.resources/progress.js"></script>
     <script src="++resource++ftw.file.resources/uploader.js"></script>
-    <script src="++resource++ftw.file.resources/file_preview.js"></script>
     <script src="++resource++ftw.file.resources/main.js"></script>
 </metal:js>
 

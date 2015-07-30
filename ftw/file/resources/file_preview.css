@@ -1,84 +1,83 @@
-html {
+/* General */
+#file-preview {
   height: 100%;
+  font-family: Arial, FreeSans, sans-serif;
+  font-size: 13px;
 }
-
-body {
-  font-family: 'Proxima Nova W08', Arial, FreeSans, sans-serif;
-  color: #555;
-  margin: 0px;
-  padding: 0px;
-  padding-right: 5px;
-  height: 100%;
+#file-preview a:link,
+#file-preview a:visited {
+  color: #000;
+  text-decoration: none;
 }
+#file-preview a:hover {
+  color: #75ad0a;
+}
+#file-preview .discreet {
+  color: #666;
+  font-size: 85%;
+  font-weight: normal;
+  line-height: 1.5em;
+}
+/* End General*/
 
-.preview {
+/* IFrame form Bumblebee */
+#file-preview .preview {
   display: block;
-  /*margin-right: 330px;*/
   height: 100%;
   float: none;
   width: 70%;
 }
 
-.preview iframe {
+#file-preview .preview iframe {
   width: 100%;
   height: 100%;
   border: 0;
 }
+/* END IFrame from Bumbebee */
 
-.sidebar {
+/* Sidebar */
+#file-preview .sidebar {
   display: block;
   position: relative;
   float: right;
   width: 28%;
   margin-left: 2%;
 }
+/* End Sidebar */
 
-.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
-.clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
-
-a {
-  color: #205C90;
-  text-decoration: none;
+/* File Details */
+#file-preview .fileDetails .detailItem {
+    padding: 0 1em;
+    overflow: hidden;
 }
-a:hover {
-  text-decoration: underline;
+#file-preview .fileDetails .detailItem span:last-child {
+  float: right;
 }
+/* End File Details*/
 
-.filename {
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.fileActions a{
+/* File Actions */
+#file-preview .fileActions a:link,
+#file-preview .fileActions a:visited{
   display: block;
   padding-top: 5px;
+  border-bottom: 0px;
   border: 1px solid #DFDFDF;
   border-radius: 3px;
   background-color: #F8F8F8;
   margin-top: 10px;
   padding: 3px 5px;
 }
-
-.fileActions a img {
+#file-preview .fileActions a.link-overlay {
+  border: 1px solid #DFDFDF !important;
+}
+#file-preview .fileActions a img {
   vertical-align: -2px;
 }
-.file-details .detailItem span:last-child {
-  float: right;
-}
-.file-details .detailItem {
-    padding: 0 1em;
-    overflow: hidden;
-}
-.document-details-link {
-  padding-bottom: 0px;
-}
-.document-details-link:before,
-.delete-object-link:before,
-.edit-object-link:before,
-.goto-original-version-link:before,
-.external-edit-link:before {
+#file-preview .documentDetailsLink:before,
+#file-preview .deleteObjectLink:before,
+#file-preview .editObjectLink:before,
+#file-preview .gotoOriginalVersionLink:before,
+#file-preview .externalEditLink:before {
   height: 16px;
   width: 16px;
   content: " ";
@@ -90,35 +89,40 @@ a:hover {
   margin-top: 1px;
   margin-right: 5px;
 }
-.document-details-link:before {
+#file-preview .documentDetailsLink:before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAAdElEQVR4AWM0lmTYz6DOgB3cZHBkNIn93/w/Ars84wrGWkajBMYKBg0cJtz430G0AnOGPIZoxin/ZeCS7QwnkRT802IMZWhkLGIQg8n/W8RwjYkUK4wYUhiygMZKwiUnMZwjSQFWQNiRxHiT8pAkGFkEoxsAZIFQo4rVFpgAAAAASUVORK5CYII9275e4da99a784928cab38121cf3bb37');
 }
 
-.delete-object-link:before {
+#file-preview .deleteObjectLink:before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACMElEQVQ4T6WTUUhTYRTH/+fmsmEIZdGCBRlbVLTYbEKCg+9OxdCXIeFTUA8SPfrkk3B3wSeffIzwoaAnCdmLkqi7FyYYuNxoYdFGBg1alAWSLJvdL+65bHLTHqLv5XyH8z+/e+7/+z7Cfy6q98t7vUkAGhSo9GDJPIwr7/cKWDAA6PRwydaDAb9G4klIqSn9/bAWFmCRVD3TpgtSGxFCkWTUNSDSj0ynkwzYvROTRwcHgVoN8Hjwc26OId5HKwyp3u3m5j81zY8zxIDq7RtCWjC8fX3O5C0tqKZSIAWqnXItkQB2drhcXVzkmvfJc7PhwbdbUaHAMlp7ehxIWxu2Z2Z42zo8DGxt8X57eRkWFPXE0yxP1wDYyefEVaFYME4K4UD8fieWyxy+miYsBerp1KuGPy6ALfp4MyBIknEmFnMdxKdMBpKkevZZyWXuAcAHcV6ApOEfGgIqFQfi86E8OwtIUs+Z7/8O2Oz2sZnto6PA6qprAnR1YXNqis1rX6kc/IVi9JSQsIzg2BiQTnNzMZvlGIxGHVg8juLkJAiKGsx+2TexED7O5l0ZHwfm51m7sb7Ohtl7rnV0OJCBAWxMTHAtlP/uHOPLy80ypOtAKsWaQi4HkqSG3vzgrxQuHROSpBGKRBxIIoGCpuHa613nIr242JQkKbVIOIxcPs/NkdKey6xcoIkhdY0k0q+/3XOusr3WLsBONKlA7Szh0Me0FoAgC4YE9M532H9Mbrv/LfsNAvLcEa3GssEAAAAASUVORK5CYII=');
 }
 
-.edit-object-link:before {
+#file-preview .editObjectLink:before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACUklEQVQ4T42TW0iTYQCGn29H929mCUngOpCnXXTlJJC86SqQUISu6kKMbgpCuxAFLSEWSIRQSF1VEAVBIBXVTaVQIsMLteVhcxE0CDc3t3be3L/9sUOmaOYHH9/V87zvdxLscby3ai8bopkLOsEpwAU8OOnirtgLHxpteGQP0VXtXqPBfBpRfZwfzx8SWg30/FegvGkaQFNm8+9rAe8MRqcPTawOxT2Pw+F07SoowKoyG3UdKFINsvcdvsUF0pPfOTKzgiMK/xQorxsH0EhF2FiDWPsI0SUCYZkv0yFS0x4q3KHPOwqUl40DaCUb9SU4OAERB2QT8G0dty+LeyXOoSlP1zZBAVZLNizF2iI0AeFZyKVhOQ0JwKQi7ok/Ng25Lm4RKGOl2pZ2FGMtIvQJInPF5DwcB8pVkFSGxJXZm/kb3BBkXliHNTqpD0sbiimfPAmxBciES3AOjGpI/4U3BO571uFas76PE6U955NjTpCj4EpAPAeSGpK5QXF17tbmtyOmRpoNuqzss9ZXliuNlxBhO0S/ghyD5WQRNqghtR0uNBi/YTlzuKntVVlFld68+gEO6kEXgcVfkFBALyClDIrurcl/Woi3/cdGmjtvd0v7K1X+5TnMrmegM0A0BVolf2CD4trOcKHBWN/RSGvPk/K4c5RcwkvK1I7Z8RQ0apKx9B2pd753t/8irnefy3SerdFo1sZz/kBSDgQz2aA/KB/Qqu+3jnj7//fZxPmOFjkR9ChVWv/PRFqZWg0r9omltD2TIQmkN811IAPk1ywg5+W/AeF/Ek6E64jVAAAAAElFTkSuQmCC');
 }
 
-.goto-original-version-link:before {
+#file-preview .gotoOriginalVersionLink:before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA7UlEQVQ4T93SMUoDQRQG4P9/J7Cx1sraNl2OMLOwXkSi0V5FG0tPIMFi2ZfdC9h4CzFEL5B6YfbJQLIMcQQhpHG6Gd7/vcfMEDsu7pjHXgE65yYiMiJ5XlXVR27a3yag9/4OwOU69CUi4xySA2L4FsA07WhmnyGEcdu2i/R8G2BRFDdmdpUUrQAcxH0OSYEfYTO7BjAzs1cROcohA+CcuyB5v+kcw6oa7wHOueMU6ft+SfJUVVcD4L1/AXC27jKEN+AWYiGEk6Zp3gegLMvDruseSb6p6lPuySJC8gHAvK7r51iz14/0p1/+Dyb4Bv2RcxEMZACoAAAAAElFTkSuQmCC');
 }
 
-.external-edit-link:before {
+#file-preview .externalEditLink:before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB6UlEQVQ4T5WST4gSYRjGn3eaYjciPHao7p2CwE6G0aEOgiA7NBR1LKJDeAq6WbCQJ6/haW8R0oLoqUs0bCTItujqCrYKDuzM6Og4qLP+2fkTM4LtIZ3d7/h97/fjed7nIU3TXgN4D5+TTCaFfD7/pFqtzk6PUq/XSwGI+wHS6TTK5XLONE0uk8ksIKSqaoqI4rZtL2UwDINsNotarQbDMHLdbncBoU6n4ynQNG0pIBAIwDRNjMdjuDBZljdCodC2+4EURfEU+Fk4/X4kitydYPCrB5AkyVOg67ovg2VZrJ2coJlIbJX39l69OTyckiiKKYZh4pZl+QKIgPav79h/9wFXp9PiseNw1Gq1zpSCS788/AnIW+jjEXY3c5geHDyjRqNxJgvrZgvXBp8wM+qgC+vQmHvbtyLpDarX6ynHcVYukbWHCMibcGYqbGsI2xrVhN+Du48T6ogqlYqXgmEYS3dw3fyGteMdwJ7BBuEIwae3H3787KVQKpU8C6uKdJPdx0UawO7toHPpPv5oN7hIJDKPsVgsruyB3u9j98cXvHzxHL2RA318BZIkcdFodA4oFAreDiaTyX8ttNttNJtNhMNhr4XuURSFi8Vic4AgCOduoquA5/kF4C0RJX1b9G/AkiTpAc/zgnv1F0Wn+SzBBfHgAAAAAElFTkSuQmCC');
 }
-.mimetype_icon {
+#file-preview .mimetype_icon {
   padding-right: 5px;
 }
 
+/* End File Actions*/
 
-.journal {
+/* Journal */
+#file-preview .journal {
   margin-top: 1em;
 }
-
-#content .journalItem {
+#file-preview .journal ul {
+  margin: 10px 0px 0px;
+  padding: 0px;
+}
+#file-preview .journalItem {
   position: relative;
   border: 1px solid #DFDFDF;
   border-radius: 4px;
@@ -130,56 +134,29 @@ a:hover {
   cursor: default;
   display: none;
 }
-#content .journalItem:hover {
+#file-preview .journal li:hover {
   opacity: 1;
   background-color: #F8F8F8;
 }
-
-.journalItem-link .journalItem {
+#file-preview .journal li:hover a:link {
+ color: #75ad0a;
+}
+#file-preview .journal a:link {
   cursor: pointer;
 }
-.journalItem-actor {
-  position: absolute;
-  left: -36px;
-  margin-right: 5px;
-}
-
-.journal-version-preview-image {
+#file-preview .journalVersionPreviewImage {
   height: 80%;
   position: absolute;
   right: 5px;
 }
-.journal-version-preview-image img{
+#file-preview .journalVersionPreviewImage img{
   height: 100%;
 }
-.journalItem-download,
-.journal-version-preview {
-  float: right;
-  opacity: 0.5;
-}
 
-.journalItem-download img {
-  height: 15px;
-}
+/* End Journal */
 
-.journalItem-download:hover {
-  opacity: 1;
-}
-
-.portaltype-file .filePreview {
-  height: 720px;
-}
-.portaltype-file .file-version-preview-colorbox .filePreview {
-  height: 100%;
-}
-#content a.link-overlay {
-  border-bottom: 0.1em solid #ccc !important;
-}
-#content .journalListing {
-  margin-top: 10px;
-  margin-left: 0px;
-}
-.showMore {
+/* Showmore */
+#file-preview .showMore {
   text-align: center;
   padding: 0.5em;
   background-color: #F8F8F8;
@@ -187,9 +164,12 @@ a:hover {
   border: 1px solid #DFDFDF;
   display: none;
 }
-.showMore:hover {
+#file-preview .showMore:hover {
   background-color: #EEEEEE;
 }
+/* End Showmor */
+
+/* Plonewide styles */
 .documentFirstHeading,
 #content div.documentByLine,
 .contentHistory,
@@ -197,3 +177,10 @@ a:hover {
 .documentDescription {
   display: none;
 }
+.portaltype-file .filePreview {
+  height: 720px;
+}
+.portaltype-file .file-version-preview-colorbox .filePreview {
+  height: 100%;
+}
+/* End Plonewide styles */

@@ -118,7 +118,7 @@ msgstr "Dokument bearbeiten"
 #. Default: "Open in external editor"
 #: ./ftw/file/browser/file_preview.py:310
 msgid "file_metadata_external_edit"
-msgstr "Dokuemnt im Editor öffnen"
+msgstr "Dokument im Editor öffnen"
 
 #. Default: "Filename:"
 #: ./ftw/file/browser/file_preview.py:130

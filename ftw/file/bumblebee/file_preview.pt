@@ -1,85 +1,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       i18n:domain="ftw.file">
 
-    <head>
-        <link rel="stylesheet" type="text/css" media="screen"
-              href="https://fast.fonts.net/cssapi/05ba7042-9884-4870-9fe8-095c4f2e9cc6.css" />
-        <link rel="stylesheet" type="text/css" media="screen"
-              href="++resource++ftw.file.resources/file_preview.css"/>
-    </head>
-
     <body>
-      <div class="sidebar">
+      <style type="text/css" tal:content="string:@import url(++resource++ftw.file.resources/file_preview.css);"></style>
 
-        <!-- Detail information -->
-        <div class="file-details">
-            <h3  tal:content="view/title">Title</h3>
-            <tal:information repeat="info view/fileinfos">
-              <div class="discreet detailItem">
-                  <span class="left" tal:content="structure info/leftcolumn">leftcolumn</span>
-                  <span class="right" tal:content="structure info/rightcolumn">rightcolumn</span>
-              </div>
-            </tal:information>
-        </div>
-        <!-- End detail information -->
+      <div id="file-preview">
+        <div class="sidebar">
 
-        <!-- Edit Actions -->
-        <div class="fileActions">
-            <tal:actions repeat="action view/actions">
-                <a tal:attributes="href action/url; target action/target; class action/cssclass">
-                    <tal:image condition="action/image">
-                        <img tal:attributes="src action/image/src;
-                                             title action/image/title;
-                                             alt action/image/alt;
-                                             class action/image/cssclass" />
-                         </tal:image>
-                    <span tal:content="action/text">link text</span>
-                </a>
-            </tal:actions>
-        </div>
-        <!-- End actions -->
-
-        <!-- Journal -->
-        <div class="journal" tal:define="journal view/journal" tal:condition="journal">
-          <b i18n:translate="file_metadata_journal_heading">Journal</b>
-          <ul class="journalListing">
-              <tal:journal repeat="item journal">
-                  <li class="journalItem">
-                      <a class="journalItem-link" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
-                          <div class="journal-version-preview-image" tal:condition="item/downloadable_version">
-                              <img tal:attributes="src item/version_preview_image_url" />
-                          </div>
-                          <div tal:content="item/action" i18n:translate="" i18n:domain="plone"
-                               class="journalItem-action">
-                          </div>
-                          <div class="journalItem-time discreet"
-                               i18n:translate="file_preview_time_and_actor">
-                               <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
-                               <span tal:replace="item/actor" i18n:name="file_preview_modified_by" />:
-                          </div>
-                          <div tal:content="item/comment"
-                               class="journalItem-comment discreet">
-                          </div>
-
-                          <span class="clearfix"><!-- --></span>
-                      </a>
-                  </li>
-              </tal:journal>
-          </ul>
-          <div class="showMore">
-            <span i18n:translate="filePreviewShowMore">Show more</span>
+          <!-- Detail information -->
+          <div class="fileDetails">
+              <h3  tal:content="view/title">Title</h3>
+              <tal:information repeat="info view/fileinfos">
+                <div class="discreet detailItem">
+                    <span class="left" tal:content="structure info/leftcolumn">leftcolumn</span>
+                    <span class="right" tal:content="structure info/rightcolumn">rightcolumn</span>
+                </div>
+              </tal:information>
           </div>
+          <!-- End detail information -->
+
+          <!-- Edit Actions -->
+          <div class="fileActions">
+              <tal:actions repeat="action view/actions">
+                  <a tal:attributes="href action/url; target action/target; class action/cssclass">
+                      <tal:image condition="action/image">
+                          <img tal:attributes="src action/image/src;
+                                               title action/image/title;
+                                               alt action/image/alt;
+                                               class action/image/cssclass" />
+                           </tal:image>
+                      <span tal:content="action/text">link text</span>
+                  </a>
+              </tal:actions>
+          </div>
+          <!-- End actions -->
+
+          <!-- Journal -->
+          <div class="journal" tal:define="journal view/journal" tal:condition="journal">
+            <b i18n:translate="file_metadata_journal_heading">Journal</b>
+            <ul class="journalListing">
+                <tal:journal repeat="item journal">
+                    <li class="journalItem">
+                        <a class="journalItemLink" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                            <div class="journalVersionPreviewImage" tal:condition="item/downloadable_version">
+                                <img tal:attributes="src item/version_preview_image_url" />
+                            </div>
+                            <div tal:content="item/action" i18n:translate="" i18n:domain="plone"
+                                 class="journalItem-action">
+                            </div>
+                            <div class="journalItem-time discreet"
+                                 i18n:translate="file_preview_time_and_actor">
+                                 <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
+                                 <span tal:replace="item/actor" i18n:name="file_preview_modified_by" />:
+                            </div>
+                            <div tal:content="item/comment"
+                                 class="journalItem-comment discreet">
+                            </div>
+
+                            <span class="clearfix"><!-- --></span>
+                        </a>
+                    </li>
+                </tal:journal>
+            </ul>
+            <div class="showMore">
+              <span i18n:translate="filePreviewShowMore">Show more</span>
+            </div>
+          </div>
+          <!-- End journal -->
         </div>
-        <!-- End journal -->
-      </div>
 
-      <div class="preview">
-        <iframe tal:attributes="src view/get_preview_pdf_url"></iframe>
+        <div class="preview">
+          <iframe tal:attributes="src view/get_preview_pdf_url"></iframe>
+        </div>
       </div>
-
     </body>
 </html>

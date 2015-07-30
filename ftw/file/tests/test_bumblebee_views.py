@@ -73,7 +73,7 @@ class TestVersionPreview(TestCase):
         # New Version
         self.assertEqual(
             'James Bond',
-            browser.css('.file-details h3').first.text,
+            browser.css('.fileDetails h3').first.text,
             'The title of the newes version should be visible')
 
         self.request['version_id'] = 0
@@ -85,5 +85,5 @@ class TestVersionPreview(TestCase):
         # Old Version
         self.assertEqual(
             'Chuck Norris - Version 1 of 2',
-            browser.css('.file-details h3').first.text,
+            browser.css('.fileDetails h3').first.text,
             'The title of the last version should be visible')

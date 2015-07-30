@@ -234,7 +234,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
             'url': "{0}/delete_confirmation".format(
                 self.context.absolute_url()),
             'target': '_top',
-            'cssclass': 'delete-object-link',
+            'cssclass': 'deleteObjectLink',
             'image': None,
             'text': translate(
                 _(u'file_metadata_delete_file', default=u'Delete File'),
@@ -249,7 +249,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
             'url': "{0}/edit".format(
                 self.context.absolute_url()),
             'target': '_top',
-            'cssclass': 'edit-object-link',
+            'cssclass': 'editObjectLink',
             'image': None,
             'text': translate(
                 _(u'file_metadata_edit_file', default=u'Edit File'),
@@ -280,7 +280,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         return {
             'url': self.context.absolute_url(),
             'target': '_top',
-            'cssclass': 'goto-original-version-link',
+            'cssclass': 'gotoOriginalVersionLink',
             'image': None,
             'text': translate(
                 _(u'file_metadata_goto_original',
@@ -305,7 +305,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         return {
             'url': "{0}/external_edit".format(self.context.absolute_url()),
             'target': '_top',
-            'cssclass': 'external-edit-link',
+            'cssclass': 'externalEditLink',
             'image': None,
             'text': translate(
                 _(u'file_metadata_external_edit',

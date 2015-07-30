@@ -153,7 +153,7 @@ class TestFilePreview(TestCase):
         browser.open_html(view(documentTitle=None))
         self.assertEqual(
             self.dummyfile.Title(),
-            browser.css('.file-details h3').first.text,
+            browser.css('.fileDetails h3').first.text,
             'The default title should be the title of the context')
 
     @browsing
@@ -163,5 +163,5 @@ class TestFilePreview(TestCase):
         browser.open_html(view(documentTitle="This is the title"))
         self.assertEqual(
             "This is the title",
-            browser.css('.file-details h3').first.text,
+            browser.css('.fileDetails h3').first.text,
             'The default title should be overridden by the documentTitle')

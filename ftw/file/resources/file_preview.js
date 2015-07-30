@@ -22,7 +22,7 @@ var initFilePreviewOverlays = (function($) {
           $('body').css('overflow', 'scroll');
         }
       });
-      $('div.sidebar a.delete-object-link').prepOverlay({
+      $('div.sidebar a.deleteObjectLink').prepOverlay({
           subtype: 'ajax',
           filter: common_content_filter,
           formselector: '#delete_confirmation',
@@ -44,11 +44,11 @@ var showmore = (function($) {
   var self = {},
     start = 5,
     step = 10,
-    shown = 0,
     journalitems = 0,
     button,
     init = function(){
       journalitems = $('.journalItem').length;
+      shown = 0,
       button = $('.showMore');
       showMoreElements(start);
       bindEvents();
