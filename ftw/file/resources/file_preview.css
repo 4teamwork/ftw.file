@@ -1,4 +1,13 @@
 /* General */
+html {
+  height: 100%;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  padding-right: 5px;
+  height: 100%;
+}
 #file-preview {
   height: 100%;
   font-family: Arial, FreeSans, sans-serif;
