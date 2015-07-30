@@ -157,7 +157,7 @@ var uploader = (function($) {
     },
     bumblebeeIntegration = function(data){
       var $data = $(data);
-      if (typeof showmore !== 'undefined' && $.isFunction(initBumblebee)) {
+      if (typeof showmore == 'undefined' && !$.isFunction(initBumblebee)) {
         return null;
       }
       var $sidebar = $('.sidebar');
