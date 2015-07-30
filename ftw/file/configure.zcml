@@ -36,7 +36,7 @@
   <configure zcml:condition="installed ftw.bumblebee">
     <genericsetup:registerProfile
         name="bumblebee"
-        title="ftw.file: Bumblebee"
+        title="ftw.file with bumblebee support"
         directory="profiles/bumblebee"
         description="Installs the ftw.file package with bumblebee integration"
         provides="Products.GenericSetup.interfaces.EXTENSION"
