@@ -1,3 +1,12 @@
+$(window).on("load", function() {
+    initBumblebee();
+});
+
+var initBumblebee = function() {
+    initFilePreviewOverlays.init();
+    initShowmore.init();
+};
+
 var initFilePreviewOverlays = (function($) {
   var self = {}
   var init = function() {
@@ -38,8 +47,7 @@ var initFilePreviewOverlays = (function($) {
 
 })(jQuery);
 
-
-var showmore = (function($) {
+var initShowmore = (function($) {
 
   var self = {},
     start = 5,

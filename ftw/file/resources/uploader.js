@@ -134,17 +134,8 @@ var uploader = (function($) {
           $($historyTable).empty();
           $historyTable.html($('table.contentHistory thead, table.contentHistory tbody', $data));
         }
+        bumblebeeIntegration($data);
 
-        // Bumblebee integration
-        var $sidebar = $('.sidebar');
-        $sidebar.html($('.sidebar > div', $data));
-
-        var $preview = $('.preview');
-        $preview.html($('.preview > iframe', $data));
-
-        showmore.init();
-        initFilePreviewOverlays.init();
-        // End bumblebee integration
       });
       updateRequest.fail(function(data) {
         window.location.reload();
@@ -163,6 +154,19 @@ var uploader = (function($) {
       done = false;
       fail = false;
       dragging = 0;
+    },
+    bumblebeeIntegration = function(data){
+      var $data = $(data);
+      if (typeof showmore !== 'undefined' && $.isFunction(initBumblebee)) {
+        return null;
+      }
+      var $sidebar = $('.sidebar');
+      $sidebar.html($('.sidebar > div', $data));
+
+      var $preview = $('.preview');
+      $preview.html($('.preview > iframe', $data));
+
+      initBumblebee();
     };
 
   self.init = init;
