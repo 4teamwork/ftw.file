@@ -2,7 +2,7 @@ from collective.prettydate.interfaces import IPrettyDate
 from ftw.bumblebee.mimetypes import get_mimetype_image_url
 from ftw.bumblebee.mimetypes import get_mimetype_title
 from ftw.bumblebee.mimetypes import is_mimetype_supported
-from ftw.bumblebee.utils import get_representation_url
+from ftw.bumblebee.utils import get_representation_url_by_object
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
 from ftw.file.bumblebee.interfaces import IFilePreviewActionsCollector
@@ -74,7 +74,7 @@ class FilePreviewJournal(object):
             return ""
         prtool = getToolByName(self.context, 'portal_repository')
         version_context = prtool.retrieve(self.context, version_id).object
-        representation_url = get_representation_url(
+        representation_url = get_representation_url_by_object(
             'thumbnail',
             obj=version_context,
             fallback_url=self.preview_fallback_url)
@@ -214,7 +214,7 @@ class FilePreviewActionsCollector(FilePreviewCollector):
         portal_url = getToolByName(self.context, 'portal_url')()
         fallback_url = portal_url + '/preview_not_available'
         return {
-            'url': get_representation_url(
+            'url': get_representation_url_by_object(
                 'pdf', obj=self.context, fallback_url=fallback_url),
             'target': '_top',
             'cssclass': 'pdf-file-link',
@@ -388,7 +388,7 @@ class FilePreview(FileView):
         return self.context.Title()
 
     def get_preview_pdf_url(self):
-        return get_representation_url('preview',
+        return get_representation_url_by_object('preview',
                                       obj=self.context,
                                       fallback_url=self.preview_fallback_url)
 
