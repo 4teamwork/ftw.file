@@ -37,7 +37,8 @@ class FilePreviewJournal(object):
         journal_items = []
         for item in viewlet.fullHistory() or ():
             journal_items.append({
-                'time': item['time'],
+                'time': self.context.toLocalizedTime(
+                    item['time'], long_format=True),
                 'relative_time': date_utility.date(item['time']),
                 'action': item['transition_title'],
                 'actor': self._get_user_info(item['actorid']),

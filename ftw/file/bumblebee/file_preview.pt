@@ -44,7 +44,7 @@
                             </div>
                             <div class="journalItem-time discreet"
                                  i18n:translate="file_preview_time_and_actor">
-                                 <span tal:attributes="title python:here.toLocalizedTime(item['time'], long_format=True)"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
+                                 <span tal:attributes="title item/time"tal:replace="item/relative_time" i18n:name="file_preview_relative_time" /> by
                                  <span tal:replace="item/actor" i18n:name="file_preview_modified_by" />:
                             </div>
                             <div tal:content="item/comment"
