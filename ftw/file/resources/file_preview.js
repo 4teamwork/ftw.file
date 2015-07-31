@@ -15,10 +15,11 @@ var initFilePreviewOverlays = (function($) {
         width: '90%',
         height: '90%',
 
+        className: 'cbFileVersionPreview',
         trapFocus: true,
         fixed: true,
         reposition: false,
-        scrolling: true,
+        scrolling: false,
 
         transition: 'none',
         onOpen: function() {
@@ -56,9 +57,6 @@ var initShowmore = (function($) {
     button,
     init = function(){
       $base = $('#file-preview')
-      if ($base.length <= 0){
-        $base = $('#file-preview', $('iframe').contents());
-      }
       journalitems = $('.journalItem', $base).length;
       shown = 0;
       button = $('.showMore', $base);

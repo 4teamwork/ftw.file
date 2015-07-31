@@ -1,13 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      i18n:domain="ftw.file">
-
-    <body>
-      <style type="text/css" tal:content="string:@import url(++resource++ftw.file.resources/file_preview.css);"></style>
-
-      <div id="file-preview">
+      <div id="file-preview" i18n:domain="ftw.file">
         <div class="sidebar">
 
           <!-- Detail information -->
@@ -23,8 +14,8 @@
           <!-- End detail information -->
 
           <!-- Edit Actions -->
-          <div class="fileActions">
-              <tal:actions repeat="action view/actions">
+          <ul class="fileActions">
+              <li tal:repeat="action view/actions">
                   <a tal:attributes="href action/url; target action/target; class action/cssclass">
                       <tal:image condition="action/image">
                           <img tal:attributes="src action/image/src;
@@ -34,8 +25,8 @@
                            </tal:image>
                       <span tal:content="action/text">link text</span>
                   </a>
-              </tal:actions>
-          </div>
+              </li>
+          </ul>
           <!-- End actions -->
 
           <!-- Journal -->
@@ -76,5 +67,4 @@
           <iframe tal:attributes="src view/get_preview_pdf_url"></iframe>
         </div>
       </div>
-    </body>
-</html>
+
