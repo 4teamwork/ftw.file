@@ -1,13 +1,4 @@
-/* General */
-html {
-  height: 100%;
-}
-body {
-  margin: 0px;
-  padding: 0px;
-  padding-right: 5px;
-  height: 100%;
-}
+ /* General */
 #file-preview {
   height: 100%;
   font-family: Arial, FreeSans, sans-serif;
@@ -65,19 +56,29 @@ body {
 /* End File Details*/
 
 /* File Actions */
-#file-preview .fileActions a:link,
-#file-preview .fileActions a:visited{
+#file-preview ul.fileActions {
+  list-style-type: none;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+#file-preview ul.fileActions li {
+  padding: 0px;
   display: block;
-  padding-top: 5px;
-  border-bottom: 0px;
   border: 1px solid #DFDFDF;
   border-radius: 3px;
   background-color: #F8F8F8;
   margin-top: 10px;
+}
+#file-preview .fileActions a:link,
+#file-preview .fileActions a:visited{
+  width: 100%;
+  height: 100%;
+  display: inline-block;
   padding: 3px 5px;
+  box-sizing: border-box;
 }
 #file-preview .fileActions a.link-overlay {
-  border: 1px solid #DFDFDF !important;
+  /*border: 1px solid #DFDFDF !important;*/
 }
 #file-preview .fileActions a img {
   vertical-align: -2px;
@@ -178,6 +179,12 @@ body {
 }
 /* End Showmor */
 
+/* Colorbox styles */
+#cboxOverlay.cbFileVersionPreview {
+  background-color: #ffd7d7;
+}
+/* End Colorbox styles */
+
 /* Plonewide styles */
 .documentFirstHeading,
 #content div.documentByLine,
@@ -192,4 +199,4 @@ body {
 .portaltype-file .file-version-preview-colorbox .filePreview {
   height: 100%;
 }
-/* End Plonewide styles */
+/* End Plonewide styles
