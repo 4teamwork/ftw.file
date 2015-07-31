@@ -41,14 +41,8 @@ var initVersionPreviewOverlay = (function($) {
         scrolling: false,
 
         transition: 'none',
-        onOpen: function() {
-          $('body').css('overflow', 'hidden');
-          $('#colorbox').addClass('file-version-preview-colorbox');
-          $('#cboxOverlay').addClass('file-version-preview-colorbox-background');
-        },
-
-        onCleanup: function() {
-          $('body').css('overflow', 'scroll');
+        onClosed: function() {
+          $(document).trigger( "cbFileVersionPreviewClosed" );
         }
       });
     };
