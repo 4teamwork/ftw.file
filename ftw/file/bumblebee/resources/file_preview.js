@@ -3,12 +3,31 @@ $(window).on("load", function() {
 });
 
 var initBumblebee = function() {
-    initFilePreviewOverlays.init();
+    initDeleteButtonOverlay.init();
+    initVersionPreviewOverlay.init();
     initShowmore.init();
 };
 
-var initFilePreviewOverlays = (function($) {
-  var self = {}
+var initDeleteButtonOverlay = (function($){
+  var self = {};
+  var init = function() {
+    $('div.sidebar a.deleteObjectLink').prepOverlay({
+          subtype: 'ajax',
+          filter: common_content_filter,
+          formselector: '#delete_confirmation',
+          cssclass: 'overlay-delete',
+          noform: function(el) {return $.plonepopups.noformerrorshow(el, 'redirect');},
+          redirect: $.plonepopups.redirectbasehref,
+          closeselector: '[name="form.button.Cancel"]',
+          width:'50%'
+      });
+  }
+  self.init = init;
+  return self;
+})(jQuery);
+
+var initVersionPreviewOverlay = (function($) {
+  var self = {};
   var init = function() {
       $('.journalItem > a').colorbox({
         iframe: false,
@@ -31,16 +50,6 @@ var initFilePreviewOverlays = (function($) {
         onCleanup: function() {
           $('body').css('overflow', 'scroll');
         }
-      });
-      $('div.sidebar a.deleteObjectLink').prepOverlay({
-          subtype: 'ajax',
-          filter: common_content_filter,
-          formselector: '#delete_confirmation',
-          cssclass: 'overlay-delete',
-          noform: function(el) {return $.plonepopups.noformerrorshow(el, 'redirect');},
-          redirect: $.plonepopups.redirectbasehref,
-          closeselector: '[name="form.button.Cancel"]',
-          width:'50%'
       });
     };
   self.init = init;
