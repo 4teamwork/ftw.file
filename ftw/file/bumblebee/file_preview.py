@@ -2,6 +2,7 @@ from collective.prettydate.interfaces import IPrettyDate
 from ftw.bumblebee.mimetypes import get_mimetype_image_url
 from ftw.bumblebee.mimetypes import get_mimetype_title
 from ftw.bumblebee.mimetypes import is_mimetype_supported
+from ftw.bumblebee.utils import get_fallback_url
 from ftw.bumblebee.utils import get_representation_url_by_object
 from ftw.file import fileMessageFactory as _
 from ftw.file.browser.file_view import FileView
@@ -27,8 +28,7 @@ class FilePreviewJournal(object):
         self.context = context
         self.request = request
 
-    def __call__(self, preview_fallback_url=""):
-        self.preview_fallback_url = preview_fallback_url
+    def __call__(self):
         return self.get_journal()
 
     def get_journal(self):
@@ -77,7 +77,7 @@ class FilePreviewJournal(object):
         representation_url = get_representation_url_by_object(
             'thumbnail',
             obj=version_context,
-            fallback_url=self.preview_fallback_url)
+            fallback_url=get_fallback_url())
 
         return representation_url
 
@@ -353,7 +353,6 @@ class FilePreview(FileView):
             show_history=True,
             actions_list=[],
             file_infos_list=[],
-            preview_fallback_url="",
             ):
         self.documentTitle = documentTitle
         self.show_history = show_history
@@ -361,8 +360,6 @@ class FilePreview(FileView):
             self._get_collector_list('actions_list')
         self.file_infos_list = file_infos_list and file_infos_list or \
             self._get_collector_list('file_infos_list')
-        self.preview_fallback_url = \
-            preview_fallback_url or self._get_preview_fallback_url()
         return super(FilePreview, self).__call__()
 
     def actions(self):
@@ -379,8 +376,7 @@ class FilePreview(FileView):
         if not self.show_history:
             return []
         return getMultiAdapter(
-            (self.context, self.request), IFilePreviewJournal)(
-            preview_fallback_url=self.preview_fallback_url)
+            (self.context, self.request), IFilePreviewJournal)()
 
     def title(self):
         if self.documentTitle:
@@ -388,14 +384,7 @@ class FilePreview(FileView):
         return self.context.Title()
 
     def get_preview_pdf_url(self):
-        return get_representation_url_by_object('preview',
-                                      obj=self.context,
-                                      fallback_url=self.preview_fallback_url)
-
-    def _get_preview_fallback_url(self):
-        portal_url = getToolByName(self.context, 'portal_url')()
-        return "{0}/++resource++ftw.file.resources/image_not_found.png".format(
-            portal_url)
+        return get_representation_url_by_object('preview', obj=self.context)
 
     def _get_collector_list(self, listname):
         adapter = getMultiAdapter(

@@ -65,4 +65,9 @@
         factory=".file_preview.FilePreviewCollectorDefaultLists"
         provides=".interfaces.IFilePreviewCollectorDefaultLists"
         />
+
+    <browser:resourceDirectory
+      name="ftw.file.resources.bumblebee"
+      directory="resources"
+      />
 </configure>
