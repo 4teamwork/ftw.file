@@ -81,14 +81,18 @@ var initShowmore = (function($) {
       }else{
         button.show();
       }
+    },
+    resizeColorbox = function() {
+      if ($('.cbFilePreview').is(':visible')){
+        $.colorbox.resize({width:$('body').width()*0.95, height:$('body').height()*0.9});
+      };
     };
-  self.init = init;
-  return self;
-
-}(jQuery));
-
-$( window ).on('resize', function() {
+  $( window ).on('resize', function() {
     if ($('.cbFileVersionPreview').is(':visible')){
       $.colorbox.resize({width:$('body').width()*0.95, height:$('body').height()*0.9});
     }
   });
+  self.init = init;
+  return self;
+
+}(jQuery));
