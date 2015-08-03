@@ -40,6 +40,7 @@ var initVersionPreviewOverlay = (function($) {
         reposition: false,
         scrolling: false,
         fadeOut: 0,
+        current: "",
 
         transition: 'none',
         onClosed: function() {

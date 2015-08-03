@@ -35,7 +35,7 @@
             <ul class="journalListing">
                 <tal:journal repeat="item journal">
                     <li class="journalItem">
-                        <a class="journalItemLink" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
+                        <a rel="versionPreview" class="journalItemLink" tal:omit-tag="not:item/downloadable_version" tal:attributes="href string:${context/absolute_url}/version_preview?version_id=${item/version_id}">
                             <div class="journalVersionPreviewImage" tal:condition="item/downloadable_version">
                                 <img tal:attributes="src item/version_preview_image_url" />
                             </div>
