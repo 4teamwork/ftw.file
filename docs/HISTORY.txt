@@ -6,7 +6,7 @@ Changelog
 -------------------
 
 - Integrate ftw.bumblebee as an extra
-  [elioschmutz]
+  [elioschmutz, ttschanz]
 
 - Show a hint about the imminent file replacement in the dropzone overlay.
   [mbaechtold]
