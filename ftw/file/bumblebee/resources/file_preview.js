@@ -31,7 +31,7 @@ var initVersionPreviewOverlay = (function($) {
   var init = function() {
       $('.journalItem > a').colorbox({
         iframe: false,
-        width: '90%',
+        width: '95%',
         height: '90%',
 
         className: 'cbFileVersionPreview',
@@ -46,7 +46,7 @@ var initVersionPreviewOverlay = (function($) {
           $(document).trigger( "cbFileVersionPreviewClosed" );
         }
       });
-    };
+  };
   self.init = init;
   return self;
 
@@ -86,3 +86,9 @@ var initShowmore = (function($) {
   return self;
 
 }(jQuery));
+
+$( window ).on('resize', function() {
+    if ($('.cbFileVersionPreview').is(':visible')){
+      $.colorbox.resize({width:$('body').width()*0.95, height:$('body').height()*0.9});
+    }
+  });
