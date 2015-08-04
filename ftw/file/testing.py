@@ -1,14 +1,15 @@
 from ftw.builder.session import BuilderSession
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import set_builder_session_factory
+from ftw.file.tests import builders
 from ftw.testing import FunctionalSplinterTesting
+from plone.app.testing import applyProfile
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.testing.z2 import installProduct
-from zope.configuration import xmlconfig
 from zope.component import eventtesting
+from zope.configuration import xmlconfig
 
 
 def functional_session_factory():
