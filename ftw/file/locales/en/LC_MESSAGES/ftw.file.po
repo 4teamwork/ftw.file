@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-29 09:35+0000\n"
+"POT-Creation-Date: 2015-08-04 09:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgid "Preview"
 msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:32
-#: ./ftw/file/browser/file_view_bumblebee.pt:29
+#: ./ftw/file/bumblebee/file_view.pt:28
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr ""
 
@@ -71,82 +71,87 @@ msgid "download"
 msgstr ""
 
 #. Default: "Show more"
-#: ./ftw/file/browser/file_preview.pt:74
+#: ./ftw/file/bumblebee/file_preview.pt:60
 msgid "filePreviewShowMore"
 msgstr ""
 
 #. Default: "Author:"
-#: ./ftw/file/browser/file_preview.py:166
+#: ./ftw/file/bumblebee/file_preview.py:168
 msgid "file_metadata_author"
 msgstr ""
 
 #. Default: "Modified:"
-#: ./ftw/file/browser/file_preview.py:140
+#: ./ftw/file/bumblebee/file_preview.py:142
 msgid "file_metadata_dates"
 msgstr ""
 
 #. Default: "Delete File"
-#: ./ftw/file/browser/file_preview.py:239
+#: ./ftw/file/bumblebee/file_preview.py:253
 msgid "file_metadata_delete_file"
 msgstr ""
 
 #. Default: "Description:"
-#: ./ftw/file/browser/file_preview.py:178
+#: ./ftw/file/bumblebee/file_preview.py:180
 msgid "file_metadata_description"
 msgstr ""
 
 #. Default: "Documentdate:"
-#: ./ftw/file/browser/file_preview.py:149
+#: ./ftw/file/bumblebee/file_preview.py:151
 msgid "file_metadata_documentdate"
 msgstr ""
 
 #. Default: "Download Original"
-#: ./ftw/file/browser/file_preview.py:199
+#: ./ftw/file/bumblebee/file_preview.py:213
 msgid "file_metadata_download_original"
 msgstr ""
 
 #. Default: "Download this version"
-#: ./ftw/file/browser/file_preview.py:270
+#: ./ftw/file/bumblebee/file_preview.py:284
 msgid "file_metadata_download_this_version"
 msgstr ""
 
 #. Default: "Edit File"
-#: ./ftw/file/browser/file_preview.py:254
+#: ./ftw/file/bumblebee/file_preview.py:268
 msgid "file_metadata_edit_file"
 msgstr ""
 
 #. Default: "Open in external editor"
-#: ./ftw/file/browser/file_preview.py:310
+#: ./ftw/file/bumblebee/file_preview.py:324
 msgid "file_metadata_external_edit"
 msgstr ""
 
 #. Default: "Filename:"
-#: ./ftw/file/browser/file_preview.py:130
+#: ./ftw/file/bumblebee/file_preview.py:132
 msgid "file_metadata_filenname_info"
 msgstr ""
 
 #. Default: "Open original document"
-#: ./ftw/file/browser/file_preview.py:285
+#: ./ftw/file/bumblebee/file_preview.py:299
 msgid "file_metadata_goto_original"
 msgstr ""
 
 #. Default: "Journal"
-#: ./ftw/file/browser/file_preview.pt:48
+#: ./ftw/file/bumblebee/file_preview.pt:34
 msgid "file_metadata_journal_heading"
 msgstr ""
 
+#. Default: "Open in overlay"
+#: ./ftw/file/bumblebee/file_preview.py:197
+msgid "file_metadata_open_in_overlay"
+msgstr ""
+
 #. Default: "Open PDF"
-#: ./ftw/file/browser/file_preview.py:225
+#: ./ftw/file/bumblebee/file_preview.py:239
 msgid "file_metadata_open_pdf"
 msgstr ""
 
 #. Default: "${file_preview_relative_time} by ${file_preview_modified_by}:"
-#: ./ftw/file/browser/file_preview.pt:62
+#: ./ftw/file/bumblebee/file_preview.pt:48
 msgid "file_preview_time_and_actor"
 msgstr ""
 
 #. Default: "${title} - Version ${version} of ${version_num}"
-#: ./ftw/file/browser/version_preview.py:15
+#: ./ftw/file/bumblebee/version_preview.py:16
 msgid "file_version_title"
 msgstr ""
 

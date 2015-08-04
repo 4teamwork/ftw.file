@@ -13,7 +13,7 @@
     <browser:page
         for="ftw.file.interfaces.IFile"
         name="file_view"
-        class="ftw.file.browser.file_view.FileView"
+        class=".file_view.BumblebeeFileView"
         template="file_view.pt"
         permission="zope2.View"
         layer="ftw.bumblebee.interfaces.IFtwBumblebeeLayer"

@@ -188,6 +188,18 @@ class FilePreviewFileInfoCollector(FilePreviewCollector):
 class FilePreviewActionsCollector(FilePreviewCollector):
     """
     """
+    def _data_open_in_overlay(self):
+        return {
+            'url': self.context.absolute_url() + '/file_preview',
+            'target': '_top',
+            'cssclass': 'openInOverlay',
+            'image': None,
+            'text': translate(_(
+                u'file_metadata_open_in_overlay',
+                default=u'Open in overlay'),
+                context=self.context.REQUEST)
+        }
+
     def _data_download_original(self):
         mimetype = self.context.getContentType()
         return {

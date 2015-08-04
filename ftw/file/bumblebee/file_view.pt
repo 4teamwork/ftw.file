@@ -34,7 +34,7 @@
         <!-- TAL expressions are not evaluated inside script tags. -->
         <script tal:content="string:var context_url = '${context/absolute_url}'"></script>
 
-        <div class="filePreview" tal:content="structure context/file_preview"></div>
+        <div class="filePreview" tal:content="structure view/file_preview"></div>
 
     </metal:content-core>
 </metal:content-core>
