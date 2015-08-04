@@ -58,16 +58,17 @@ class TestVersionPreview(TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.pr = getToolByName(self.portal, 'portal_repository')
         self.pr.setVersionableContentTypes('File')
-        self.dummyfile = create(
-            Builder('file').titled('Chuck Norris').with_dummy_content())
-        self.pr.save(self.dummyfile, comment="init Version")
 
     @browsing
     def test_calling_view_loads_versioned_content(self, browser):
-        self.dummyfile.setTitle('James Bond')
-        self.pr.save(self.dummyfile, comment="Title changed")
+        dummyfile = create(
+            Builder('file').titled('Ch\xc3\xa4ck Norris').with_dummy_content())
+        self.pr.save(dummyfile, comment="init Version")
 
-        view = self.dummyfile.unrestrictedTraverse('@@file_preview')
+        dummyfile.setTitle('James Bond')
+        self.pr.save(dummyfile, comment="Title changed")
+
+        view = dummyfile.unrestrictedTraverse('@@file_preview')
         browser.open_html(view())
 
         # New Version
@@ -78,12 +79,12 @@ class TestVersionPreview(TestCase):
 
         self.request['version_id'] = 0
         view = getMultiAdapter(
-            (self.dummyfile, self.request), name="version_preview")
+            (dummyfile, self.request), name="version_preview")
 
         browser.open_html(view())
 
         # Old Version
         self.assertEqual(
-            'Chuck Norris - Version 1 of 2',
+            u'Ch\xe4ck Norris - Version 1 of 2',
             browser.css('.fileDetails h3').first.text,
             'The title of the last version should be visible')
