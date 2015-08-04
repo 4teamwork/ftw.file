@@ -117,7 +117,7 @@ var initOpenInOverlay = function($) {
     // the versioning-colorbox too. After closing the version-colorbox we delete it.
     // see: cbFileVersionPreviewClosed-event
     $('.journalItemLink.cboxElement').on("click", function(){
-      $('#colorbox').after($('.journal').css('display', 'none').addClass('tempJournal'))
+      $('#colorbox').after($('.cbFilePreview .journal').css('display', 'none').addClass('tempJournal'))
     })
   }
   $(document).on("cbFileVersionPreviewClosed", function() {
