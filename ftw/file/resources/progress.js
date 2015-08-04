@@ -31,10 +31,10 @@ var progress = (function() {
       overlay.className = 'overlay';
       tick = document.createElement('img');
       tick.id = 'tick';
-      tick.src = '++resource++ftw.file-tick.png';
+      tick.src = '++resource++ftw.file.resources/tick.png';
       fail = document.createElement('img');
       fail.id = 'fail';
-      fail.src = '++resource++ftw.file-fail.svg';
+      fail.src = '++resource++ftw.file.resources/fail.svg';
       element.appendChild(overlay);
       element.appendChild(tick);
       element.appendChild(fail);
