@@ -113,12 +113,12 @@ msgstr "Diese Version herunterladen"
 #. Default: "Edit File"
 #: ./ftw/file/browser/file_preview.py:254
 msgid "file_metadata_edit_file"
-msgstr "Dokument bearbeiten"
+msgstr "Metadaten bearbeiten"
 
 #. Default: "Open in external editor"
 #: ./ftw/file/browser/file_preview.py:310
 msgid "file_metadata_external_edit"
-msgstr "Dokument im Editor öffnen"
+msgstr "Datei auschecken und bearbeiten"
 
 #. Default: "Filename:"
 #: ./ftw/file/browser/file_preview.py:130
