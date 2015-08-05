@@ -89,12 +89,12 @@ msgstr "Vous êtes sur le point de remplacer le fichier existant. <br />Appuyez 
 msgid "download"
 msgstr "télécharger"
 
-#: ./ftw/file/content/file.py:67
+#: ./ftw/file/content/file.py:68
 msgid "help_document_date"
 msgstr "Saisissez la date du document"
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:54
+#: ./ftw/file/content/file.py:55
 msgid "help_origin_filename"
 msgstr "Insérez un nom de fichier si vous souhaitez modifier le nom de fichier original. L'extension (à savoir. Docx) ne sera pas modifié"
 
@@ -104,7 +104,7 @@ msgid "label_anonymous_user"
 msgstr "Utilisateur anonyme"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:66
+#: ./ftw/file/content/file.py:67
 msgid "label_document_date"
 msgstr "Date du document"
 
@@ -113,13 +113,8 @@ msgstr "Date du document"
 msgid "label_file"
 msgstr "Fichier"
 
-#. Default: "File downloaded"
-#: ./ftw/file/fields.py:42
-msgid "label_file_downloaded"
-msgstr "Fichier téléchargé"
-
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:53
+#: ./ftw/file/content/file.py:54
 msgid "label_origin_filename"
 msgstr "Nom du document"
 

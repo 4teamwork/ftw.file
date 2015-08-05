@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from PIL import Image
 from plone import api
-=======
->>>>>>> Refactoring: Create FileMetadata utility
 from Products.CMFCore.utils import getToolByName
 
 
@@ -69,7 +66,7 @@ class FileMetadata(object):
     def show_author(self):
         """True when the file author should be displayed.
 
-        False: if visitor is anonymous an siteproperty
+        False: if visitor is anonymous and siteproperty
                'allowAnonymousViewAbout' is False
 
         True:  if visitor is not anonymous
