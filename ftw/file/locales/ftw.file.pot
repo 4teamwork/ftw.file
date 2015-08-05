@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-13 10:06+0000\n"
+"POT-Creation-Date: 2015-08-05 12:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,12 +72,12 @@ msgstr ""
 msgid "download"
 msgstr ""
 
-#: ./ftw/file/content/file.py:67
+#: ./ftw/file/content/file.py:68
 msgid "help_document_date"
 msgstr ""
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:54
+#: ./ftw/file/content/file.py:55
 msgid "help_origin_filename"
 msgstr ""
 
@@ -87,7 +87,7 @@ msgid "label_anonymous_user"
 msgstr ""
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:66
+#: ./ftw/file/content/file.py:67
 msgid "label_document_date"
 msgstr ""
 
@@ -96,13 +96,8 @@ msgstr ""
 msgid "label_file"
 msgstr ""
 
-#. Default: "File downloaded"
-#: ./ftw/file/fields.py:42
-msgid "label_file_downloaded"
-msgstr ""
-
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:53
+#: ./ftw/file/content/file.py:54
 msgid "label_origin_filename"
 msgstr ""
 

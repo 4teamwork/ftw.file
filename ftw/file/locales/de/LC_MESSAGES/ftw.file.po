@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-13 10:06+0000\n"
+"POT-Creation-Date: 2015-08-05 12:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,12 +69,12 @@ msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Si
 msgid "download"
 msgstr "herunterladen"
 
-#: ./ftw/file/content/file.py:67
+#: ./ftw/file/content/file.py:68
 msgid "help_document_date"
 msgstr "Geben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:54
+#: ./ftw/file/content/file.py:55
 msgid "help_origin_filename"
 msgstr "Geben Sie einen Dokumentnamen ein falls Sie den Namen der Originaldatei ändern möchten. Die Dateierweiterung (z.B. .docx) wird dabei nicht geändert."
 
@@ -84,7 +84,7 @@ msgid "label_anonymous_user"
 msgstr "Anonymer Benutzer"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:66
+#: ./ftw/file/content/file.py:67
 msgid "label_document_date"
 msgstr "Dokumentdatum"
 
@@ -93,13 +93,8 @@ msgstr "Dokumentdatum"
 msgid "label_file"
 msgstr "Datei"
 
-#. Default: "File downloaded"
-#: ./ftw/file/fields.py:42
-msgid "label_file_downloaded"
-msgstr "Datei heruntergeladen   "
-
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:53
+#: ./ftw/file/content/file.py:54
 msgid "label_origin_filename"
 msgstr "Dokumentname"
 
