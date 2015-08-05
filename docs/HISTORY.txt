@@ -5,6 +5,15 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
+- Add adjustments to integrate bumblebee
+    - Trigger event dndUploadViewUpdated if drag&drop is finished
+    - Trigger ObjectEditedEvent from Products.Archetypes instead zope.
+      lifecycleevent after quickupload
+    - Register a resource-directory: ftw.file.resources
+    - Create a FileMetadata utility
+
+  [elioschmutz]
+
 - Only load ftw.activity 1.x representation if ftw.activity 1.x is installed.
   [mathias.leimgruber]
 
