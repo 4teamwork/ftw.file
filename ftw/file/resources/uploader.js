@@ -132,6 +132,7 @@ var uploader = (function($) {
           $($historyTable).empty();
           $historyTable.html($('table.contentHistory thead, table.contentHistory tbody', $data));
         }
+        $(document).trigger("dndUploadViewUpdated", [$data]);
       });
       updateRequest.fail(function(data) {
         window.location.reload();
