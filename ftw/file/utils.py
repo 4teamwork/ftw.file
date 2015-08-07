@@ -1,3 +1,6 @@
+from PIL import Image
+from plone import api
+from Products.CMFCore.utils import getToolByName
 
 
 def redirect_to_download_by_default(context):
@@ -25,3 +28,26 @@ def redirect_to_download_by_default(context):
             request.other['disable_border'] = border_was_force_disabled
         if border_was_force_enabled:
             request.other['enable_border'] = border_was_force_enabled
+
+
+def is_image(mimetype):
+    Image.init()
+    open_handlers = Image.OPEN.keys()
+    extensions = []
+    for key, value in Image.EXTENSION.items():
+        if value in open_handlers:
+            extensions.append(key.strip('.'))
+
+    mr = getToolByName(api.portal.get(), 'mimetypes_registry')
+    mimetypes = mr.lookup(mimetype)
+    if not mimetypes:
+        return False  # unknown mimetype
+
+    mime_extensions = mimetypes[0].extensions
+    for ext in mime_extensions:
+        if ext in extensions:
+            return True
+    for glob in mr.lookup(mimetype)[0].globs:
+        if glob.strip("*.") in extensions:
+            return True
+    return False

@@ -6,6 +6,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:profilehook="http://namespaces.zope.org/profilehook"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.file">
 
   <includeDependencies package="." />
@@ -31,6 +32,11 @@
       directory="profiles/default"
       description="Installs the ftw.file package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <upgrade-step:directory
+      profile="ftw.file:default"
+      directory="upgrades"
       />
 
   <profilehook:hook
@@ -73,5 +79,11 @@
 <browser:resource
       file="resources/upload.png"
       name="ftw.file-upload.png" />
+
+   <adapter
+      for="ftw.file.interfaces.IFile"
+      provides="Products.TinyMCE.adapters.interfaces.JSONDetails.IJSONDetails"
+      factory=".JSONDetails.FtwJSONDetails"
+      />
 
 </configure>

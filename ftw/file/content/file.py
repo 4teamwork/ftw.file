@@ -5,11 +5,11 @@ from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
 from ftw.file.fields import FileField
 from ftw.file.interfaces import IFile
+from ftw.file.utils import is_image
 from ftw.file.utils import redirect_to_download_by_default
 from ftw.journal.interfaces import IWorkflowHistoryJournalizable
 from logging import getLogger
 from os import path
-from PIL import Image
 from plone.app.blob.field import BlobMarshaller
 from Products.Archetypes import atapi
 from Products.Archetypes.BaseContent import BaseContent
@@ -217,26 +217,11 @@ class File(ATFile):
 
     def is_image(self):
         file_ = self.getFile()
-        mimetype = file_.getContentType()
-        Image.init()
-        open_handlers = Image.OPEN.keys()
-        extensions = []
-        for key, value in Image.EXTENSION.items():
-            if value in open_handlers:
-                extensions.append(key.strip('.'))
+        return is_image(file_.getContentType())
 
-        mr = getToolByName(self, 'mimetypes_registry')
-        mimetypes = mr.lookup(mimetype)
-        if not mimetypes:
-            return False  # unknown mimetype
-
-        mime_extensions = mimetypes[0].extensions
-        for ext in mime_extensions:
-            if ext in extensions:
-                return True
-        for glob in mr.lookup(mimetype)[0].globs:
-            if glob.strip("*.") in extensions:
-                return True
-        return False
+    def getField(self, key, *args, **kwargs):
+        if key == 'image':
+            key = 'file'
+        return super(File, self).getField(key, *args, **kwargs)
 
 atapi.registerType(File, PROJECTNAME)
