@@ -5,6 +5,9 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
+- Fix Outputfilter, so it does work with scaled images.
+  [tschanzt]
+
 - Integrate ftw.file images with TinyMCE.
   [lknoepfel]
 
