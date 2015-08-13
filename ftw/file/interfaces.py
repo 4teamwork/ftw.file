@@ -1,6 +1,6 @@
 from Products.ATContentTypes.interfaces import IFileContent
-from zope.interface import Attribute
 from zope.component.interfaces import IObjectEvent
+from zope.interface import Attribute
 
 
 class IFile(IFileContent):
