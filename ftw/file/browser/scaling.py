@@ -8,7 +8,6 @@ from zope.component import queryAdapter
 from zope.interface import alsoProvides
 from plone.app.imaging.scaling import ImageScaling
 
-
 class FtwImageScaling(ImageScaling):
     """ view used for generating (and storing) image scales """
     implements(IImageScaling, ITraversable, IPublishTraverse)

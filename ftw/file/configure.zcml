@@ -59,4 +59,7 @@
       factory=".JSONDetails.FtwJSONDetails"
       />
 
+  <adapter
+      factory=".imaging.FtwFileImageScaleHandler" />
+
 </configure>

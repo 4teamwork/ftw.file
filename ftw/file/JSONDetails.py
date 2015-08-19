@@ -16,3 +16,4 @@ class FtwJSONDetails(JSONDetails):
 
         details_json = json.dumps(details)
         return details_json
+

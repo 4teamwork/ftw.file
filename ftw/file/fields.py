@@ -1,4 +1,5 @@
 from ftw.file.events.events import FileDownloadedEvent
+from ftw.file.interfaces import IFtwFileField
 from plone.app.blob import field
 from plone.app.blob.download import handleIfModifiedSince, handleRequestRange
 from plone.app.blob.mixins import ImageFieldMixin
@@ -8,9 +9,25 @@ from webdav.common import rfc1123_date
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.event import notify
+from plone.app.imaging.utils import getAllowedSizes
+from Acquisition import aq_base
+from plone.app.imaging.interfaces import IImageScaleHandler
+from zope.interface import implements
+from ftw.file.imaging import ImagingMixin
+from PIL.Image import ANTIALIAS
+from OFS.Image import File
 
 
-class FileField(field.FileField, ImageFieldMixin):
+class FileField(field.FileField, ImagingMixin):
+    implements(IFtwFileField)
+
+    _properties = field.FileField._properties.copy()
+    _properties.update({
+        'pil_quality': 88,
+        'pil_resize_algo': ANTIALIAS,
+        'content_class': File,
+
+    })
 
     def index_html(self, instance, REQUEST=None, RESPONSE=None,
                    charset='utf-8', disposition='inline'):
