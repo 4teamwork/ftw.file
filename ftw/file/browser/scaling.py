@@ -1,12 +1,13 @@
-from logging import exception
 from ZODB.POSException import ConflictError
-from zope.interface import implements
-from zope.traversing.interfaces import ITraversable
-from zope.publisher.interfaces import IPublishTraverse
+from logging import exception
 from plone.app.imaging.interfaces import IImageScaling, IImageScaleFactory
+from plone.app.imaging.scaling import ImageScaling
 from zope.component import queryAdapter
 from zope.interface import alsoProvides
-from plone.app.imaging.scaling import ImageScaling
+from zope.interface import implements
+from zope.publisher.interfaces import IPublishTraverse
+from zope.traversing.interfaces import ITraversable
+
 
 class FtwImageScaling(ImageScaling):
     """ view used for generating (and storing) image scales """

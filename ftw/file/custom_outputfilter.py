@@ -1,10 +1,12 @@
-from plone.outputfilters.filters.resolveuid_and_caption import ResolveUIDAndCaptionFilter
+from plone.outputfilters.filters import resolveuid_and_caption
 from plone.app.imaging.interfaces import IImageScale
 
-class FtwFileFilter(ResolveUIDAndCaptionFilter):
+
+class FtwFileFilter(resolveuid_and_caption.ResolveUIDAndCaptionFilter):
 
     def resolve_image(self, src):
-        (image, fullimage, source, description) = ResolveUIDAndCaptionFilter.resolve_image(self, src)
+        (image, fullimage, source, description) = resolveuid_and_caption.\
+            ResolveUIDAndCaptionFilter.resolve_image(self, src)
         if not IImageScale.providedBy(image):
             url = ''
             obj, subpath, appendix = self.resolve_link(src)

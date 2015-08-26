@@ -11,7 +11,8 @@ class FtwFileImageScaleHandler(DefaultImageScaleHandler):
 
     def getScale(self, instance, scale):
         if self.context.get(instance).content_type.startswith('image/'):
-            return super(FtwFileImageScaleHandler, self).getScale(instance, scale)
+            return super(FtwFileImageScaleHandler, self).getScale(instance,
+                                                                  scale)
         else:
             return None
 

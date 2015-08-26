@@ -14,5 +14,6 @@ class IFileDownloadedEvent(IObjectEvent):
 
     context = Attribute("The file object that was downloaded")
 
+
 class IFtwFileField(IBlobField):
     """FileField marker"""
