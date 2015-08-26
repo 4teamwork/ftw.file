@@ -1,16 +1,29 @@
+from OFS.Image import File
+from PIL.Image import ANTIALIAS
 from ftw.file.events.events import FileDownloadedEvent
+from ftw.file.imaging import ImagingMixin
+from ftw.file.interfaces import IFtwFileField
 from plone.app.blob import field
 from plone.app.blob.download import handleIfModifiedSince, handleRequestRange
-from plone.app.blob.mixins import ImageFieldMixin
 from plone.registry.interfaces import IRegistry
 from urllib import quote
 from webdav.common import rfc1123_date
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.event import notify
+from zope.interface import implements
 
 
-class FileField(field.FileField, ImageFieldMixin):
+class FileField(field.FileField, ImagingMixin):
+    implements(IFtwFileField)
+
+    _properties = field.FileField._properties.copy()
+    _properties.update({
+        'pil_quality': 88,
+        'pil_resize_algo': ANTIALIAS,
+        'content_class': File,
+
+    })
 
     def index_html(self, instance, REQUEST=None, RESPONSE=None,
                    charset='utf-8', disposition='inline'):
@@ -59,7 +72,8 @@ class FileField(field.FileField, ImageFieldMixin):
             if not portal_state.anonymous():
                 registry = getUtility(IRegistry)
                 user_ids = registry['ftw.file.filesettings.user_ids']
-                if portal_state.member().id and not portal_state.member().id in user_ids:
+                if portal_state.member().id \
+                        and not portal_state.member().id in user_ids:
                     notify(FileDownloadedEvent(instance, filename))
 
         return self.get(instance).getIterator(**request_range)

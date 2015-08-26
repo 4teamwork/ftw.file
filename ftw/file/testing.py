@@ -3,9 +3,9 @@ from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import set_builder_session_factory
 from ftw.file.tests import builders
 from ftw.testing import FunctionalSplinterTesting
+from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
 from plone.app.testing import applyProfile
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing.z2 import installProduct
 from zope.component import eventtesting
@@ -20,7 +20,7 @@ def functional_session_factory():
 
 class FtwFileLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
+    defaultBases = (COMPONENT_REGISTRY_ISOLATION, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
         xmlconfig.string(
@@ -35,6 +35,7 @@ class FtwFileLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup
+        applyProfile(portal, 'plone.app.imaging:default')
         applyProfile(portal, 'plone.app.registry:default')
         applyProfile(portal, 'ftw.file:default')
         eventtesting.setUp()

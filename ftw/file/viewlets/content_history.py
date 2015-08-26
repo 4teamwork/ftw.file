@@ -16,7 +16,7 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
     def show_viewlet(self):
         """ Permission Access previous versions is required"""
         if _checkPermission('CMFEditions: Access previous versions',
-                             self.context):
+                            self.context):
             return True
         return False
 
@@ -29,9 +29,8 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
         """
         context = aq_inner(self.context)
         # check if the current user has the proper permissions
-        if not _checkPermission(
-            'CMFEditions: Access previous versions',
-            context):
+        if not _checkPermission('CMFEditions: Access previous versions',
+                                context):
             return []
 
         workflow = getToolByName(context, 'portal_workflow')
