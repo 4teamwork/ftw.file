@@ -14,10 +14,12 @@ class AddDocumentDateIndex(UpgradeStep):
         if not self.catalog_has_index('documentDate'):
             self.catalog_add_index('documentDate', 'DateIndex')
         self.migrate_dates()
-        self.catalog_reindex_objects({'portal_type': 'File'}, idxs=['effective', 'documentDate'])
+        self.catalog_reindex_objects({'portal_type': 'File'},
+                                     idxs=['effective', 'documentDate'])
 
     def migrate_dates(self):
-        objects = self.catalog_unrestricted_search({'portal_type': 'File'}, full_objects=True)
+        objects = self.catalog_unrestricted_search({'portal_type': 'File'},
+                                                   full_objects=True)
 
         with ProgressLogger('Migrate file dates', objects) as step:
             for obj in objects:

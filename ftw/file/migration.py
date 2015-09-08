@@ -210,14 +210,13 @@ class FtwFileMigrationWalker(CustomQueryWalker):
         query['meta_type'] = self.src_meta_type
 
         if HAS_LINGUA_PLONE and 'Language' in catalog.indexes():
-            #query['Language'] = catalog.uniqueValuesFor('Language')
             query['Language'] = 'all'
 
         for brain in catalog(query)[:1000]:
             obj = brain.getObject()
 
             if self.callBefore is not None and callable(self.callBefore):
-                if self.callBefore(obj, **self.kwargs) == False:
+                if self.callBefore(obj, **self.kwargs) is False:
                     continue
 
             try:
@@ -323,7 +322,7 @@ def migrate_file_versions(
             remote_data = json.loads(remote_data)
         except ValueError:
             logger.warn(
-                "No JSON object could be decoded using data from url '%s'." % \
+                "No JSON object could be decoded using data from url '%s'." %
                 url)
             continue
 
@@ -350,7 +349,7 @@ def migrate_file_versions(
                         'modification_date').getMutator(obj)
                     mdate_mutator(remote_data.get('modification_date'))
 
-            #fix principal in metadata
+            # fix principal in metadata
             hm = repo_tool.getHistoryMetadata(obj)
             for version_id, metadata in hm._full.items():
                 if version_id < len(principals):

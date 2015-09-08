@@ -42,7 +42,8 @@ class FileUpload(BrowserView):
         repository_tool = getToolByName(portal, 'portal_repository')
 
         if repository_tool.isVersionable(self.context):
-            # TODO: This creates another entry in the history resulting in two consecutive history entries.
+            # TODO: This creates another entry in the history resulting
+            # in two consecutive history entries.
             repository_tool.save(
                 self.context,
                 comment=translate(_('File replaced with Drag & Drop.'),
@@ -73,7 +74,9 @@ class TinyMCEFileUpload(Upload):
         # check if container is ready to store images
         if self.is_temporary(context):
             return self.errorMessage(
-                translate(_('Please save the object first to enable image upload.'), context=self.request))
+                translate(_('Please save the object first'
+                            ' to enable image upload.'),
+                          context=self.request))
 
         # check mime type to make sure an image is uploaded
         if not is_image(content_type):
@@ -97,7 +100,6 @@ class TinyMCEFileUpload(Upload):
         for typename in tiny_image_types:
             if typename in allowed_types:
                 uploadable_types.append(typename)
-
 
         # Get an unused filename without path
         id_ = self.cleanupFilename(id_)
@@ -163,7 +165,8 @@ class TinyMCEFileUpload(Upload):
     def is_temporary(self, obj, checkId=True):
         """Checks, whether an object is a temporary object (means it's in the
         `portal_factory`) or has no acquisition chain set up.
-        Source: http://svn.plone.org/svn/collective/collective.indexing/trunk/collective/indexing/subscribers.py
+        Source: http://svn.plone.org/svn/collective/collective.indexing
+        /trunk/collective/indexing/subscribers.py
         """
         parent = aq_parent(aq_inner(obj))
         if parent is None:
@@ -177,5 +180,6 @@ class TinyMCEFileUpload(Upload):
                 if obj.isTemporary():
                     return True
             except TypeError:
-                return True # `isTemporary` on the `FactoryTool` expects 2 args
+                # `isTemporary` on the `FactoryTool` expects 2 args
+                return True
         return False

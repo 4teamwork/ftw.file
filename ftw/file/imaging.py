@@ -20,9 +20,9 @@ class FtwFileImageScaleHandler(DefaultImageScaleHandler):
 class ImagingMixin(ImageFieldMixin):
     """The goal of this mixin is to get the funtionality and benefits of an
     ImageField while not restricting the current funtionality of the field.
-    The problem which surfaced was, that we weren't able to upload files anymore
-    that weren't images, because a validator was registered for the ImageField
-    to ensure only images are uploaded.
+    The problem which surfaced was, that we weren't able to upload files
+    anymore that weren't images, because a validator was registered for the
+    ImageField to ensure only images are uploaded.
     Therefore we inherit from the ImageFieldMixin and remove its implemented
     interfaces since they are often used to restrict certain behaviours.
     """
