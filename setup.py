@@ -2,7 +2,6 @@ from setuptools import setup, find_packages
 import os
 
 version = '1.10.1.dev0'
-maintainer = 'Thomas Buchberger'
 
 tests_require = [
     'ftw.activity',
@@ -32,7 +31,6 @@ setup(name='ftw.file',
         ],
 
       keywords='plone file contenttype',
-      maintainer=maintainer,
       author='4teamwork AG',
       author_email='mailto:info@4teamwork.ch',
       url='https://github.com/4teamwork/ftw.file',
