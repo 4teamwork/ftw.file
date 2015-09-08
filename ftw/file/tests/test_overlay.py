@@ -1,14 +1,12 @@
-import transaction
-
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import TEST_USER_PASSWORD
-from Products.CMFCore.utils import getToolByName
-from plone.app.testing import setRoles
 from plone.testing.z2 import Browser
-from unittest2 import TestCase
 from StringIO import StringIO
+from unittest2 import TestCase
+import transaction
 
 
 class TestFileOverlay(TestCase):

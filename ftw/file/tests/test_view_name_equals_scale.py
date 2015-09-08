@@ -1,18 +1,15 @@
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import TEST_USER_PASSWORD
-from Products.CMFCore.utils import getToolByName
+from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
-from plone.testing.z2 import Browser
+from plone.app.testing import TEST_USER_ID
+from Products.Archetypes.interfaces.base import IBaseObject
+from Products.Five import BrowserView
 from unittest2 import TestCase
 from zope.interface import Interface
-from Products.Archetypes.interfaces.base import IBaseObject
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from Products.Five import BrowserView
-from ftw.builder import create
-from ftw.builder import Builder
-from ftw.testbrowser import browsing
+
 
 class TestView(BrowserView):
 
@@ -38,4 +35,3 @@ class TestViewnameEqualsScale(TestCase):
     def test_view_success(self, browser):
         page = browser.login().visit(self.file, view="test_mini")
         self.assertEquals("Success", page.contents)
-
