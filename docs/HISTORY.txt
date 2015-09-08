@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.10.1 (unreleased)
+1.11.0 (2015-09-08)
 -------------------
 
 - Remove icon effect when replacing file.
