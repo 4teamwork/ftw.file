@@ -11,6 +11,7 @@ Changelog
       lifecycleevent after quickupload
     - Register a resource-directory: ftw.file.resources
     - Create a FileMetadata utility
+
   [elioschmutz]
 
 - Fix Outputfilter, so it does work with scaled images.
@@ -42,7 +43,7 @@ Changelog
 1.9.0 (2014-09-15)
 ------------------
 
-- ftw.activity integration: dispaly preview image in activity stream.
+- ftw.activity integration: display preview image in activity stream.
   [jone]
 
 - Use ftw.profilehook instead of custom import steps (setuphandlers).
