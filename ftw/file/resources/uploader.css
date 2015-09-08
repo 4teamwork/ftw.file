@@ -58,8 +58,6 @@
   text-align: center; }
   #dropzone.hover {
     box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.5); }
-    #dropzone.hover #ftw-file-upload {
-      transform: rotate(360deg); }
   #dropzone.done #ftw-file-upload {
     display: none; }
   #dropzone.done.hover {
