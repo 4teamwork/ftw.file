@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-05-19 08:18+0000\n"
+"POT-Creation-Date: 2015-09-08 15:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:122
+#: ./ftw/file/browser/upload.py:117
 msgid "Bad filename, please rename."
 msgstr ""
 
@@ -48,7 +48,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:48
+#: ./ftw/file/browser/upload.py:49
 msgid "File replaced with Drag & Drop."
 msgstr ""
 
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Modified"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:126
+#: ./ftw/file/browser/upload.py:121
 msgid "Not allowed to upload a file of this type to this folder"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Only image upload allowed."
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:79
+#: ./ftw/file/browser/upload.py:77
 msgid "Please save the object first to enable image upload."
 msgstr ""
 
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:146
+#: ./ftw/file/browser/upload.py:141
 msgid "The content-type '%s' has no image-field!"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgid "help_origin_filename"
 msgstr ""
 
 #. Default: "Anonymous User"
-#: ./ftw/file/viewlets/content_history.py:68
+#: ./ftw/file/viewlets/content_history.py:67
 msgid "label_anonymous_user"
 msgstr ""
 
