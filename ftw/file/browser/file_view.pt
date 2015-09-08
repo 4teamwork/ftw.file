@@ -8,7 +8,7 @@
 
 <head>
 <metal:css fill-slot="style_slot">
-    <link rel="stylesheet" type="text/css" href="++resource++ftw.file.resources/uploader.css">
+    <link rel="stylesheet" type="text/css" href="++resource++ftw.file.resources/uploader.css" />
 </metal:css>
 
 <metal:js fill-slot="javascript_head_slot" tal:condition="view/metadata/can_edit">
