@@ -1,10 +1,10 @@
-from unittest2 import TestCase
-from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.builder import Builder
 from ftw.builder import create
-from Products.TinyMCE.adapters.interfaces.JSONDetails import IJSONDetails
-from plone.app.testing import TEST_USER_ID
+from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from Products.TinyMCE.adapters.interfaces.JSONDetails import IJSONDetails
+from unittest2 import TestCase
 import json
 
 
@@ -19,5 +19,4 @@ class TestJsondetails(TestCase):
     def test_jsondetails(self):
         details = IJSONDetails(self.file).getDetails()
         details = json.loads(details)
-        self.assertEquals('http://nohost/plone/file', details['url'])
         self.assertEquals('file', details['title'])
