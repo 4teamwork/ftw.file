@@ -8,7 +8,6 @@
         for="..interfaces.IFile"
         name="file_view"
         class=".file_view.FileView"
-        template="file_view.pt"
         permission="zope2.View"
         />
 
