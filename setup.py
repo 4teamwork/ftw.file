@@ -42,6 +42,7 @@ setup(name='ftw.file',
       zip_safe=False,
 
       install_requires=[
+        'Plone',
         'setuptools',
         'ftw.journal',
         'plone.app.registry',
