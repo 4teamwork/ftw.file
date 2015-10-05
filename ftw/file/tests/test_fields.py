@@ -8,6 +8,7 @@ from ftw.testbrowser import browsing
 from StringIO import StringIO
 from PIL import Image
 
+
 class TestFieldFunctions(TestCase):
 
     layer = FTW_FILE_FUNCTIONAL_TESTING
@@ -22,8 +23,8 @@ class TestFieldFunctions(TestCase):
                        'listing', 'tile', 'preview', 'icon'])
         sizes = self.file.getPrimaryField().getAvailableSizes(self.file).keys()
         sizes = set(sizes)
-        self.assertFalse(expected.symmetric_difference(sizes), "The Available"
-                         " Sizes don't meet the expectations")
+        self.assertTrue(expected.issubset(sizes),
+                        "The available sizes don't include default scales.")
 
     def test_get_size(self):
         size = self.file.getPrimaryField().getSize(self.file, 'mini')
@@ -54,4 +55,6 @@ class TestFieldFunctions(TestCase):
     def test_traversion_equality(self, browser):
         page = browser.login().visit(self.file, view="file_mini")
         page2 = browser.login().visit(self.file, view="@@images/file/mini")
-        self.assertEqual(page.contents, page2.contents, "The Two Image traversel methods aren't equal")
+        self.assertEqual(page.contents,
+                         page2.contents,
+                         "The Two Image traversel methods aren't equal")
