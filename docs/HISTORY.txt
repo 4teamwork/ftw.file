@@ -5,8 +5,12 @@ Changelog
 1.11.3 (unreleased)
 -------------------
 
+- Fix regression when trying to link files in TinyMCE.
+  The problem was that only images were linkable.
+  [jone]
+
 - Fix tests for new colorbox version.
-  [tschanzt] 
+  [tschanzt]
 
 
 1.11.2 (2015-09-10)
