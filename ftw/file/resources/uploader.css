@@ -9,6 +9,8 @@
   border-radius: 50%;
   border: 2px solid #000000;
   background-color: #75ad0a;
+  left: 50%;
+  margin-left: -50px;
   display: none; }
   .progress-radial .overlay {
     display: block;

@@ -5,6 +5,9 @@ Changelog
 1.11.3 (unreleased)
 -------------------
 
+- Fix drag'n'drop for files in Firefox.
+  [Kevin Bieri]
+
 - Fix regression when trying to link files in TinyMCE.
   The problem was that only images were linkable.
   [jone]
