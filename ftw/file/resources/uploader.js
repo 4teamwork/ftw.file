@@ -58,7 +58,7 @@ var uploader = (function($) {
       unbindEvents();
       if (tests.dnd) {
         $(document).on('dragenter', function(event) {
-          if(event.dataTransfer.types[0] === 'Files') {
+          if($.inArray('Files', event.dataTransfer.types) !== -1) {
             dragging++;
             overlay.overlay().load();
             event.preventDefault();
