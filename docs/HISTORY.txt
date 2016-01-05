@@ -5,6 +5,9 @@ Changelog
 1.11.3 (unreleased)
 -------------------
 
+- Fix journal action translation for files
+  [elioschmutz]
+
 - Fix drag'n'drop for files in Firefox.
   [Kevin Bieri]
 
