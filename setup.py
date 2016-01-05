@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.11.3'
+version = '1.11.4.dev0'
 
 tests_require = [
     'ftw.activity',
