@@ -49,6 +49,7 @@ var uploader = (function($) {
             dropzone.className = 'fail';
             fail = true;
             progress.failure();
+            window.location.reload();
           }
         };
         xhr.send(formData);
