@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.10.0 (unreleased)
+-------------------
+
+- Reload page if drag&drop upload has failed.
+  [elioschmutz]
+
 
 1.10.0 (2014-12-16)
 -------------------
