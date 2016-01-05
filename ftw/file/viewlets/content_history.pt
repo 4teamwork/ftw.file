@@ -22,7 +22,7 @@
                          action item/transition_title;
                          isVersion python:item['type']=='versioning'">
           <td>
-            <span class="historyAction" tal:content="action" i18n:translate=""
+            <span class="historyAction" tal:content="action" i18n:translate="" i18n:domain="plone"
                   tal:attributes="class string:historyAction state-${action}">action</span>
           </td>
           <td tal:content="python:view.toLocalizedTime(item['time'], long_format=True)" />
