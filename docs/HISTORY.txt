@@ -5,7 +5,8 @@ Changelog
 1.11.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Reload page if drag&drop upload has failed.
+  [elioschmutz]
 
 
 1.11.3 (2016-01-05)
