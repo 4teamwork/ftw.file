@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.11.4 (unreleased)
+1.11.4 (2016-01-27)
 -------------------
 
 - Reload page if drag&drop upload has failed.
