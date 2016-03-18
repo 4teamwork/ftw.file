@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-03-18 09:05+0000\n"
+"POT-Creation-Date: 2016-03-18 09:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,12 +117,13 @@ msgstr ""
 msgid "ftw.file.upgrades.1513"
 msgstr ""
 
-#: ./ftw/file/content/file.py:68
+#: ./ftw/file/content/file.py:85
 msgid "help_document_date"
 msgstr "Saisissez la date du document"
 
-#. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:55
+#. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
+#: ./ftw/file/content/file.py:72
+#, fuzzy
 msgid "help_origin_filename"
 msgstr "Insérez un nom de fichier si vous souhaitez modifier le nom de fichier original. L'extension (à savoir. Docx) ne sera pas modifié"
 
@@ -132,17 +133,22 @@ msgid "label_anonymous_user"
 msgstr "Utilisateur anonyme"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:67
+#: ./ftw/file/content/file.py:84
 msgid "label_document_date"
 msgstr "Date du document"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:44
+#: ./ftw/file/content/file.py:60
 msgid "label_file"
 msgstr "Fichier"
 
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:54
+#: ./ftw/file/content/file.py:71
 msgid "label_origin_filename"
 msgstr "Nom du document"
+
+#. Default: "The filename must not contain \"/\"."
+#: ./ftw/file/content/file.py:38
+msgid "origin_filename_validator_error"
+msgstr ""
 

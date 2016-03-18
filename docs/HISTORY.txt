@@ -5,6 +5,10 @@ Changelog
 1.11.4 (unreleased)
 -------------------
 
+- The origin filename must not contain "/". Otherwise a 404 will occur
+  when the user tries to download the file.
+  [mbaechtold]
+
 - Reload page if drag&drop upload has failed.
   [elioschmutz]
 
