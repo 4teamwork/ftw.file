@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-09-08 15:10+0000\n"
+"POT-Creation-Date: 2016-03-18 09:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,10 @@ msgstr "Datei ersetzt mit Drag & Drop."
 msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
 msgstr "Hinweis: Ziehen Sie eine Datei von ihrem Computer in den Browser, um sie zu ersetzen."
 
+#: ./ftw/file/configure.zcml:35
+msgid "Installs the ftw.file package"
+msgstr ""
+
 #: ./ftw/file/viewlets/content_history.pt:5
 msgid "Journal"
 msgstr "Journal"
@@ -89,6 +93,30 @@ msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Si
 msgid "download"
 msgstr "herunterladen"
 
+#: ./ftw/file/configure.zcml:35
+msgid "ftw.file"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:24
+msgid "ftw.file.upgrades.1500: Add documentDate Index"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:43
+msgid "ftw.file.upgrades.1510: Hide view action"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:62
+msgid "ftw.file.upgrades.1511: Change portal properties and install ftw.calendarwidget"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:81
+msgid "ftw.file.upgrades.1512: Add Rolemap for New Permission"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:100
+msgid "ftw.file.upgrades.1513"
+msgstr ""
+
 #: ./ftw/file/content/file.py:68
 msgid "help_document_date"
 msgstr "Geben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
@@ -117,5 +145,4 @@ msgstr "Datei"
 #: ./ftw/file/content/file.py:54
 msgid "label_origin_filename"
 msgstr "Dokumentname"
-
 
