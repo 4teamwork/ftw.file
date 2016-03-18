@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-09-08 15:10+0000\n"
+"POT-Creation-Date: 2016-03-18 09:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,10 @@ msgstr "Fichier remplacé avec Drag & Drop."
 msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
 msgstr "Astuce: Faites glisser un fichier depuis votre ordinateur dans le navigateur afin de remplacer le fichier."
 
+#: ./ftw/file/configure.zcml:35
+msgid "Installs the ftw.file package"
+msgstr ""
+
 #: ./ftw/file/viewlets/content_history.pt:5
 msgid "Journal"
 msgstr "Historique"
@@ -89,12 +93,37 @@ msgstr "Vous êtes sur le point de remplacer le fichier existant. <br />Appuyez 
 msgid "download"
 msgstr "télécharger"
 
-#: ./ftw/file/content/file.py:68
+#: ./ftw/file/configure.zcml:35
+msgid "ftw.file"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:24
+msgid "ftw.file.upgrades.1500: Add documentDate Index"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:43
+msgid "ftw.file.upgrades.1510: Hide view action"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:62
+msgid "ftw.file.upgrades.1511: Change portal properties and install ftw.calendarwidget"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:81
+msgid "ftw.file.upgrades.1512: Add Rolemap for New Permission"
+msgstr ""
+
+#: ./ftw/file/upgrades/configure.zcml:100
+msgid "ftw.file.upgrades.1513"
+msgstr ""
+
+#: ./ftw/file/content/file.py:85
 msgid "help_document_date"
 msgstr "Saisissez la date du document"
 
-#. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified"
-#: ./ftw/file/content/file.py:55
+#. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
+#: ./ftw/file/content/file.py:72
+#, fuzzy
 msgid "help_origin_filename"
 msgstr "Insérez un nom de fichier si vous souhaitez modifier le nom de fichier original. L'extension (à savoir. Docx) ne sera pas modifié"
 
@@ -104,18 +133,22 @@ msgid "label_anonymous_user"
 msgstr "Utilisateur anonyme"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:67
+#: ./ftw/file/content/file.py:84
 msgid "label_document_date"
 msgstr "Date du document"
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:44
+#: ./ftw/file/content/file.py:60
 msgid "label_file"
 msgstr "Fichier"
 
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:54
+#: ./ftw/file/content/file.py:71
 msgid "label_origin_filename"
 msgstr "Nom du document"
 
+#. Default: "The filename must not contain \"/\"."
+#: ./ftw/file/content/file.py:38
+msgid "origin_filename_validator_error"
+msgstr ""
 

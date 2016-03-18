@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import statusmessages
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from StringIO import StringIO
@@ -113,3 +114,21 @@ class TestFileName(TestCase):
             'file_file': ('Raw file data', 'newfile.txt', 'text/plain')
         }).submit()
         self.assertEqual('newfile.txt', existingfile.getFilename())
+
+    @browsing
+    def test_origin_filename_cannot_contain_slash(self, browser):
+        existingfile = create(Builder('file').with_dummy_content())
+
+        browser.login()
+
+        # Set an origin filename without slash. This must work.
+        browser.open(existingfile, view='edit')
+        browser.fill({'Filename': 'Foobar'}).submit()
+        statusmessages.assert_no_error_messages()
+        self.assertEqual('Foobar.doc', existingfile.getFilename())
+
+        # Set an origin filename containing a slash. This must fail.
+        browser.open(existingfile, view='edit')
+        browser.fill({'Filename': 'Foo / bar'}).submit()
+        statusmessages.assert_message('Please correct the indicated errors.')
+        self.assertEqual('Foobar.doc', existingfile.getFilename())

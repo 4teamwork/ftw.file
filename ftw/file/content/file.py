@@ -1,5 +1,6 @@
 from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
+from Products.validation.validators import RegexValidator
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
@@ -22,10 +23,25 @@ from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
 from Products.validation import V_REQUIRED
+from Products.validation.config import validation
 from urllib import quote
 from ZODB.POSException import ConflictError
 from zope.interface import implements
 import logging
+
+
+origin_filename_validator = RegexValidator(
+    'isSafeOriginFilename',
+    r'^[^\/]*$',
+    title='',
+    description='',
+    errmsg=_(
+        u'origin_filename_validator_error',
+        default=u'The filename must not contain "/".'
+    )
+)
+
+validation.register(origin_filename_validator)
 
 
 FileSchema = ATFileSchema.copy() + atapi.Schema((
@@ -48,6 +64,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
     atapi.StringField(
         name='originFilename',
         required=False,
+        validators=('isSafeOriginFilename',),
         widget=StringWidget(
             helper_js=(
                 "++resource++ftw.file.resources/hideOriginFilenameField.js", ),
@@ -56,7 +73,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
                 u'help_origin_filename',
                 default=u"Insert a filename if you want to change the "
                         "original filename. The extension (i.e. .docx) "
-                        "will not be modified")
+                        "will not be modified. Please do not enter \"/\".")
         ),
     ),
     atapi.DateTimeField(
