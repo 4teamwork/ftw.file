@@ -4,6 +4,7 @@
     <permission name="ftw.file: Add File" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
+      <role name="Site Administrator" />
     </permission>
     <permission name="ftw.file: Edit advanced fields" acquire="False">
       <role name="Manager" />
