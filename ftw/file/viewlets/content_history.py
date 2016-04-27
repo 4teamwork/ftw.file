@@ -103,8 +103,9 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
         else:
             b_start = 0
 
-        batch = Batch(
-            ContentHistoryView(self.context, self.context.REQUEST).fullHistory(),
-            size=batch_size)
+        history = ContentHistoryView(self.context, self.context.REQUEST).fullHistory()
+        if not history:
+            return False
 
+        batch = Batch(history, size=batch_size)
         return batch

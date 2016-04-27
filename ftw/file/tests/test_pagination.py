@@ -15,12 +15,7 @@ class TestPagination(TestCase):
         self.portal = self.layer['portal']
         setRoles(self.layer['portal'], TEST_USER_ID, ['Contributor'])
 
-        portal_repository = self.portal.portal_repository
-        portal_repository.addPolicyForContentType(u'File',
-                                                  u'at_edit_autoversion')
-        portal_repository.setVersionableContentTypes(
-            portal_repository.getVersionableContentTypes() + [u'File'])
-        transaction.commit()
+
 
         self.file = create(Builder('file')
                            .titled('An important file')
@@ -28,6 +23,15 @@ class TestPagination(TestCase):
 
     @browsing
     def test_pagination_is_used(self, browser):
+        # enable history
+        portal_repository = self.portal.portal_repository
+        portal_repository.addPolicyForContentType(u'File',
+                                                  u'at_edit_autoversion')
+        portal_repository.setVersionableContentTypes(
+            portal_repository.getVersionableContentTypes() + [u'File'])
+        transaction.commit()
+
+        # make history entrys
         for i in range(60):
             browser.login().open(self.file, view='edit')
             browser.fill({'Title': str(i)}).submit()
@@ -40,3 +44,11 @@ class TestPagination(TestCase):
                          browser.contents,
                          "Revision 2 is old and should be on the second page "
                          " of the pagination view.")
+
+    @browsing
+    def test_pagination_is_disabled_without_history(self, browser):
+        browser.login().open(self.file)
+        self.assertNotIn(
+            'error while rendering plone.belowcontentbody.inlinecontenthistory',
+            browser.contents,
+            'Pagination should not fail if there is no history.')
