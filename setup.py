@@ -52,7 +52,7 @@ setup(name='ftw.file',
         'Pillow',
         'ftw.colorbox',
         'plone.api',
-        'plone.batching>=1.0.4'
+        'plone.batching'
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
