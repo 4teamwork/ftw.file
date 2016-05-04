@@ -107,5 +107,5 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
         if not history:
             return False
 
-        batch = Batch(history, size=batch_size)
+        batch = Batch(history, size=batch_size, start=b_start)
         return batch
