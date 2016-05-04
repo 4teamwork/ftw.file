@@ -5,6 +5,9 @@ Changelog
 1.11.5 (unreleased)
 -------------------
 
+- Added pagination for journal.
+  [lknoepfel]
+
 - Allow SiteAdministrator to add files.
   [tschanzt]
 

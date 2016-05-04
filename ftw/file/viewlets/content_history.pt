@@ -1,7 +1,8 @@
 <div i18n:domain="ftw.file"
-     tal:define="history view/fullHistory;"
-     tal:condition="python:history and view.show_viewlet()"
+     tal:define="batch view/history_batch;"
+     tal:condition="python:batch and view.show_viewlet()"
      tal:omit-tag="">
+
   <h2 i18n:translate="" class="contentHistoryTitle">Journal</h2>
   <table class="vertical listing contentHistory">
     <thead>
@@ -14,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr tal:repeat="item history">
+      <tr tal:repeat="item batch">
         <tal:def define="rhComments item/comments|nothing;
                          actor item/actor;
                          actor_name python:actor and actor.get('fullname','username') or item['actorid'];
@@ -39,4 +40,8 @@
       </tr>
     </tbody>
   </table>
+
+  <tal:batchnavigation
+    define="batchnavigation nocall:context/@@batchnavigation"
+    replace="structure python:batchnavigation(batch)" />
 </div>
