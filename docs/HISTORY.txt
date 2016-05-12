@@ -5,6 +5,10 @@ Changelog
 1.11.5 (unreleased)
 -------------------
 
+- Set batch size to 10. 50 is imho way to mutch, event 20 makes me scrolling 3 down.
+  So 10 is imho OK. No? let's fight... or someone implements a configurable number.
+  [mathias.leimgruber]
+
 - Added pagination for journal.
   [lknoepfel]
 

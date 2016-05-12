@@ -15,8 +15,6 @@ class TestPagination(TestCase):
         self.portal = self.layer['portal']
         setRoles(self.layer['portal'], TEST_USER_ID, ['Contributor'])
 
-
-
         self.file = create(Builder('file')
                            .titled('An important file')
                            .with_dummy_content())
@@ -32,17 +30,17 @@ class TestPagination(TestCase):
         transaction.commit()
 
         # make history entrys
-        for i in range(60):
+        for i in range(12):
             browser.login().open(self.file, view='edit')
             browser.fill({'Title': str(i)}).submit()
 
-        self.assertIn("file_download_version?version_id=55",
+        self.assertIn("file_download_version?version_id=11",
                       browser.contents,
-                      "Revision id 55 is new and should be "
+                      "Revision id 11 is new and should be "
                       "displayed in pagination.")
         self.assertNotIn('file_download_version?version_id=2"',
                          browser.contents,
-                         "Revision 2 is old and should be on the second page "
+                         "Revision 0 is old and should be on the second page "
                          " of the pagination view.")
 
     @browsing

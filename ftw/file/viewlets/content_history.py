@@ -96,8 +96,11 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
 
         return review_history
 
+    @property
+    def batch_size(self):
+        return 10
+
     def history_batch(self):
-        batch_size = 50
         if 'b_start' in self.context.REQUEST.form:
             b_start = self.context.REQUEST.form['b_start']
         else:
@@ -107,5 +110,5 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
         if not history:
             return False
 
-        batch = Batch(history, size=batch_size, start=b_start)
+        batch = Batch(history, size=self.batch_size, start=b_start)
         return batch
