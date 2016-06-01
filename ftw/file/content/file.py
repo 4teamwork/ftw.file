@@ -78,7 +78,7 @@ FileSchema = ATFileSchema.copy() + atapi.Schema((
     ),
     atapi.DateTimeField(
         'documentDate',
-        required=False,
+        required=True,
         default_method=DateTime,
         widget=FtwCalendarWidget(
             label=_(u'label_document_date', default=u'Document Date'),
