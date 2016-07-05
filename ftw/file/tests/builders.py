@@ -1,9 +1,9 @@
 from ftw.builder import builder_registry
-from ftw.builder.content import FileBuilder
+from ftw.builder.content import ATFileBuilder
 from path import Path
 
 
-class CustomFileBuilder(FileBuilder):
+class CustomFileBuilder(ATFileBuilder):
 
     def attach_asset(self, filename):
         return self.attach_file_containing(
