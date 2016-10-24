@@ -11,23 +11,23 @@ tests_require = [
     'plone.app.testing',
     'plone.mocktestcase',
     'pyquery',
-    ]
+]
 
 setup(name='ftw.file',
       version=version,
       description="A file content type for gov usecases",
-      long_description=open("README.rst").read() + "\n" + \
-          open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=open("README.rst").read() + "\n" +
+      open(os.path.join("docs", "HISTORY.txt")).read(),
 
       # Get more strings from
       # http://www.python.org/pypi?%3Aaction=list_classifiers
 
       classifiers=[
-        'Framework :: Plone',
-        'Framework :: Plone :: 4.3',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        ],
+          'Framework :: Plone',
+          'Framework :: Plone :: 4.3',
+          'Programming Language :: Python',
+          'Topic :: Software Development :: Libraries :: Python Modules',
+      ],
 
       keywords='plone file contenttype',
       author='4teamwork AG',
@@ -41,19 +41,19 @@ setup(name='ftw.file',
       zip_safe=False,
 
       install_requires=[
-        'Plone',
-        'setuptools',
-        'ftw.journal',
-        'plone.app.registry',
-        'ftw.upgrade>=1.14.3',
-        'ftw.calendarwidget',
-        'ftw.profilehook',
-        'Pillow',
-        'ftw.colorbox',
-        'plone.api',
-        'plone.batching'
-        # -*- Extra requirements: -*-
-        ],
+          'Plone',
+          'setuptools',
+          'ftw.journal',
+          'plone.app.registry',
+          'ftw.upgrade>=1.14.3',
+          'ftw.calendarwidget',
+          'ftw.profilehook',
+          'Pillow',
+          'ftw.colorbox',
+          'plone.api',
+          'plone.batching'
+          # -*- Extra requirements: -*-
+      ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
 
