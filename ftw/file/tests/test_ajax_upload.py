@@ -23,13 +23,13 @@ class TestAjaxUpload(TestCase):
 
         self.file_ = create(
             Builder('file')
-            .titled('Document')
-            .attach_file_containing('My PDF', name='test.pdf')
+            .titled(u'Document')
+            .attach_file_containing('My PDF', name=u'test.pdf')
         )
 
         self.new_file = StringIO('Raw file data')
-        self.new_file.filename = 'new_file.txt'
-        self.new_file.content_type = 'text/plain'
+        self.new_file.filename = u'new_file.txt'
+        self.new_file.content_type = u'text/plain'
 
     def test_replace_file(self):
         self.portal.REQUEST.set('file', self.new_file)
