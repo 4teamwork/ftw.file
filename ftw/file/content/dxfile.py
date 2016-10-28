@@ -104,6 +104,10 @@ class File(Item):
             value = value.decode('utf-8')
 
         filename = self.file.filename
+
+        if not filename:
+            return
+
         self.file.filename = u'{0}{1}'.format(value,
                                               path.splitext(filename)[1])
 

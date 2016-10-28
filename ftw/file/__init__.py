@@ -2,5 +2,5 @@
 """
 from zope.i18nmessageid import MessageFactory
 
-fileMessageFactory = MessageFactory('ftw.file')
+_ = fileMessageFactory = MessageFactory('ftw.file')
 
