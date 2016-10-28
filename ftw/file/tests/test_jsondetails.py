@@ -14,9 +14,11 @@ class TestJsondetails(TestCase):
 
     def setUp(self):
         setRoles(self.layer['portal'], TEST_USER_ID, ['Manager'])
-        self.file = create(Builder('file'))
+        self.file = create(Builder('file')
+                           .titled(u'Some title')
+                           .with_dummy_content())
 
     def test_jsondetails(self):
         details = IJSONDetails(self.file).getDetails()
         details = json.loads(details)
-        self.assertEquals('file', details['title'])
+        self.assertEquals('Some title', details['title'])

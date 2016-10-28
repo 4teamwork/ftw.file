@@ -78,7 +78,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     def test_supports_special_characters_and_umlauts_in_filename(self):
         obj = create(
             Builder('file')
-            .titled('Document')
+            .titled(u'Document')
             .attach_file_containing(
                 'PDF CONTENT',
                 name=u'w\xf6rter & bilder.pdf'))
@@ -95,7 +95,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     def test_remove_percent_signs_form_filename(self):
         obj = create(
             Builder('file')
-            .titled('Document')
+            .titled(u'Document')
             .attach_file_containing(
                 'PDF CONTENT',
                 name='50%to80%.pdf'.decode('utf-8')))
