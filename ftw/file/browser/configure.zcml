@@ -20,13 +20,15 @@
 
     <browser:page
         for="ftw.file.interfaces.IFile"
+        name="download"
+        class=".download.Download"
         permission="zope2.View"
         />
 
     <browser:page
         for="ftw.file.interfaces.IFile"
-        name="download"
-        class=".download.DownloadFileView"
+        name="file_view_redirector"
+        class=".download.FileViewRedirector"
         permission="zope2.View"
         />
 

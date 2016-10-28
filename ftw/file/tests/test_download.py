@@ -4,7 +4,7 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser import LIB_TRAVERSAL
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from StringIO import StringIO
+from plone.namedfile.file import NamedBlobFile
 from unittest2 import TestCase
 from webdav.common import rfc1123_date
 from zope.component import eventtesting
@@ -20,8 +20,9 @@ class TestFileDownload(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.file = StringIO(1234 * 'dummy')
-        setattr(self.file, 'filename', 'file.doc')
+        self.file = NamedBlobFile(data=1234 * 'dummy',
+                                  filename=u'file.doc')
+
         self.portal.invokeFactory('File', 'f1', file=self.file)
         self.context = self.portal.f1
         # We need a modification date in ._p_mtime
@@ -47,7 +48,7 @@ class TestFileDownload(TestCase):
 
     def test_handle_if_modified_since_requests(self):
         self.layer['request'].environ.update({
-            'HTTP_IF_MODIFIED_SINCE': rfc1123_date(self.context._p_mtime+1)
+            'HTTP_IF_MODIFIED_SINCE': rfc1123_date(self.context._p_mtime + 1)
         })
         self.index_html()
         response = self.layer['request'].RESPONSE
@@ -63,7 +64,7 @@ class TestFileDownload(TestCase):
             response.getHeader('Content-Range'))
 
     def test_download_returns_stream_iterator(self):
-        self.assertEqual(self.file.getvalue(),self.index_html().next())
+        self.assertEqual(self.file.data, self.index_html().next())
 
     def test_file_download_notification(self):
         self.index_html()
@@ -149,3 +150,4 @@ class TestFileDownloadView(TestCase):
                                  name=u'download')
         view.fieldname = 'file'
         self.assertEqual('My index_html', view())
+
