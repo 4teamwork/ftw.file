@@ -53,7 +53,7 @@ setup(name='ftw.file',
           'plone.api',
           'plone.batching',
           'plone.app.dexterity',
-          # -*- Extra requirements: -*-
+          'plone.app.contenttypes',
       ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
