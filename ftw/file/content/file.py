@@ -3,7 +3,7 @@ from DateTime import DateTime
 from Products.validation.validators import RegexValidator
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
-from ftw.file.config import PROJECTNAME
+# from ftw.file.config import PROJECTNAME
 from ftw.file.fields import FileField
 from ftw.file.interfaces import IFile
 from ftw.file.utils import is_image
@@ -242,4 +242,4 @@ class File(ATFile):
             key = 'file'
         return super(File, self).getField(key, *args, **kwargs)
 
-atapi.registerType(File, PROJECTNAME)
+# atapi.registerType(File, PROJECTNAME)
