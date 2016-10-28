@@ -1,3 +1,4 @@
+from DateTime import DateTime
 from PIL import Image
 from plone import api
 from Products.CMFCore.utils import getToolByName
@@ -105,8 +106,9 @@ class FileMetadata(object):
     def document_date(self):
         """Returns the localized documentDate.
         """
-        date = self.context.getDocumentDate()
-        return self.context.toLocalizedTime(date)
+        date = self.context.document_date
+        zope_datetime = DateTime(date.year, date.month, date.day, 0, 0)
+        return self.context.toLocalizedTime(zope_datetime)
 
     @property
     def modified_date(self):
