@@ -9,8 +9,6 @@
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.file">
 
-  <five:registerPackage package="." initialize=".initialize" />
-
   <include package="ftw.profilehook" />
 
   <i18n:registerTranslations directory="locales" />
