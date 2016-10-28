@@ -5,6 +5,13 @@
     i18n_domain="ftw.file">
 
     <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="edit"
+        class=".edit_form.EditForm"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         for="..interfaces.IFile"
         name="file_view"
         class=".file_view.FileView"
