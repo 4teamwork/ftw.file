@@ -2,10 +2,11 @@ Changelog
 =========
 
 
-1.11.6 (unreleased)
--------------------
+2.0.0 (unreleased)
+-----------------
 
-- Nothing changed yet.
+- Move to Dexterity.
+  [mathias.leimgruber]
 
 
 1.11.5 (2016-07-19)
