@@ -17,7 +17,9 @@ class TestFileName(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.context = create(Builder('file').attach_asset("transparent.gif"))
+        self.context = create(Builder('file')
+                              .titled(u'Some title')
+                              .attach_asset(u"transparent.gif"))
         self._set_allowAnonymousViewAbout_property(True)
 
     def _set_allowAnonymousViewAbout_property(self, value):
