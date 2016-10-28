@@ -17,4 +17,9 @@
       title="ftw.file: Protect file"
       />
 
+  <permission
+      id="ftw.file.AddFile"
+      title="ftw.file: Add File"
+      />
+
 </configure>
