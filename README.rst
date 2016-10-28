@@ -5,7 +5,11 @@ This is a file content for plone which provides some useful functions, such as:
 
 - Write downloader-name in history (ftw.journal)
 - Image preview
-- New FileField (stores more information in the RESPONSE header)
+- New FileField (sets more information in the RESPONSE header)
+- Resumable downloads
+
+
+Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity based implementation.
 
 
 Install
