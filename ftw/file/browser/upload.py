@@ -1,21 +1,21 @@
-import json
-
+from Acquisition import aq_base
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Acquisition import aq_base
+from ftw.file import fileMessageFactory as _
 from ftw.file.utils import is_image
 from plone import api
+from plone.namedfile.file import NamedBlobImage
 from plone.outputfilters.browser.resolveuid import uuidFor
+from Products.Archetypes.event import ObjectEditedEvent
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
 from zope.event import notify
 from zope.i18n import translate
-from Products.Archetypes.event import ObjectEditedEvent
 from zope.publisher.browser import BrowserView
+import json
 
-from ftw.file import fileMessageFactory as _
 
 import pkg_resources
 try:
@@ -36,7 +36,10 @@ class FileUpload(BrowserView):
             raise BadRequest('No content provided.')
 
         self.filename = self.file.filename
-        self.context.update(file=self.file, originFilename=self.filename)
+        self.file.seek(0)
+        self.context.file = NamedBlobImage(data=self.file.read(),
+                                           contentType=self.file.content_type,
+                                           filename=self.filename)
 
         portal = api.portal.get()
         repository_tool = getToolByName(portal, 'portal_repository')
@@ -88,7 +91,7 @@ class TinyMCEFileUpload(Upload):
 
         # 1) check if the current user has permissions to add stuff
         if not context.portal_membership.checkPermission(
-            'Add portal content', context):
+                'Add portal content', context):
             return self.errorMessage(
                 "You do not have permission to upload files in this folder")
 
