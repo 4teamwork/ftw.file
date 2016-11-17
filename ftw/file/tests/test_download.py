@@ -23,7 +23,7 @@ class TestFileDownload(TestCase):
         self.file = NamedBlobFile(data=1234 * 'dummy',
                                   filename=u'file.doc')
 
-        self.portal.invokeFactory('File', 'f1', file=self.file)
+        self.portal.invokeFactory('ftw.file.File', 'f1', file=self.file)
         self.context = self.portal.f1
         # We need a modification date in ._p_mtime
         transaction.commit()
