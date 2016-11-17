@@ -5,6 +5,7 @@ from plone.namedfile.file import NamedBlobImage
 
 
 class CustomFileBuilder(DXFileBuilder):
+    portal_type = 'ftw.file.File'
 
     def attach_asset(self, filename):
         return self.attach_file_containing(

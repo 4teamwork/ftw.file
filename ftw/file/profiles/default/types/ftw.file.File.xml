@@ -2,7 +2,7 @@
 <object
     i18n:domain="plone"
     meta_type="Dexterity FTI"
-    name="File"
+    name="ftw.file"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic properties -->
@@ -37,7 +37,7 @@
   </property>
 
   <!-- View information -->
-  <property name="add_view_expr">string:${folder_url}/++add++File</property>
+  <property name="add_view_expr">string:${folder_url}/++add++ftw.file.File</property>
   <property name="default_view">file_view</property>
   <property name="default_view_fallback">False</property>
   <property name="immediate_view">file_view</property>

@@ -46,7 +46,7 @@ class TestAjaxUpload(TestCase):
     def test_new_version(self):
         portal = api.portal.get()
         repository_tool = getToolByName(portal, 'portal_repository')
-        repository_tool.setVersionableContentTypes('File')
+        repository_tool.setVersionableContentTypes('ftw.file.File')
 
         self.portal.REQUEST.set('file', self.new_file)
         self.file_.restrictedTraverse('ajax-upload')()

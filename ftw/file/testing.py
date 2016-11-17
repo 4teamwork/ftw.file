@@ -31,13 +31,7 @@ class FtwFileLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
-        # installProduct(app, 'ftw.file')
-
-        # prepare installing plone.app.contenttypes
-        z2.installProduct(app, 'Products.DateRecurringIndex')
-
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'plone.app.contenttypes:default')
         applyProfile(portal, 'plone.app.imaging:default')
         applyProfile(portal, 'plone.app.registry:default')
         applyProfile(portal, 'ftw.file:default')
