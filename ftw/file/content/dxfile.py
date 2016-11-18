@@ -57,7 +57,7 @@ class FilenameValidator(validator.SimpleFieldValidator):
     """Do not allow / in filename"""
 
     def validate(self, value):
-        if '/' in value:
+        if value and '/' in value:
             errmsg = _(
                 u'origin_filename_validator_error',
                 default=u'"/" (Slash in filenames is not allowed..'
