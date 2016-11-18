@@ -3,5 +3,6 @@
     <dependencies>
         <dependency>profile-ftw.calendarwidget:default</dependency>
         <dependency>profile-ftw.colorbox:default</dependency>
+        <dependency>profile-plone.app.relationfield:default</dependency>
     </dependencies>
 </metadata>
