@@ -5,6 +5,8 @@ Changelog
 1.11.6 (unreleased)
 -------------------
 
+- Simplify schema inheritance. [jone]
+
 - Fix security declarations for getOriginFilename, is_image and getField. [jone]
 
 

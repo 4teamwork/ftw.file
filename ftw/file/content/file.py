@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
-from Products.validation.validators import RegexValidator
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
 from ftw.file.config import PROJECTNAME
@@ -17,13 +16,14 @@ from Products.Archetypes.BaseContent import BaseContent
 from Products.Archetypes.Widget import StringWidget
 from Products.ATContentTypes.config import ICONMAP
 from Products.ATContentTypes.content.file import ATFile
-from Products.ATContentTypes.content.file import ATFileSchema
+from Products.ATContentTypes.content.schemata import ATContentTypeSchema
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
 from Products.validation import V_REQUIRED
 from Products.validation.config import validation
+from Products.validation.validators import RegexValidator
 from urllib import quote
 from ZODB.POSException import ConflictError
 from zope.interface import implements
@@ -44,7 +44,7 @@ origin_filename_validator = RegexValidator(
 validation.register(origin_filename_validator)
 
 
-FileSchema = ATFileSchema.copy() + atapi.Schema((
+FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
     FileField(
         'file',
         required=True,
