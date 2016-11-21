@@ -233,10 +233,12 @@ class File(ATFile):
                 res = res[1:]
             return res
 
+    security.declarePublic('is_image')
     def is_image(self):
         file_ = self.getFile()
         return is_image(file_.getContentType())
 
+    security.declareProtected(View, 'getField')
     def getField(self, key, *args, **kwargs):
         if key == 'image':
             key = 'file'
