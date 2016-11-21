@@ -5,7 +5,7 @@ Changelog
 1.11.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix security declarations for getOriginFilename. [jone]
 
 
 1.11.5 (2016-07-19)

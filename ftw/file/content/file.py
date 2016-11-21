@@ -179,7 +179,7 @@ class File(ATFile):
 
         self.setFilename('{0}{1}'.format(value, path.splitext(filename)[1]))
 
-    security.declareProtected(ModifyPortalContent, 'getOriginFilename')
+    security.declareProtected(View, 'getOriginFilename')
     def getOriginFilename(self):
         """Gets the filename without extension
         """
