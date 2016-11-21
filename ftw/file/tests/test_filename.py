@@ -100,7 +100,8 @@ class TestFileName(TestCase):
 
     @browsing
     def test_origin_filename_is_set_if_no_file_is_uploaded(self, browser):
-        existingfile = create(Builder('file').with_dummy_content())
+        existingfile = create(Builder('file').with_dummy_content()
+                              .titled('The File'))
         browser.login().open(existingfile, view='edit')
         browser.fill({'Filename': 'newFilename'}).submit()
         self.assertEquals('newFilename.doc', existingfile.getFilename())
@@ -117,7 +118,8 @@ class TestFileName(TestCase):
 
     @browsing
     def test_origin_filename_cannot_contain_slash(self, browser):
-        existingfile = create(Builder('file').with_dummy_content())
+        existingfile = create(Builder('file').with_dummy_content()
+                              .titled('The File'))
 
         browser.login()
 

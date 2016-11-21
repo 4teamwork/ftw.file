@@ -1,10 +1,10 @@
-from Products.ATContentTypes.interfaces import IFileContent
+from plone.app.blob.interfaces import IBlobField
 from zope.component.interfaces import IObjectEvent
 from zope.interface import Attribute
-from plone.app.blob.interfaces import IBlobField
+from zope.interface import Interface
 
 
-class IFile(IFileContent):
+class IFile(Interface):
     """File marker interface.
     """
 

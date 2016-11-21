@@ -17,6 +17,7 @@ from Products.Archetypes.Widget import StringWidget
 from Products.ATContentTypes.config import ICONMAP
 from Products.ATContentTypes.content.file import ATFile
 from Products.ATContentTypes.content.schemata import ATContentTypeSchema
+from Products.ATContentTypes.interfaces import IFileContent
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
@@ -107,7 +108,7 @@ for f in FileSchema.keys():
 class File(ATFile):
     """A file content type based on blobs.
     """
-    implements(IFile, IWorkflowHistoryJournalizable)
+    implements(IFile, IFileContent, IWorkflowHistoryJournalizable)
 
     meta_type = "FtwFile"
     schema = FileSchema
