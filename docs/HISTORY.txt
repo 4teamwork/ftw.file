@@ -5,7 +5,11 @@ Changelog
 1.11.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Eliminate bad security declarations through interface. [jone]
+
+- Simplify schema inheritance. [jone]
+
+- Fix security declarations for getOriginFilename, is_image and getField. [jone]
 
 
 1.11.5 (2016-07-19)
