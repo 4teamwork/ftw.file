@@ -24,6 +24,7 @@
   <include package=".upgrades" />
 
   <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
+  <include zcml:condition="have ftw-activity-2" package=".activity2" />
 
   <genericsetup:registerProfile
       name="default"

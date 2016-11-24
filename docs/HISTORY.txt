@@ -5,6 +5,8 @@ Changelog
 1.11.6 (unreleased)
 -------------------
 
+- Record ftw.activity event when file downloaded. [jone]
+
 - Eliminate bad security declarations through interface. [jone]
 
 - Simplify schema inheritance. [jone]
