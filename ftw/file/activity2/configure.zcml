@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="ftw.file">
+
+    <subscriber
+        for="*
+             ftw.file.interfaces.IFileDownloadedEvent"
+        handler=".subscribers.make_file_downloaded_activity"
+        />
+
+</configure>
