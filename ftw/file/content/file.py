@@ -86,7 +86,17 @@ FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u'help_document_date', default=u'')
         ),
     ),
-
+    atapi.BooleanField(
+        'isProtected',
+        required=False,
+        default=False,
+        widget=atapi.BooleanWidget(
+            label=_(u'label_is_protected', default=u'Protected'),
+            description=_(u'help_is_protected',
+                          default=u'The file cannot cannot be deleted if this option is checked.'),
+        ),
+        write_permission='ftw.file: Protect file',
+    ),
 ))
 
 # Register BlobMarshaller for the marshall layer so it gets

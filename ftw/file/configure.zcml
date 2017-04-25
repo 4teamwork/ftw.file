@@ -62,4 +62,15 @@
   <adapter
       factory=".imaging.FtwFileImageScaleHandler" />
 
+  <subscriber
+      for="ftw.file.interfaces.IFile
+           OFS.interfaces.IObjectWillBeRemovedEvent"
+      handler=".handlers.handle_protected_file"
+     />
+  <subscriber
+      for="ftw.file.interfaces.IFile
+           OFS.interfaces.IObjectWillBeMovedEvent"
+      handler=".handlers.handle_protected_file"
+     />
+
 </configure>

@@ -15,4 +15,8 @@
         permissions="ftw.file: Edit advanced fields"
         />
 
+    <lawgiver:ignore
+        permissions="ftw.file: Protect file"
+        />
+
 </configure>
