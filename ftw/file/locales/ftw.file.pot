@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-03-18 09:07+0000\n"
+"POT-Creation-Date: 2017-04-25 10:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/file/viewlets/content_history.pt:9
+#: ./ftw/file/viewlets/content_history.pt:10
 msgid "Action"
 msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:61
-#: ./ftw/file/viewlets/content_history.pt:11
+#: ./ftw/file/viewlets/content_history.pt:12
 msgid "Author"
 msgstr ""
 
@@ -31,12 +31,12 @@ msgstr ""
 msgid "Classification"
 msgstr ""
 
-#: ./ftw/file/viewlets/content_history.pt:12
+#: ./ftw/file/viewlets/content_history.pt:13
 msgid "Comment"
 msgstr ""
 
 #: ./ftw/file/browser/file_view.pt:53
-#: ./ftw/file/viewlets/content_history.pt:10
+#: ./ftw/file/viewlets/content_history.pt:11
 msgid "Date"
 msgstr ""
 
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Installs the ftw.file package"
 msgstr ""
 
-#: ./ftw/file/viewlets/content_history.pt:5
+#: ./ftw/file/viewlets/content_history.pt:6
 msgid "Journal"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "You're about to replace the existing file.<br />Press ESC to abort."
 msgstr ""
 
-#: ./ftw/file/viewlets/content_history.pt:32
+#: ./ftw/file/viewlets/content_history.pt:33
 msgid "download"
 msgstr ""
 
@@ -120,37 +120,52 @@ msgstr ""
 msgid "ftw.file.upgrades.1513"
 msgstr ""
 
-#: ./ftw/file/content/file.py:85
+#: ./ftw/file/content/file.py:86
 msgid "help_document_date"
 msgstr ""
 
+#. Default: "The file cannot cannot be deleted if this option is checked."
+#: ./ftw/file/content/file.py:95
+msgid "help_is_protected"
+msgstr ""
+
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
-#: ./ftw/file/content/file.py:72
+#: ./ftw/file/content/file.py:73
 msgid "help_origin_filename"
 msgstr ""
 
 #. Default: "Anonymous User"
-#: ./ftw/file/viewlets/content_history.py:67
+#: ./ftw/file/viewlets/content_history.py:69
 msgid "label_anonymous_user"
 msgstr ""
 
 #. Default: "Document Date"
-#: ./ftw/file/content/file.py:84
+#: ./ftw/file/content/file.py:85
 msgid "label_document_date"
 msgstr ""
 
 #. Default: "File"
-#: ./ftw/file/content/file.py:60
+#: ./ftw/file/content/file.py:61
 msgid "label_file"
 msgstr ""
 
+#. Default: "Protected"
+#: ./ftw/file/content/file.py:94
+msgid "label_is_protected"
+msgstr ""
+
 #. Default: "Filename"
-#: ./ftw/file/content/file.py:71
+#: ./ftw/file/content/file.py:72
 msgid "label_origin_filename"
 msgstr ""
 
+#. Default: "You are not allowed to delete the file \"${file_title}\"."
+#: ./ftw/file/handlers.py:13
+msgid "message_protected_file"
+msgstr ""
+
 #. Default: "The filename must not contain \"/\"."
-#: ./ftw/file/content/file.py:38
+#: ./ftw/file/content/file.py:39
 msgid "origin_filename_validator_error"
 msgstr ""
 

@@ -7,4 +7,9 @@
       title="ftw.file: Edit advanced fields"
       />
 
+  <permission
+      id="ftw.file.ProtectFile"
+      title="ftw.file: Protect file"
+      />
+
 </configure>
