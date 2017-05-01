@@ -24,7 +24,7 @@ class TestProtectedFiles(FunctionalTestCase):
         browser.find('Delete').click()
 
         # Submit the confirmation form.
-        with self.assertRaises(ValueError):
+        with browser.expect_http_error():
             browser.find('Delete').click()
         self.assertEqual(
             ['You are not allowed to delete the file "My Image".'],
