@@ -6,7 +6,7 @@ version = '1.12.1.dev0'
 tests_require = [
     'ftw.activity',
     'ftw.builder',
-    'ftw.testbrowser',
+    'ftw.testbrowser >= 1.22',
     'ftw.testing[splinter]',
     'plone.app.testing',
     'plone.mocktestcase',

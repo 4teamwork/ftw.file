@@ -1,5 +1,6 @@
-from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.file.interfaces import IFileDownloadedEvent
+from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from StringIO import StringIO
@@ -7,8 +8,9 @@ from unittest2 import TestCase
 from webdav.common import rfc1123_date
 from zope.component import eventtesting
 from zope.component import queryMultiAdapter
-import transaction
 import AccessControl
+import transaction
+
 
 class TestFileDownload(TestCase):
 
@@ -82,6 +84,17 @@ class TestFileDownload(TestCase):
             _original_security)
         _original_security = None
 
+    @browsing
+    def test_inline_download(self, browser):
+        browser.login().visit(self.context, view='@@download')
+        self.assertEquals('attachment; filename="file.doc"',
+                          browser.headers['content-disposition'])
+
+        browser.visit(self.context, view='@@download?inline=true')
+        self.assertEquals('inline; filename="file.doc"',
+                          browser.headers['content-disposition'])
+
+
 class TestFileDownloadView(TestCase):
 
     layer = FTW_FILE_FUNCTIONAL_TESTING
@@ -105,7 +118,7 @@ class TestFileDownloadView(TestCase):
         # Revert patch
         field = self.context.getField('file')
         field.index_html = self.index_html_orig
-        
+
     def test_download_view_uses_our_index_html(self):
         view = queryMultiAdapter((self.context, self.layer['request']),
                                  name=u'download')

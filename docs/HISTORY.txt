@@ -5,6 +5,8 @@ Changelog
 1.12.1 (unreleased)
 -------------------
 
+- Added option to download file with inline content-disposition header. [lknoepfel]
+
 - A new option on the file can be used to protect a file. Protected files
   cannot be deleted by anyone until the option is unchecked. [mbaechtold]
 

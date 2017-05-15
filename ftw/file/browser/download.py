@@ -31,6 +31,9 @@ class DownloadFileView(DownloadArchetypeFile):
                 field.getName(),
                 filename))
 
+        if 'inline' in self.request.form.keys():
+            download_url += '?inline=true'
+
         return self.request.RESPONSE.redirect(download_url)
 
     def call_download(self):
@@ -41,4 +44,8 @@ class DownloadFileView(DownloadArchetypeFile):
         if not field.checkPermission('r', context):
             raise Unauthorized()
 
-        return field.index_html(context, disposition='attachment')
+        disposition = 'attachment'
+        if 'inline' in self.request.form.keys():
+            disposition = 'inline'
+
+        return field.index_html(context, disposition=disposition)
