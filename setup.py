@@ -7,7 +7,7 @@ tests_require = [
     'ftw.activity',
     'ftw.builder',
     'ftw.testbrowser >= 1.22',
-    'ftw.testing[splinter]',
+    'ftw.testing',
     'plone.app.testing',
     'plone.mocktestcase',
     'pyquery',
