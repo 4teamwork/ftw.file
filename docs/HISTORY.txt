@@ -5,6 +5,9 @@ Changelog
 1.13.1 (unreleased)
 -------------------
 
+- A new registry record can be used to prevent redirects to the download
+  view of the file. [mbaechtold]
+
 - Rewrite download redirection tests using ftw.testbrowser, drop dependency on
   ftw.testing[splinter]. [lgraf]
 

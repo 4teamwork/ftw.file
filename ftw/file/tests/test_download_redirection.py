@@ -7,7 +7,9 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_PASSWORD
 from Products.CMFCore.utils import getToolByName
+from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zope.component import getUtility
 
 
 class TestDownloadRedirection(TestCase):
@@ -41,6 +43,25 @@ class TestDownloadRedirection(TestCase):
         self.assertEquals(
             'http://nohost/plone/file/@@download/file/test.doc',
             browser.url)
+
+    @browsing
+    def test_redirects_to_details_when_redirect_to_download_is_disabled(self, browser):
+        registry = getUtility(IRegistry)
+        registry['ftw.file.disable_download_redirect'] = True
+
+        obj = create(Builder('file'))
+
+        # Redirect users having the permission to edit file.
+        browser.login('contributor').visit(obj)
+
+        self.assertEquals('http://nohost/plone/file/view',
+                          browser.url)
+
+        # Redirect users not having the permission to edit file.
+        browser.login('reader').visit(obj)
+
+        self.assertEquals('http://nohost/plone/file/view',
+                          browser.url)
 
 
 class TestDownloadRedirectToURLWithFilename(TestCase):
