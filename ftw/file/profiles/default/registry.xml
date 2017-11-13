@@ -12,4 +12,11 @@
         </value>
     </record>
 
+    <record name="ftw.file.disable_download_redirect">
+        <field type="plone.registry.field.Bool">
+            <title>Disable redirecting to the download view</title>
+        </field>
+        <value>False</value>
+    </record>
+
 </registry>

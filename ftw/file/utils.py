@@ -1,6 +1,8 @@
 from PIL import Image
 from plone import api
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from zope.component import getUtility
 
 
 def redirect_to_download_by_default(context):
@@ -18,7 +20,12 @@ def redirect_to_download_by_default(context):
     if border_was_force_enabled:
         del request.other['enable_border']
 
+    registry = getUtility(IRegistry)
+    disable_download_redirect = registry.get('ftw.file.disable_download_redirect', False)
+
     try:
+        if disable_download_redirect:
+            return False
         plone_view = context.restrictedTraverse('@@plone')
         is_border_visible = plone_view.showEditableBorder()
         return not is_border_visible
