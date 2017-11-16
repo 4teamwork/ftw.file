@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.13.1 (unreleased)
+1.14.0 (2017-11-16)
 -------------------
 
 - A new registry record can be used to prevent redirects to the download
