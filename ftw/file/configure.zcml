@@ -62,6 +62,10 @@
   <adapter
       factory=".imaging.FtwFileImageScaleHandler" />
 
+  <adapter
+    zcml:condition="installed ftw.zipextract"
+    factory=".filecreator.FileCreator" />
+
   <subscriber
       for="ftw.file.interfaces.IFile
            OFS.interfaces.IObjectWillBeRemovedEvent"
