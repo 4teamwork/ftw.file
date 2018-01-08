@@ -1,11 +1,11 @@
-from ftw.file.content.file import File
+from ftw.file.interfaces import IFile
 from ftw.zipextract.interfaces import IFileCreator
-from ftw.zipextract.interfaces import _ObjectCreator
+from ftw.zipextract.interfaces import ObjectCreatorBase
 from zope.component import adapts
 from zope.interface import implements
 
 
-class FileCreator(_ObjectCreator):
+class FileCreator(ObjectCreatorBase):
     implements(IFileCreator)
-    adapts(File)
+    adapts(IFile)
     portal_type = "File"
