@@ -5,6 +5,8 @@ Changelog
 1.14.1 (unreleased)
 -------------------
 
+- Drop support for Plone 4.2. [mbaechtold]
+
 - Prevent exception upon HEAD requests to the download view of a file. [mbaechtold]
 
 
