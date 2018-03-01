@@ -1,6 +1,7 @@
 from ftw.file.interfaces import IFileDownloadedEvent
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from ftw.testbrowser import LIB_TRAVERSAL
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from StringIO import StringIO
@@ -35,7 +36,6 @@ class TestFileDownload(TestCase):
         response = request.RESPONSE
         return self.context.getField('file').index_html(self.context,
             REQUEST=request, RESPONSE=response, disposition=disposition)
-
 
     def test_content_length_header(self):
         self.index_html()
@@ -94,6 +94,30 @@ class TestFileDownload(TestCase):
         self.assertEquals('inline; filename="file.doc"',
                           browser.headers['content-disposition'])
 
+    @browsing
+    def test_head_request(self, browser):
+        browser.default_driver = LIB_TRAVERSAL
+
+        browser.login()
+
+        # Accessing "@@download" on the file would normally result in a 302,
+        # telling us to go to "@@download/file/file.doc" instead.
+        # But since the testbrowser follows the redirects, we get a 200 instead.
+        browser.open(self.context, view='@@download', method='HEAD')
+        self.assertEqual(200, browser.status_code)
+        self.assertEqual(
+            'http://nohost/plone/f1/@@download/file/file.doc',
+            browser.url
+        )
+
+        # Open the correct url used to access the file.
+        browser.open(self.context, view='@@download/file/file.doc', method='HEAD')
+        self.assertEqual('200 Ok', browser.headers['status'])
+        self.assertEqual('6170', browser.headers['content-length'])
+        self.assertEqual('attachment; filename="file.doc"', browser.headers['content-disposition'])
+        self.assertEqual('bytes', browser.headers['accept-ranges'])
+        self.assertEqual('application/msword', browser.headers['content-type'])
+
 
 class TestFileDownloadView(TestCase):
 
@@ -124,4 +148,3 @@ class TestFileDownloadView(TestCase):
                                  name=u'download')
         view.fieldname = 'file'
         self.assertEqual('My index_html', view())
-
