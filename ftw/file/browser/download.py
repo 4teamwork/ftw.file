@@ -49,3 +49,11 @@ class DownloadFileView(DownloadArchetypeFile):
             disposition = 'inline'
 
         return field.index_html(context, disposition=disposition)
+
+    def __contains__(self, item):
+        """
+        Make this browser view iterable in order to allow HEAD requests on
+        files. This is needed because `ZPublisher.BaseRequest.BaseRequest#traverse`
+        falls into WebDAV mode upon HEAD requests (tested against Zope2 2.13.24).
+        """
+        return item in [self.filename, self.fieldname]
