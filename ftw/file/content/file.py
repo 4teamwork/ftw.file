@@ -107,12 +107,17 @@ FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
 FileSchema.registerLayer('marshall', BlobMarshaller())
 
 FileSchema['documentDate'].widget.show_hm = False
-# clean up schemata, means: set manage portal as write permission
-schematas = ['categorization', 'dates', 'ownership', 'settings', 'creators']
+
+schematas = ['categorization', 'ownership', 'settings', 'creators']
 for f in FileSchema.keys():
     field_ = FileSchema[f]
     if field_.schemata in schematas:
         field_.write_permission = 'ftw.file: Edit advanced fields'
+
+for f in FileSchema.keys():
+    field_ = FileSchema[f]
+    if field_.schemata == 'dates':
+        field_.write_permission = 'ftw.file: Edit date fields'
 
 
 class File(ATFile):

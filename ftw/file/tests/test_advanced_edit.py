@@ -1,5 +1,7 @@
+from ftw.builder import Builder, create
 from ftw.file.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
+import transaction
 
 
 class TestAdvancedEdit(FunctionalTestCase):
@@ -19,5 +21,27 @@ class TestAdvancedEdit(FunctionalTestCase):
         fieldsets = browser.css('fieldset')
         self.assertEqual(
             ['Default', 'Categorization', 'Dates', 'Creators', 'Settings'],
+            fieldsets.css('legend').text
+        )
+
+    @browsing
+    def test_edit_date_fields(self, browser):
+        self.grant('Contributor')
+        file = create(Builder('file'))
+
+        # By default, a user having the role "Contributor" does not have the permission
+        # to edit the date fields.
+        browser.login().open(file, view='edit')
+        fieldsets = browser.css('fieldset')
+        self.assertEqual(len(fieldsets), 0, "We found some fieldsets although we did not expect any.")
+
+        # Grant the permission and make sure that the user is now able to edit the
+        # date fields.
+        file.manage_permission('ftw.file: Edit date fields', roles=['Contributor'], acquire=False)
+        transaction.commit()
+        browser.login().open(file, view='edit')
+        fieldsets = browser.css('fieldset')
+        self.assertEqual(
+            ['Default', 'Dates'],
             fieldsets.css('legend').text
         )
