@@ -8,6 +8,11 @@
       />
 
   <permission
+      id="ftw.file.EditDateFields"
+      title="ftw.file: Edit date fields"
+      />
+
+  <permission
       id="ftw.file.ProtectFile"
       title="ftw.file: Protect file"
       />
