@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.15.1 (unreleased)
+1.16.0 (2018-10-16)
 -------------------
 
 - Protect the edit form tab (schemata) for the expiration date and effective date
