@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.16.1 (unreleased)
+1.16.1 (2019-04-02)
 -------------------
 
 - Add umlaut support for MSIE file download [busykoala]
