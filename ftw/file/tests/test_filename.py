@@ -40,19 +40,19 @@ class TestFileName(TestCase):
     def test_whitespace(self):
         response = self.get_response_for(filename='ein file.doc')
         self.assertEqual(response.getHeader('Content-disposition'),
-                         'attachment; filename="ein file.doc"')
+                         'attachment; filename*=UTF-8"ein file.doc"')
 
     def test_umlauts(self):
         response = self.get_response_for(
             filename='Gef\xc3\xa4hrliche Zeichen.doc')
         self.assertEqual(
             response.getHeader('Content-disposition'),
-            'attachment; filename="Gef\xc3\xa4hrliche Zeichen.doc"')
+            'attachment; filename*=UTF-8"Gef\xc3\xa4hrliche Zeichen.doc"')
 
     def test_unicode(self):
         response = self.get_response_for(filename=u'\xfcber.html')
         self.assertEqual(response.getHeader('Content-disposition'),
-                         'attachment; filename="\xc3\xbcber.html"')
+                         'attachment; filename*=UTF-8"\xc3\xbcber.html"')
 
     def test_msie(self):
         request = HTTPRequest('', dict(HTTP_HOST='nohost:8080',
@@ -60,12 +60,12 @@ class TestFileName(TestCase):
         response = self.get_response_for(filename=u'\xfcber.html',
                                          request=request)
         self.assertEqual(response.getHeader('Content-disposition'),
-                         'attachment; filename=%C3%BCber.html')
+                         'attachment; filename*=UTF-8%C3%BCber.html')
         response = self.get_response_for(
             filename=u'\xfcber\xe2\x80\x93uns.html', request=request)
         self.assertEqual(
             response.getHeader('Content-disposition'),
-            'attachment; filename=%C3%BCber%C3%A2%C2%80%C2%93uns.html')
+            'attachment; filename*=UTF-8%C3%BCber%C3%A2%C2%80%C2%93uns.html')
 
     def test_get_origin_filename_has_no_extension(self):
         self.set_filedata('dummyfile.txt')

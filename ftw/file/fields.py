@@ -57,10 +57,10 @@ class FileField(field.FileField, ImagingMixin):
             # Other browsers need an unquoted filename
             user_agent = REQUEST.get('HTTP_USER_AGENT', '')
             if 'MSIE' in user_agent:
-                header_value = '%s; filename=%s' % (disposition,
+                header_value = '%s; filename*=UTF-8%s' % (disposition,
                                                     quote(filename))
             else:
-                header_value = '%s; filename="%s"' % (disposition, filename)
+                header_value = '%s; filename*=UTF-8"%s"' % (disposition, filename)
             RESPONSE.setHeader("Content-disposition", header_value)
 
         request_range = handleRequestRange(instance, length, REQUEST, RESPONSE)
