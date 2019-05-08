@@ -1,10 +1,11 @@
-from OFS.Image import File
-from PIL.Image import ANTIALIAS
 from ftw.file.events.events import FileDownloadedEvent
 from ftw.file.imaging import ImagingMixin
 from ftw.file.interfaces import IFtwFileField
+from OFS.Image import File
+from PIL.Image import ANTIALIAS
 from plone.app.blob import field
-from plone.app.blob.download import handleIfModifiedSince, handleRequestRange
+from plone.app.blob.download import handleIfModifiedSince
+from plone.app.blob.download import handleRequestRange
 from plone.registry.interfaces import IRegistry
 from urllib import quote
 from webdav.common import rfc1123_date
@@ -52,16 +53,19 @@ class FileField(field.FileField, ImagingMixin):
             if isinstance(filename, unicode):
                 filename = filename.encode(charset, errors="ignore")
 
-            # Create a user agent specific disposition header
-            # IE needs an url quoted filename
-            # Other browsers need an unquoted filename
             user_agent = REQUEST.get('HTTP_USER_AGENT', '')
-            if 'MSIE' in user_agent:
-                header_value = '%s; filename*=UTF-8%s' % (disposition,
-                                                    quote(filename))
-            else:
-                header_value = '%s; filename*=UTF-8"%s"' % (disposition, filename)
-            RESPONSE.setHeader("Content-disposition", header_value)
+            # Microsoft browsers disposition has to be formatted differently
+            disposition_default = '{}; filename="{}"; filename={}*=UTF-8'.format(disposition, filename, filename)
+            disposition_microsoft = '{}; filename={}; filename*=UTF-8\'\'{}'.format(disposition, filename, quote(filename))
+            # use disposition_default by default
+            disposition = disposition_default
+
+            if any(key in user_agent for key in ['MSIE', 'WOW64', 'Edge']):
+                # Set different dispositon if the user_agent
+                # indicates download by a microsoft browser
+                disposition = disposition_microsoft
+
+            RESPONSE.setHeader("Content-disposition", disposition)
 
         request_range = handleRequestRange(instance, length, REQUEST, RESPONSE)
 
