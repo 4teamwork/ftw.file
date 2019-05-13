@@ -87,11 +87,11 @@ class TestFileDownload(TestCase):
     @browsing
     def test_inline_download(self, browser):
         browser.login().visit(self.context, view='@@download')
-        self.assertEquals('attachment; filename*=UTF-8"file.doc"',
+        self.assertEquals('attachment; filename="file.doc"; filename=file.doc*=UTF-8',
                           browser.headers['content-disposition'])
 
         browser.visit(self.context, view='@@download?inline=true')
-        self.assertEquals('inline; filename*=UTF-8"file.doc"',
+        self.assertEquals('inline; filename="file.doc"; filename=file.doc*=UTF-8',
                           browser.headers['content-disposition'])
 
     @browsing
@@ -114,7 +114,8 @@ class TestFileDownload(TestCase):
         browser.open(self.context, view='@@download/file/file.doc', method='HEAD')
         self.assertEqual('200 Ok', browser.headers['status'])
         self.assertEqual('6170', browser.headers['content-length'])
-        self.assertEqual('attachment; filename*=UTF-8"file.doc"', browser.headers['content-disposition'])
+        self.assertEqual('attachment; filename="file.doc"; filename=file.doc*=UTF-8',
+                         browser.headers['content-disposition'])
         self.assertEqual('bytes', browser.headers['accept-ranges'])
         self.assertEqual('application/msword', browser.headers['content-type'])
 
