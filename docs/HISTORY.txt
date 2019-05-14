@@ -5,7 +5,7 @@ Changelog
 1.16.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Improve umlaut support for MSIE file download [busykoala]
 
 
 1.16.1 (2019-04-02)
