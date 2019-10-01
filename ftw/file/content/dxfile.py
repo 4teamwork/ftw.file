@@ -1,4 +1,7 @@
 from datetime import datetime
+
+from plone.autoform.directives import write_permission
+
 from ftw.file import _
 from ftw.file.interfaces import IFile
 from ftw.file.utils import is_image
@@ -52,6 +55,14 @@ class IFileSchema(model.Schema):
         title=_(u'label_document_date', default=u'Document Date'),
     )
 
+    write_permission(isProtected='ftw.file.ProtectFile')
+    isProtected = schema.Bool(
+        required=False,
+        default=False,
+        title=_(u'label_is_protected', default=u'Protected'),
+        description=_(u'help_is_protected',
+                      default=u'The file cannot cannot be deleted if this option is checked.'),
+    )
 
 class FilenameValidator(validator.SimpleFieldValidator):
     """Do not allow / in filename"""
