@@ -12,13 +12,14 @@ class TestProtectedFiles(FunctionalTestCase):
 
     @browsing
     def test_protected_file_cannot_be_deleted(self, browser):
-        file = create(Builder('file').titled('My Image').attach_asset('testimage.jpg'))
+        file = create(Builder('file').titled(u'My Image').attach_asset(u'testimage.jpg'))
 
         browser.login()
 
         # Mark the file as protected.
         browser.visit(file, view='edit')
-        browser.fill({'Protected': True}).submit()
+        browser.fill({'Protected': True})
+        browser.find_button_by_label('Save').click()
 
         # Click the "delete" action
         browser.find('Delete').click()
