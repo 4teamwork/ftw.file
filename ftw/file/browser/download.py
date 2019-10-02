@@ -5,6 +5,7 @@ from plone.app.blob.download import handleIfModifiedSince  # Also in plone 5
 from plone.app.blob.download import handleRequestRange  # Also in plone 5
 from plone.app.blob.iterators import BlobStreamIterator
 from plone.namedfile.browser import Download as NameFileDownload
+from plone.namedfile.utils import get_contenttype
 from plone.registry.interfaces import IRegistry
 from plone.rfc822.interfaces import IPrimaryFieldInfo
 from Products.Five.browser import BrowserView
@@ -72,7 +73,38 @@ class Download(NameFileDownload):
         return BlobStreamIterator(self.context.file._blob, **request_range)
 
     def set_headers(self, file_):
-        super(Download, self).set_headers(file_)
+
+        self.request.response.setHeader('Content-Type', get_contenttype(file_))
+        self.request.response.setHeader('Content-Length', file_.getSize())
+
+        if not self.filename:
+            self.filename = getattr(file_, 'filename', self.fieldname)
+
+        if isinstance(self.filename, unicode):
+            self.filename = self.filename.encode('utf-8', errors="ignore")
+
+        # Handle Content-disposition header for MS IE and other browsers
+        user_agent = self.request.get('HTTP_USER_AGENT', '')
+
+        if self.request.get('inline', False):
+            disposition = 'inline'
+        else:
+            disposition = 'attachment'
+
+        # Microsoft browsers disposition has to be formatted differently
+        disposition_default = '{}; filename="{}"; filename={}*=UTF-8'.format(
+            disposition, self.filename, self.filename)
+        disposition_microsoft = '{}; filename={}; filename*=UTF-8\'\'{}'.format(
+            disposition, self.filename, urllib.quote(self.filename))
+        # use disposition_default by default
+        disposition = disposition_default
+
+        if any(key in user_agent for key in ['MSIE', 'WOW64', 'Edge']):
+            # Set different dispositon if the user_agent
+            # indicates download by a microsoft browser
+            disposition = disposition_microsoft
+
+        self.request.response.setHeader("Content-disposition", disposition)
 
         # Additional headers
         self.request.response.setHeader('Last-Modified',

@@ -19,4 +19,5 @@ class CustomFileBuilder(DXFileBuilder):
         self.attach(NamedBlobImage(data=content, filename=name))
         return self
 
+
 builder_registry.register('file', CustomFileBuilder, force=True)

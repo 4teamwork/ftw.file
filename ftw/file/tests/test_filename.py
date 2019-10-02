@@ -6,10 +6,8 @@ from ftw.testbrowser.pages import statusmessages
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobFile
-from StringIO import StringIO
 from unittest2 import TestCase
-from ZPublisher.HTTPRequest import HTTPRequest
-from ZPublisher.HTTPResponse import HTTPResponse
+from zope.component import getMultiAdapter
 
 
 class TestFileName(TestCase):
@@ -27,14 +25,13 @@ class TestFileName(TestCase):
         self.context = create(Builder('file')
                               .having(file=blob))
 
-    def get_response_for(self, filename='foo.pdf', response=HTTPResponse(),
-                         request=None):
-        if not request:
-            request = HTTPRequest('', dict(HTTP_HOST='nohost:8080'),
-                                  {}, response)
+    def get_response_for(self, filename='foo.pdf', request=None):
+        if request is None:
+            request = self.context.REQUEST
         self.set_filename(filename)
-
-        self.context.restrictedTraverse('@@download')()
+        view = getMultiAdapter((self.context, request), name='download')
+        view()
+        return view.request.response
 
     def set_filename(self, filename):
         if not isinstance(filename, unicode):
@@ -42,12 +39,12 @@ class TestFileName(TestCase):
         self.context.file.filename = filename
 
     def test_whitespace(self):
-        self.get_response_for(filename='ein file.doc')
+        response = self.get_response_for(filename='ein file.doc')
         self.assertEqual('attachment; filename="ein file.doc"; filename=ein file.doc*=UTF-8',
                          response.getHeader('Content-disposition'))
 
     def test_umlauts(self):
-        self.get_response_for(filename='Gef\xc3\xa4hrliche Zeichen.doc')
+        response = self.get_response_for(filename='Gef\xc3\xa4hrliche Zeichen.doc')
         self.assertEqual(
             'attachment; filename="Gef\xc3\xa4hrliche Zeichen.doc"; filename=Gef\xc3\xa4hrliche Zeichen.doc*=UTF-8',
             response.getHeader('Content-disposition'))
@@ -59,8 +56,8 @@ class TestFileName(TestCase):
             response.getHeader('Content-disposition'))
 
     def test_msie(self):
-        request = HTTPRequest('', dict(HTTP_HOST='nohost:8080',
-                                       HTTP_USER_AGENT='MSIE'), {})
+        request = self.context.REQUEST
+        request.set('HTTP_USER_AGENT', 'MSIE')
         response = self.get_response_for(filename=u'\xfcber.html',
                                          request=request)
 
@@ -108,7 +105,7 @@ class TestFileName(TestCase):
     @browsing
     def test_origin_filename_is_set_if_no_file_is_uploaded(self, browser):
         existingfile = create(Builder('file').with_dummy_content()
-                              .titled('The File'))
+                              .titled(u'The File'))
         browser.login().open(existingfile, view='edit')
         browser.fill({'Filename': u'newFilename'})
         browser.find_button_by_label(u'Save').click()
@@ -129,7 +126,7 @@ class TestFileName(TestCase):
     @browsing
     def test_origin_filename_cannot_contain_slash(self, browser):
         existingfile = create(Builder('file').with_dummy_content()
-                              .titled('The File'))
+                              .titled(u'The File'))
 
         browser.login()
 
