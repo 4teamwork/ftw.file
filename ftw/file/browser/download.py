@@ -34,7 +34,6 @@ def get_optimized_filename(filename):
 class Download(NameFileDownload):
 
     def __call__(self):
-
         if self.request.environ.get('PATH_INFO', '').endswith(self.__name__):
             # Redirect to self with fieldname and filename in path
             # This is important for SEO and readability of the url.
@@ -43,8 +42,13 @@ class Download(NameFileDownload):
             filename = get_optimized_filename(info.value.filename)
 
             current_url = self.context.absolute_url() + '/@@download'
-            return self.request.response.redirect(
-                '/'.join([current_url, fieldname, filename]))
+            url = '/'.join([current_url, fieldname, filename])
+
+            querystring = self.request.get('QUERY_STRING')
+            if querystring:
+                url += '?' + querystring
+
+            return self.request.response.redirect(url)
 
         file = self._getFile()
         self.set_headers(file)
