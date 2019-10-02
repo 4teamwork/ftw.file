@@ -79,17 +79,6 @@ class Download(NameFileDownload):
                                         rfc1123_date(self.context._p_mtime))
         self.request.response.setHeader('Accept-Ranges', 'bytes')
 
-    # def publishTraverse(self, request, name):
-
-    #     if self.fieldname is None:  # ../@@download/fieldname
-    #         self.fieldname = name
-    #     elif self.filename is None:  # ../@@download/fieldname/filename
-    #         self.filename = name
-    #     else:
-    #         raise NotFound(self, name, request)
-
-    #     return self
-
 
 class FileViewRedirector(BrowserView):
 
