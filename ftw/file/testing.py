@@ -6,7 +6,6 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
 from zope.component import eventtesting
 from zope.configuration import xmlconfig
 import ftw.file.tests.builders  # noqa

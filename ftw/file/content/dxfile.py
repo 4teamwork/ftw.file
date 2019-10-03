@@ -64,6 +64,7 @@ class IFileSchema(model.Schema):
                       default=u'The file cannot cannot be deleted if this option is checked.'),
     )
 
+
 class FilenameValidator(validator.SimpleFieldValidator):
     """Do not allow / in filename"""
 

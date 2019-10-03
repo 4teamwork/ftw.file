@@ -25,6 +25,6 @@ class TestActivity2Downloads(FunctionalTestCase):
         browser.login().open(file_, view='@@download')
 
         self.assertIn(
-            {'path': '/plone/file',
+            {'path': '/plone/test.doc',
              'action': 'file:downloaded'},
             get_soup_activities(('path', 'action')))
