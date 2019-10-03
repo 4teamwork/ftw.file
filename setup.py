@@ -9,8 +9,6 @@ tests_require = [
     'ftw.testbrowser >= 1.22',
     'ftw.testing',
     'plone.app.testing',
-    'plone.mocktestcase',
-    'pyquery',
 ]
 
 setup(name='ftw.file',
