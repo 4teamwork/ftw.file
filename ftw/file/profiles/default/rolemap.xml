@@ -6,16 +6,6 @@
       <role name="Contributor" />
       <role name="Site Administrator" />
     </permission>
-    <permission name="ftw.file: Edit advanced fields" acquire="False">
-      <role name="Manager" />
-      <role name="Site Administrator" />
-      <role name="Reviewer" />
-    </permission>
-    <permission name="ftw.file: Edit date fields" acquire="False">
-      <role name="Manager" />
-      <role name="Site Administrator" />
-      <role name="Reviewer" />
-    </permission>
     <permission name="ftw.file: Protect file" acquire="True">
       <role name="Manager" />
       <role name="Site Administrator" />
