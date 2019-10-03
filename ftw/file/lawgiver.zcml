@@ -10,12 +10,6 @@
         permissions="ftw.file: Add File"
         />
 
-    <lawgiver:map_permissions
-        action_group="manage content settings"
-        permissions="ftw.file: Edit advanced fields,
-                     ftw.file: Edit date fields"
-        />
-
     <lawgiver:ignore
         permissions="ftw.file: Protect file"
         />
