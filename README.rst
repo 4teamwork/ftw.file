@@ -27,6 +27,9 @@ Install
 
 - Install ``ftw.file`` in portal_setup
 
+- If you are using the Dexterity based implementation (2.x) then you will probably want to set `global_allow`
+  for Plone's standard `File` type to False through the ZMI or a GS profile.
+
 Use `ftw.file` in TinyMCE
 -------------------------
 - Make sure `File` is addable on the Type you use TinyMCE.
