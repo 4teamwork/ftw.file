@@ -81,6 +81,8 @@ class Download(NameFileDownload):
         self.request.response.setHeader('Content-Type', get_contenttype(file_))
         self.request.response.setHeader('Content-Length', file_.getSize())
 
+        import pdb; pdb.set_trace()
+
         if not self.filename:
             self.filename = getattr(file_, 'filename', self.fieldname)
 
