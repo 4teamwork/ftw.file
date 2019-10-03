@@ -6,4 +6,7 @@
  <property name="product">plone.app.blob</property>
  <property name="factory">addATBlobFile</property>
  <property name="immediate_view">file_view</property>
+
+ <!-- Hide standard Plone File type (except where it is explicitly allowed in a type) -->
+ <property name="global_allow">False</property>
 </object>
