@@ -24,7 +24,7 @@
 #                                     ['image/x-custom-image'],
 #                                     ['NonsenseExtension'],
 #                                     'customicon.png')
-#         plonefile = self.portal.get(self.portal.invokeFactory('File', 'myfile',
+#         plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
 #                                                               file=self.file_))
 #         self.assertEqual('plone/customicon.png', plonefile.getIcon())
 
@@ -33,7 +33,7 @@
 #                                     ['image/x-custom-image'],
 #                                     ['NonsenseExtension'],
 #                                     '')
-#         plonefile = self.portal.get(self.portal.invokeFactory('File', 'myfile',
+#         plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
 #                                                               file=self.file_))
 #         self.assertEqual('plone/image.png', plonefile.getIcon())
 
@@ -45,7 +45,7 @@
 #                                     ['image/x-custom-image'],
 #                                     ['NonsenseExtension'],
 #                                     '')
-#         plonefile = self.portal.get(self.portal.invokeFactory('File', 'myfile',
+#         plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
 #                                                               file=self.file_))
 #         # and then we remove it again so we won't find it in the registry.
 #         self.mtr.manage_delObjects(['image/x-custom-image'])

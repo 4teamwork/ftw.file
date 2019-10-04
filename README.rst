@@ -38,7 +38,7 @@ Use `ftw.file` in TinyMCE
 
     <object name="Meeting Item">
         <property name="allowed_content_types">
-            <element value="File" />
+            <element value="ftw.file.File" />
         </property>
     </object>
 
@@ -49,7 +49,7 @@ Use `ftw.file` in TinyMCE
     <object>
      <resourcetypes>
       <imageobjects purge="True">
-        <element value="File"/>
+        <element value="ftw.file.File"/>
       </imageobjects>
      </resourcetypes>
     </object>

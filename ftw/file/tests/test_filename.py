@@ -17,7 +17,7 @@ class TestFileName(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        self.portal.invokeFactory('File', 'f1')
+        self.portal.invokeFactory('ftw.file.File', 'f1')
         self.context = self.portal.f1
 
         blob = NamedBlobFile(data=1234 * 'dummy',
