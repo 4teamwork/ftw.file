@@ -71,35 +71,35 @@ class TestFileName(TestCase):
 
     def test_get_origin_filename_has_no_extension(self):
         self.set_filename('dummyfile.txt')
-        self.assertEqual('dummyfile', self.context.originfilename)
+        self.assertEqual('dummyfile', self.context.original_filename)
 
     def test_set_origin_filename_overrides_the_filename_and_keeps_the_extension(self):
         self.set_filename('dummyfile.txt')
-        self.context.originfilename = u'\xfcber'
+        self.context.original_filename = u'\xfcber'
         self.assertEqual(u'\xfcber.txt', self.context.file.filename)
 
     def test_set_origin_filename_does_not_override_filename_if_its_empty(self):
         self.set_filename('dummyfile.txt')
-        self.context.originfilename = u''
+        self.context.original_filename = u''
         self.assertEqual('dummyfile.txt', self.context.file.filename)
 
     def test_set_origin_filename_if_no_filename_exists(self):
         self.context.file.filename = None
         self.assertEqual(None, self.context.file.filename)
-        self.context.originfilename = u'dummy'
+        self.context.original_filename = u'dummy'
         self.assertEqual(None, self.context.file.filename)
 
     def test_get_origin_filename_if_no_filename_exists(self):
         self.context.file.filename = None
-        self.assertEqual(None, self.context.originfilename)
+        self.assertEqual(None, self.context.original_filename)
 
     def test_get_origin_filename_if_no_extension_exists(self):
         self.set_filename('dummyfile')
-        self.assertEqual('dummyfile', self.context.originfilename)
+        self.assertEqual('dummyfile', self.context.original_filename)
 
     def test_set_origin_filename_if_no_extension_exists(self):
         self.set_filename('dummyfile')
-        self.context.originfilename = u'\xfcber'
+        self.context.original_filename = u'\xfcber'
         self.assertEqual(u'\xfcber', self.context.file.filename)
 
     @browsing

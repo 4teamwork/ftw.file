@@ -40,7 +40,7 @@ class IFileSchema(model.Schema):
         title=_(u'label_file', default=u'File'),
         required=True)
 
-    originfilename = schema.TextLine(
+    original_filename = schema.TextLine(
         title=_(u'label_origin_filename', default=u'Filename'),
         required=False,
         description=_(
@@ -55,8 +55,8 @@ class IFileSchema(model.Schema):
         title=_(u'label_document_date', default=u'Document Date'),
     )
 
-    write_permission(isProtected='ftw.file.ProtectFile')
-    isProtected = schema.Bool(
+    write_permission(is_protected='ftw.file.ProtectFile')
+    is_protected = schema.Bool(
         required=False,
         default=False,
         title=_(u'label_is_protected', default=u'Protected'),
@@ -78,7 +78,7 @@ class FilenameValidator(validator.SimpleFieldValidator):
 
 
 validator.WidgetValidatorDiscriminators(FilenameValidator,
-                                        field=IFileSchema['originfilename'])
+                                        field=IFileSchema['original_filename'])
 provideAdapter(FilenameValidator)
 
 
@@ -99,13 +99,13 @@ class File(Item):
     # TODO: Move IWorkflowHistoryJournalizable into zcml
     implements(IFile, IWorkflowHistoryJournalizable)
 
-    def _get_originfilename(self):
+    def _get_original_filename(self):
         filename = self.file.filename
         if not filename:
             return None
         return path.splitext(filename)[0]
 
-    def _set_originfilename(self, value):
+    def _set_original_filename(self, value):
         """Overrides the filename with the given value and keep the
         old extension.
         """
@@ -123,7 +123,7 @@ class File(Item):
         self.file.filename = u'{0}{1}'.format(value,
                                               path.splitext(filename)[1])
 
-    originfilename = property(_get_originfilename, _set_originfilename)
+    original_filename = property(_get_original_filename, _set_original_filename)
 
     def is_image(self):
         return is_image(self.file.contentType)

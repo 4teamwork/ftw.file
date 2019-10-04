@@ -6,6 +6,6 @@ class EditForm(edit.DefaultEditForm):
     def applyChanges(self, data):
 
         if self.request.get('form.widgets.file.action') != u'nochange':
-            data['originfilename'] = None
+            data['original_filename'] = None
 
         super(EditForm, self).applyChanges(data)
