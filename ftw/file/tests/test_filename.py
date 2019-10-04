@@ -69,41 +69,41 @@ class TestFileName(TestCase):
             'attachment; filename=\xc3\xbcber\xc3\xa2\xc2\x80\xc2\x93uns.html; filename*=UTF-8\'\'%C3%BCber%C3%A2%C2%80%C2%93uns.html',
             response.getHeader('Content-disposition'))
 
-    def test_get_origin_filename_has_no_extension(self):
+    def test_get_filename_override_has_no_extension(self):
         self.set_filename('dummyfile.txt')
-        self.assertEqual('dummyfile', self.context.original_filename)
+        self.assertEqual('dummyfile', self.context.filename_override)
 
-    def test_set_origin_filename_overrides_the_filename_and_keeps_the_extension(self):
+    def test_set_filename_override_overrides_the_filename_and_keeps_the_extension(self):
         self.set_filename('dummyfile.txt')
-        self.context.original_filename = u'\xfcber'
+        self.context.filename_override = u'\xfcber'
         self.assertEqual(u'\xfcber.txt', self.context.file.filename)
 
-    def test_set_origin_filename_does_not_override_filename_if_its_empty(self):
+    def test_set_filename_override_does_not_override_filename_if_its_empty(self):
         self.set_filename('dummyfile.txt')
-        self.context.original_filename = u''
+        self.context.filename_override = u''
         self.assertEqual('dummyfile.txt', self.context.file.filename)
 
-    def test_set_origin_filename_if_no_filename_exists(self):
+    def test_set_filename_override_if_no_filename_exists(self):
         self.context.file.filename = None
         self.assertEqual(None, self.context.file.filename)
-        self.context.original_filename = u'dummy'
+        self.context.filename_override = u'dummy'
         self.assertEqual(None, self.context.file.filename)
 
-    def test_get_origin_filename_if_no_filename_exists(self):
+    def test_get_filename_override_if_no_filename_exists(self):
         self.context.file.filename = None
-        self.assertEqual(None, self.context.original_filename)
+        self.assertEqual(None, self.context.filename_override)
 
-    def test_get_origin_filename_if_no_extension_exists(self):
+    def test_get_filename_override_if_no_extension_exists(self):
         self.set_filename('dummyfile')
-        self.assertEqual('dummyfile', self.context.original_filename)
+        self.assertEqual('dummyfile', self.context.filename_override)
 
-    def test_set_origin_filename_if_no_extension_exists(self):
+    def test_set_filename_override_if_no_extension_exists(self):
         self.set_filename('dummyfile')
-        self.context.original_filename = u'\xfcber'
+        self.context.filename_override = u'\xfcber'
         self.assertEqual(u'\xfcber', self.context.file.filename)
 
     @browsing
-    def test_origin_filename_is_set_if_no_file_is_uploaded(self, browser):
+    def test_filename_override_is_set_if_no_file_is_uploaded(self, browser):
         existingfile = create(Builder('file').with_dummy_content()
                               .titled(u'The File'))
         browser.login().open(existingfile, view='edit')
@@ -112,7 +112,7 @@ class TestFileName(TestCase):
         self.assertEquals(u'newFilename.doc', existingfile.file.filename)
 
     @browsing
-    def test_origin_filename_is_filename_of_uploaded_file(self, browser):
+    def test_filename_override_is_filename_of_uploaded_file(self, browser):
         existingfile = create(Builder('file')
                               .titled(u'Some title')
                               .with_dummy_content())
@@ -124,7 +124,7 @@ class TestFileName(TestCase):
         self.assertEqual(u'newfile.txt', existingfile.file.filename)
 
     @browsing
-    def test_origin_filename_cannot_contain_slash(self, browser):
+    def test_filename_override_cannot_contain_slash(self, browser):
         existingfile = create(Builder('file').with_dummy_content()
                               .titled(u'The File'))
 

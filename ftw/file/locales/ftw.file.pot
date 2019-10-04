@@ -131,7 +131,7 @@ msgstr ""
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
 #: ./ftw/file/content/file.py:73
-msgid "help_origin_filename"
+msgid "help_filename_override"
 msgstr ""
 
 #. Default: "Anonymous User"
@@ -156,7 +156,7 @@ msgstr ""
 
 #. Default: "Filename"
 #: ./ftw/file/content/file.py:72
-msgid "label_origin_filename"
+msgid "label_filename_override"
 msgstr ""
 
 #. Default: "You are not allowed to delete the file \"${file_title}\"."
@@ -166,6 +166,6 @@ msgstr ""
 
 #. Default: "The filename must not contain \"/\"."
 #: ./ftw/file/content/file.py:39
-msgid "origin_filename_validator_error"
+msgid "filename_override_validator_error"
 msgstr ""
 

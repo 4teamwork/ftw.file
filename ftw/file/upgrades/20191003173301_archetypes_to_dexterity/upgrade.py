@@ -22,7 +22,7 @@ class MigrateToDexterity(UpgradeStep):
             ignore_fields=('originFilename', 'excludeFromNav'),
             field_mapping={
                 'documentDate': 'document_date',
-                'originfilename': 'original_filename',
+                'originfilename': 'filename_override',
                 'isProtected': 'is_protected'
             },
         )
