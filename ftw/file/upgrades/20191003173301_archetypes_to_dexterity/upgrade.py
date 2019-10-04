@@ -15,8 +15,12 @@ class MigrateToDexterity(UpgradeStep):
 
         migrator = InplaceMigrator(
             new_portal_type='ftw.file.File',
-            ignore_fields=('originFilename', 'excludeFromNav'),
-            field_mapping={'documentDate': 'document_date'},
+            ignore_fields=('excludeFromNav',),
+            field_mapping={
+                'documentDate': 'document_date',
+                'originFilename': 'filename_override',
+                'isProtected': 'is_protected'
+            },
         )
 
         for obj in self.objects({'portal_type': 'File'},

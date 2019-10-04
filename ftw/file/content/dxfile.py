@@ -40,11 +40,11 @@ class IFileSchema(model.Schema):
         title=_(u'label_file', default=u'File'),
         required=True)
 
-    originfilename = schema.TextLine(
-        title=_(u'label_origin_filename', default=u'Filename'),
+    filename_override = schema.TextLine(
+        title=_(u'label_filename_override', default=u'Filename'),
         required=False,
         description=_(
-            u'help_origin_filename',
+            u'help_filename_override',
             default=u"Insert a filename if you want to change the "
             "original filename. The extension (i.e. .docx) "
             "will not be modified. Please do not enter \"/\"."))
@@ -55,8 +55,8 @@ class IFileSchema(model.Schema):
         title=_(u'label_document_date', default=u'Document Date'),
     )
 
-    write_permission(isProtected='ftw.file.ProtectFile')
-    isProtected = schema.Bool(
+    write_permission(is_protected='ftw.file.ProtectFile')
+    is_protected = schema.Bool(
         required=False,
         default=False,
         title=_(u'label_is_protected', default=u'Protected'),
@@ -71,14 +71,14 @@ class FilenameValidator(validator.SimpleFieldValidator):
     def validate(self, value):
         if value and '/' in value:
             errmsg = _(
-                u'origin_filename_validator_error',
+                u'filename_override_validator_error',
                 default=u'"/" (Slash in filenames is not allowed..'
             )
             raise Invalid(errmsg)
 
 
 validator.WidgetValidatorDiscriminators(FilenameValidator,
-                                        field=IFileSchema['originfilename'])
+                                        field=IFileSchema['filename_override'])
 provideAdapter(FilenameValidator)
 
 
@@ -99,13 +99,13 @@ class File(Item):
     # TODO: Move IWorkflowHistoryJournalizable into zcml
     implements(IFile, IWorkflowHistoryJournalizable)
 
-    def _get_originfilename(self):
+    def _get_filename_override(self):
         filename = self.file.filename
         if not filename:
             return None
         return path.splitext(filename)[0]
 
-    def _set_originfilename(self, value):
+    def _set_filename_override(self, value):
         """Overrides the filename with the given value and keep the
         old extension.
         """
@@ -123,7 +123,7 @@ class File(Item):
         self.file.filename = u'{0}{1}'.format(value,
                                               path.splitext(filename)[1])
 
-    originfilename = property(_get_originfilename, _set_originfilename)
+    filename_override = property(_get_filename_override, _set_filename_override)
 
     def is_image(self):
         return is_image(self.file.contentType)
