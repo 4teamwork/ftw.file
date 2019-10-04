@@ -9,6 +9,7 @@ from plone.outputfilters.browser.resolveuid import uuidFor
 from Products.Archetypes.event import ObjectEditedEvent
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
 from zope.event import notify
@@ -38,8 +39,7 @@ class FileUpload(BrowserView):
         self.filename = self.file.filename
         self.file.seek(0)
         self.context.file = NamedBlobImage(data=self.file.read(),
-                                           contentType=self.file.content_type,
-                                           filename=self.filename)
+                                           filename=safe_unicode(self.filename))
 
         portal = api.portal.get()
         repository_tool = getToolByName(portal, 'portal_repository')
