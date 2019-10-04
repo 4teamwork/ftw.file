@@ -33,7 +33,6 @@ class FtwFileLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'plone.app.imaging:default')
         applyProfile(portal, 'plone.app.registry:default')
-        #applyProfile(portal, 'plone.app.versioningbehavior:default')
         applyProfile(portal, 'ftw.file:default')
         eventtesting.setUp()
 
