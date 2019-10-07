@@ -6,7 +6,6 @@ from ftw.file.utils import is_image
 from plone import api
 from plone.namedfile.file import NamedBlobImage
 from plone.outputfilters.browser.resolveuid import uuidFor
-from Products.Archetypes.event import ObjectEditedEvent
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
@@ -14,6 +13,7 @@ from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
 from zope.event import notify
 from zope.i18n import translate
+from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
 import json
 
@@ -53,7 +53,7 @@ class FileUpload(BrowserView):
                                   context=self.request)
             )
 
-        notify(ObjectEditedEvent(self.context))
+        notify(ObjectModifiedEvent(self.context))
         return json.dumps({'success': True})
 
 
