@@ -11,6 +11,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
+from zope.annotation.interfaces import IAnnotations
 from zope.event import notify
 from zope.i18n import translate
 from zope.lifecycleevent import ObjectModifiedEvent
@@ -41,19 +42,13 @@ class FileUpload(BrowserView):
         self.context.file = NamedBlobImage(data=self.file.read(),
                                            filename=safe_unicode(self.filename))
 
-        portal = api.portal.get()
-        repository_tool = getToolByName(portal, 'portal_repository')
-
-        if repository_tool.isVersionable(self.context):
-            # TODO: This creates another entry in the history resulting
-            # in two consecutive history entries.
-            repository_tool.save(
-                self.context,
-                comment=translate(_('File replaced with Drag & Drop.'),
-                                  context=self.request)
-            )
+        # set a change note where it will be added by p.a.versionbehavior's create_version_on_save
+        change_note = translate(_('File replaced with Drag & Drop.'))
+        annotations = IAnnotations(self.request)
+        annotations['plone.app.versioningbehavior-changeNote'] = change_note
 
         notify(ObjectModifiedEvent(self.context))
+
         return json.dumps({'success': True})
 
 
