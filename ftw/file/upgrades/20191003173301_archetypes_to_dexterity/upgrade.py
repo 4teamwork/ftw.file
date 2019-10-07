@@ -19,10 +19,10 @@ class MigrateToDexterity(UpgradeStep):
 
         migrator = InplaceMigrator(
             new_portal_type='ftw.file.File',
-            ignore_fields=('originFilename', 'excludeFromNav'),
+            ignore_fields=('excludeFromNav'),
             field_mapping={
                 'documentDate': 'document_date',
-                'originfilename': 'filename_override',
+                'originFilename': 'filename_override',
                 'isProtected': 'is_protected'
             },
         )
