@@ -16,23 +16,23 @@ class TestPagination(TestCase):
         setRoles(self.layer['portal'], TEST_USER_ID, ['Contributor'])
 
         self.file = create(Builder('file')
-                           .titled('An important file')
+                           .titled(u'An important file')
                            .with_dummy_content())
 
     @browsing
     def test_pagination_is_used(self, browser):
         # enable history
         portal_repository = self.portal.portal_repository
-        portal_repository.addPolicyForContentType(u'File',
+        portal_repository.addPolicyForContentType(u'ftw.file.File',
                                                   u'at_edit_autoversion')
         portal_repository.setVersionableContentTypes(
-            portal_repository.getVersionableContentTypes() + [u'File'])
+            portal_repository.getVersionableContentTypes() + [u'ftw.file.File'])
         transaction.commit()
 
         # make history entrys
         for i in range(12):
             browser.login().open(self.file, view='edit')
-            browser.fill({'Title': str(i)}).submit()
+            browser.fill({'Title': str(i)}).save()
 
         self.assertIn("file_download_version?version_id=11",
                       browser.contents,
