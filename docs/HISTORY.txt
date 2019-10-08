@@ -5,8 +5,8 @@ Changelog
 2.0.0 (unreleased)
 -----------------
 
-- Move to Dexterity.
-  [mathias.leimgruber]
+- Move to Dexterity, remove Archetypes functionality (but not models)
+  [mathias.leimgruber, djowett-ftw]
 
 
 1.16.2 (2019-05-14)

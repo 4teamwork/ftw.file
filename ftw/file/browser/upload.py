@@ -4,6 +4,7 @@ from Acquisition import aq_parent
 from ftw.file import fileMessageFactory as _
 from ftw.file.utils import is_image
 from plone import api
+from plone.dexterity.interfaces import IDexterityContent
 from plone.namedfile.file import NamedBlobImage
 from plone.outputfilters.browser.resolveuid import uuidFor
 from Products.CMFCore.interfaces._content import IFolderish
@@ -19,14 +20,6 @@ from zope.publisher.browser import BrowserView
 import json
 
 
-import pkg_resources
-try:
-    pkg_resources.get_distribution('plone.dexterity')
-except pkg_resources.DistributionNotFound:
-    HAS_DEXTERITY = False
-else:
-    HAS_DEXTERITY = True
-    from plone.dexterity.interfaces import IDexterityContent
 
 
 class FileUpload(BrowserView):
@@ -133,7 +126,7 @@ class TinyMCEFileUpload(Upload):
             except AttributeError:
                 obj.description = description
 
-        if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
+        if IDexterityContent.providedBy(obj):
             if not self.setDexterityImage(obj):
                 return self.errorMessage(translate(
                     _("The content-type '%s' has no image-field!" % metatype),
