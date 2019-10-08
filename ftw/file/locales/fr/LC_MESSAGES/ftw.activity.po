@@ -16,3 +16,4 @@ msgstr ""
 
 msgid "file:downloaded"
 msgstr "Fichier téléchargé"
+
