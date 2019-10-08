@@ -42,10 +42,6 @@
       handler=".hooks.installed"
       />
 
-  <adapter
-      for="ftw.file.fields.FileField"
-      factory="plone.app.imaging.scaling.ImageScaleFactory" />
-
   <browser:resourceDirectory
       name="ftw.file.resources"
       directory="resources"
@@ -56,9 +52,6 @@
       provides="Products.TinyMCE.adapters.interfaces.JSONDetails.IJSONDetails"
       factory=".JSONDetails.FtwJSONDetails"
       />
-
-  <adapter
-      factory=".imaging.FtwFileImageScaleHandler" />
 
   <subscriber
       for="ftw.file.interfaces.IFile

@@ -1,5 +1,4 @@
 from ftw.file.events.events import FileDownloadedEvent
-from ftw.file.imaging import ImagingMixin
 from ftw.file.interfaces import IFtwFileField
 from OFS.Image import File
 from PIL.Image import ANTIALIAS
@@ -15,7 +14,7 @@ from zope.event import notify
 from zope.interface import implements
 
 
-class FileField(field.FileField, ImagingMixin):
+class FileField(field.FileField):
     implements(IFtwFileField)
 
     _properties = field.FileField._properties.copy()
