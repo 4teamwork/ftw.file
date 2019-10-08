@@ -48,13 +48,13 @@
     </configure>
 
     <adapter
-        for="Products.Archetypes.interfaces.base.IBaseFolder"
+        for="plone.dexterity.interfaces.IDexterityContent"
         provides="Products.TinyMCE.adapters.interfaces.JSONFolderListing.IJSONFolderListing"
         factory=".tinymce.FtwJSONFolderListing"
         />
 
     <adapter
-        for="Products.Archetypes.interfaces.base.IBaseFolder"
+        for="plone.dexterity.interfaces.IDexterityContent"
         provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
         factory=".upload.TinyMCEFileUpload"
         />
