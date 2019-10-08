@@ -7,6 +7,7 @@ Changelog
 
 - Move to Dexterity, remove Archetypes functionality (but not models)
   [mathias.leimgruber, djowett-ftw]
+- Remove TinyMCE integration [djowett-ftw]
 
 
 1.16.2 (2019-05-14)

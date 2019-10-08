@@ -9,7 +9,15 @@ This is a file content for plone which provides some useful functions, such as:
 - Resumable downloads
 
 
+Compatibility
+=============
+
+``ftw.file`` is compatible with Plone 4.3.x.
+
 Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity based implementation.
+
+The ability to use ``ftw.file`` Files in TinyMCE is no longer supported for the Dexterity based
+implementation (2.x).
 
 
 Install
@@ -30,29 +38,6 @@ Install
 - If you are using the Dexterity based implementation (2.x) then you will probably want to set `global_allow`
   for Plone's standard `File` type to False through the ZMI or a GS profile.
 
-Use `ftw.file` in TinyMCE
--------------------------
-- Make sure `File` is addable on the Type you use TinyMCE.
-
-::
-
-    <object name="Meeting Item">
-        <property name="allowed_content_types">
-            <element value="ftw.file.File" />
-        </property>
-    </object>
-
-- Configure TinyMCE to create `ftw.file` Files with uploaded images. `tinymce.xml`:
-
-::
-
-    <object>
-     <resourcetypes>
-      <imageobjects purge="True">
-        <element value="ftw.file.File"/>
-      </imageobjects>
-     </resourcetypes>
-    </object>
 
 Links
 =====
