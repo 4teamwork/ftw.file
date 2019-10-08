@@ -23,6 +23,11 @@ from zope.component.interfaces import IFactory
 from Products.Archetypes.interfaces import IReferenceable
 from Products.Archetypes.ArchetypeTool import getType
 from Products.Archetypes.config import REFERENCE_ANNOTATION
+import urllib
+import urlparse
+import logging
+import json
+import base64
 
 
 class FtwFileMigrator(BaseMigrator):
@@ -250,12 +255,9 @@ def migrateFtwFiles(context):
     return out
 
 
+####
 # version migration using collective.jsonify
-import urllib
-import urlparse
-import logging
-import json
-import base64
+
 logger = logging.getLogger('ftw.file.migration')
 
 
