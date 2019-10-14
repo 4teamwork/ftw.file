@@ -5,7 +5,6 @@ This is a file content for plone which provides some useful functions, such as:
 
 - Write downloader-name in history (ftw.journal)
 - Image preview
-- New FileField (sets more information in the RESPONSE header)
 - Resumable downloads
 
 
