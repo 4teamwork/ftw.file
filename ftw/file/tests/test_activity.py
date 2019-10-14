@@ -29,11 +29,11 @@ class TestActivityRepresentation(TestCase):
     def test_renders_preview_for_images(self, browser):
         file_ = create(
             Builder('file')
-            .titled('An important file')
+            .titled(u'An important file')
             .attach_file_containing(self.asset('transparent.gif'),
                                     'transparent.gif'))
         self.render_representation(browser, file_)
-        self.assertEqual('An important file',
+        self.assertEqual(u'An important file',
                          browser.css('.title').first.text)
 
         self.assertTrue(browser.css('.colorboxLink'))
@@ -42,10 +42,10 @@ class TestActivityRepresentation(TestCase):
     @browsing
     def test_renders_download_link_for_files(self, browser):
         file_ = create(Builder('file')
-                       .titled('An important file')
+                       .titled(u'An important file')
                        .with_dummy_content())
         self.render_representation(browser, file_)
-        self.assertEqual('An important file',
+        self.assertEqual(u'An important file',
                          browser.css('.title').first.text)
 
         self.assertFalse(browser.css('.colorboxLink'))
