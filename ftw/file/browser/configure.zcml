@@ -47,15 +47,4 @@
       </configure>
     </configure>
 
-    <adapter
-        for="plone.dexterity.interfaces.IDexterityContent"
-        provides="Products.TinyMCE.adapters.interfaces.JSONFolderListing.IJSONFolderListing"
-        factory=".tinymce.FtwJSONFolderListing"
-        />
-
-    <adapter
-        for="plone.dexterity.interfaces.IDexterityContent"
-        provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
-        factory=".upload.TinyMCEFileUpload"
-        />
 </configure>
