@@ -9,8 +9,9 @@ from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
 import json
 
-# Note that this module still has to accomodate Archetypes even when ftw.file.File is
-# Dexterity based, because the content type using TinyMCE may still be an Archetype.
+# Note that this module still has to accomodate Archetypes even when
+# ftw.file.File is Dexterity based, because the content type using
+# TinyMCE may still be an Archetype.
 
 
 class FileUpload(BrowserView):
@@ -26,7 +27,8 @@ class FileUpload(BrowserView):
         self.context.file = NamedBlobImage(data=self.file.read(),
                                            filename=safe_unicode(self.filename))
 
-        # set a change note where it will be added by p.a.versionbehavior's create_version_on_save
+        # set a change note which will be added by p.a.versionbehavior's
+        # create_version_on_save
         change_note = translate(_('File replaced with Drag & Drop.'))
         annotations = IAnnotations(self.request)
         annotations['plone.app.versioningbehavior-changeNote'] = change_note
