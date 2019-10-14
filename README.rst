@@ -13,10 +13,21 @@ Compatibility
 
 ``ftw.file`` is compatible with Plone 4.3.x.
 
-Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity based implementation.
+Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity
+based implementation.
 
-The ability to use ``ftw.file`` Files in TinyMCE is no longer supported for the Dexterity based
-implementation (2.x).
+The ability to use ``ftw.file`` Files in TinyMCE is no longer supported for
+the Dexterity based implementation (2.x).
+
+Migration from 1.x to 2.x
+-------------------------
+
+A migration step is provided for migrating from Archetypes to Dexterity
+implementations.
+If however, you have been using TinyMCE integration in 1.x then you will need
+to migrate content with richtext fields that references ftw.file.File, and
+also replace ``ftw.file.File`` with ``Image`` (or another type as you see
+fit) in the setting "TinyMCE / resourcetypes / imageobjects".
 
 
 Install
@@ -34,8 +45,9 @@ Install
 
 - Install ``ftw.file`` in portal_setup
 
-- If you are using the Dexterity based implementation (2.x) then you will probably want to set `global_allow`
-  for Plone's standard `File` type to False through the ZMI or a GS profile.
+- If you are using the Dexterity based implementation (2.x) then you will
+  probably want to set `global_allow` for Plone's standard `File` type to
+  False through the ZMI or a GS profile.
 
 
 Links
