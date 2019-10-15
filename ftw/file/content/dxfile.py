@@ -10,7 +10,7 @@ from os import path
 from plone.dexterity.content import Item
 from plone.namedfile.field import INamedBlobFileField
 from plone.namedfile.field import NamedBlobFile
-from plone.namedfile.file import NamedBlobImage as BlobImageValueType
+from plone.namedfile.file import NamedBlobImage
 from plone.supermodel import model
 from plone.supermodel.directives import primary
 from Products.CMFCore.utils import getToolByName
@@ -28,6 +28,21 @@ LOGGER = logging.getLogger('ftw.file')
 
 def default_document_date():
     return datetime.now().date()
+
+class BlobImageValueType(NamedBlobImage):
+
+    def __init__(self, data='', contentType='', filename=None):
+        """
+        Lookup contentType from Plone's more extensive mimetypes registry
+        instead of just Python's mimetypes.
+        """
+        if not contentType:
+            mtr = getToolByName(self, 'mimetypes_registry', None)
+            mimetypeitem = mtr.lookupExtension(filename)
+            if mimetypeitem:
+                contentType = mimetypeitem.normalized()
+
+        super(BlobImageValueType, self).__init__(data, contentType, filename)
 
 
 @implementer(INamedBlobFileField)

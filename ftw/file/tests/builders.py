@@ -1,7 +1,8 @@
 from ftw.builder import builder_registry
 from ftw.builder.content import DXFileBuilder
 from path import Path
-from plone.namedfile.file import NamedBlobImage
+# from plone.namedfile.file import NamedBlobImage
+from ftw.file.content.dxfile import BlobImageValueType
 
 
 class CustomFileBuilder(DXFileBuilder):
@@ -16,7 +17,7 @@ class CustomFileBuilder(DXFileBuilder):
         return path
 
     def _attach_dx_file(self, content, name):
-        self.attach(NamedBlobImage(data=content, filename=name))
+        self.attach(BlobImageValueType(data=content, filename=name))
         return self
 
 
