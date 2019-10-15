@@ -1,32 +1,49 @@
 from Products.CMFCore.utils import getToolByName
-from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
-from plone.app.testing import TEST_USER_NAME, TEST_USER_ID
-from plone.app.testing import login, setRoles
+from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
+from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import factoriesmenu
+from plone.app.testing import SITE_OWNER_NAME
 from unittest2 import TestCase
 import os
+import transaction
 
 
 class TestFileName(TestCase):
 
-    layer = FTW_FILE_INTEGRATION_TESTING
+    layer = FTW_FILE_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
-        path = "%s/assets/testfile.NonsenseExtension" % (
+        self.path = "%s/assets/testfile.NonsenseExtension" % (
             os.path.split(__file__)[0])
-        self.file_ = open(path, 'r')
+        self.file_ = open(self.path, 'r')
         self.mtr = getToolByName(self.portal, 'mimetypes_registry')
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        login(self.portal, TEST_USER_NAME)
 
-    def test_custom_icon(self):
+    @browsing
+    def test_custom_icon(self, browser):
+        # NB Plone includes all Python's 'mimetypes' in it's mimetypes_registry
         self.mtr.manage_addMimeType('customimage type',
                                     ['image/x-custom-image'],
                                     ['NonsenseExtension'],
                                     'customicon.png')
-        plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
-                                                              file=self.file_))
+        transaction.commit()
+
+        browser.login(SITE_OWNER_NAME).open()
+        factoriesmenu.add('File')
+
+        with open(self.path, 'r') as file_:
+            browser.fill({'Title': 'My file',
+                          'Filename': 'myfile',
+                          'File': (file_.read(),
+                                   'testfile.NonsenseExtension',
+                                   'image/x-custom-image')
+                          }).save()
+        errors = browser.css('.error')
+        self.assertEqual(0, len(errors), "Check no errors on form submission")
+
+        plonefile = self.portal['myfile-nonsenseextension']
         self.assertEqual('plone/customicon.png', plonefile.getIcon())
+
 
     def test_default_icon(self):
         self.mtr.manage_addMimeType('customimage type',
