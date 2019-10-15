@@ -13,12 +13,17 @@ from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.file import NamedBlobImage as BlobImageValueType
 from plone.supermodel import model
 from plone.supermodel.directives import primary
+from Products.CMFCore.utils import getToolByName
+from Products.MimetypesRegistry.common import MimeTypeException
 from z3c.form import validator
 from zope import schema
 from zope.component import provideAdapter
 from zope.interface import implementer
 from zope.interface import implements
 from zope.interface import Invalid
+import logging
+
+LOGGER = logging.getLogger('ftw.file')
 
 
 def default_document_date():
@@ -127,3 +132,36 @@ class File(Item):
 
     def is_image(self):
         return is_image(self.file.contentType)
+
+    def getIcon(self, relative_to_portal=False):
+        """ Calculate the icon using the mime type of the file
+            if no file return nothing.
+        """
+        # if not self.file:
+        #     # field is empty
+        #     return ''
+
+        # contenttype = self.file.getContentType(self)
+        contenttype = self.file.contentType
+        #contenttype_major = contenttype and contenttype.split('/')[0] or ''
+
+        mtr = getToolByName(self, 'mimetypes_registry', None)
+        utool = getToolByName(self, 'portal_url')
+
+        mimetypeitem = None
+        try:
+            # import pdb; pdb.set_trace()
+            mimetypeitem = mtr.lookup(contenttype)
+        except MimeTypeException, msg:
+            LOGGER.error('MimeTypeException for %s. Error is: %s' % (
+                self.absolute_url(), str(msg)))
+        if not mimetypeitem:
+            return super(File, self).getIcon(relative_to_portal)
+
+        icon = mimetypeitem[0].icon_path
+        if not relative_to_portal:
+            utool = getToolByName(self, 'portal_url')
+            icon = utool(relative=1) + '/' + icon
+            while icon[:1] == '/':
+                icon = icon[1:]
+        return icon
