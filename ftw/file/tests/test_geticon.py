@@ -28,8 +28,7 @@ class TestFileName(TestCase):
             browser.fill({'Title': 'My file',
                           'Filename': 'myfile',
                           'File': (file_.read(),
-                                   'testfile.NonsenseExtension',
-                                   'image/x-custom-image')
+                                   'testfile.NonsenseExtension')
                           }).save()
         errors = browser.css('.error')
         self.assertEqual(0, len(errors), "Check no errors on form submission")
