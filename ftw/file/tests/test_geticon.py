@@ -29,7 +29,7 @@ class TestFileName(TestCase):
         transaction.commit()
 
         browser.login(SITE_OWNER_NAME).open()
-        factoriesmenu.add('File')
+        factoriesmenu.add('File')  # fortunately ftw.file.File is before File
 
         with open(self.path, 'r') as file_:
             browser.fill({'Title': 'My file',
@@ -44,30 +44,57 @@ class TestFileName(TestCase):
         plonefile = self.portal['myfile-nonsenseextension']
         self.assertEqual('plone/customicon.png', plonefile.getIcon())
 
-
-    def test_default_icon(self):
+    @browsing
+    def test_default_icon(self, browser):
         self.mtr.manage_addMimeType('customimage type',
                                     ['image/x-custom-image'],
                                     ['NonsenseExtension'],
                                     '')
-        plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
-                                                              file=self.file_))
+        transaction.commit()
+
+        browser.login(SITE_OWNER_NAME).open()
+        factoriesmenu.add('File')  # fortunately ftw.file.File is before File
+
+        with open(self.path, 'r') as file_:
+            browser.fill({'Title': 'My file',
+                          'Filename': 'myfile',
+                          'File': (file_.read(),
+                                   'testfile.NonsenseExtension',
+                                   'image/x-custom-image')
+                          }).save()
+        errors = browser.css('.error')
+        self.assertEqual(0, len(errors), "Check no errors on form submission")
+
+        plonefile = self.portal['myfile-nonsenseextension']
         self.assertEqual('plone/image.png', plonefile.getIcon())
 
-    def test_contenttype_not_found(self):
+    @browsing
+    def test_icon_for_contenttype_not_found(self, browser):
         # To test the behavior of our function when a contenttype is not found
-        # in mimetyperegistry we add a mimetype o everything is indexed and
+        # in mimetyperegistry we add a mimetype so everything is indexed and
         # created correctly.
         self.mtr.manage_addMimeType('customimage type',
                                     ['image/x-custom-image'],
                                     ['NonsenseExtension'],
                                     '')
-        plonefile = self.portal.get(self.portal.invokeFactory('ftw.file.File', 'myfile',
-                                                              file=self.file_))
+        transaction.commit()
+
+        browser.login(SITE_OWNER_NAME).open()
+        factoriesmenu.add('File')  # fortunately ftw.file.File is before File
+
+        with open(self.path, 'r') as file_:
+            browser.fill({'Title': 'My file',
+                          'Filename': 'myfile',
+                          'File': (file_.read(),
+                                   'testfile.NonsenseExtension',
+                                   'image/x-custom-image')
+                          }).save()
+        errors = browser.css('.error')
+        self.assertEqual(0, len(errors), "Check no errors on form submission")
+
         # and then we remove it again so we won't find it in the registry.
         self.mtr.manage_delObjects(['image/x-custom-image'])
+        transaction.commit()
 
-        self.assertIn(plonefile.getIcon(), (
-            'plone/image_icon.gif',  # Plone <= 4.3.2
-            'plone/image_icon.png',  # Plone >= 4.3.3
-        ))
+        plonefile = self.portal['myfile-nonsenseextension']
+        self.assertEqual('plone/file_icon.png', plonefile.getIcon())
