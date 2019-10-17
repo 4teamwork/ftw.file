@@ -1,11 +1,9 @@
 from ftw.file import fileMessageFactory as _
+from plone import api
 from plone.namedfile.file import NamedBlobImage
 from Products.CMFPlone.utils import safe_unicode
 from zExceptions import BadRequest
-from zope.annotation.interfaces import IAnnotations
-from zope.event import notify
 from zope.i18n import translate
-from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
 import json
 
@@ -23,12 +21,8 @@ class FileUpload(BrowserView):
         self.context.file = NamedBlobImage(data=self.file.read(),
                                            filename=safe_unicode(self.filename))
 
-        # set a change note which will be added by p.a.versionbehavior's
-        # create_version_on_save
         change_note = translate(_('File replaced with Drag & Drop.'))
-        annotations = IAnnotations(self.request)
-        annotations['plone.app.versioningbehavior-changeNote'] = change_note
-
-        notify(ObjectModifiedEvent(self.context))
+        repository = api.portal.get_tool('portal_repository')
+        repository.save(obj=self.context, comment=change_note)
 
         return json.dumps({'success': True})
