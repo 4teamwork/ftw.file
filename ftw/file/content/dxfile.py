@@ -99,19 +99,6 @@ class IFileSchema(model.Schema):
     )
 
 
-# TODO: Implement the js for the dx type
-# FileSchema = ATFileSchema.copy() + atapi.Schema((
-#     FileField(
-#         searchable=True,
-#     ),
-
-#     atapi.StringField(
-#         validators=('isSafeOriginFilename',),
-#         widget=StringWidget(
-#             helper_js=(
-#               "++resource++ftw.file.resources/hideOriginFilenameField.js", ),
-
-
 class File(Item):
     # TODO: Move IWorkflowHistoryJournalizable into zcml
     implements(IFile, IWorkflowHistoryJournalizable)
