@@ -1,6 +1,6 @@
 from ftw.file import fileMessageFactory as _
+from ftw.file.content.dxfile import BlobImageValueType
 from plone import api
-from plone.namedfile.file import NamedBlobImage
 from Products.CMFPlone.utils import safe_unicode
 from zExceptions import BadRequest
 from zope.i18n import translate
@@ -18,8 +18,8 @@ class FileUpload(BrowserView):
 
         self.filename = self.file.filename
         self.file.seek(0)
-        self.context.file = NamedBlobImage(data=self.file.read(),
-                                           filename=safe_unicode(self.filename))
+        self.context.file = BlobImageValueType(data=self.file.read(),
+                                               filename=safe_unicode(self.filename))
 
         change_note = translate(_('File replaced with Drag & Drop.'))
         repository = api.portal.get_tool('portal_repository')

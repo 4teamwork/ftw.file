@@ -1,7 +1,6 @@
 from ftw.builder import builder_registry
 from ftw.builder.content import DXFileBuilder
 from path import Path
-# from plone.namedfile.file import NamedBlobImage
 from ftw.file.content.dxfile import BlobImageValueType
 
 
