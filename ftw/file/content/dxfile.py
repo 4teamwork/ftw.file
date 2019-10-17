@@ -15,9 +15,7 @@ from plone.supermodel import model
 from plone.supermodel.directives import primary
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
-from z3c.form import validator
 from zope import schema
-from zope.component import provideAdapter
 from zope.interface import implementer
 from zope.interface import implements
 from zope.interface import Invalid
@@ -53,12 +51,24 @@ class NamedBlobMixedFileImageField(NamedBlobFile):
     _type = BlobImageValueType
 
 
+def isValidFilename(value):
+    if value and '/' in value:
+        errmsg = _(
+            u'filename_override_validator_error',
+            default=u'"/" (Slash in filenames is not allowed..'
+        )
+        raise Invalid(errmsg)
+    else:
+        return True
+
+
 class IFileSchema(model.Schema):
 
     primary('file')
     file = NamedBlobMixedFileImageField(
         title=_(u'label_file', default=u'File'),
-        required=True)
+        required=True
+    )
 
     filename_override = schema.TextLine(
         title=_(u'label_filename_override', default=u'Filename'),
@@ -67,7 +77,9 @@ class IFileSchema(model.Schema):
             u'help_filename_override',
             default=u"Insert a filename if you want to change the "
             "original filename. The extension (i.e. .docx) "
-            "will not be modified. Please do not enter \"/\"."))
+            "will not be modified. Please do not enter \"/\"."),
+        constraint=isValidFilename
+    )
 
     document_date = schema.Date(
         required=True,
@@ -80,26 +92,11 @@ class IFileSchema(model.Schema):
         required=False,
         default=False,
         title=_(u'label_is_protected', default=u'Protected'),
-        description=_(u'help_is_protected',
-                      default=u'The file cannot cannot be deleted if this option is checked.'),
+        description=_(
+            u'help_is_protected',
+            default=u'The file cannot cannot be deleted if this option is '
+            u'checked.'),
     )
-
-
-class FilenameValidator(validator.SimpleFieldValidator):
-    """Do not allow / in filename"""
-
-    def validate(self, value):
-        if value and '/' in value:
-            errmsg = _(
-                u'filename_override_validator_error',
-                default=u'"/" (Slash in filenames is not allowed..'
-            )
-            raise Invalid(errmsg)
-
-
-validator.WidgetValidatorDiscriminators(FilenameValidator,
-                                        field=IFileSchema['filename_override'])
-provideAdapter(FilenameValidator)
 
 
 # TODO: Implement the js for the dx type
