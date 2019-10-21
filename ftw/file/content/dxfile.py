@@ -27,6 +27,7 @@ LOGGER = logging.getLogger('ftw.file')
 def default_document_date():
     return datetime.now().date()
 
+
 class BlobImageValueType(NamedBlobImage):
 
     def __init__(self, data='', contentType='', filename=None):
@@ -133,23 +134,14 @@ class File(Item):
         return is_image(self.file.contentType)
 
     def getIcon(self, relative_to_portal=False):
-        """ Calculate the icon using the mime type of the file
-            if no file return nothing.
-        """
-        # if not self.file:
-        #     # field is empty
-        #     return ''
-
-        # contenttype = self.file.getContentType(self)
+        """ Calculate the icon using the mime type of the file """
         contenttype = self.file.contentType
-        #contenttype_major = contenttype and contenttype.split('/')[0] or ''
 
         mtr = getToolByName(self, 'mimetypes_registry', None)
         utool = getToolByName(self, 'portal_url')
 
         mimetypeitem = None
         try:
-            # import pdb; pdb.set_trace()
             mimetypeitem = mtr.lookup(contenttype)
         except MimeTypeException, msg:
             LOGGER.error('MimeTypeException for %s. Error is: %s' % (
