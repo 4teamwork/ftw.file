@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from operator import itemgetter
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest2 import TestCase
@@ -32,16 +33,12 @@ class TestPagination(TestCase):
         # make history entrys
         for i in range(12):
             browser.login().open(self.file, view='edit')
-            browser.fill({'Title': str(i)}).save()
+            browser.fill({'Title': str(i),
+                          'Change Note': str(i)}).save()
 
-        self.assertIn("file_download_version?version_id=11",
-                      browser.contents,
-                      "Revision id 11 is new and should be "
-                      "displayed in pagination.")
-        self.assertNotIn('file_download_version?version_id=2"',
-                         browser.contents,
-                         "Revision 0 is old and should be on the second page "
-                         " of the pagination view.")
+        self.assertEqual(
+            ['Comment', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2'],
+            map(itemgetter(3), browser.css('table.contentHistory').first.lists()))
 
     @browsing
     def test_pagination_is_disabled_without_history(self, browser):

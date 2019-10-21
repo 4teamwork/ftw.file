@@ -6,7 +6,6 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from zope.component import eventtesting
 from zope.configuration import xmlconfig
 import ftw.file.tests.builders  # noqa
 
@@ -35,7 +34,6 @@ class FtwFileLayer(PloneSandboxLayer):
         applyProfile(portal, 'plone.app.registry:default')
         applyProfile(portal, 'plone.app.versioningbehavior:default')
         applyProfile(portal, 'ftw.file:default')
-        eventtesting.setUp()
 
 
 FTW_FILE_FIXTURE = FtwFileLayer()

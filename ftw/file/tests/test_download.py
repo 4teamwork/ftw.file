@@ -64,24 +64,22 @@ class TestFileDownload(TestCase):
         content = self.context.restrictedTraverse('@@download')()
         self.assertEqual(self.file.data, content.next())
 
-    def test_file_download_notification(self):
-        self.get_response()
-        events = [e for e in eventtesting.getEvents()
-                  if IFileDownloadedEvent.providedBy(e)]
-        self.assertEqual(1, len(events))
-
-    def test_file_download_no_notification_when_system(self):
-        _original_security = AccessControl.getSecurityManager()
-
-        _system_user = AccessControl.SecurityManagement.SpecialUsers.system
-        AccessControl.SecurityManagement.newSecurityManager(None, _system_user)
-        self.get_response()
-        events = [e for e in eventtesting.getEvents()
-                  if IFileDownloadedEvent.providedBy(e)]
+    def test_file_download_notification_for_non_system_users(self):
+        events = []
+        self.portal.getSiteManager().registerHandler(
+            events.append, (IFileDownloadedEvent,))
         self.assertEqual(0, len(events))
-        AccessControl.SecurityManagement.setSecurityManager(
-            _original_security)
-        _original_security = None
+        self.get_response()
+        self.assertEqual(
+            1, len(events),
+            'The downloaded event should fire for non system users.')
+
+        system_user = AccessControl.SecurityManagement.SpecialUsers.system
+        AccessControl.SecurityManagement.newSecurityManager(None, system_user)
+        self.get_response()
+        self.assertEqual(
+            1, len(events),
+            'No event should fire for system users')
 
     @browsing
     def test_inline_download(self, browser):
