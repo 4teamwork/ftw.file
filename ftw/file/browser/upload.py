@@ -16,10 +16,10 @@ class FileUpload(BrowserView):
         if not self.file:
             raise BadRequest('No content provided.')
 
-        self.filename = self.file.filename
+        self.filename = safe_unicode(self.file.filename)
         self.file.seek(0)
         self.context.file = BlobImageValueType(data=self.file.read(),
-                                               filename=safe_unicode(self.filename))
+                                               filename=self.filename)
 
         change_note = translate(_('File replaced with Drag & Drop.'))
         repository = api.portal.get_tool('portal_repository')
