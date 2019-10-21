@@ -6,6 +6,7 @@ This is a file content for plone which provides some useful functions, such as:
 - Write downloader-name in history (ftw.journal)
 - Image preview
 - Resumable downloads
+- Upload new file version via drag and drop
 
 
 Compatibility
@@ -18,6 +19,30 @@ based implementation.
 
 The ability to use ``ftw.file`` Files in TinyMCE is no longer supported for
 the Dexterity based implementation (2.x).
+
+Enabling versioning in 2.x
+--------------------------
+
+To enable versioning for the ftw.file.File dexterity type, you should go to
+the Types control panel for this type and select either manual or automatic
+versioning.  This is equivalent to the following GenericSetup configuration
+in `repositorytool.xml`:
+
+::
+
+	<?xml version="1.0"?>
+	<repositorytool>
+	  <policymap purge="false">
+	    <type name="ftw.file.File">
+	      <policy name="at_edit_autoversion" />
+	      <policy name="version_on_revert" />
+	    </type>
+	  </policymap>
+	</repositorytool>
+
+
+And, yes `at_edit_autoversion` IS the correct setting for dexterity types.
+
 
 Migration from 1.x to 2.x
 -------------------------
