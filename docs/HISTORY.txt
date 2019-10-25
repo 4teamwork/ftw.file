@@ -7,7 +7,11 @@ Changelog
 
 - Move to Dexterity, remove Archetypes functionality (but not models)
   [mathias.leimgruber, djowett-ftw]
+- Add AT to DX migration step [mathias.leimgruber, djowett-ftw]
 - Remove TinyMCE integration [djowett-ftw]
+- Rename model fields while migrating to dexterity [djowett-ftw]
+- Stop drag and drop upload adding two versions [jone, djowett-ftw]
+- Add uninstall profile [djowett-ftw]
 
 
 1.16.2 (2019-05-14)
