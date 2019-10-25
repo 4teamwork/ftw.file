@@ -11,6 +11,7 @@
 
   <include package="ftw.profilehook" />
 
+  <five:registerPackage package="." initialize=".initialize" />
   <i18n:registerTranslations directory="locales" />
 
   <include file="permissions.zcml" />
@@ -32,6 +33,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Uninstall ftw.file"
+      directory="profiles/uninstall"
+      description="Uninstalls the ftw.file package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
+
   <upgrade-step:directory
       profile="ftw.file:default"
       directory="upgrades"
@@ -40,6 +50,11 @@
   <profilehook:hook
       profile="ftw.file:default"
       handler=".hooks.installed"
+      />
+
+  <profilehook:hook
+      profile="ftw.file:uninstall"
+      handler=".hooks.uninstalled"
       />
 
   <browser:resourceDirectory
