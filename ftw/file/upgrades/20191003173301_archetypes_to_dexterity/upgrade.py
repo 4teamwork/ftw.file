@@ -1,28 +1,14 @@
 from ftw.upgrade import UpgradeStep
-from ftw.upgrade.migration import InplaceMigrator
+import os
+from ftw.file.upgrades import ATToDXMixin
 
 
-class MigrateToDexterity(UpgradeStep):
+class MigrateToDexterity(UpgradeStep, ATToDXMixin):
     """Migrate to Dexterity.
     """
 
     def __call__(self):
+        if os.environ.get('FTW_FILE_SKIP_DEXTERITY_MIGRATION', '').lower() == 'true':
+            return
         self.install_upgrade_profile()
-        self.setup_install_profile('profile-plone.app.relationfield:default')
-        self.migrate()
-
-    def migrate(self):
-
-        migrator = InplaceMigrator(
-            new_portal_type='ftw.file.File',
-            ignore_fields=('excludeFromNav',),
-            field_mapping={
-                'documentDate': 'document_date',
-                'originFilename': 'filename_override',
-                'isProtected': 'is_protected'
-            },
-        )
-
-        for obj in self.objects({'portal_type': 'File'},
-                                'Migrate ftw.file Files to dexterity'):
-            migrator.migrate_object(obj)
+        self.install_ftw_file_dx_migration()
