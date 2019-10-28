@@ -156,3 +156,7 @@ class File(Item):
             while icon[:1] == '/':
                 icon = icon[1:]
         return icon
+
+    def get_size(self):
+        return getattr(self.file, 'size', 0)
+        
