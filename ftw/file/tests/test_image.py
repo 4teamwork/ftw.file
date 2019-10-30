@@ -1,11 +1,11 @@
-from unittest2 import TestCase
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
-from StringIO import StringIO
 from plone.app.testing import login
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
-import os
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from unittest2 import TestCase
 
 
 class TestIsImage(TestCase):
@@ -18,13 +18,17 @@ class TestIsImage(TestCase):
         login(self.portal, TEST_USER_NAME)
 
     def test_isimage(self):
-        file_data = open("%s/assets/transparent.gif" % os.path.split(__file__)[0], 'r')
-        file_ = self.portal.get(self.portal.invokeFactory('File', 'myfile', file=file_data))
+        file_ = create(Builder('file')
+                       .titled(u'Some title')
+                       .attach_asset(u'transparent.gif'))
+
         self.assertTrue(file_.is_image())
 
     def test_isnotimage(self):
-        file_data = StringIO('blubber blubb')
-        file_ = self.portal.get(self.portal.invokeFactory('File', 'myfile', file=file_data))
+        file_ = create(Builder('file')
+                       .titled(u'Some title')
+                       .attach_asset(u'test.pdf'))
+
         self.assertFalse(file_.is_image())
 
     def test_ioerror(self):
@@ -32,8 +36,10 @@ class TestIsImage(TestCase):
             This applies to filetype where we only need libaries in some cases
             and broken images.
         """
-        file_ = open("%s/assets/CCITT_1.TIF" % os.path.split(__file__)[0], 'r')
-        file_ = self.portal.get(self.portal.invokeFactory('File', 'myfile', file=file_))
+        file_ = create(Builder('file')
+                       .titled(u'Some title')
+                       .attach_asset(u'CCITT_1.TIF'))
+
         self.assertTrue(file_.is_image())
         view = file_.restrictedTraverse('@@file_view')
         self.assertFalse(view.get_image_tag())

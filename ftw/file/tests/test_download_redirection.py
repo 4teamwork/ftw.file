@@ -6,8 +6,8 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_PASSWORD
-from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.component import getUtility
 
@@ -24,24 +24,18 @@ class TestDownloadRedirection(TestCase):
         acl_users.userFolderAddUser('contributor', TEST_USER_PASSWORD,
                                     ['Contributor'], [])
 
-        login(portal, 'contributor')
-
     @browsing
     def test_redirects_to_details_view_when_i_can_edit(self, browser):
-        obj = create(Builder('file'))
+        obj = create(Builder('file').with_dummy_content())
         browser.login('contributor').visit(obj)
-
-        self.assertEquals('http://nohost/plone/file/view',
-                          browser.url)
+        self.assertEquals('http://nohost/plone/test.doc/view', browser.url)
 
     @browsing
     def test_redirects_to_download_when_i_cannot_edit(self, browser):
-        obj = create(Builder('file')
-                     .with_dummy_content())
+        obj = create(Builder('file').with_dummy_content())
         browser.login('reader').visit(obj)
-
         self.assertEquals(
-            'http://nohost/plone/file/@@download/file/test.doc',
+            'http://nohost/plone/test.doc/@@download/file/test.doc',
             browser.url)
 
     @browsing
@@ -49,18 +43,18 @@ class TestDownloadRedirection(TestCase):
         registry = getUtility(IRegistry)
         registry['ftw.file.disable_download_redirect'] = True
 
-        obj = create(Builder('file'))
+        obj = create(Builder('file').with_dummy_content())
 
         # Redirect users having the permission to edit file.
         browser.login('contributor').visit(obj)
 
-        self.assertEquals('http://nohost/plone/file/view',
+        self.assertEquals('http://nohost/plone/test.doc/view',
                           browser.url)
 
         # Redirect users not having the permission to edit file.
         browser.login('reader').visit(obj)
 
-        self.assertEquals('http://nohost/plone/file/view',
+        self.assertEquals('http://nohost/plone/test.doc/view',
                           browser.url)
 
 
@@ -75,13 +69,13 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     @browsing
     def test_download_view_redirects_to_url_with_filename(self, browser):
         obj = create(Builder('file')
-                     .titled('Document')
-                     .attach_file_containing('PDF CONTENT', name='doc.pdf'))
+                     .titled(u'Document')
+                     .attach_file_containing('PDF CONTENT', name=u'doc.pdf'))
 
         browser.login().visit(obj, view='@@download')
 
         self.assertEquals(
-            'http://nohost/plone/document/@@download/file/doc.pdf',
+            'http://nohost/plone/doc.pdf/@@download/file/doc.pdf',
             browser.url)
 
         self.assertEquals('PDF CONTENT', browser.contents)
@@ -89,13 +83,13 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     @browsing
     def test_download_method_redirects_to_url_with_filename(self, browser):
         obj = create(Builder('file')
-                     .titled('Document')
-                     .attach_file_containing('PDF CONTENT', name='doc.pdf'))
+                     .titled(u'Document')
+                     .attach_file_containing('PDF CONTENT', name=u'doc.pdf'))
 
         browser.login().visit(obj, view='download')
 
         self.assertEquals(
-            'http://nohost/plone/document/@@download/file/doc.pdf',
+            'http://nohost/plone/doc.pdf/@@download/file/doc.pdf',
             browser.url)
 
         self.assertEquals('PDF CONTENT', browser.contents)
@@ -104,15 +98,15 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     def test_supports_special_characters_and_umlauts_in_filename(self, browser):
         obj = create(
             Builder('file')
-            .titled('Document')
+            .titled(u'Document')
             .attach_file_containing(
                 'PDF CONTENT',
-                name='w\xc3\xb6rter & bilder.pdf'))
+                name=u'w\xf6rter & bilder.pdf'))
 
         browser.login().visit(obj, view='download')
 
         self.assertEquals(
-            'http://nohost/plone/document/@@download/'
+            'http://nohost/plone/worter-bilder.pdf/@@download/' +
             'file/w%C3%B6rter%20%26%20bilder.pdf',
             browser.url)
 
@@ -122,7 +116,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     def test_supports_unicode_special_characters_in_filename(self, browser):
         obj = create(
             Builder('file')
-            .titled('Document')
+            .titled(u'Document')
             .attach_file_containing(
                 'PDF CONTENT',
                 name='w\xc3\xb6rter & bilder.pdf'.decode('utf-8')))
@@ -130,7 +124,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
         browser.login().visit(obj, view='download')
 
         self.assertEquals(
-            'http://nohost/plone/document/@@download/'
+            'http://nohost/plone/worter-bilder.pdf/@@download/' +
             'file/w%C3%B6rter%20%26%20bilder.pdf',
             browser.url)
 
@@ -140,7 +134,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
     def test_remove_percent_signs_form_filename(self, browser):
         obj = create(
             Builder('file')
-            .titled('Document')
+            .titled(u'Document')
             .attach_file_containing(
                 'PDF CONTENT',
                 name='50%to80%.pdf'.decode('utf-8')))
@@ -148,7 +142,7 @@ class TestDownloadRedirectToURLWithFilename(TestCase):
         browser.login().visit(obj, view='download')
 
         self.assertEquals(
-            'http://nohost/plone/document/@@download/'
+            'http://nohost/plone/50-to80.pdf/@@download/' +
             'file/50to80.pdf',
             browser.url)
 

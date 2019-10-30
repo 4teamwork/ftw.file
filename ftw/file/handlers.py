@@ -5,7 +5,7 @@ from zope.i18n import translate
 
 
 def handle_protected_file(obj, event):
-    if obj.getIsProtected():
+    if obj.is_protected:
         api.portal.show_message(
             message=translate(
                 _(

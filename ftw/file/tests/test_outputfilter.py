@@ -1,12 +1,11 @@
-from unittest2 import TestCase
-from ftw.builder import create
 from ftw.builder import Builder
+from ftw.builder import create
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
-from plone.app.testing import TEST_USER_ID
-from plone.app.testing import setRoles
 from ftw.testbrowser import browsing
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from unittest2 import TestCase
 from zope.annotation.interfaces import IAnnotations
-import os
 
 
 class TestOutputfilter(TestCase):
@@ -16,8 +15,9 @@ class TestOutputfilter(TestCase):
     def setUp(self):
         setRoles(self.layer['portal'], TEST_USER_ID, ['Manager'])
 
-        self.obj = create(Builder('file').attach_file_containing(
-                          self.asset('transparent.gif'), 'transparent.gif'))
+        self.obj = create(Builder('file')
+                          .titled(u'Some title')
+                          .attach_asset(u'transparent.gif'))
 
     @browsing
     def test_outputfilter_scaled(self, browser):
@@ -27,13 +27,9 @@ class TestOutputfilter(TestCase):
         for scale in scales:
             if isinstance(scale, str):
                 scale_uid = scale
-        image = page.css('.fileListing img')[1].node
-        self.assertEqual("http://nohost/plone/file/@@images/" + scale_uid + ".jpeg",
-                         image.attrib['src'])
 
-    def asset(self, filename):
-        path = os.path.join(os.path.dirname(__file__),
-                            'assets',
-                            filename)
-        with open(path, 'r') as fh:
-            return fh.read()
+        image = page.css('.fileListing img').first
+        url = "http://nohost/plone/transparent.gif/@@images/"
+        self.assertEqual(
+            url + scale_uid + ".jpeg",
+            image.attrib['src'])

@@ -9,10 +9,9 @@
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.file">
 
-  <five:registerPackage package="." initialize=".initialize" />
-
   <include package="ftw.profilehook" />
 
+  <five:registerPackage package="." initialize=".initialize" />
   <i18n:registerTranslations directory="locales" />
 
   <include file="permissions.zcml" />
@@ -34,6 +33,15 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="Uninstall ftw.file"
+      directory="profiles/uninstall"
+      description="Uninstalls the ftw.file package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
+
   <upgrade-step:directory
       profile="ftw.file:default"
       directory="upgrades"
@@ -44,23 +52,15 @@
       handler=".hooks.installed"
       />
 
-  <adapter
-      for="ftw.file.fields.FileField"
-      factory="plone.app.imaging.scaling.ImageScaleFactory" />
+  <profilehook:hook
+      profile="ftw.file:uninstall"
+      handler=".hooks.uninstalled"
+      />
 
   <browser:resourceDirectory
       name="ftw.file.resources"
       directory="resources"
       />
-
-   <adapter
-      for="ftw.file.interfaces.IFile"
-      provides="Products.TinyMCE.adapters.interfaces.JSONDetails.IJSONDetails"
-      factory=".JSONDetails.FtwJSONDetails"
-      />
-
-  <adapter
-      factory=".imaging.FtwFileImageScaleHandler" />
 
   <subscriber
       for="ftw.file.interfaces.IFile

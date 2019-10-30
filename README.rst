@@ -5,7 +5,53 @@ This is a file content for plone which provides some useful functions, such as:
 
 - Write downloader-name in history (ftw.journal)
 - Image preview
-- New FileField (stores more information in the RESPONSE header)
+- Resumable downloads
+- Upload new file version via drag and drop
+
+
+Compatibility
+=============
+
+``ftw.file`` is compatible with Plone 4.3.x.
+
+Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity
+based implementation.
+
+The ability to use ``ftw.file`` Files in TinyMCE is no longer supported for
+the Dexterity based implementation (2.x).
+
+Enabling versioning in 2.x
+--------------------------
+
+To enable versioning for the ftw.file.File dexterity type, you should go to
+the Types control panel for this type and select either manual or automatic
+versioning.  This is equivalent to the following GenericSetup configuration
+in `repositorytool.xml`:
+
+::
+
+	<?xml version="1.0"?>
+	<repositorytool>
+	  <policymap purge="false">
+	    <type name="ftw.file.File">
+	      <policy name="at_edit_autoversion" />
+	      <policy name="version_on_revert" />
+	    </type>
+	  </policymap>
+	</repositorytool>
+
+
+And, yes `at_edit_autoversion` IS the correct setting for dexterity types.
+
+
+Migration from 1.x to 2.x
+-------------------------
+
+A migration step is provided for migrating from Archetypes to Dexterity
+implementations.
+If however, you have been using TinyMCE integration in 1.x then you will need
+replace ``ftw.file.File`` with ``Image`` (or another type as you see fit) in
+the setting "TinyMCE / resourcetypes / imageobjects".
 
 
 Install
@@ -23,29 +69,10 @@ Install
 
 - Install ``ftw.file`` in portal_setup
 
-Use `ftw.file` in TinyMCE
--------------------------
-- Make sure `File` is addable on the Type you use TinyMCE.
+- If you are using the Dexterity based implementation (2.x) then you will
+  probably want to set `global_allow` for Plone's standard `File` type to
+  False through the ZMI or a GS profile.
 
-::
-
-    <object name="Meeting Item">
-        <property name="allowed_content_types">
-            <element value="File" />
-        </property>
-    </object>
-
-- Configure TinyMCE to create `ftw.file` Files with uploaded images. `tinymce.xml`:
-
-::
-
-    <object>
-     <resourcetypes>
-      <imageobjects purge="True">
-        <element value="File"/>
-      </imageobjects>
-     </resourcetypes>
-    </object>
 
 Links
 =====

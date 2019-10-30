@@ -2,7 +2,7 @@ from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
 from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
-from ftw.file.config import PROJECTNAME
+# from ftw.file.config import PROJECTNAME
 from ftw.file.fields import FileField
 from ftw.file.interfaces import IFile
 from ftw.file.utils import is_image
@@ -31,18 +31,18 @@ from zope.interface import implements
 import logging
 
 
-origin_filename_validator = RegexValidator(
+filename_override_validator = RegexValidator(
     'isSafeOriginFilename',
     r'^[^\/]*$',
     title='',
     description='',
     errmsg=_(
-        u'origin_filename_validator_error',
+        u'filename_override_validator_error',
         default=u'The filename must not contain "/".'
     )
 )
 
-validation.register(origin_filename_validator)
+validation.register(filename_override_validator)
 
 
 FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
@@ -69,9 +69,9 @@ FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
         widget=StringWidget(
             helper_js=(
                 "++resource++ftw.file.resources/hideOriginFilenameField.js", ),
-            label=_(u'label_origin_filename', default=u'Filename'),
+            label=_(u'label_filename_override', default=u'Filename'),
             description=_(
-                u'help_origin_filename',
+                u'help_filename_override',
                 default=u"Insert a filename if you want to change the "
                         "original filename. The extension (i.e. .docx) "
                         "will not be modified. Please do not enter \"/\".")
@@ -260,4 +260,4 @@ class File(ATFile):
             key = 'file'
         return super(File, self).getField(key, *args, **kwargs)
 
-atapi.registerType(File, PROJECTNAME)
+# atapi.registerType(File, PROJECTNAME)

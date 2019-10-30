@@ -6,8 +6,6 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
-from plone.testing.z2 import installProduct
-from zope.component import eventtesting
 from zope.configuration import xmlconfig
 import ftw.file.tests.builders  # noqa
 
@@ -31,14 +29,12 @@ class FtwFileLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
-        installProduct(app, 'ftw.file')
-
     def setUpPloneSite(self, portal):
-        # Install into Plone site using portal_setup
         applyProfile(portal, 'plone.app.imaging:default')
         applyProfile(portal, 'plone.app.registry:default')
+        applyProfile(portal, 'plone.app.versioningbehavior:default')
         applyProfile(portal, 'ftw.file:default')
-        eventtesting.setUp()
+
 
 FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(

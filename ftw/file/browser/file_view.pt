@@ -44,9 +44,17 @@
             <tr>
                 <th i18n:translate="">File</th>
                 <td>
-                    <metal:field use-macro="python:context.widget('file', mode='view')">
-                    File
-                    </metal:field>
+
+                    <p>
+                      <a tal:attributes="href string:${context/absolute_url}/@@download/file/${context/file/filename}">
+                        <tal:name tal:content="context/file/filename" >Filename</tal:name>
+                      </a>
+                      <span class="discreet"
+                          tal:define="size context/file/getSize;
+                                      kb python:size/1024">
+                        &mdash; <span tal:replace="kb" /> KB</span>
+                    </p>
+
                 </td>
             </tr>
             <tr tal:condition="context/effective">

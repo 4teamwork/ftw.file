@@ -5,6 +5,13 @@
     i18n_domain="ftw.file">
 
     <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="edit"
+        class=".edit_form.EditForm"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         for="..interfaces.IFile"
         name="file_view"
         class=".file_view.FileView"
@@ -13,16 +20,15 @@
 
     <browser:page
         for="ftw.file.interfaces.IFile"
-        name="images"
-        class=".scaling.FtwImageScaling"
-        allowed_interface="plone.app.imaging.interfaces.IImageScaling"
+        name="download"
+        class=".download.Download"
         permission="zope2.View"
         />
 
     <browser:page
         for="ftw.file.interfaces.IFile"
-        name="download"
-        class=".download.DownloadFileView"
+        name="file_view_redirector"
+        class=".download.FileViewRedirector"
         permission="zope2.View"
         />
 
@@ -41,15 +47,4 @@
       </configure>
     </configure>
 
-    <adapter
-        for="Products.Archetypes.interfaces.base.IBaseFolder"
-        provides="Products.TinyMCE.adapters.interfaces.JSONFolderListing.IJSONFolderListing"
-        factory=".tinymce.FtwJSONFolderListing"
-        />
-
-    <adapter
-        for="Products.Archetypes.interfaces.base.IBaseFolder"
-        provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
-        factory=".upload.TinyMCEFileUpload"
-        />
 </configure>

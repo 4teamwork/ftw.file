@@ -1,59 +1,129 @@
-from AccessControl import Unauthorized
-from Products.ATContentTypes.browser.download import DownloadArchetypeFile
-from zope.publisher.interfaces import NotFound
+from ftw.file.events.events import FileDownloadedEvent
+from ftw.file.utils import redirect_to_download_by_default
+from plone import api
+from plone.app.blob.download import handleIfModifiedSince  # Also in plone 5
+from plone.app.blob.download import handleRequestRange  # Also in plone 5
+from plone.app.blob.iterators import BlobStreamIterator
+from plone.namedfile.browser import Download as NameFileDownload
+from plone.namedfile.utils import get_contenttype
+from plone.registry.interfaces import IRegistry
+from plone.rfc822.interfaces import IPrimaryFieldInfo
+from Products.Five.browser import BrowserView
+from webdav.common import rfc1123_date
+from zope.component import getUtility
+from zope.event import notify
+from zope.interface import implementer
+from zope.publisher.interfaces import IPublishTraverse
 import urllib
 
 
-class DownloadFileView(DownloadArchetypeFile):
+def get_optimized_filename(filename):
+    if isinstance(filename, unicode):
+        filename = filename.encode('utf-8')
+
+    # We will use the filename in the url and having a percent sign
+    # (even a quoted one) in the url seems to cause problems with
+    # apache mod_rewrite and look-ahead variables. Thus remove it.
+    filename = filename.replace('%', '')
+    filename = urllib.quote(filename)
+
+    return filename
+
+
+@implementer(IPublishTraverse)
+class Download(NameFileDownload):
 
     def __call__(self):
-        if self.fieldname is not None:
-            return self.call_download()
+        if self.request.environ.get('PATH_INFO', '').endswith(self.__name__):
+            # Redirect to self with fieldname and filename in path
+            # This is important for SEO and readability of the url.
+            info = IPrimaryFieldInfo(self.context)
+            fieldname = info.field.__name__
+            filename = get_optimized_filename(info.value.filename)
 
-        field = self.context.getPrimaryField()
-        content = field.get(self.context)
-        if not content:
-            return self.call_download()
+            current_url = self.context.absolute_url() + '/@@download'
+            url = '/'.join([current_url, fieldname, filename])
 
-        filename = content.filename
-        if isinstance(filename, unicode):
-            filename = filename.encode('utf-8')
+            querystring = self.request.get('QUERY_STRING')
+            if querystring:
+                url += '?' + querystring
 
-        # We will use the filename in the url and having a percent sign (even
-        # a quoted one) in the url seems to cause problems with apache
-        # mod_rewrite and look-ahead variables. Thus remove it.
-        filename = filename.replace('%', '')
-        filename = urllib.quote(filename)
+            return self.request.response.redirect(url)
 
-        download_url = '/'.join((
-                self.context.absolute_url(),
-                '@@download',
-                field.getName(),
-                filename))
+        file = self._getFile()
+        self.set_headers(file)
 
-        if 'inline' in self.request.form.keys():
-            download_url += '?inline=true'
+        request_range = handleRequestRange(
+            self.context,
+            file.getSize(),
+            self.request,
+            self.request.response)
 
-        return self.request.RESPONSE.redirect(download_url)
+        if handleIfModifiedSince(self.context,
+                                 self.request,
+                                 self.request.response):
+            return ''
 
-    def call_download(self):
-        context = getattr(self.context, 'aq_explicit', self.context)
-        field = context.getField(self.fieldname)
-        if field is None:
-            raise NotFound(self, self.fieldname, self.request)
-        if not field.checkPermission('r', context):
-            raise Unauthorized()
+        # Notify file downloads, but do not notify range requests
+        if not ('start' in request_range and request_range['start'] > 0):
+            if not api.user.is_anonymous():
+                registry = getUtility(IRegistry)
+                user_ids = registry['ftw.file.filesettings.user_ids']
 
-        disposition = 'attachment'
-        if 'inline' in self.request.form.keys():
+                userid = api.user.get_current().getId()
+                if userid and userid not in user_ids:
+                    notify(FileDownloadedEvent(self.context, self.filename))
+
+        return BlobStreamIterator(self.context.file._blob, **request_range)
+
+    def set_headers(self, file_):
+
+        self.request.response.setHeader('Content-Type', get_contenttype(file_))
+        self.request.response.setHeader('Content-Length', file_.getSize())
+
+        if not self.filename:
+            self.filename = getattr(file_, 'filename', self.fieldname)
+
+        if isinstance(self.filename, unicode):
+            self.filename = self.filename.encode('utf-8', errors="ignore")
+
+        # Handle Content-disposition header for MS IE and other browsers
+        user_agent = self.request.get('HTTP_USER_AGENT', '')
+
+        if self.request.get('inline', False):
             disposition = 'inline'
+        else:
+            disposition = 'attachment'
 
-        return field.index_html(context, disposition=disposition)
+        # Microsoft browsers disposition has to be formatted differently
+        disposition_default = '{}; filename="{}"; filename={}*=UTF-8'.format(
+            disposition, self.filename, self.filename)
+        disposition_microsoft = '{}; filename={}; filename*=UTF-8\'\'{}'.format(
+            disposition, self.filename, urllib.quote(self.filename))
+        # use disposition_default by default
+        disposition = disposition_default
 
-    def __contains__(self, item):
-        """
-        Make this browser view iterable in order to allow HEAD requests on
-        files. This is needed because `ZPublisher.BaseRequest.BaseRequest#traverse`
-        falls into WebDAV mode upon HEAD requests (tested against Zope2 2.13.24).
-        """
-        return item in [self.filename, self.fieldname]
+        if any(key in user_agent for key in ['MSIE', 'WOW64', 'Edge']):
+            # Set different dispositon if the user_agent
+            # indicates download by a microsoft browser
+            disposition = disposition_microsoft
+
+        self.request.response.setHeader("Content-disposition", disposition)
+
+        # Additional headers
+        self.request.response.setHeader('Last-Modified',
+                                        rfc1123_date(self.context._p_mtime))
+        self.request.response.setHeader('Accept-Ranges', 'bytes')
+
+
+class FileViewRedirector(BrowserView):
+
+    def __call__(self):
+        response = self.request.RESPONSE
+        current_url = self.context.absolute_url()
+        filename = self.context.file.filename
+        if redirect_to_download_by_default(self.context):
+            return response.redirect(
+                current_url + '/@@download/file/' + filename)
+        else:
+            return response.redirect(current_url + "/view")
