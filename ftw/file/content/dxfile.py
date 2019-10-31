@@ -159,4 +159,6 @@ class File(Item):
 
     def get_size(self):
         return getattr(self.file, 'size', 0)
-        
+
+    def getContentType(self):
+        return getattr(self.file, 'contentType', 'application/octet-stream')
