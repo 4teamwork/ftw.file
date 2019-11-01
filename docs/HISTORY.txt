@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Add "getContentType" method to ftw.file.File to support legazy code. [mathias.leimgruber]
+- Fix ftw.file.File FTI - wrong factory. [mathias.leimgruber]
 
 
 2.0.0 (2019-10-30)
