@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.1 (unreleased)
+2.0.1 (2019-11-04)
 ------------------
 
 - Add "getContentType" method to ftw.file.File to support legazy code. [mathias.leimgruber]
