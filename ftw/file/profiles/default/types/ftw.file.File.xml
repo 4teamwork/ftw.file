@@ -10,9 +10,7 @@
   <property i18n:translate="" name="description">Lets you upload a file to the site.</property>
 
   <property name="allow_discussion">False</property>
-  <property name="factory">File</property>
   <property name="icon_expr">string:${portal_url}/file_icon.png</property>
-  <property name="link_target"></property>
 
   <!-- Hierarchy control -->
   <property name="allowed_content_types"/>
@@ -37,7 +35,6 @@
   </property>
 
   <!-- View information -->
-  <property name="add_view_expr">string:${folder_url}/++add++ftw.file.File</property>
   <property name="default_view">file_view</property>
   <property name="default_view_fallback">False</property>
   <property name="immediate_view">file_view</property>
