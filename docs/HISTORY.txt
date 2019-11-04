@@ -5,6 +5,7 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
+- Fix ftw.theming integration [mathias.leimgruber]
 - Fix incorrect ID in FTI definition. [jone]
 - Dexterity migration: import GS profile even when not migrating content. [jone]
 
