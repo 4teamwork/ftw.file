@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix incorrect ID in FTI definition. [jone]
+- Dexterity migration: import GS profile even when not migrating content. [jone]
 
 
 2.0.1 (2019-11-04)
