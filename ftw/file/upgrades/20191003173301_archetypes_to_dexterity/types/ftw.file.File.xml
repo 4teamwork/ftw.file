@@ -2,7 +2,7 @@
 <object
     i18n:domain="plone"
     meta_type="Dexterity FTI"
-    name="ftw.file"
+    name="ftw.file.File"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic properties -->
