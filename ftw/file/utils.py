@@ -3,6 +3,7 @@ from PIL import Image
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import getFSVersionTuple
 from zope.component import getUtility
 
 
@@ -28,7 +29,10 @@ def redirect_to_download_by_default(context):
         if disable_download_redirect:
             return False
         plone_view = context.restrictedTraverse('@@plone')
-        is_border_visible = plone_view.showEditableBorder()
+        if getFSVersionTuple() >= (5, 0):
+            is_border_visible = plone_view.showToolbar()
+        else:
+            is_border_visible = plone_view.showEditableBorder()
         return not is_border_visible
 
     finally:
