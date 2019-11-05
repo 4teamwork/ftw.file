@@ -1,13 +1,16 @@
-import transaction
-
-from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
-from plone.app.testing import TEST_USER_ID
-from Products.CMFCore.utils import getToolByName
-from plone.app.testing import setRoles
-from unittest2 import TestCase
-from ftw.builder import create
 from ftw.builder import Builder
+from ftw.builder import create
+from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import getFSVersionTuple
+from unittest2 import TestCase
+from zope.component import getUtility
+
+import transaction
 
 
 class TestFileName(TestCase):
@@ -23,9 +26,13 @@ class TestFileName(TestCase):
         self._set_allowAnonymousViewAbout_property(True)
 
     def _set_allowAnonymousViewAbout_property(self, value):
-        site_props = getToolByName(self.context,
-                                   'portal_properties').site_properties
-        site_props._updateProperty('allowAnonymousViewAbout', value)
+        if getFSVersionTuple() > (5, 0):
+            registry = getUtility(IRegistry)
+            registry['plone.allow_anon_views_about'] = value
+        else:
+            site_props = getToolByName(self.context,
+                                       'portal_properties').site_properties
+            site_props._updateProperty('allowAnonymousViewAbout', value)
         transaction.commit()
 
     def is_author_visible(self, page):

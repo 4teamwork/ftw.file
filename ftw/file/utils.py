@@ -85,12 +85,17 @@ class FileMetadata(object):
         True:  if visitor is anonymous and siteproperty
                'allowAnonymousViewAbout' is True
         """
-        site_props = getToolByName(
-            self.context, 'portal_properties').site_properties
+        if getFSVersionTuple() > (5, 0):
+            registry = getUtility(IRegistry)
+            allow = registry.get('plone.allow_anon_views_about', False)
+        else:
+            site_props = getToolByName(
+                self.context, 'portal_properties').site_properties
+            allow = site_props.getProperty('allowAnonymousViewAbout', False)
+
         mt = getToolByName(self.context, 'portal_membership')
 
-        if not site_props.getProperty('allowAnonymousViewAbout', False) \
-                and mt.isAnonymousUser():
+        if not allow and mt.isAnonymousUser():
             return False
         return True
 
