@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import getFSVersionTuple
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
@@ -56,7 +57,12 @@ class TestFileName(TestCase):
         transaction.commit()
 
         plonefile = self.add_content_with_browser(browser)
-        self.assertEqual('plone/image.png', plonefile.getIcon())
+        if getFSVersionTuple() >= (5, 0):
+            self.assertEqual(
+                'plone/++resource++mimetype.icons/image.png',
+                plonefile.getIcon())
+        else:
+            self.assertEqual('plone/image.png', plonefile.getIcon())
 
     @browsing
     def test_icon_for_contenttype_not_found(self, browser):
