@@ -5,7 +5,7 @@ Changelog
 2.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- DX migration: ignore flowplayer fields (``width`` and ``height``). [jone]
 
 
 2.0.2 (2019-11-05)

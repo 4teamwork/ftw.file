@@ -68,7 +68,13 @@ class ATToDXMixin(object):
 
         migrator = InplaceMigrator(
             new_portal_type='ftw.file.File',
-            ignore_fields=('excludeFromNav', 'lastModifier', 'topics',),
+            ignore_fields=(
+                'excludeFromNav',
+                'lastModifier',
+                'topics',
+                'height',  # flowplayer
+                'width',  # flowplayer
+            ),
             field_mapping={
                 'documentDate': 'document_date',
                 'originFilename': 'filename_override',
