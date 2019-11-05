@@ -14,6 +14,9 @@ class TestProtectedFiles(FunctionalTestCase):
     def test_protected_file_cannot_be_deleted(self, browser):
         file = create(Builder('file').titled(u'My Image').attach_asset(u'testimage.jpg'))
 
+        # Plone 5 renders a JSON error page if the request doesn't contain an
+        # Accept header with 'text/html', but we want the regular error page.
+        browser.replace_request_header('Accept', 'text/html')
         browser.login()
 
         # Mark the file as protected.
