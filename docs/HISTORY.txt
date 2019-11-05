@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.2 (unreleased)
+2.0.2 (2019-11-05)
 ------------------
 
 - Fix ftw.theming integration [mathias.leimgruber]
