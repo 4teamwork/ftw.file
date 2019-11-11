@@ -1,6 +1,5 @@
 from AccessControl import ClassSecurityInfo
 from DateTime import DateTime
-from ftw.calendarwidget.browser.widgets import FtwCalendarWidget
 from ftw.file import fileMessageFactory as _
 # from ftw.file.config import PROJECTNAME
 from ftw.file.fields import FileField
@@ -81,7 +80,7 @@ FileSchema = ATContentTypeSchema.copy() + atapi.Schema((
         'documentDate',
         required=True,
         default_method=DateTime,
-        widget=FtwCalendarWidget(
+        widget=atapi.CalendarWidget(
             label=_(u'label_document_date', default=u'Document Date'),
             description=_(u'help_document_date', default=u'')
         ),
