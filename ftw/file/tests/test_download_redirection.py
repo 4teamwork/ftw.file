@@ -33,7 +33,7 @@ class TestDownloadRedirection(TestCase):
     @browsing
     def test_redirects_to_download_when_i_cannot_edit(self, browser):
         obj = create(Builder('file').with_dummy_content())
-        browser.login('reader').visit(obj)
+        browser.visit(obj)
         self.assertEquals(
             'http://nohost/plone/test.doc/@@download/file/test.doc',
             browser.url)

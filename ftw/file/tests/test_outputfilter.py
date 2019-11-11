@@ -17,7 +17,7 @@ class TestOutputfilter(TestCase):
 
         self.obj = create(Builder('file')
                           .titled(u'Some title')
-                          .attach_asset(u'transparent.gif'))
+                          .attach_asset(u'testimage.jpg'))
 
     @browsing
     def test_outputfilter_scaled(self, browser):
@@ -29,7 +29,7 @@ class TestOutputfilter(TestCase):
                 scale_uid = scale
 
         image = page.css('.fileListing img').first
-        url = "http://nohost/plone/transparent.gif/@@images/"
+        url = "http://nohost/plone/testimage.jpg/@@images/"
         self.assertEqual(
             url + scale_uid + ".jpeg",
             image.attrib['src'])

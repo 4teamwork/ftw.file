@@ -12,8 +12,12 @@ from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import getFSVersionTuple
 from unittest2 import TestCase
+from zope.component import getUtility
+
 
 class TestRedirectToDownloadByDefault(TestCase):
 
@@ -226,9 +230,13 @@ class TestFileMetadataShowAuthor(FileMetadataBase):
             'is False.')
 
     def _set_allowAnonymousViewAbout(self, value):
-        site_props = getToolByName(
-            self.portal, 'portal_properties').site_properties
-        site_props.allowAnonymousViewAbout = value
+        if getFSVersionTuple() > (5, 0):
+            registry = getUtility(IRegistry)
+            registry['plone.allow_anon_views_about'] = value
+        else:
+            site_props = getToolByName(
+                self.portal, 'portal_properties').site_properties
+            site_props.allowAnonymousViewAbout = value
 
     def _login(self, value):
         if value:

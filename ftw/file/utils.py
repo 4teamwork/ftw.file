@@ -3,6 +3,7 @@ from PIL import Image
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import getFSVersionTuple
 from zope.component import getUtility
 
 
@@ -28,7 +29,10 @@ def redirect_to_download_by_default(context):
         if disable_download_redirect:
             return False
         plone_view = context.restrictedTraverse('@@plone')
-        is_border_visible = plone_view.showEditableBorder()
+        if getFSVersionTuple() >= (5, 0):
+            is_border_visible = plone_view.showToolbar()
+        else:
+            is_border_visible = plone_view.showEditableBorder()
         return not is_border_visible
 
     finally:
@@ -81,12 +85,17 @@ class FileMetadata(object):
         True:  if visitor is anonymous and siteproperty
                'allowAnonymousViewAbout' is True
         """
-        site_props = getToolByName(
-            self.context, 'portal_properties').site_properties
+        if getFSVersionTuple() > (5, 0):
+            registry = getUtility(IRegistry)
+            allow = registry.get('plone.allow_anon_views_about', False)
+        else:
+            site_props = getToolByName(
+                self.context, 'portal_properties').site_properties
+            allow = site_props.getProperty('allowAnonymousViewAbout', False)
+
         mt = getToolByName(self.context, 'portal_membership')
 
-        if not site_props.getProperty('allowAnonymousViewAbout', False) \
-                and mt.isAnonymousUser():
+        if not allow and mt.isAnonymousUser():
             return False
         return True
 

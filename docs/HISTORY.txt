@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-2.0.4 (unreleased)
+2.1.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for Plone 5.1. [buchi]
 
 
 2.0.3 (2019-11-05)
