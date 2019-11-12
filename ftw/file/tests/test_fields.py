@@ -7,7 +7,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.rfc822.interfaces import IPrimaryFieldInfo
 from StringIO import StringIO
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestFieldFunctions(TestCase):
