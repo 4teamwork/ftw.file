@@ -7,7 +7,7 @@ from ftw.testbrowser import LIB_TRAVERSAL
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobFile
-from unittest2 import TestCase
+from unittest import TestCase
 from webdav.common import rfc1123_date
 from zope.component import eventtesting
 from zope.component import getMultiAdapter

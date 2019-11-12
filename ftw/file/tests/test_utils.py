@@ -15,7 +15,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import getFSVersionTuple
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 
 
