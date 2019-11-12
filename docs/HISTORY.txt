@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.1.0 (unreleased)
+2.1.0 (2019-11-12)
 ------------------
 
 - Add support for Plone 5.1. [buchi]
