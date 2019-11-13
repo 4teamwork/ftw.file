@@ -41,6 +41,11 @@ class BlobImageValueType(NamedBlobImage):
             if mimetypeitem:
                 contentType = mimetypeitem.normalized()
 
+        # contentType (a zope.schema.BytesLine) requires utf-8,
+        # but Products.MimetypesRegistry <= 2.0.8 returns unicode rather than utf-8
+        if isinstance(contentType, unicode):
+            contentType = contentType.encode('utf8')
+
         super(BlobImageValueType, self).__init__(data, contentType, filename)
 
 
