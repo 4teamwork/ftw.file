@@ -12,7 +12,7 @@ This is a file content for plone which provides some useful functions, such as:
 Compatibility
 =============
 
-``ftw.file`` is compatible with Plone 4.3.x.
+``ftw.file`` is compatible with Plone 4.3.x and 5.1.x.
 
 Use 1.x for Archetypes implementation of ``ftw.file`` and 2.x for Dexterity
 based implementation.
