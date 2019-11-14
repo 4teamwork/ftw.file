@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.1.1 (unreleased)
+2.2.0 (2019-11-14)
 ------------------
 
 - Add a FileUpload adaptor for plone.namedfile so that ftw.file uploads can
