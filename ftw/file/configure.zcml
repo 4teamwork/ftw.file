@@ -74,4 +74,12 @@
       handler=".handlers.handle_protected_file"
      />
 
+  <!-- Backported from Plone 5's version of p.a.z3cform -->
+  <utility
+    zcml:condition="not-have plone-5"
+    name="ZPublisher.HTTPRequest.FileUpload"
+    provides="plone.namedfile.interfaces.IStorage"
+    factory=".factories.Zope2FileUploadStorable"
+  />
+
 </configure>
