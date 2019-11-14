@@ -7,6 +7,7 @@ Changelog
 
 - Add a FileUpload adaptor for plone.namedfile so that ftw.file uploads can
   work in ftw.simplelayout's FileListingBlock. [djowett-ftw]
+- Fix contentType attribute type. It needs to be utf-8 for the zope.schema.BytesLine. [mathias.leimgruber]
 
 
 2.1.0 (2019-11-12)
