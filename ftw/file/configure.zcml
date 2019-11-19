@@ -74,12 +74,18 @@
       handler=".handlers.handle_protected_file"
      />
 
-  <!-- Backported from Plone 5's version of p.a.z3cform -->
-  <utility
-    zcml:condition="not-have plone-5"
-    name="ZPublisher.HTTPRequest.FileUpload"
-    provides="plone.namedfile.interfaces.IStorage"
-    factory=".factories.Zope2FileUploadStorable"
-  />
+  <!-- This is in plone.app.widgets from 1.5.0 to until pre 3.0
+       It then (for Plone 5.2) moves to plone.app.z3fform from 3.1.0
+       We need it for DX ftw.file.File uploads pre plone.app.widgets
+       but we don't want it to reappear when p.a.widgets is retired.
+    -->
+  <configure zcml:condition="not-have plone-5">
+    <utility
+      zcml:condition="not-installed plone.app.widgets"
+      name="ZPublisher.HTTPRequest.FileUpload"
+      provides="plone.namedfile.interfaces.IStorage"
+      factory=".factories.Zope2FileUploadStorable"
+    />
+  </configure>
 
 </configure>
