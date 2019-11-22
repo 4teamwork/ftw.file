@@ -7,6 +7,8 @@ Changelog
 
 -  Fix ConfigurationConflictError occurring when plone.app.widgets added in Plone 4.
    [djowett-ftw]
+-  Pin plone.protect to minimum version supplying IDisableCSRFProtection
+   [djowett-ftw]
 
 
 2.2.0 (2019-11-14)
