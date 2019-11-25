@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.1 (unreleased)
+2.2.1 (2019-11-25)
 ------------------
 
 - Fix ConfigurationConflictError occurring when plone.app.widgets added in Plone 4.
