@@ -6,4 +6,6 @@ class UpdateRolemapWithNewPermission(UpgradeStep):
     """
 
     def __call__(self):
-        self.install_upgrade_profile()
+        # Permission referred to in rolemap.xml no longer exists
+        # self.install_upgrade_profile()
+        pass

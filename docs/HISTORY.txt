@@ -5,7 +5,7 @@ Changelog
 2.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix upgrade steps that wouldn't run in 2.x codebase. [djowett-ftw]
 
 
 2.2.1 (2019-11-25)
