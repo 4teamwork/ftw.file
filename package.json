@@ -1,0 +1,19 @@
+{
+  "name": "ftw.file",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:4teamwork/ftw.file",
+  "author": "4teamwork AG <info@4teamwork.ch>",
+  "license": "GPL2",
+  "private": true,
+  "scripts": {
+    "build": "r.js -o build.js && r.js -o buildcss.js",
+    "build-css": "r.js -o buildcss.js",
+    "build-js": "r.js -o build.js",
+    "watch": "chokidar \"./ftw/slider/browser/resources/(*.js|*.css)\" -i \"**/*-compiled.(js|css)\" -c \"if [[ '{path}' = *.js ]]; then r.js -o build.js; else r.js -o buildcss.js; fi;\""
+  },
+  "devDependencies": {
+    "chokidar-cli": "^2.1.0",
+    "requirejs": "^2.3.6"
+  }
+}

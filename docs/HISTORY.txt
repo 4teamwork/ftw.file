@@ -5,6 +5,8 @@ Changelog
 2.2.3 (unreleased)
 ------------------
 
+- Plone 5: provide precompiled bundle. [jone]
+
 - Fix deleting Plone site. [jone]
 
 
