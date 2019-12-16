@@ -27,6 +27,7 @@
   <include zcml:condition="have ftw-activity-2" package=".activity2" />
 
   <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
       name="default"
       title="ftw.file"
       directory="profiles/default"
@@ -35,9 +36,29 @@
       />
 
   <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="default"
+      title="ftw.file"
+      directory="profiles/default_plone5"
+      description="Installs the ftw.file package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
       name="uninstall"
       title="Uninstall ftw.file"
       directory="profiles/uninstall"
+      description="Uninstalls the ftw.file package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="uninstall"
+      title="Uninstall ftw.file"
+      directory="profiles/uninstall_plone5"
       description="Uninstalls the ftw.file package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
