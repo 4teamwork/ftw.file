@@ -45,9 +45,20 @@
       />
 
   <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
       name="uninstall"
       title="Uninstall ftw.file"
       directory="profiles/uninstall"
+      description="Uninstalls the ftw.file package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+      />
+
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      name="uninstall"
+      title="Uninstall ftw.file"
+      directory="profiles/uninstall_plone5"
       description="Uninstalls the ftw.file package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
