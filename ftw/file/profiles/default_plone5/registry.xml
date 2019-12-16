@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<registry>
+
+    <record name="ftw.file.filesettings.user_ids">
+        <field type="plone.registry.field.List">
+            <title>user_ids</title>
+            <description>Defines the user_ids which will not call the IFileDownloadedEvent</description>
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+        <value>
+            <element>testuserid</element>
+        </value>
+    </record>
+
+    <record name="ftw.file.disable_download_redirect">
+        <field type="plone.registry.field.Bool">
+            <title>Disable redirecting to the download view</title>
+        </field>
+        <value>False</value>
+    </record>
+
+</registry>
