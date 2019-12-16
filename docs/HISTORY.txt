@@ -5,7 +5,7 @@ Changelog
 2.2.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix deleting Plone site. [jone]
 
 
 2.2.2 (2019-11-26)
