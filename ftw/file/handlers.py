@@ -7,7 +7,7 @@ from zope.i18n import translate
 
 def handle_protected_file(obj, event):
     if IPloneSiteRoot.providedBy(event.object):
-        # The Plone site is beeing deleted.
+        # The Plone site is being deleted.
         return
 
     if obj.is_protected:
