@@ -5,7 +5,7 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Replace the upload utility with a separate package to prevent conflicts [Nachtalb]
 
 
 2.2.3 (2019-12-16)
