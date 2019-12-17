@@ -5,6 +5,8 @@ Changelog
 2.2.4 (unreleased)
 ------------------
 
+- Remove JavaScript console statement (YAY) which accidentally added in the prior release. [jone]
+
 - Replace the upload utility with a separate package to prevent conflicts [Nachtalb]
 
 
