@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.4 (unreleased)
+2.2.4 (2019-12-18)
 ------------------
 
 - Remove JavaScript console statement (YAY) which accidentally added in the prior release. [jone]
