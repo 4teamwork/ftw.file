@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.5 (unreleased)
+2.2.5 (2020-01-09)
 ------------------
 
 - Add ftw.file portal_type translation to plone domain. [tinagerber]
