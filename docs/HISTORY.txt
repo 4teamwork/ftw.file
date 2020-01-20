@@ -5,7 +5,7 @@ Changelog
 2.2.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Override content_type method to fix mime_type metadata. [tinagerber]
 
 
 2.2.5 (2020-01-09)
