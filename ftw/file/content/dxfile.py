@@ -167,3 +167,6 @@ class File(Item):
 
     def getContentType(self):
         return getattr(self.file, 'contentType', 'application/octet-stream')
+
+    def content_type(self):
+        return self.getContentType()
