@@ -12,6 +12,15 @@
         />
 
     <browser:page
+        zcml:condition="not-have plone-5"
+        for="..interfaces.IFile"
+        name="file_view"
+        class=".file_view.FileView"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        zcml:condition="have plone-5"
         for="..interfaces.IFile"
         name="file_view"
         class=".file_view.FileView"

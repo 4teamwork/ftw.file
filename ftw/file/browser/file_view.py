@@ -6,7 +6,7 @@ from Products.Five import BrowserView
 class FileView(BrowserView):
     """ View for ftw.file """
 
-    template = ViewPageTemplateFile('file_view.pt')
+    template = ViewPageTemplateFile('file_view_plone5.pt')
 
     def __call__(self):
         return self.template()
