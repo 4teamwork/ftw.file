@@ -32,13 +32,6 @@
         permission="zope2.View"
         />
 
-    <browser:page
-        for="ftw.file.interfaces.IFile"
-        name="ajax-upload"
-        class=".upload.FileUpload"
-        permission="cmf.ModifyPortalContent"
-        />
-
     <configure zcml:condition="installed ftw.activity">
       <include package="ftw.activity" />
       <configure zcml:condition="not-have ftw-activity-2">
