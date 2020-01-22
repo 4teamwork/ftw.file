@@ -6,7 +6,9 @@ This is a file content for plone which provides some useful functions, such as:
 - Write downloader-name in history (ftw.journal)
 - Image preview
 - Resumable downloads
-- Upload new file version via drag and drop
+
+Note: The ability to upload new file versions via drag and drop was removed in version 2.3.0
+to reduce support overhead (it only worked in Plone 4).
 
 
 Compatibility

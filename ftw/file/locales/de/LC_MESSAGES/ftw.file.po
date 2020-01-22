@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-10-08 15:57+0000\n"
+"POT-Creation-Date: 2020-01-22 10:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,16 +15,12 @@ msgstr ""
 msgid "Action"
 msgstr "Aktion"
 
-#: ./ftw/file/browser/file_view.pt:69
+#: ./ftw/file/browser/file_view.pt:44
 #: ./ftw/file/viewlets/content_history.pt:12
 msgid "Author"
 msgstr "Autor"
 
-#: ./ftw/file/browser/upload.py:109
-msgid "Bad filename, please rename."
-msgstr "Ungültiger Dateiname. Bitte umbenennen."
-
-#: ./ftw/file/browser/file_view.pt:85
+#: ./ftw/file/browser/file_view.pt:60
 msgid "Classification"
 msgstr "Abgelegt unter"
 
@@ -32,28 +28,20 @@ msgstr "Abgelegt unter"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ./ftw/file/browser/file_view.pt:61
+#: ./ftw/file/browser/file_view.pt:36
 #: ./ftw/file/viewlets/content_history.pt:11
 msgid "Date"
 msgstr "Datum"
 
-#: ./ftw/file/browser/file_view.pt:65
+#: ./ftw/file/browser/file_view.pt:40
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ./ftw/file/browser/file_view.pt:45
+#: ./ftw/file/browser/file_view.pt:20
 msgid "File"
 msgstr "Datei"
 
-#: ./ftw/file/browser/upload.py:40
-msgid "File replaced with Drag & Drop."
-msgstr "Datei ersetzt mit Drag & Drop."
-
-#: ./ftw/file/browser/file_view.pt:38
-msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
-msgstr "Hinweis: Ziehen Sie eine Datei von ihrem Computer in den Browser, um sie zu ersetzen."
-
-#: ./ftw/file/configure.zcml:33
+#: ./ftw/file/configure.zcml:36
 msgid "Installs the ftw.file package"
 msgstr ""
 
@@ -61,46 +49,34 @@ msgstr ""
 msgid "Journal"
 msgstr "Journal"
 
-#: ./ftw/file/browser/file_view.pt:81
+#: ./ftw/file/browser/file_view.pt:56
 msgid "Modified"
 msgstr "Letzte Änderung"
 
-#: ./ftw/file/browser/upload.py:113
-msgid "Not allowed to upload a file of this type to this folder"
-msgstr "Ungenügende Berechtigungen um eine Datei hochzuladen."
-
-#: ./ftw/file/browser/upload.py:76
-msgid "Only image upload allowed."
-msgstr "Es dürfen nur Bilder hochgeladen werden."
-
-#: ./ftw/file/browser/upload.py:69
-msgid "Please save the object first to enable image upload."
-msgstr "Bitte speichern sie das Objekt um den Bildupload zu ermöglichen."
-
-#: ./ftw/file/browser/file_view.pt:96
+#: ./ftw/file/browser/file_view.pt:71
 msgid "Preview"
 msgstr "Vorschau"
 
-#: ./ftw/file/browser/upload.py:133
-msgid "The content-type '%s' has no image-field!"
-msgstr "Der Inhaltstyp '%s' hat kein image-Feld!"
+#: ./ftw/file/configure.zcml:55
+msgid "Uninstall ftw.file"
+msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:32
-msgid "You're about to replace the existing file.<br />Press ESC to abort."
-msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Sie ESC um abzubrechen."
+#: ./ftw/file/configure.zcml:55
+msgid "Uninstalls the ftw.file package"
+msgstr ""
 
 #: ./ftw/file/viewlets/content_history.pt:33
 msgid "download"
 msgstr "herunterladen"
 
 #. Default: "\"/\" (Slash in filenames is not allowed.."
-#: ./ftw/file/content/dxfile.py:73
-#: ./ftw/file/content/file.py:39
+#: ./ftw/file/content/dxfile.py:62
+#: ./ftw/file/content/file.py:38
 #, fuzzy
 msgid "filename_override_validator_error"
 msgstr "Der Dateiname darf keine \"/\" enthalten."
 
-#: ./ftw/file/configure.zcml:33
+#: ./ftw/file/configure.zcml:36
 msgid "ftw.file"
 msgstr ""
 
@@ -124,19 +100,19 @@ msgstr ""
 msgid "ftw.file.upgrades.1513"
 msgstr ""
 
-#: ./ftw/file/content/file.py:86
+#: ./ftw/file/content/file.py:85
 msgid "help_document_date"
 msgstr "Geben Sie das Datum der Datei ein. Dies ist entweder das aktuelle Datum oder das Datum, auf welches sich der Inhalt der Datei bezieht (Sitzung, Anlass, etc...)"
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
-#: ./ftw/file/content/dxfile.py:46
-#: ./ftw/file/content/file.py:73
+#: ./ftw/file/content/dxfile.py:82
+#: ./ftw/file/content/file.py:72
 msgid "help_filename_override"
 msgstr "Geben Sie einen Dokumentnamen ein falls Sie den Namen der Originaldatei ändern möchten. Die Dateierweiterung (z.B. .docx) wird dabei nicht geändert. \"/\" dürfen nicht verwendet werden."
 
 #. Default: "The file cannot cannot be deleted if this option is checked."
-#: ./ftw/file/content/dxfile.py:63
-#: ./ftw/file/content/file.py:95
+#: ./ftw/file/content/dxfile.py:101
+#: ./ftw/file/content/file.py:94
 msgid "help_is_protected"
 msgstr "Die Datei kann nicht gelöscht werden, wenn diese Option aktiv ist."
 
@@ -146,31 +122,31 @@ msgid "label_anonymous_user"
 msgstr "Anonymer Benutzer"
 
 #. Default: "Document Date"
-#: ./ftw/file/content/dxfile.py:55
-#: ./ftw/file/content/file.py:85
+#: ./ftw/file/content/dxfile.py:93
+#: ./ftw/file/content/file.py:84
 msgid "label_document_date"
 msgstr "Dokumentdatum"
 
 #. Default: "File"
-#: ./ftw/file/content/dxfile.py:40
-#: ./ftw/file/content/file.py:61
+#: ./ftw/file/content/dxfile.py:75
+#: ./ftw/file/content/file.py:60
 msgid "label_file"
 msgstr "Datei"
 
 #. Default: "Filename"
-#: ./ftw/file/content/dxfile.py:44
-#: ./ftw/file/content/file.py:72
+#: ./ftw/file/content/dxfile.py:80
+#: ./ftw/file/content/file.py:71
 msgid "label_filename_override"
 msgstr "Dokumentname"
 
 #. Default: "Protected"
-#: ./ftw/file/content/dxfile.py:62
-#: ./ftw/file/content/file.py:94
+#: ./ftw/file/content/dxfile.py:100
+#: ./ftw/file/content/file.py:93
 msgid "label_is_protected"
 msgstr "Geschützte Datei"
 
 #. Default: "You are not allowed to delete the file \"${file_title}\"."
-#: ./ftw/file/handlers.py:11
+#: ./ftw/file/handlers.py:16
 msgid "message_protected_file"
 msgstr "Unzureichende Berechtigung für die Löschung der Datei \"${file_title}\"."
 
