@@ -7,10 +7,9 @@
   "license": "GPL2",
   "private": true,
   "scripts": {
-    "build": "r.js -o build.js && r.js -o buildcss.js",
-    "build-css": "r.js -o buildcss.js",
+    "build": "r.js -o build.js",
     "build-js": "r.js -o build.js",
-    "watch": "chokidar \"./ftw/slider/browser/resources/(*.js|*.css)\" -i \"**/*-compiled.(js|css)\" -c \"if [[ '{path}' = *.js ]]; then r.js -o build.js; else r.js -o buildcss.js; fi;\""
+    "watch": "chokidar \"./ftw/slider/browser/resources/(*.js|*.css)\" -i \"**/*-compiled.(js|css)\" -c \"r.js -o build.js\""
   },
   "devDependencies": {
     "chokidar-cli": "^2.1.0",
