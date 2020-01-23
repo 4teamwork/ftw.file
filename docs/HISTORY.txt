@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.3.0 (unreleased)
+2.3.0 (2020-01-23)
 ------------------
 
 - Remove drag and drop upload to reduce support overhead (it only worked in Plone 4). [djowett-ftw]
