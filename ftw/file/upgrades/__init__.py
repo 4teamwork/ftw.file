@@ -74,6 +74,7 @@ class ATToDXMixin(object):
                 'topics',
                 'height',  # flowplayer
                 'width',  # flowplayer
+                'language',
             ),
             field_mapping={
                 'documentDate': 'document_date',
