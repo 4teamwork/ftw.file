@@ -29,7 +29,7 @@ class TestOutputfilter(TestCase):
                 scale_uid = scale
 
         image = page.css('.fileListing img').first
-        url = "http://nohost/plone/testimage.jpg/@@images/"
+        url = "{}/testimage.jpg/@@images/".format(self.layer['portal'].absolute_url())
         self.assertEqual(
             url + scale_uid + ".jpeg",
             image.attrib['src'])

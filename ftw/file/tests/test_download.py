@@ -3,7 +3,7 @@ from ftw.builder import create
 from ftw.file.interfaces import IFileDownloadedEvent
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
-from ftw.testbrowser import LIB_TRAVERSAL
+from ftw.testbrowser import LIB_REQUESTS
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobFile
@@ -20,6 +20,7 @@ class TestFileDownload(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.portal_url = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
         self.file = NamedBlobFile(data=1234 * 'dummy',
@@ -93,7 +94,7 @@ class TestFileDownload(TestCase):
 
     @browsing
     def test_head_request(self, browser):
-        browser.default_driver = LIB_TRAVERSAL
+        browser.default_driver = LIB_REQUESTS
 
         browser.login()
 
@@ -103,7 +104,7 @@ class TestFileDownload(TestCase):
         browser.open(self.context, view='@@download', method='HEAD')
         self.assertEqual(200, browser.status_code)
         self.assertEqual(
-            'http://nohost/plone/file.doc/@@download/file/file.doc',
+            '{}/file.doc/@@download/file/file.doc'.format(self.portal_url),
             browser.url
         )
 
