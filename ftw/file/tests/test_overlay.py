@@ -13,6 +13,7 @@ class TestFileOverlay(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.portal_url = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
         self.context = create(Builder('file')
@@ -24,10 +25,11 @@ class TestFileOverlay(TestCase):
         browser.login().visit(self.context)
         self.assertIn(
             '<a id="preview" class="colorboxLink"'
-            ' href="http://nohost/plone/transparent.gif/@@images/file">',
+            ' href="{}/transparent.gif/@@images/file">'.format(self.portal_url),
             browser.contents)
-        self.assertIn('<img src="http://nohost/plone/transparent.gif/@@images',
-                      browser.contents)
+        self.assertIn(
+            '<img src="{}/transparent.gif/@@images'.format(self.portal_url),
+            browser.contents)
 
     @browsing
     def test_image_link_works(self, browser):

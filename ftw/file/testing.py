@@ -6,6 +6,7 @@ from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PloneSandboxLayer
+from plone.testing import z2
 from zope.configuration import xmlconfig
 import ftw.file.tests.builders  # noqa
 
@@ -18,7 +19,7 @@ def functional_session_factory():
 
 class FtwFileLayer(PloneSandboxLayer):
 
-    defaultBases = (COMPONENT_REGISTRY_ISOLATION, BUILDER_LAYER)
+    defaultBases = (z2.ZSERVER_FIXTURE, COMPONENT_REGISTRY_ISOLATION, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
         xmlconfig.string(

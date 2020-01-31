@@ -91,6 +91,7 @@ class FileMetadataBase(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.portal_url = self.portal.absolute_url()
         self.request = self.layer['request']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         self.dummyfile = create(Builder('file')
@@ -164,7 +165,7 @@ class TestFileMetadataAuthor(FileMetadataBase):
         self.assertEqual(
             {'id': 'chuck',
              'name': 'Chuck Norris',
-             'url': 'http://nohost/plone/author/chuck'},
+             'url': '{}/author/chuck'.format(self.portal_url)},
             FileMetadata(self.dummyfile).author)
 
     def test_return_userid_and_url_if_user_exists_without_fullname(self):
@@ -178,7 +179,7 @@ class TestFileMetadataAuthor(FileMetadataBase):
         self.assertEqual(
             {'id': 'chuck',
              'name': 'chuck',
-             'url': 'http://nohost/plone/author/chuck'},
+             'url': '{}/author/chuck'.format(self.portal_url)},
             FileMetadata(self.dummyfile).author)
 
     def test_return_userid_and_no_url_if_user_does_not_exist(self):

@@ -3,7 +3,8 @@ from ftw.builder import create
 from ftw.file.interfaces import IFileDownloadedEvent
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
-from ftw.testbrowser import LIB_TRAVERSAL
+from ftw.testbrowser import LIB_MECHANIZE
+from ftw.testbrowser import LIB_REQUESTS
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobFile
@@ -20,6 +21,7 @@ class TestFileDownload(TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.portal_url = self.portal.absolute_url()
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
 
         self.file = NamedBlobFile(data=1234 * 'dummy',
@@ -93,7 +95,7 @@ class TestFileDownload(TestCase):
 
     @browsing
     def test_head_request(self, browser):
-        browser.default_driver = LIB_TRAVERSAL
+        browser.default_driver = LIB_REQUESTS
 
         browser.login()
 
@@ -103,7 +105,7 @@ class TestFileDownload(TestCase):
         browser.open(self.context, view='@@download', method='HEAD')
         self.assertEqual(200, browser.status_code)
         self.assertEqual(
-            'http://nohost/plone/file.doc/@@download/file/file.doc',
+            '{}/file.doc/@@download/file/file.doc'.format(self.portal_url),
             browser.url
         )
 
@@ -115,3 +117,22 @@ class TestFileDownload(TestCase):
                          browser.headers['content-disposition'])
         self.assertEqual('bytes', browser.headers['accept-ranges'])
         self.assertEqual('application/msword', browser.headers['content-type'])
+        browser.default_driver = LIB_MECHANIZE
+
+    @browsing
+    def test_redirect_as_anonymous_user_with_umlauts(self, browser):
+        browser.default_driver = LIB_REQUESTS
+        blob = NamedBlobFile(data=1234 * 'dummy',
+                             filename=u'\xfcber\xe2\x80\x93uns.doc')
+        self.context = create(Builder('file')
+                              .having(file=blob))
+
+        browser.logout()
+
+        browser.visit(self.context.absolute_url())
+        self.assertEquals('200 Ok', browser.headers['status'])
+        self.assertEquals(
+            '{}/uberauns.doc/@@download/file/%C3%BCber%C3%A2%C2%80%C2%93uns.doc'.format(self.portal_url),
+            browser.url
+        )
+        browser.default_driver = LIB_MECHANIZE

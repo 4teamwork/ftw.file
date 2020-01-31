@@ -5,7 +5,9 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Quote URL (including filename) also in file redirect view. [mathias.leimgruber]
+
+- Use z2 Server to be closer to the real world in tests. [mathias.leimgruber]
 
 
 2.3.0 (2020-01-23)
