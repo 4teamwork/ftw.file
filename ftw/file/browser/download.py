@@ -121,7 +121,7 @@ class FileViewRedirector(BrowserView):
     def __call__(self):
         response = self.request.RESPONSE
         current_url = self.context.absolute_url()
-        filename = self.context.file.filename
+        filename = get_optimized_filename(self.context.file.filename)
         if redirect_to_download_by_default(self.context):
             return response.redirect(
                 current_url + '/@@download/file/' + filename)
