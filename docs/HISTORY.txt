@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.3.1 (unreleased)
+2.3.1 (2020-01-31)
 ------------------
 
 - Quote URL (including filename) also in file redirect view. [mathias.leimgruber]
