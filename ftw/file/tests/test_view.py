@@ -4,7 +4,7 @@ from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from plone.app.testing import TEST_USER_ID
 from Products.CMFCore.utils import getToolByName
 from plone.app.testing import setRoles
-from unittest2 import TestCase
+from unittest import TestCase
 from ftw.builder import create
 from ftw.builder import Builder
 from ftw.testbrowser import browsing

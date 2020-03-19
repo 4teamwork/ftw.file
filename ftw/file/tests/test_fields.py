@@ -3,7 +3,7 @@ from ftw.builder import Builder
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from unittest2 import TestCase
+from unittest import TestCase
 from ftw.testbrowser import browsing
 from StringIO import StringIO
 from PIL import Image

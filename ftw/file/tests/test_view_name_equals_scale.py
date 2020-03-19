@@ -6,7 +6,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from Products.Archetypes.interfaces.base import IBaseObject
 from Products.Five import BrowserView
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 

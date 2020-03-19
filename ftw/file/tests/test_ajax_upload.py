@@ -7,7 +7,7 @@ from ftw.builder import create
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from unittest2 import TestCase
+from unittest import TestCase
 from zExceptions import BadRequest
 
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING

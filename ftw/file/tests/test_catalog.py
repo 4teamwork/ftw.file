@@ -1,6 +1,6 @@
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
 from Products.CMFCore.utils import getToolByName
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestCatalog(TestCase):

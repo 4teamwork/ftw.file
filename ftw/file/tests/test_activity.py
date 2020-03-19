@@ -4,8 +4,8 @@ from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from unittest2 import skipUnless
-from unittest2 import TestCase
+from unittest import skipUnless
+from unittest import TestCase
 from zope.component import getMultiAdapter
 import os.path
 

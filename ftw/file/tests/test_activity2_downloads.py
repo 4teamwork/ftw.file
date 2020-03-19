@@ -2,7 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.file.tests import FunctionalTestCase
 from ftw.testbrowser import browsing
-from unittest2 import skipUnless
+from unittest import skipUnless
 import pkg_resources
 
 

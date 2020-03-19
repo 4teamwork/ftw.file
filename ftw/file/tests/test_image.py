@@ -1,4 +1,4 @@
-from unittest2 import TestCase
+from unittest import TestCase
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
 from StringIO import StringIO
 from plone.app.testing import login
