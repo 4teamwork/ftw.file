@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-04-25 10:06+0000\n"
+"POT-Creation-Date: 2020-03-26 20:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,6 +93,11 @@ msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Si
 msgid "download"
 msgstr "herunterladen"
 
+#. Default: "Download not possible because the file contains a virus (${name})."
+#: ./ftw/file/fields.py:99
+msgid "download_not_possible"
+msgstr ""
+
 #: ./ftw/file/configure.zcml:35
 msgid "ftw.file"
 msgstr ""
@@ -157,7 +162,7 @@ msgid "label_origin_filename"
 msgstr "Dokumentname"
 
 #. Default: "You are not allowed to delete the file \"${file_title}\"."
-#: ./ftw/file/handlers.py:13
+#: ./ftw/file/handlers.py:11
 msgid "message_protected_file"
 msgstr "Unzureichende Berechtigung für die Löschung der Datei \"${file_title}\"."
 
