@@ -1,9 +1,10 @@
+from Products.statusmessages.interfaces import IStatusMessage
 from ftw.file.events.events import FileDownloadedEvent
 from ftw.file.imaging import ImagingMixin
 from ftw.file.interfaces import IFtwFileField
 from OFS.Image import File
 from PIL.Image import ANTIALIAS
-from plone.app.blob import field
+from plone.app.blob.field import FileField as BlobFileField
 from plone.app.blob.download import handleIfModifiedSince
 from plone.app.blob.download import handleRequestRange
 from plone.registry.interfaces import IRegistry
@@ -14,11 +15,13 @@ from zope.component import getUtility
 from zope.event import notify
 from zope.interface import implements
 
+from ftw.file import fileMessageFactory as _
 
-class FileField(field.FileField, ImagingMixin):
+
+class FileField(BlobFileField, ImagingMixin):
     implements(IFtwFileField)
 
-    _properties = field.FileField._properties.copy()
+    _properties = BlobFileField._properties.copy()
     _properties.update({
         'pil_quality': 88,
         'pil_resize_algo': ANTIALIAS,
@@ -81,3 +84,22 @@ class FileField(field.FileField, ImagingMixin):
                     notify(FileDownloadedEvent(instance, filename))
 
         return self.get(instance).getIterator(**request_range)
+
+    # TODO - do we need e.g. .... security.declareProtected(View, 'download') ?
+    def download(self, instance, REQUEST=None, RESPONSE=None):
+        """ Preempt download of the file with a virus scan """
+        # NOTE: we'd like to integrate clamav with an adapter pattern, but this is prob not possible
+        # because the view lookup (in e.g. at_download.py) is just by a method on the field
+        try:
+            from collective.clamav.validator import _scanBuffer
+            result = _scanBuffer(instance.data)
+            if result:
+                request = REQUEST or instance.REQUEST
+                response = RESPONSE or request.RESPONSE
+                msg = _(u"Download not possible because the file contains a virus ({}).")
+                IStatusMessage(request).addStatusMessage(msg.format(result), type='error')
+                return response.redirect(request['HTTP_REFERER'])
+        except ImportError:
+            pass
+
+        return super(BlobFileField, self).download(instance, REQUEST, RESPONSE)
