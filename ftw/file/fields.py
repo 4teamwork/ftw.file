@@ -96,8 +96,12 @@ class FileField(BlobFileField, ImagingMixin):
             if result:
                 request = REQUEST or instance.REQUEST
                 response = RESPONSE or request.RESPONSE
-                msg = _(u"Download not possible because the file contains a virus ({}).")
-                IStatusMessage(request).addStatusMessage(msg.format(result), type='error')
+                msgid = _(
+                    u"download_not_possible",
+                    default=u"Download not possible because the file contains a virus (${name}).",
+                    mapping={u"name": result}
+                )
+                IStatusMessage(request).addStatusMessage(instance.translate(msgid), type='error')
                 return response.redirect(request['HTTP_REFERER'])
         except ImportError:
             pass
