@@ -8,6 +8,7 @@ from plone.app.blob.field import FileField as BlobFileField
 from plone.app.blob.download import handleIfModifiedSince
 from plone.app.blob.download import handleRequestRange
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 from urllib import quote
 from webdav.common import rfc1123_date
 from zope.component import getMultiAdapter
@@ -48,6 +49,10 @@ class FileField(BlobFileField, ImagingMixin):
         if handleIfModifiedSince(instance, REQUEST, RESPONSE):
             return ''
 
+        scan_redirect = self.scan_on_download(instance, REQUEST, RESPONSE)
+        if scan_redirect:
+            return scan_redirect
+
         length = self.get_size(instance)
         RESPONSE.setHeader('Content-Length', length)
 
@@ -86,24 +91,24 @@ class FileField(BlobFileField, ImagingMixin):
         return self.get(instance).getIterator(**request_range)
 
     # TODO - do we need e.g. .... security.declareProtected(View, 'download') ?
-    def download(self, instance, REQUEST=None, RESPONSE=None):
-        """ Preempt download of the file with a virus scan """
-        # NOTE: we'd like to integrate clamav with an adapter pattern, but this is prob not possible
-        # because the view lookup (in e.g. at_download.py) is just by a method on the field
+    def scan_on_download(self, instance, REQUEST, RESPONSE):
+        """ For preempting download of the file with a virus scan """
         try:
             from collective.clamav.validator import _scanBuffer
             result = _scanBuffer(instance.data)
             if result:
-                request = REQUEST or instance.REQUEST
-                response = RESPONSE or request.RESPONSE
                 msgid = _(
                     u"download_not_possible",
                     default=u"Download not possible because the file contains a virus (${name}).",
                     mapping={u"name": result}
                 )
-                IStatusMessage(request).addStatusMessage(instance.translate(msgid), type='error')
-                return response.redirect(request['HTTP_REFERER'])
+
+                tx_tool = getToolByName(instance, 'translation_service')
+                IStatusMessage(REQUEST).addStatusMessage(tx_tool.translate(msgid), type='error')
+                file_view = instance.absolute_url() + "/file_view"
+                return RESPONSE.redirect(file_view)
         except ImportError:
             pass
 
-        return super(BlobFileField, self).download(instance, REQUEST, RESPONSE)
+        # Scanning passed - or not available
+        return None
