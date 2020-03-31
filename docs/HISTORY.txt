@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-1.16.3 (unreleased)
+1.17.0 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add Virus Scanning on downloads if collective.clamav is installed and configured. [djowett-ftw]
 
 
 1.16.2 (2019-05-14)
