@@ -27,13 +27,8 @@
 </metal:content-description>
 <metal:content-core fill-slot="content-core">
     <metal:content-core define-macro="content-core">
-        <div tal:condition="view/metadata/can_edit" id="dropzone">
-          <form class="dropzone" action="/ajax-upload">
-            <p id="dropzone-replacement-warning" i18n:translate="">You're about to replace the existing file.<br />Press ESC to abort.</p>
-            <div class="progress-radial" id="uploadprogress">
-            </div>
+        <div tal:condition="view/metadata/can_edit"  class="pat-upload" data-pat-upload='{"url": "/ajax-upload"}'>
             <img id="ftw-file-upload" src="++resource++ftw.file.resources/upload.png" />
-          </form>
         </div>
 
         <p tal:condition="view/metadata/can_edit" id="dnd-file-replacement-hint" i18n:translate="">Hint: Drag and drop a file from your computer into the browser in order to replace the file.</p>
