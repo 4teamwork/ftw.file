@@ -10,12 +10,13 @@ from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
-from zope.event import notify
 from zope.i18n import translate
-from Products.Archetypes.event import ObjectEditedEvent
 from zope.publisher.browser import BrowserView
 
 from ftw.file import fileMessageFactory as _
+
+from plone.restapi.interfaces import IDeserializeFromJson
+from zope.component import queryMultiAdapter
 
 import pkg_resources
 try:
@@ -35,8 +36,10 @@ class FileUpload(BrowserView):
         if not self.file:
             raise BadRequest('No content provided.')
 
-        self.filename = self.file.filename
-        self.context.update(file=self.file, originFilename=self.filename)
+        # Borrow code from plone.restapi which handles validation correctly
+        deserializer = queryMultiAdapter((self.context, self.request), IDeserializeFromJson)
+        # Will raise BadRequest if validation fails
+        deserializer(data={'file': self.file, 'filename': self.file.filename})
 
         portal = api.portal.get()
         repository_tool = getToolByName(portal, 'portal_repository')
@@ -50,7 +53,7 @@ class FileUpload(BrowserView):
                                   context=self.request)
             )
 
-        notify(ObjectEditedEvent(self.context))
+        # Note: deserializer has handled notify for ObjectEditedEvent
         return json.dumps({'success': True})
 
 
