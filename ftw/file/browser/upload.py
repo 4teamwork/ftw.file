@@ -6,17 +6,18 @@ from Acquisition import aq_base
 from ftw.file.utils import is_image
 from plone import api
 from plone.outputfilters.browser.resolveuid import uuidFor
+from plone.restapi.interfaces import IDeserializeFromJson
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
+from zope.component import queryMultiAdapter
 from zope.i18n import translate
 from zope.publisher.browser import BrowserView
 
 from ftw.file import fileMessageFactory as _
 
-from plone.restapi.interfaces import IDeserializeFromJson
-from zope.component import queryMultiAdapter
 
 import pkg_resources
 try:
@@ -33,28 +34,45 @@ class FileUpload(BrowserView):
 
     def __call__(self):
         self.file = self.request.get('file')
-        if not self.file:
-            raise BadRequest('No content provided.')
+        try:
+            if not self.file:
+                raise BadRequest('No content provided.')
 
-        # Borrow code from plone.restapi which handles validation correctly
-        deserializer = queryMultiAdapter((self.context, self.request), IDeserializeFromJson)
-        # Will raise BadRequest if validation fails
-        deserializer(data={'file': self.file, 'filename': self.file.filename})
+            # Borrow code from plone.restapi which handles validation correctly
+            deserializer = queryMultiAdapter((self.context, self.request), IDeserializeFromJson)
+            if deserializer is None:
+                self.request.response.setStatus(501)
+                return json.dumps(dict(error=dict(
+                    message="Cannot deserialize type {}".format(self.context.portal_type))
+                ))
 
-        portal = api.portal.get()
-        repository_tool = getToolByName(portal, 'portal_repository')
+            # Will raise BadRequest if validation fails
+            deserializer(data={'file': self.file, 'filename': self.file.filename})
 
-        if repository_tool.isVersionable(self.context):
-            # TODO: This creates another entry in the history resulting
-            # in two consecutive history entries.
-            repository_tool.save(
-                self.context,
-                comment=translate(_('File replaced with Drag & Drop.'),
-                                  context=self.request)
-            )
+            portal = api.portal.get()
+            repository_tool = getToolByName(portal, 'portal_repository')
 
-        # Note: deserializer has handled notify for ObjectEditedEvent
-        return json.dumps({'success': True})
+            if repository_tool.isVersionable(self.context):
+                # TODO: This creates another entry in the history resulting
+                # in two consecutive history entries.
+                repository_tool.save(
+                    self.context,
+                    comment=translate(_('File replaced with Drag & Drop.'),
+                                      context=self.request)
+                )
+        except BadRequest as br:
+            # Show validation failures on next page (file_view)
+            if type(br.message) in (list, tuple):
+                for msg in br.message:
+                    IStatusMessage(self.request).add(msg['message'], 'error')
+            else:
+                IStatusMessage(self.request).add(br.message, 'error')
+
+            self.request.response.setStatus(400)
+            return json.dumps(dict(error=dict(type="Bad Request", message=str(br))))
+        else:
+            # Note: deserializer has handled notify for ObjectEditedEvent
+            return json.dumps({'success': True})
 
 
 class TinyMCEFileUpload(Upload):
