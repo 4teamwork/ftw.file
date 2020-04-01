@@ -1,5 +1,6 @@
 import json
 from StringIO import StringIO
+from Products.ATContentTypes.interfaces import IATFile
 from Products.CMFCore.utils import getToolByName
 
 from ftw.builder import Builder
@@ -38,6 +39,21 @@ class TestAjaxUpload(TestCase):
         response = json.loads(ajax_upload_view())
 
         self.assertEqual(response['success'], True)
+        replaced_file = IATFile(self.portal['document']).getFile()
+        self.assertEqual(replaced_file.filename, 'new_file.txt')
+        self.assertEqual(replaced_file.data, 'Raw file data')
+
+    def test_empty_file(self):
+        """ Archetypes validator should stop updates with an empty file """
+        empty_file = StringIO('')
+        empty_file.filename = 'empty_file.txt'
+        empty_file.content_type = 'text/plain'
+        self.portal.REQUEST.set('file', empty_file)
+
+        with self.assertRaises(BadRequest) as cm:
+            self.file_.restrictedTraverse('ajax-upload')()
+        self.assertIn('Uploaded file is empty',
+                      cm.exception.message[0]['message'])
 
     def test_no_file(self):
         with self.assertRaises(BadRequest):
@@ -53,3 +69,6 @@ class TestAjaxUpload(TestCase):
 
         history = repository_tool.getHistory(self.file_)
         self.assertEqual(1, len(history))
+        replaced_file = IATFile(self.portal['document']).getFile()
+        self.assertEqual(replaced_file.filename, 'new_file.txt')
+        self.assertEqual(replaced_file.data, 'Raw file data')
