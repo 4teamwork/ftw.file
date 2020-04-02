@@ -9,7 +9,6 @@ from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest import TestCase
-from zExceptions import BadRequest
 
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING
 
@@ -24,8 +23,8 @@ class TestAjaxUpload(TestCase):
 
         self.file_ = create(
             Builder('file')
-            .titled('Document')
-            .attach_file_containing('My PDF', name='test.pdf')
+                .titled('Document')
+                .attach_file_containing('My PDF', name='test.pdf')
         )
 
         self.new_file = StringIO('Raw file data')
@@ -50,14 +49,20 @@ class TestAjaxUpload(TestCase):
         empty_file.content_type = 'text/plain'
         self.portal.REQUEST.set('file', empty_file)
 
-        with self.assertRaises(BadRequest) as cm:
-            self.file_.restrictedTraverse('ajax-upload')()
+        ajax_upload_view = self.file_.restrictedTraverse('ajax-upload')
+        response = json.loads(ajax_upload_view())
+
+        self.assertFalse(response['success'])
         self.assertIn('Uploaded file is empty',
-                      cm.exception.message[0]['message'])
+                      response['errors'][0]['message'])
 
     def test_no_file(self):
-        with self.assertRaises(BadRequest):
-            self.file_.restrictedTraverse('ajax-upload')()
+        ajax_upload_view = self.file_.restrictedTraverse('ajax-upload')
+        response = json.loads(ajax_upload_view())
+
+        self.assertFalse(response['success'])
+        self.assertEqual('No content provided.',
+                         response['errors'][0]['message'])
 
     def test_new_version(self):
         portal = api.portal.get()

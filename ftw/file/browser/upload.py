@@ -54,13 +54,17 @@ class FileUpload(BrowserView):
         except BadRequest as br:
             # Show validation failures on next page (file_view)
             if type(br.message) in (list, tuple):
-                for msg in br.message:
+                errors = br.message
+                for msg in errors:
                     IStatusMessage(self.request).add(msg['message'], 'error')
             else:
+                errors = [{'message': br.message}]
                 IStatusMessage(self.request).add(br.message, 'error')
 
             self.request.response.setStatus(400)
-            return json.dumps(dict(error=dict(type="Bad Request", message=str(br))))
+            retval = {'success': False, 'errors': errors}
+            self.request.response.setBody(retval, lock=True)
+            return json.dumps(retval)
         else:
             # Note: deserializer has handled notify for ObjectEditedEvent
             return json.dumps({'success': True})
