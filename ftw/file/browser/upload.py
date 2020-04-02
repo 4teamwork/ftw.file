@@ -6,6 +6,7 @@ from Acquisition import aq_base
 from ftw.file.utils import is_image
 from plone import api
 from plone.outputfilters.browser.resolveuid import uuidFor
+from plone.restapi.exceptions import DeserializationError
 from plone.restapi.interfaces import IDeserializeFromJson
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
@@ -133,30 +134,37 @@ class TinyMCEFileUpload(Upload):
                 context=self.request))
 
         obj = getattr(context, newid, None)
-
-        # Set title + description.
-        # Attempt to use Archetypes mutator if there is one, in case it uses
-        # a custom storage
-        title = request['uploadtitle']
-        description = request['uploaddescription']
-
-        if description:
-            try:
-                obj.setDescription(description)
-            except AttributeError:
-                obj.description = description
-
-        # set primary field
-        pf = obj.getPrimaryField()
-        pf.set(obj, request['uploadfile'])
-
         if not obj:
             return self.errorMessage("Could not upload the file")
 
-        if title and title is not '':
-            obj.setTitle(title)
-        else:
-            obj.setTitle(obj.getFilename())
+        # Update fields
+        # Borrow code from plone.restapi which handles validation correctly
+        try:
+            deserializer = queryMultiAdapter((obj, self.request), IDeserializeFromJson)
+            if deserializer is None:
+                return self.errorMessage("Cannot deserialize type {}".format(obj.portal_type))
+
+            try:
+                uploaded_file = request['uploadfile']
+                field_data = {
+                    'file': uploaded_file,
+                    'filename': uploaded_file.filename,
+                    'title': request['uploadtitle'] or uploaded_file.filename,
+                    'description': request['uploaddescription']
+                }
+                # Will raise BadRequest if validation fails
+                # it also looks after notify(ObjectInitializedEvent ...)
+                deserializer(data=field_data, validate_all=True, create=True)
+            except DeserializationError as e:
+                return self.errorMessage("DeserializationError: {}".format(str(e)))
+        except BadRequest as br:
+            if type(br.message) in (list, tuple):
+                # Multiple errors are so unlikely (and hard to test) that we
+                # just return the first error
+                error = br.message[0]['message']
+            else:
+                error = br.message
+            return self.errorMessage(error)
 
         obj.reindexObject()
         folder = obj.aq_parent.absolute_url()
