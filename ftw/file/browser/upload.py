@@ -19,16 +19,6 @@ from zope.publisher.browser import BrowserView
 from ftw.file import fileMessageFactory as _
 
 
-import pkg_resources
-try:
-    pkg_resources.get_distribution('plone.dexterity')
-except pkg_resources.DistributionNotFound:
-    HAS_DEXTERITY = False
-else:
-    HAS_DEXTERITY = True
-    from plone.dexterity.interfaces import IDexterityContent
-
-
 class FileUpload(BrowserView):
     """View for handling drag-and-drop file replace"""
 
@@ -156,15 +146,9 @@ class TinyMCEFileUpload(Upload):
             except AttributeError:
                 obj.description = description
 
-        if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
-            if not self.setDexterityImage(obj):
-                return self.errorMessage(translate(
-                    _("The content-type '%s' has no image-field!" % metatype),
-                    context=self.request))
-        else:
-            # set primary field
-            pf = obj.getPrimaryField()
-            pf.set(obj, request['uploadfile'])
+        # set primary field
+        pf = obj.getPrimaryField()
+        pf.set(obj, request['uploadfile'])
 
         if not obj:
             return self.errorMessage("Could not upload the file")
