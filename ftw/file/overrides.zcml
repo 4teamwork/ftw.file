@@ -11,4 +11,10 @@
       factory=".custom_outputfilter.FtwFileFilter"
       />
 
+   <adapter
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
+      factory=".browser.upload.TinyMCEFileUpload"
+      />
+
 </configure>
