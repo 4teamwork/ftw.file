@@ -3,8 +3,6 @@ from ftw.builder import create
 from ftw.file.interfaces import IFileDownloadedEvent
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
-from ftw.testbrowser import LIB_MECHANIZE
-from ftw.testbrowser import LIB_REQUESTS
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobFile
@@ -95,8 +93,6 @@ class TestFileDownload(TestCase):
 
     @browsing
     def test_head_request(self, browser):
-        browser.default_driver = LIB_REQUESTS
-
         browser.login()
 
         # Accessing "@@download" on the file would normally result in a 302,
@@ -117,11 +113,9 @@ class TestFileDownload(TestCase):
                          browser.headers['content-disposition'])
         self.assertEqual('bytes', browser.headers['accept-ranges'])
         self.assertEqual('application/msword', browser.headers['content-type'])
-        browser.default_driver = LIB_MECHANIZE
 
     @browsing
     def test_redirect_as_anonymous_user_with_umlauts(self, browser):
-        browser.default_driver = LIB_REQUESTS
         blob = NamedBlobFile(data=1234 * 'dummy',
                              filename=u'\xfcber\xe2\x80\x93uns.doc')
         self.context = create(Builder('file')
@@ -135,4 +129,3 @@ class TestFileDownload(TestCase):
             '{}/uberauns.doc/@@download/file/%C3%BCber%C3%A2%C2%80%C2%93uns.doc'.format(self.portal_url),
             browser.url
         )
-        browser.default_driver = LIB_MECHANIZE
