@@ -125,8 +125,10 @@ var uploader = (function($) {
       var updateRequest = $.get(context_url + '/file_view');
       updateRequest.done(function(data) {
         var $data = $(data);
+        var $statusMessage = $('.portalMessage:not(#kssPortalMessage)');
         var $fileTable = $('.fileListing');
         var $historyTable = $('table.contentHistory');
+        $statusMessage.replaceWith($('.portalMessage:not(#kssPortalMessage)', $data));
         $fileTable.empty();
         $fileTable.html($('.fileListing tbody', $data));
         if ($historyTable.length > 0) {

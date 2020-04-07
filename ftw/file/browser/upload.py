@@ -1,4 +1,5 @@
 import json
+import transaction
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
@@ -52,6 +53,7 @@ class FileUpload(BrowserView):
                                       context=self.request)
                 )
         except BadRequest as br:
+            transaction.doom()
             # Show validation failures on next page (file_view)
             if type(br.message) in (list, tuple):
                 errors = br.message
@@ -162,6 +164,7 @@ class TinyMCEFileUpload(Upload):
             except DeserializationError as e:
                 return self.errorMessage("DeserializationError: {}".format(str(e)))
         except BadRequest as br:
+            transaction.doom()
             if type(br.message) in (list, tuple):
                 # Multiple errors are so unlikely (and hard to test) that we
                 # just return the first error
