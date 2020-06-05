@@ -97,10 +97,11 @@ class FileField(BlobFileField, ImagingMixin):
             from collective.clamav.validator import _scanBuffer
             result = _scanBuffer(instance.data)
             if result:
+                # result = 'virusname FOUND'
                 msgid = _(
                     u"download_not_possible",
                     default=u"Download not possible because the file contains a virus (${name}).",
-                    mapping={u"name": result}
+                    mapping={u"name": result.replace(' FOUND', '')}
                 )
 
                 tx_tool = getToolByName(instance, 'translation_service')

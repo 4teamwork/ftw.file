@@ -96,7 +96,7 @@ msgstr "télécharger"
 #. Default: "Download not possible because the file contains a virus (${name})."
 #: ./ftw/file/fields.py:99
 msgid "download_not_possible"
-msgstr ""
+msgstr "Téléchargement bloqué. Le logiciel malveillant ${name} a été trouvé dans le fichier."
 
 #: ./ftw/file/configure.zcml:35
 msgid "ftw.file"

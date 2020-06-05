@@ -142,7 +142,7 @@ class TestFileVirusScanning(TestCase):
         """
         browser.login().visit(self.context, view='@@download')
         statusmessages.assert_message(
-            'Download not possible because the file contains a virus (Eicar-Test-Signature FOUND).'
+            'Download blocked. The malware Eicar-Test-Signature has been found in the file.'
         )
 
 
