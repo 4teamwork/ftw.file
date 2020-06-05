@@ -1,4 +1,4 @@
-from unittest2 import TestCase
+from unittest import TestCase
 from ftw.builder import create
 from ftw.builder import Builder
 from ftw.file.testing import FTW_FILE_FUNCTIONAL_TESTING

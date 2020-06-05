@@ -52,4 +52,6 @@
         provides="Products.TinyMCE.adapters.interfaces.Upload.IUpload"
         factory=".upload.TinyMCEFileUpload"
         />
+    <!-- above is applied to IPloneSiteRoot in overrides.zcml -->
+
 </configure>

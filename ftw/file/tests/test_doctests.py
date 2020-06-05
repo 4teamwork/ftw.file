@@ -1,4 +1,4 @@
-import unittest2 as unittest
+import unittest as unittest
 import doctest
 from plone.testing import layered
 from ftw.file.testing import FTW_FILE_INTEGRATION_TESTING

@@ -1,4 +1,5 @@
 import json
+import transaction
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
@@ -6,25 +7,18 @@ from Acquisition import aq_base
 from ftw.file.utils import is_image
 from plone import api
 from plone.outputfilters.browser.resolveuid import uuidFor
+from plone.restapi.exceptions import DeserializationError
+from plone.restapi.interfaces import IDeserializeFromJson
 from Products.CMFCore.interfaces._content import IFolderish
 from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.TinyMCE.adapters.Upload import Upload
 from zExceptions import BadRequest
-from zope.event import notify
+from zope.component import queryMultiAdapter
 from zope.i18n import translate
-from Products.Archetypes.event import ObjectEditedEvent
 from zope.publisher.browser import BrowserView
 
 from ftw.file import fileMessageFactory as _
-
-import pkg_resources
-try:
-    pkg_resources.get_distribution('plone.dexterity')
-except pkg_resources.DistributionNotFound:
-    HAS_DEXTERITY = False
-else:
-    HAS_DEXTERITY = True
-    from plone.dexterity.interfaces import IDexterityContent
 
 
 class FileUpload(BrowserView):
@@ -32,26 +26,50 @@ class FileUpload(BrowserView):
 
     def __call__(self):
         self.file = self.request.get('file')
-        if not self.file:
-            raise BadRequest('No content provided.')
+        try:
+            if not self.file:
+                raise BadRequest('No content provided.')
 
-        self.filename = self.file.filename
-        self.context.update(file=self.file, originFilename=self.filename)
+            # Borrow code from plone.restapi which handles validation correctly
+            deserializer = queryMultiAdapter((self.context, self.request), IDeserializeFromJson)
+            if deserializer is None:
+                self.request.response.setStatus(501)
+                return json.dumps(dict(error=dict(
+                    message="Cannot deserialize type {}".format(self.context.portal_type))
+                ))
 
-        portal = api.portal.get()
-        repository_tool = getToolByName(portal, 'portal_repository')
+            # Will raise BadRequest if validation fails
+            deserializer(data={'file': self.file, 'filename': self.file.filename})
 
-        if repository_tool.isVersionable(self.context):
-            # TODO: This creates another entry in the history resulting
-            # in two consecutive history entries.
-            repository_tool.save(
-                self.context,
-                comment=translate(_('File replaced with Drag & Drop.'),
-                                  context=self.request)
-            )
+            portal = api.portal.get()
+            repository_tool = getToolByName(portal, 'portal_repository')
 
-        notify(ObjectEditedEvent(self.context))
-        return json.dumps({'success': True})
+            if repository_tool.isVersionable(self.context):
+                # TODO: This creates another entry in the history resulting
+                # in two consecutive history entries.
+                repository_tool.save(
+                    self.context,
+                    comment=translate(_('File replaced with Drag & Drop.'),
+                                      context=self.request)
+                )
+        except BadRequest as br:
+            transaction.doom()
+            # Show validation failures on next page (file_view)
+            if type(br.message) in (list, tuple):
+                errors = br.message
+                for msg in errors:
+                    IStatusMessage(self.request).add(msg['message'], 'error')
+            else:
+                errors = [{'message': br.message}]
+                IStatusMessage(self.request).add(br.message, 'error')
+
+            self.request.response.setStatus(400)
+            retval = {'success': False, 'errors': errors}
+            self.request.response.setBody(retval, lock=True)
+            return json.dumps(retval)
+        else:
+            # Note: deserializer has handled notify for ObjectEditedEvent
+            return json.dumps({'success': True})
 
 
 class TinyMCEFileUpload(Upload):
@@ -122,36 +140,38 @@ class TinyMCEFileUpload(Upload):
                 context=self.request))
 
         obj = getattr(context, newid, None)
-
-        # Set title + description.
-        # Attempt to use Archetypes mutator if there is one, in case it uses
-        # a custom storage
-        title = request['uploadtitle']
-        description = request['uploaddescription']
-
-        if description:
-            try:
-                obj.setDescription(description)
-            except AttributeError:
-                obj.description = description
-
-        if HAS_DEXTERITY and IDexterityContent.providedBy(obj):
-            if not self.setDexterityImage(obj):
-                return self.errorMessage(translate(
-                    _("The content-type '%s' has no image-field!" % metatype),
-                    context=self.request))
-        else:
-            # set primary field
-            pf = obj.getPrimaryField()
-            pf.set(obj, request['uploadfile'])
-
         if not obj:
             return self.errorMessage("Could not upload the file")
 
-        if title and title is not '':
-            obj.setTitle(title)
-        else:
-            obj.setTitle(obj.getFilename())
+        # Update fields
+        # Borrow code from plone.restapi which handles validation correctly
+        try:
+            deserializer = queryMultiAdapter((obj, self.request), IDeserializeFromJson)
+            if deserializer is None:
+                return self.errorMessage("Cannot deserialize type {}".format(obj.portal_type))
+
+            try:
+                uploaded_file = request['uploadfile']
+                field_data = {
+                    'file': uploaded_file,
+                    'filename': uploaded_file.filename,
+                    'title': request['uploadtitle'] or uploaded_file.filename,
+                    'description': request['uploaddescription']
+                }
+                # Will raise BadRequest if validation fails
+                # it also looks after notify(ObjectInitializedEvent ...)
+                deserializer(data=field_data, validate_all=True, create=True)
+            except DeserializationError as e:
+                return self.errorMessage("DeserializationError: {}".format(str(e)))
+        except BadRequest as br:
+            transaction.doom()
+            if type(br.message) in (list, tuple):
+                # Multiple errors are so unlikely (and hard to test) that we
+                # just return the first error
+                error = br.message[0]['message']
+            else:
+                error = br.message
+            return self.errorMessage(error)
 
         obj.reindexObject()
         folder = obj.aq_parent.absolute_url()
