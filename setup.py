@@ -11,6 +11,7 @@ tests_require = [
     'plone.app.testing',
     'plone.mocktestcase',
     'pyquery',
+    'collective.clamav[test] < 3.0a',
     ]
 
 setup(name='ftw.file',

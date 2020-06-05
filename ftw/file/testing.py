@@ -1,3 +1,4 @@
+from collective.clamav.testing import AVMOCK_AT_FIXTURE
 from ftw.builder.session import BuilderSession
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import set_builder_session_factory
@@ -48,3 +49,10 @@ FTW_FILE_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_FILE_FIXTURE,
            set_builder_session_factory(functional_session_factory)),
     name="ftw.file:Functional")
+
+FTW_FILE_AV_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FTW_FILE_FIXTURE,
+           AVMOCK_AT_FIXTURE,
+           set_builder_session_factory(functional_session_factory)),
+    name="ftw.file:AntiVirusFunctional")
+

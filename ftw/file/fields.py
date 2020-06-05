@@ -1,12 +1,14 @@
+from Products.statusmessages.interfaces import IStatusMessage
 from ftw.file.events.events import FileDownloadedEvent
 from ftw.file.imaging import ImagingMixin
 from ftw.file.interfaces import IFtwFileField
 from OFS.Image import File
 from PIL.Image import ANTIALIAS
-from plone.app.blob import field
+from plone.app.blob.field import FileField as BlobFileField
 from plone.app.blob.download import handleIfModifiedSince
 from plone.app.blob.download import handleRequestRange
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.utils import getToolByName
 from urllib import quote
 from webdav.common import rfc1123_date
 from zope.component import getMultiAdapter
@@ -14,11 +16,13 @@ from zope.component import getUtility
 from zope.event import notify
 from zope.interface import implements
 
+from ftw.file import fileMessageFactory as _
 
-class FileField(field.FileField, ImagingMixin):
+
+class FileField(BlobFileField, ImagingMixin):
     implements(IFtwFileField)
 
-    _properties = field.FileField._properties.copy()
+    _properties = BlobFileField._properties.copy()
     _properties.update({
         'pil_quality': 88,
         'pil_resize_algo': ANTIALIAS,
@@ -44,6 +48,10 @@ class FileField(field.FileField, ImagingMixin):
 
         if handleIfModifiedSince(instance, REQUEST, RESPONSE):
             return ''
+
+        scan_redirect = self.scan_on_download(instance, REQUEST, RESPONSE)
+        if scan_redirect:
+            return scan_redirect
 
         length = self.get_size(instance)
         RESPONSE.setHeader('Content-Length', length)
@@ -81,3 +89,27 @@ class FileField(field.FileField, ImagingMixin):
                     notify(FileDownloadedEvent(instance, filename))
 
         return self.get(instance).getIterator(**request_range)
+
+    # TODO - do we need e.g. .... security.declareProtected(View, 'download') ?
+    def scan_on_download(self, instance, REQUEST, RESPONSE):
+        """ For preempting download of the file with a virus scan """
+        try:
+            from collective.clamav.validator import _scanBuffer
+            result = _scanBuffer(instance.data)
+            if result:
+                # result = 'virusname FOUND'
+                msgid = _(
+                    u"download_not_possible",
+                    default=u"Download not possible because the file contains a virus (${name}).",
+                    mapping={u"name": result.replace(' FOUND', '')}
+                )
+
+                tx_tool = getToolByName(instance, 'translation_service')
+                IStatusMessage(REQUEST).addStatusMessage(tx_tool.translate(msgid), type='error')
+                file_view = instance.absolute_url() + "/file_view"
+                return RESPONSE.redirect(file_view)
+        except ImportError:
+            pass
+
+        # Scanning passed - or not available
+        return None
