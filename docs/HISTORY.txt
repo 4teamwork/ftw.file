@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.0 (unreleased)
+1.17.0 (2020-06-08)
 -------------------
 
 - Add Virus Scanning on downloads if collective.clamav is installed and configured.
