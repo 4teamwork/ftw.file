@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.3.2 (unreleased)
+2.3.2 (2020-07-01)
 ------------------
 
 - Add ignore_fields parameter to ATToDXMixin.install_ftw_file_dx_migration().  [djowett-ftw]
