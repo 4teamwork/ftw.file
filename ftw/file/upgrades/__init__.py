@@ -41,11 +41,11 @@ def add_behaviors_to_file(portal, new_behaviors):
 
 class ATToDXMixin(object):
 
-    def install_ftw_file_dx_migration(self):
+    def install_ftw_file_dx_migration(self, ignore_fields=()):
         self.setup_install_profile('profile-plone.app.relationfield:default')
         self.activate_solr_behavior()
         self.activate_topics_behavior()
-        self.migrate()
+        self.migrate(ignore_fields)
 
     def activate_solr_behavior(self):
         if HAS_FTW_SOLR:
@@ -64,17 +64,18 @@ class ATToDXMixin(object):
                     self.portal,
                     ['ftw.topics.behavior.ITopicSupportSchema', ])
 
-    def migrate(self):
+    def migrate(self, ignore_fields=()):
 
         migrator = InplaceMigrator(
             new_portal_type='ftw.file.File',
             ignore_fields=(
-                'excludeFromNav',
-                'lastModifier',
-                'topics',
-                'height',  # flowplayer
-                'width',  # flowplayer
-            ),
+                ignore_fields + (
+                    'excludeFromNav',
+                    'lastModifier',
+                    'topics',
+                    'height',  # flowplayer
+                    'width',  # flowplayer
+            )),
             field_mapping={
                 'documentDate': 'document_date',
                 'originFilename': 'filename_override',
