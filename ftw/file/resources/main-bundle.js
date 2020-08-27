@@ -1,1 +1,1 @@
- require(['hideOverrideFilenameField'], function(hideOverrideFilenameField){});
+ require(['hideOverrideFilenameField', 'progress', 'uploader'], function(hideOverrideFilenameField, progress, uploader){});
