@@ -22,7 +22,7 @@
     },
     readfile = function(file) {
       var formData = tests.formdata ? new FormData() : null;
-      reset(true);
+      reset();
       progress.show();
       dropzone.className = 'uploading';
       if (tests.formdata) {
@@ -50,13 +50,17 @@
             window.setTimeout(function() {
               updateView();
             },
-              400
+              1000
             );
           } else if (xhr.readyState == 4 && xhr.status != 200) {
             dropzone.className = 'fail';
             fail = true;
             progress.failure();
-            window.location.reload();
+            window.setTimeout(function() {
+              window.location.reload();
+            },
+              1000
+            );
           }
         };
         xhr.send(formData);
@@ -74,7 +78,7 @@
         }).on('dragleave', function(event) {
           dragging--;
           if (dragging === 0) {
-            reset();
+            close();
           }
         }).on('dragover', function(event) {
           event.preventDefault();
@@ -98,7 +102,7 @@
           event.preventDefault();
           $target = $(event.target);
           if (!($target.is($(dropzone)) || $target.parent().is($(dropzone)))) {
-            reset();
+            close();
           }
         });
         dropzone.addEventListener('drop', function (event) {
@@ -154,15 +158,16 @@
         window.location.reload();
       });
       updateRequest.always(function(data) {
-        reset();
+        close();
       });
     },
-    reset = function(soft) {
-      progress.reset();
-      if (!soft) {
-        overlay.overlay().close();
-      }
+    close = function() {
+      overlay.overlay().onClose = reset
+      overlay.overlay().close();
+    }
+    reset = function() {
       dropzone.className = '';
+      progress.reset();
       bindEvents();
       done = false;
       fail = false;

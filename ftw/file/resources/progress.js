@@ -88,7 +88,7 @@
       value(curValue);
     },
     show = function() {
-      element.style.display = 'block';
+      element.style.display = 'inline-block';
     },
     hide = function() {
       element.style.display = 'none';
