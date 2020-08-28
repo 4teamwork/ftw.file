@@ -67,7 +67,6 @@
       }
     },
     bindEvents = function() {
-      unbindEvents();
       if (tests.dnd) {
         $(document).on('dragenter', function(event) {
           if($.inArray('Files', event.dataTransfer.types) !== -1) {
@@ -111,10 +110,6 @@
           event.preventDefault();
         });
       }
-    },
-    unbindEvents = function() {
-      $(dropzone).off('dragover').off('dragleave').off('drop');
-      $(document).off('dragenter').off('dragleave').off('drop');
     },
     init = function() {
       $.event.props.push("dataTransfer");
@@ -168,7 +163,6 @@
     reset = function() {
       dropzone.className = '';
       progress.reset();
-      bindEvents();
       done = false;
       fail = false;
       dragging = 0;
