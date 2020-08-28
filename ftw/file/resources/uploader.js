@@ -71,12 +71,6 @@
             overlay.overlay().load();
             event.preventDefault();
           }
-        }).on('drop', function(event) {
-          event.preventDefault();
-          $target = $(event.target);
-          if (!($target.is($(dropzone)) || $target.parent().is($(dropzone)))) {
-            reset();
-          }
         }).on('dragleave', function(event) {
           dragging--;
           if (dragging === 0) {
@@ -86,6 +80,7 @@
           event.preventDefault();
         });
 
+
         $(dropzone).on('dragover', function(event) {
           done ? this.className = 'done hover' : this.className = 'hover';
           fail ? this.className = 'fail hover' : this.className = 'hover';
@@ -93,7 +88,20 @@
         }).on('dragleave', function() {
           done ? this.className = 'done' : this.className = '';
           fail ? this.className = 'fail' : this.className = '';
-        }).on('drop', function(event) {
+        });
+
+        // I could not make jQuery catch the drop event (it does work in an
+        // isolated environment like codepen but not in the Plone 5
+        // environment for some reason). The vanilla js implementation though
+        // works just fine. ¯\_(ツ)_/¯
+        document.addEventListener('drop', function (event) {
+          event.preventDefault();
+          $target = $(event.target);
+          if (!($target.is($(dropzone)) || $target.parent().is($(dropzone)))) {
+            reset();
+          }
+        });
+        dropzone.addEventListener('drop', function (event) {
           $(this).className = '';
           readfile(event.dataTransfer.files[0]);
           event.preventDefault();
