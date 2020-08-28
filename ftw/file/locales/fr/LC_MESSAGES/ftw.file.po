@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-28 12:19+0000\n"
+"POT-Creation-Date: 2020-08-28 13:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,9 +41,9 @@ msgstr "Description"
 msgid "File"
 msgstr "Fichier"
 
-#: ./ftw/file/browser/upload.py:35
-msgid "File replaced with Drag & Drop."
-msgstr "Fichier remplacé avec Drag & Drop."
+#: ./ftw/file/browser/upload.py:38
+msgid "File \"{}\" replaced with \"{}\" via drag & drop."
+msgstr "Fichier \"{}\" remplacé par \"{}\" par glisser-déposer."
 
 #: ./ftw/file/browser/file_view.pt:24
 msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
