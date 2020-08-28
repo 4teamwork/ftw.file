@@ -10,4 +10,4 @@ class ReimplementDragNDropFeature(UpgradeStep):
         if IS_PLONE_5:
             self.install_upgrade_profile(['plone.app.registry'])
         else:
-            self.install_upgrade_profile(['cssregistry'])
+            self.install_upgrade_profile(['cssregistry', 'jsregistry'])

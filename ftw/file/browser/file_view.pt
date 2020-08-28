@@ -32,7 +32,7 @@
               require(['uploader'], factory);
             } else {
               // Browser globals
-              root.uploader= factory(root.uploader);
+              factory(root.uploader);
             }
           }(typeof self !== 'undefined' ? self : this, function (uploader) {
             uploader.init();

@@ -2,5 +2,7 @@
 <object name="portal_javascripts" meta_type="JavaScripts Registry">
 
     <javascript id="++resource++ftw.file.resources/hideOverrideFilenameField.js" remove="True" />
+    <javascript id="++resource++ftw.file.resources/progress.js" remove="True" />
+    <javascript id="++resource++ftw.file.resources/uploader.js" remove="True" />
 
 </object>

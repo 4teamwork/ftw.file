@@ -4,7 +4,7 @@
         define(['jquery', 'progress'], factory);
     } else {
         // Browser globals
-        root.uploader= factory(root.jQuery, root.progress);
+        root.uploader = factory(root.jQuery, root.progress);
     }
 }(typeof self !== 'undefined' ? self : this, function ($, progress) {
   var self = {},
