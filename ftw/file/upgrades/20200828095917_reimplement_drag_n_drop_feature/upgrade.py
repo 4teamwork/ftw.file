@@ -8,6 +8,6 @@ class ReimplementDragNDropFeature(UpgradeStep):
 
     def __call__(self):
         if IS_PLONE_5:
-            self.install_upgrade_profile(['plone.app.registry'])
+            self.install_upgrade_profile(['plone.app.registry', 'repositorytool'])
         else:
-            self.install_upgrade_profile(['cssregistry', 'jsregistry'])
+            self.install_upgrade_profile(['cssregistry', 'jsregistry', 'repositorytool'])
