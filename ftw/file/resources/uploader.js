@@ -14,6 +14,7 @@
     fail = false,
     overlay = null,
     $dragAndDropHint = null,
+    xhr = null,
     tests = {
       filereader: null,
       dnd: null,
@@ -28,7 +29,7 @@
       if (tests.formdata) {
         formData.append('file', file);
 
-        var xhr = new XMLHttpRequest();
+        xhr = new XMLHttpRequest();
         xhr.open('POST', context_url + '/ajax-upload');
         xhr.onload = function() {
           progress.value(0);
@@ -131,6 +132,7 @@
           color: '#ededf1',
           opacity: 0.94
         },
+        onClose: reset,
       });
       bindEvents();
     },
@@ -157,7 +159,6 @@
       });
     },
     close = function() {
-      overlay.overlay().onClose = reset
       overlay.overlay().close();
     }
     reset = function() {
@@ -166,6 +167,10 @@
       done = false;
       fail = false;
       dragging = 0;
+      if (xhr !== null) {
+        xhr.abort();
+        xhr = null;
+      }
     };
 
   self.init = init;
