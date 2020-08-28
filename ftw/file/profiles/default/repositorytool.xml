@@ -2,7 +2,6 @@
 <repositorytool>
   <policymap>
     <type name="ftw.file.File">
-      <policy name="at_edit_autoversion"/>
       <policy name="version_on_revert"/>
     </type>
   </policymap>
