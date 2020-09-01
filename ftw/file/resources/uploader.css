@@ -1,4 +1,4 @@
-#dropzone {
+body.portaltype-ftw-file-file #dropzone {
   display: none;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -9,43 +9,43 @@
   text-align: center;
 }
 
-#dropzone.hover {
+body.portaltype-ftw-file-file #dropzone.hover {
   box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-#dropzone.done #ftw-file-upload {
+body.portaltype-ftw-file-file #dropzone.done #ftw-file-upload {
   display: none;
 }
 
-#dropzone.done.hover {
+body.portaltype-ftw-file-file #dropzone.done.hover {
   box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-#dropzone.uploading {
+body.portaltype-ftw-file-file #dropzone.uploading {
   border: none;
 }
 
-#dropzone.uploading #ftw-file-upload {
+body.portaltype-ftw-file-file #dropzone.uploading #ftw-file-upload {
   display: none;
 }
 
-#dropzone.fail #ftw-file-upload {
+body.portaltype-ftw-file-file #dropzone.fail #ftw-file-upload {
   display: none;
 }
 
-#dropzone #ftw-file-upload {
+body.portaltype-ftw-file-file #dropzone #ftw-file-upload {
   display: inline;
   box-shadow: none;
   border: none;
 }
 
-#dropzone img {
+body.portaltype-ftw-file-file #dropzone img {
   border: 5px solid #FFFFFF;
   box-shadow: 0px 0px 0px 4px #000000;
   width: 100px;
 }
 
-#dropzone #dropzone-replacement-warning {
+body.portaltype-ftw-file-file #dropzone #dropzone-replacement-warning {
   color: darkred;
   text-align: center;
   margin-bottom: 40px;

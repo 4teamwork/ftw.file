@@ -9,6 +9,7 @@
 }(typeof self !== 'undefined' ? self : this, function ($, progress) {
   var self = {},
     dropzone = null,
+    container = null,
     dragging = 0,
     done = false,
     fail = false,
@@ -28,7 +29,7 @@
       dropzone.className = 'uploading';
       if (tests.formdata) {
         formData.append('file', file);
-        formData.append('_authenticator', $('#dropzone [name="_authenticator"').val());
+        formData.append('_authenticator', $('#dropzone [name="_authenticator"]', container).val());
 
         xhr = new XMLHttpRequest();
         xhr.open('POST', context_url + '/ajax-upload');
@@ -114,10 +115,12 @@
       }
     },
     init = function() {
-      dropzone = document.getElementById('dropzone');
+      dropzone = document.querySelector('body.portaltype-ftw-file-file #dropzone');
       if (dropzone === null) return;
+      container = $(dropzone).parent();
+
       $.event.props.push("dataTransfer");
-      $dragAndDropHint = $('#dnd-file-replacement-hint');
+      $dragAndDropHint = $('#dnd-file-replacement-hint', container);
       progress.init('uploadprogress');
       tests.filereader = !!window.FileReader;
       tests.dnd = 'draggable' in document.createElement('span');
@@ -127,7 +130,7 @@
       if (!tests.filereader || !tests.dnd || !tests.formdata) {
         $dragAndDropHint.hide();
       }
-      overlay = $('#dropzone').overlay({
+      overlay = $(dropzone).overlay({
         top: 80,
         mask: {
           maskId: 'upload-overlay',
@@ -139,11 +142,11 @@
       bindEvents();
     },
     updateView = function() {
-      $('.fileListing').empty();
+      $('.fileListing', container).empty();
       var updateRequest = $.get(context_url + '/file_view');
       updateRequest.done(function(data) {
         var $data = $(data);
-        var $fileTable = $('.fileListing');
+        var $fileTable = $('.fileListing', container);
         var $historyTable = $('table.contentHistory');
         $fileTable.empty();
         $fileTable.html($('.fileListing tbody', $data));

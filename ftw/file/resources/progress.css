@@ -1,7 +1,7 @@
 /* -------------------------------------
  * Bar container
  * ------------------------------------- */
-.progress-radial {
+body.portaltype-ftw-file-file .progress-radial {
   position: relative;
   width: 100px;
   height: 100px;
@@ -13,9 +13,9 @@
   box-sizing: border-box;
 }
 
-.progress-radial .overlay,
-.progress-radial #tick,
-.progress-radial #fail {
+body.portaltype-ftw-file-file .progress-radial .overlay,
+body.portaltype-ftw-file-file .progress-radial #tick,
+body.portaltype-ftw-file-file .progress-radial #fail {
   display: block;
   position: absolute;
   width: 86px;
@@ -28,7 +28,7 @@
   box-sizing: border-box;
 }
 
-.progress-radial .overlay {
+body.portaltype-ftw-file-file .progress-radial .overlay {
   text-align: center;
   line-height: 90px;
   font-size: 16px;
