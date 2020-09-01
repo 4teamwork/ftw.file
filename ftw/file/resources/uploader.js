@@ -28,6 +28,7 @@
       dropzone.className = 'uploading';
       if (tests.formdata) {
         formData.append('file', file);
+        formData.append('_authenticator', $('#dropzone [name="_authenticator"').val());
 
         xhr = new XMLHttpRequest();
         xhr.open('POST', context_url + '/ajax-upload');

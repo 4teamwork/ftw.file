@@ -19,10 +19,6 @@ class FileUpload(BrowserView):
     """View for handling drag-and-drop file replace"""
 
     def __call__(self):
-        if DISABLE_CSRF:
-            # Necessary for plone 5
-            alsoProvides(self.request, IDisableCSRFProtection)
-
         self.file = self.request.get('file')
         if not self.file:
             raise BadRequest('No content provided.')

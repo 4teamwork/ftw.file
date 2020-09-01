@@ -19,6 +19,7 @@
             <div class="progress-radial" id="uploadprogress">
             </div>
             <img id="ftw-file-upload" src="++resource++ftw.file.resources/upload.png" />
+            <span tal:replace="structure context/@@authenticator/authenticator"/>
         </div>
 
         <p tal:condition="view/metadata/can_edit" id="dnd-file-replacement-hint" i18n:translate="">Hint: Drag and drop a file from your computer into the browser in order to replace the file.</p>
