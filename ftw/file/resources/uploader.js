@@ -114,8 +114,9 @@
       }
     },
     init = function() {
-      $.event.props.push("dataTransfer");
       dropzone = document.getElementById('dropzone');
+      if (dropzone === null) return;
+      $.event.props.push("dataTransfer");
       $dragAndDropHint = $('#dnd-file-replacement-hint');
       progress.init('uploadprogress');
       tests.filereader = !!window.FileReader;
