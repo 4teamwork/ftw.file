@@ -25,19 +25,6 @@
 
         <!-- TAL expressions are not evaluated inside script tags. -->
         <script tal:content="string:var context_url = '${context/absolute_url}'"></script>
-        <script>
-          (function (root, factory) {
-            if (typeof define === 'function' && define.amd) {
-              // AMD. Register as an anonymous module.
-              require(['uploader'], factory);
-            } else {
-              // Browser globals
-              factory(root.uploader);
-            }
-          }(typeof self !== 'undefined' ? self : this, function (uploader) {
-            uploader.init();
-          }));
-        </script>
 
         <table class="vertical listing fileListing">
             <tr>

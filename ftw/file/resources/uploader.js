@@ -1,10 +1,10 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery', 'progress'], factory);
+        // Plone 5 compatibility
+        require(['jquery', 'progress'], factory);
     } else {
-        // Browser globals
-        root.uploader = factory(root.jQuery, root.progress);
+        // Plone 4 compatibility
+        factory(root.jQuery, root.progress);
     }
 }(typeof self !== 'undefined' ? self : this, function ($, progress) {
   var self = {},
@@ -173,6 +173,5 @@
       }
     };
 
-  self.init = init;
-  return self;
+  $(init)
 }));
