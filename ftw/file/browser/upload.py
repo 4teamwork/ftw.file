@@ -4,15 +4,8 @@ from ftw.file.content.dxfile import BlobImageValueType
 from plone import api
 from zExceptions import BadRequest
 from zope.i18n import translate
-from zope.interface import alsoProvides
 from zope.publisher.browser import BrowserView
 import json
-
-try:
-    from plone.protect.interfaces import IDisableCSRFProtection
-    DISABLE_CSRF = True
-except ImportError:
-    DISABLE_CSRF = False
 
 
 class FileUpload(BrowserView):
@@ -23,18 +16,20 @@ class FileUpload(BrowserView):
         if not self.file:
             raise BadRequest('No content provided.')
 
-        old_filename = self.context.file.filename
+        old_filename = safe_unicode(self.context.file.filename)
+        new_filename = safe_unicode(self.file.filename)
 
-        self.filename = safe_unicode(self.file.filename)
+        change_note = translate(
+            _(u'File "{}" replaced with "{}" via drag & drop.'.format(
+                old_filename,
+                new_filename,
+            )))
+
+        repository = api.portal.get_tool('portal_repository')
+        repository.save(obj=self.context, comment=change_note, metadata={'filename': old_filename})
+
+        self.filename = new_filename
         self.file.seek(0)
         self.context.file = BlobImageValueType(data=self.file.read(),
                                                filename=self.filename)
-        change_note = translate(
-            _(u'File "{}" replaced with "{}" via drag & drop.'.format(
-                safe_unicode(old_filename),
-                safe_unicode(self.filename),
-            )))
-        repository = api.portal.get_tool('portal_repository')
-        repository.save(obj=self.context, comment=change_note)
-
         return json.dumps({'success': True})

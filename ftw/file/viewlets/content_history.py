@@ -125,6 +125,16 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
                     token
                 )
 
+            filename = vdata['metadata'].get('app_metadata', {}).get('filename')
+            download_url = ''
+            if filename:
+                download_url = u'{}/@@download-version?version_id={}&filename={}&_authenticator={}'.format(
+                    context_url,
+                    version_id,
+                    filename,
+                    token,
+                )
+
             info = dict(
                 type='versioning',
                 action=_(u"Edited"),
@@ -134,6 +144,8 @@ class ContentHistoryViewlet(content.ContentHistoryViewlet):
                 comments=meta['comment'],
                 version_id=version_id,
                 preview_url=preview_url,
+                download_url=download_url,
+                filename=filename
             )
             if can_diff:
                 if version_id > 0:
