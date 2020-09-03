@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.3.3 (unreleased)
+2.4.0 (2020-09-03)
 ------------------
 
 - Reimplement drag'n'drop feature for Plone 5 and 4 [Nachtalb]
