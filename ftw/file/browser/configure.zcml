@@ -40,4 +40,11 @@
       </configure>
     </configure>
 
+    <browser:page
+        for="ftw.file.interfaces.IFile"
+        name="ajax-upload"
+        class=".upload.FileUpload"
+        permission="cmf.ModifyPortalContent"
+        />
+
 </configure>

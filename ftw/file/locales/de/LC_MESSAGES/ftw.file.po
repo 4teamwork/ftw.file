@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-22 10:59+0000\n"
+"POT-Creation-Date: 2020-08-28 13:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,12 +15,12 @@ msgstr ""
 msgid "Action"
 msgstr "Aktion"
 
-#: ./ftw/file/browser/file_view.pt:44
+#: ./ftw/file/browser/file_view.pt:68
 #: ./ftw/file/viewlets/content_history.pt:12
 msgid "Author"
 msgstr "Autor"
 
-#: ./ftw/file/browser/file_view.pt:60
+#: ./ftw/file/browser/file_view.pt:84
 msgid "Classification"
 msgstr "Abgelegt unter"
 
@@ -28,18 +28,26 @@ msgstr "Abgelegt unter"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: ./ftw/file/browser/file_view.pt:36
+#: ./ftw/file/browser/file_view.pt:60
 #: ./ftw/file/viewlets/content_history.pt:11
 msgid "Date"
 msgstr "Datum"
 
-#: ./ftw/file/browser/file_view.pt:40
+#: ./ftw/file/browser/file_view.pt:64
 msgid "Description"
 msgstr "Beschreibung"
 
-#: ./ftw/file/browser/file_view.pt:20
+#: ./ftw/file/browser/file_view.pt:44
 msgid "File"
 msgstr "Datei"
+
+#: ./ftw/file/browser/upload.py:38
+msgid "File \"{}\" replaced with \"{}\" via drag & drop."
+msgstr "Datei \"{}\" wurde via Drag & Drop mit \"{}\" ersetzt."
+
+#: ./ftw/file/browser/file_view.pt:24
+msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
+msgstr "Hinweis: Ziehen Sie eine Datei von ihrem Computer in den Browser, um sie zu ersetzen."
 
 #: ./ftw/file/configure.zcml:36
 msgid "Installs the ftw.file package"
@@ -49,11 +57,11 @@ msgstr ""
 msgid "Journal"
 msgstr "Journal"
 
-#: ./ftw/file/browser/file_view.pt:56
+#: ./ftw/file/browser/file_view.pt:80
 msgid "Modified"
 msgstr "Letzte Änderung"
 
-#: ./ftw/file/browser/file_view.pt:71
+#: ./ftw/file/browser/file_view.pt:95
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -64,6 +72,10 @@ msgstr ""
 #: ./ftw/file/configure.zcml:55
 msgid "Uninstalls the ftw.file package"
 msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:18
+msgid "You're about to replace the existing file.<br />Press ESC to abort."
+msgstr "Die existierende Datei wird beim Upload überschrieben.<br />Drücken Sie ESC um abzubrechen."
 
 #: ./ftw/file/viewlets/content_history.pt:33
 msgid "download"

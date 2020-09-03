@@ -30,8 +30,10 @@
           <td tal:content="actor_name" />
           <td tal:content="item/comments" />
           <td>
-            <a tal:condition="isVersion"
-               tal:attributes="href string:${context/absolute_url}/file_download_version?version_id=${item/version_id}"
+            <a tal:define="download_url python:item.get('download_url')"
+               tal:condition="python: isVersion and download_url"
+               tal:attributes="href download_url;
+                               title item/filename"
                i18n:translate="">
               download
             </a>
