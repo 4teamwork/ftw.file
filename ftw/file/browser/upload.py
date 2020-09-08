@@ -5,6 +5,7 @@ from plone import api
 from zExceptions import BadRequest
 from zope.i18n import translate
 from zope.publisher.browser import BrowserView
+import ntpath
 import json
 
 
@@ -18,6 +19,11 @@ class FileUpload(BrowserView):
 
         old_filename = safe_unicode(self.context.file.filename)
         new_filename = safe_unicode(self.file.filename)
+
+        if ntpath.basename(new_filename) != new_filename:
+            # Windows Edge uploads files with the filename being the whole
+            # Path on the windows system. Get the basename instead.
+            new_filename = ntpath.basename(new_filename)
 
         change_note = translate(
             _(u'File "{}" replaced with "{}" via drag & drop.'.format(
