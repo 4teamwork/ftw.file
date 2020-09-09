@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix saving file with whole windows file path as filename when uploading through Microsoft Edge [Nachtalb]
+- Fix JS load order issue [Nachtalb]
 
 
 2.4.0 (2020-09-03)
