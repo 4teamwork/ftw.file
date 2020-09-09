@@ -1,12 +1,12 @@
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // Plone 5 compatibility
-        require(['jquery', 'progress'], factory);
+        require(['jquery', 'progress', 'jquery.recurrenceinput'], factory);
     } else {
         // Plone 4 compatibility
         factory(root.jQuery, root.progress);
     }
-}(typeof self !== 'undefined' ? self : this, function ($, progress) {
+}(typeof self !== 'undefined' ? self : this, function ($, progress, _) {
   var self = {},
     dropzone = null,
     container = null,
