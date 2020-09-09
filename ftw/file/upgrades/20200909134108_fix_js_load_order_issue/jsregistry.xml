@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry" autogroup="False">
+
+    <javascript cacheable="True" compression="safe" cookable="True" enabled="on"
+                expression="" id="++resource++ftw.file.resources/progress.js"
+                insert-after="++resource++plone.app.jquerytools.tooltip.plugins.js"
+                inline="False"/>
+
+    <javascript cacheable="True" compression="safe" cookable="True" enabled="on"
+                expression="" id="++resource++ftw.file.resources/uploader.js"
+                insert-after="++resource++ftw.file.resources/progress.js"
+                inline="False"/>
+
+</object>
