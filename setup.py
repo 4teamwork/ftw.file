@@ -54,6 +54,7 @@ setup(name='ftw.file',
         'plone.api',
         'plone.batching',
         'plone.restapi',
+        'jsonschema < 3.0.0',
         # -*- Extra requirements: -*-
         ],
       tests_require=tests_require,
