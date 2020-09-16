@@ -95,4 +95,10 @@
       handler=".handlers.handle_protected_file"
      />
 
+  <!-- indexer -->
+  <adapter
+      name="documentDate"
+      factory=".indexer.document_date"
+      />
+
 </configure>
