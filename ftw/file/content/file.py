@@ -22,13 +22,16 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFCore.permissions import View
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
-from Products.validation import V_REQUIRED
+from Products.statusmessages.interfaces import IStatusMessage
+from Products.validation import V_REQUIRED, UnknowValidatorError
 from Products.validation.config import validation
 from Products.validation.validators import RegexValidator
 from urllib import quote
 from ZODB.POSException import ConflictError
 from zope.interface import implements
+
 import logging
+import transaction
 
 
 origin_filename_validator = RegexValidator(
@@ -143,6 +146,29 @@ class File(ATFile):
         """Download the file (use default index_html)
         """
         return self.restrictedTraverse('@@download')()
+
+    security.declareProtected(ModifyPortalContent, 'setFile')
+    def setFile(self, value, **kwargs):
+        """
+        Catch *any* file upload so we can ensure virus scanning has been
+        done if it's enabled.
+        """
+        if '_initializing_' not in kwargs:
+            try:
+                result = validation('isVirusFree', value, REQUEST=self.REQUEST)
+                # Note: the validator returns True for OK, and a (truish) string
+                # for virus found :-/
+                if result is not True:
+                    transaction.doom()
+                    # Duplicate messages should not be shown
+                    # (see Products.statusmessages.adapter._encodeCookieValue)
+                    IStatusMessage(self.REQUEST).add(result, 'error')
+            except UnknowValidatorError:
+                # collective.clamav is not installed
+                pass
+
+        super(File, self).setFile(value, **kwargs)
+        # Note: standard archetypes validation doesn't happen until after this returns
 
     security.declarePrivate('getIndexValue')
     def getIndexValue(self, mimetype='text/plain'):
