@@ -1,3 +1,4 @@
+from collective.clamav.interfaces import IAVScannerSettings
 from collective.clamav.testing import EICAR
 from ftw.builder import create
 from ftw.builder import Builder
@@ -9,11 +10,14 @@ from ftw.testbrowser import LIB_TRAVERSAL
 from ftw.testbrowser.pages import statusmessages
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.registry.interfaces import IRegistry
 from StringIO import StringIO
 from unittest import TestCase
 from webdav.common import rfc1123_date
 from zope.component import eventtesting
+from zope.component import getUtility
 from zope.component import queryMultiAdapter
+
 import AccessControl
 import transaction
 
@@ -132,8 +136,13 @@ class TestFileVirusScanning(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        registry = getUtility(IRegistry)
+        registry.forInterface(IAVScannerSettings).clamav_enabled = False
+        transaction.commit()
         self.context = create(Builder('file').attach_file_containing(
                               EICAR, 'v1.txt'), processForm=False)
+        registry.forInterface(IAVScannerSettings).clamav_enabled = True
+        transaction.commit()
 
     @browsing
     def test_prevent_download_of_virus_file(self, browser):
