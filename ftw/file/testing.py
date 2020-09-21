@@ -45,6 +45,10 @@ FTW_FILE_FIXTURE = FtwFileLayer()
 FTW_FILE_INTEGRATION_TESTING = IntegrationTesting(
     bases=(FTW_FILE_FIXTURE, ), name="ftw.file:Integration")
 
+FTW_FILE_AV_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FTW_FILE_FIXTURE, AVMOCK_AT_FIXTURE ),
+    name="ftw.file:AntiVirusIntegration")
+
 FTW_FILE_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_FILE_FIXTURE,
            set_builder_session_factory(functional_session_factory)),
