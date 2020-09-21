@@ -18,6 +18,8 @@ from zope.interface import implements
 
 from ftw.file import fileMessageFactory as _
 
+import logging
+
 
 class FileField(BlobFileField, ImagingMixin):
     implements(IFtwFileField)
@@ -95,18 +97,22 @@ class FileField(BlobFileField, ImagingMixin):
         """ For preempting download of the file with a virus scan """
         try:
             from collective.clamav.validator import scanStream
-            blobfile = instance.getPrimaryField().get(instance).getBlob().open()
+            cclogger = logging.getLogger('collective.clamav.downloads')
+            blobfile = instance.getFile().getBlob().open()
             result = scanStream(blobfile)
             if result:
-                # result = 'virusname FOUND'
+                # result = 'virus_name FOUND'
+                virus_name = result.replace(' FOUND', '')
                 msgid = _(
                     u"download_not_possible",
                     default=u"Download not possible because the file contains a virus (${name}).",
-                    mapping={u"name": result.replace(' FOUND', '')}
+                    mapping={u"name": virus_name}
                 )
-
                 tx_tool = getToolByName(instance, 'translation_service')
                 IStatusMessage(REQUEST).addStatusMessage(tx_tool.translate(msgid), type='error')
+                cclogger.warning((
+                    "Download failed, file is virus-infected. ({}) filename: {}"
+                ).format(virus_name, instance.getFilename()))
                 file_view = instance.absolute_url() + "/file_view"
                 return RESPONSE.redirect(file_view)
         except ImportError:
