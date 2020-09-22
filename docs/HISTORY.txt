@@ -5,7 +5,10 @@ Changelog
 1.17.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Scan ANY change to the file field (if c.clamav is installed and active) before
+  setting the file. [djowett-ftw]
+- Scan downloads as a stream to save memory. [djowett-ftw]
+- Log when a file download is blocked because a virus was found. [djowett-ftw]
 
 
 1.17.0 (2020-06-08)
