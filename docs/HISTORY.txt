@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.1 (unreleased)
+1.17.1 (2020-09-22)
 -------------------
 
 - Scan ANY change to the file field (if c.clamav is installed and active) before
