@@ -94,8 +94,9 @@ class FileField(BlobFileField, ImagingMixin):
     def scan_on_download(self, instance, REQUEST, RESPONSE):
         """ For preempting download of the file with a virus scan """
         try:
-            from collective.clamav.validator import _scanBuffer
-            result = _scanBuffer(instance.data)
+            from collective.clamav.validator import scanStream
+            blobfile = instance.getPrimaryField().get(instance).getBlob().open()
+            result = scanStream(blobfile)
             if result:
                 # result = 'virusname FOUND'
                 msgid = _(
