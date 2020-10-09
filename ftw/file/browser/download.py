@@ -95,18 +95,8 @@ class Download(NameFileDownload):
         else:
             disposition = 'attachment'
 
-        # Microsoft browsers disposition has to be formatted differently
-        disposition_default = '{}; filename="{}"; filename={}*=UTF-8'.format(
-            disposition, self.filename, self.filename)
-        disposition_microsoft = '{}; filename={}; filename*=UTF-8\'\'{}'.format(
+        disposition = '{}; filename="{}"; filename*=UTF-8\'\'{}'.format(
             disposition, self.filename, urllib.quote(self.filename))
-        # use disposition_default by default
-        disposition = disposition_default
-
-        if any(key in user_agent for key in ['MSIE', 'WOW64', 'Edge']):
-            # Set different dispositon if the user_agent
-            # indicates download by a microsoft browser
-            disposition = disposition_microsoft
 
         self.request.response.setHeader("Content-disposition", disposition)
 
