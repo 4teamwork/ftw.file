@@ -5,7 +5,8 @@ Changelog
 2.4.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix comma in filename generates corrupt content-disposition
+  (correctly implement rfc6266) [Nachtalb]
 
 
 2.4.3 (2020-10-08)
