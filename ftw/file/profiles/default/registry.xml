@@ -19,4 +19,12 @@
         <value>False</value>
     </record>
 
+    <record name="ftw.file.filesettings.invalid_mimeteypes">
+        <field type="plone.registry.field.List">
+            <title>Invalid mime types</title>
+            <description>Files with those mime types get rejected</description>
+            <value_type type="plone.registry.field.TextLine" />
+        </field>
+    </record>
+
 </registry>

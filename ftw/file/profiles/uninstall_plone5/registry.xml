@@ -4,5 +4,6 @@
     <records prefix="plone.bundles/ftw-file-resources" interface="Products.CMFPlone.interfaces.IBundleRegistry" remove="True"/>
     <record name="ftw.file.filesettings.user_ids" remove="True" />
     <record name="ftw.file.disable_download_redirect" remove="True" />
+    <record name="ftw.file.filesettings.invalid_mimeteypes" remove="True" />
 
 </registry>

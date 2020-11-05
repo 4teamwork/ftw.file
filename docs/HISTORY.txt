@@ -5,7 +5,7 @@ Changelog
 2.4.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Feature: Restrict mimetypes allowed to use with ftw.file.File. [mathias.leimgruber]
 
 
 2.4.4 (2020-10-12)

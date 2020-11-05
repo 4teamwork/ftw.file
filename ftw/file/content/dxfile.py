@@ -1,31 +1,39 @@
 from datetime import datetime
-
-from plone.autoform.directives import write_permission
-
 from ftw.file import _
 from ftw.file.interfaces import IFile
 from ftw.file.utils import is_image
 from ftw.journal.interfaces import IWorkflowHistoryJournalizable
 from os import path
+from plone.autoform.directives import write_permission
 from plone.dexterity.content import Item
 from plone.namedfile.field import INamedBlobFileField
 from plone.namedfile.field import NamedBlobFile
 from plone.namedfile.file import NamedBlobImage
+from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
 from plone.supermodel.directives import primary
 from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
 from zope import schema
+from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import implements
 from zope.interface import Invalid
 import logging
+
 
 LOGGER = logging.getLogger('ftw.file')
 
 
 def default_document_date():
     return datetime.now().date()
+
+
+def validate_mime_type(data, contentType, filename):
+    registry = getUtility(IRegistry)
+    invalid_mimetypes = registry['ftw.file.filesettings.invalid_mimeteypes']
+    if invalid_mimetypes and contentType in invalid_mimetypes:
+        raise ValueError('Invalid mime type: {} is not allowed'.format(contentType))
 
 
 class BlobImageValueType(NamedBlobImage):
@@ -45,6 +53,8 @@ class BlobImageValueType(NamedBlobImage):
         # but Products.MimetypesRegistry <= 2.0.8 returns unicode rather than utf-8
         if isinstance(contentType, unicode):
             contentType = contentType.encode('utf8')
+
+        validate_mime_type(data, contentType, filename)
 
         super(BlobImageValueType, self).__init__(data, contentType, filename)
 
