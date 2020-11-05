@@ -33,7 +33,7 @@ def validate_mime_type(data, contentType, filename):
     registry = getUtility(IRegistry)
     invalid_mimetypes = registry['ftw.file.filesettings.invalid_mimeteypes']
     if invalid_mimetypes and contentType in invalid_mimetypes:
-        raise ValueError('Invalid mime type: {} is not allowed'.format(contentType))
+        raise Invalid('Invalid mime type: {} is not allowed'.format(contentType))
 
 
 class BlobImageValueType(NamedBlobImage):
