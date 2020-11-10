@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-28 13:08+0000\n"
+"POT-Creation-Date: 2020-11-10 14:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,12 +15,12 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:68
+#: ./ftw/file/browser/file_view.pt:56
 #: ./ftw/file/viewlets/content_history.pt:12
 msgid "Author"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:84
+#: ./ftw/file/browser/file_view.pt:72
 msgid "Classification"
 msgstr ""
 
@@ -28,24 +28,28 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:60
+#: ./ftw/file/browser/file_view.pt:48
 #: ./ftw/file/viewlets/content_history.pt:11
 msgid "Date"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:64
+#: ./ftw/file/browser/file_view.pt:52
 msgid "Description"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:44
+#: ./ftw/file/viewlets/content_history.py:140
+msgid "Edited"
+msgstr ""
+
+#: ./ftw/file/browser/file_view.pt:32
 msgid "File"
 msgstr ""
 
-#: ./ftw/file/browser/upload.py:38
+#: ./ftw/file/browser/upload.py:29
 msgid "File \"{}\" replaced with \"{}\" via drag & drop."
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:24
+#: ./ftw/file/browser/file_view.pt:25
 msgid "Hint: Drag and drop a file from your computer into the browser in order to replace the file."
 msgstr ""
 
@@ -57,11 +61,11 @@ msgstr ""
 msgid "Journal"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:80
+#: ./ftw/file/browser/file_view.pt:68
 msgid "Modified"
 msgstr ""
 
-#: ./ftw/file/browser/file_view.pt:95
+#: ./ftw/file/browser/file_view.pt:83
 msgid "Preview"
 msgstr ""
 
@@ -81,8 +85,13 @@ msgstr ""
 msgid "download"
 msgstr ""
 
+#. Default: "Invalid mime type: ${mimetype} is not allowed"
+#: ./ftw/file/content/dxfile.py:36
+msgid "error_invalid_mimetype"
+msgstr ""
+
 #. Default: "\"/\" (Slash in filenames is not allowed.."
-#: ./ftw/file/content/dxfile.py:62
+#: ./ftw/file/content/dxfile.py:75
 #: ./ftw/file/content/file.py:38
 msgid "filename_override_validator_error"
 msgstr ""
@@ -116,42 +125,42 @@ msgid "help_document_date"
 msgstr ""
 
 #. Default: "Insert a filename if you want to change the original filename. The extension (i.e. .docx) will not be modified. Please do not enter \"/\"."
-#: ./ftw/file/content/dxfile.py:82
+#: ./ftw/file/content/dxfile.py:95
 #: ./ftw/file/content/file.py:72
 msgid "help_filename_override"
 msgstr ""
 
 #. Default: "The file cannot cannot be deleted if this option is checked."
-#: ./ftw/file/content/dxfile.py:101
+#: ./ftw/file/content/dxfile.py:114
 #: ./ftw/file/content/file.py:94
 msgid "help_is_protected"
 msgstr ""
 
 #. Default: "Anonymous User"
-#: ./ftw/file/viewlets/content_history.py:69
+#: ./ftw/file/viewlets/content_history.py:70
 msgid "label_anonymous_user"
 msgstr ""
 
 #. Default: "Document Date"
-#: ./ftw/file/content/dxfile.py:93
+#: ./ftw/file/content/dxfile.py:106
 #: ./ftw/file/content/file.py:84
 msgid "label_document_date"
 msgstr ""
 
 #. Default: "File"
-#: ./ftw/file/content/dxfile.py:75
+#: ./ftw/file/content/dxfile.py:88
 #: ./ftw/file/content/file.py:60
 msgid "label_file"
 msgstr ""
 
 #. Default: "Filename"
-#: ./ftw/file/content/dxfile.py:80
+#: ./ftw/file/content/dxfile.py:93
 #: ./ftw/file/content/file.py:71
 msgid "label_filename_override"
 msgstr ""
 
 #. Default: "Protected"
-#: ./ftw/file/content/dxfile.py:100
+#: ./ftw/file/content/dxfile.py:113
 #: ./ftw/file/content/file.py:93
 msgid "label_is_protected"
 msgstr ""
