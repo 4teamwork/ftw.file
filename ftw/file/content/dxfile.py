@@ -4,6 +4,7 @@ from ftw.file.interfaces import IFile
 from ftw.file.utils import is_image
 from ftw.journal.interfaces import IWorkflowHistoryJournalizable
 from os import path
+from plone import api
 from plone.autoform.directives import write_permission
 from plone.dexterity.content import Item
 from plone.namedfile.field import INamedBlobFileField
@@ -16,6 +17,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.MimetypesRegistry.common import MimeTypeException
 from zope import schema
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.interface import implementer
 from zope.interface import implements
 from zope.interface import Invalid
@@ -33,7 +35,11 @@ def validate_mime_type(data, contentType, filename):
     registry = getUtility(IRegistry)
     invalid_mimetypes = registry['ftw.file.filesettings.invalid_mimeteypes']
     if invalid_mimetypes and contentType in invalid_mimetypes:
-        raise Invalid('Invalid mime type: {} is not allowed'.format(contentType))
+        raise Invalid(
+            translate(_(u'error_invalid_mimetype',
+                        default=u'Invalid mime type: ${mimetype} is not allowed',
+                        mapping={'mimetype': contentType}),
+                      context=api.portal.get().REQUEST))
 
 
 class BlobImageValueType(NamedBlobImage):
