@@ -186,3 +186,18 @@ class File(Item):
 
     def content_type(self):
         return self.getContentType()
+
+    def view(self):
+        """__doc__ neded for traversing and it makes it possible to send HEAD
+        requests. to /plone/folder/file.pdf/view"""
+        try:
+            # This works if a REQUESTS obj is available and it's the normal use case
+            return self.unrestrictedTraverse('@@view')()
+        except AttributeError:
+            # Used while traversing a head request
+            return self
+
+    def download(self):
+        """__doc__ neded for traversing and it makes it possible to send HEAD
+        requests. to /plone/folder/file.pdf/download"""
+        return self.unrestrictedTraverse('@@download')()

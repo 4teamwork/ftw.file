@@ -9,6 +9,7 @@ tests_require = [
     'ftw.testbrowser >= 1.22',
     'ftw.testing > 1.11',  # Force above splinter based version
     'plone.app.testing',
+    'requests',
 ]
 
 setup(name='ftw.file',
