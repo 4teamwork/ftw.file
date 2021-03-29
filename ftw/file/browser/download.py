@@ -33,6 +33,12 @@ def get_optimized_filename(filename):
 @implementer(IPublishTraverse)
 class Download(NameFileDownload):
 
+    def __getattr__(self, name):
+        is_head_request = self.request.get('REQUEST_METHOD').upper() == 'HEAD'
+        if is_head_request and self.filename == name:
+            return self.context
+        return super(Download, self).__getattr__(name)
+
     def __call__(self):
         if self.request.environ.get('PATH_INFO', '').endswith(self.__name__):
             # Redirect to self with fieldname and filename in path
