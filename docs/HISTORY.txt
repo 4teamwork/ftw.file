@@ -5,6 +5,8 @@ Changelog
 2.5.1 (unreleased)
 ------------------
 
+- Support HEAD request for /plone/folder/file.pdf/@@download/file/file.pdf [mathias.leimgruber]
+
 - Support HEAD request for /plone/folder/file.pdf/"view | download" [mathias.leimgruber]
 
 

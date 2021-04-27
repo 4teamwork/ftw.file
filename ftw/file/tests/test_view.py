@@ -96,3 +96,10 @@ class TestHeadRequest(TestCase):
 
         response = requests.head(self.context.absolute_url() + '/download')
         self.assertEquals(302, response.status_code)  # Not 100% sure why this results in a 302
+
+    def test_head_request_with_filename_endpoint(self):
+        response = requests.get(self.context.absolute_url() + '/@@download/file/transparent.gif')
+        self.assertEquals(200, response.status_code)
+
+        response = requests.head(self.context.absolute_url() + '/@@download/file/transparent.gif')
+        self.assertEquals(200, response.status_code)
