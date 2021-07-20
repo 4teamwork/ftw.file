@@ -125,6 +125,12 @@ class File(Item):
     # TODO: Move IWorkflowHistoryJournalizable into zcml
     implements(IFile, IWorkflowHistoryJournalizable)
 
+    def __init__(self, *args, **kwargs):
+        if 'document_date' not in kwargs:
+            kwargs['document_date'] = default_document_date()
+
+        super(File, self).__init__(*args, **kwargs)
+
     def _get_filename_override(self):
         filename = self.file.filename
         if not filename:

@@ -5,7 +5,7 @@ Changelog
 2.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix setting document_date if created without form. [mathias.leimgruber]
 
 
 2.6.0 (2021-04-28)
