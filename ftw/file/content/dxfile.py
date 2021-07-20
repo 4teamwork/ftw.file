@@ -33,6 +33,10 @@ def default_document_date():
 
 def validate_mime_type(data, contentType, filename):
     registry = getUtility(IRegistry)
+
+    if 'ftw.file.filesettings.invalid_mimeteypes' not in registry:
+        return
+
     invalid_mimetypes = registry['ftw.file.filesettings.invalid_mimeteypes']
     if invalid_mimetypes and contentType in invalid_mimetypes:
         raise Invalid(

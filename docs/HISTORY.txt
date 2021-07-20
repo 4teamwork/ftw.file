@@ -5,7 +5,7 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Check for invalid_mimeteypes key in registry before accessing it directly. [mathias.leimgruber]
 
 
 2.6.1 (2021-07-20)
