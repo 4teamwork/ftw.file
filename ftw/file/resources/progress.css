@@ -13,7 +13,7 @@ body.portaltype-ftw-file-file .progress-radial {
   box-sizing: border-box;
 }
 
-body.portaltype-ftw-file-file .progress-radial .overlay,
+body.portaltype-ftw-file-file .progress-radial .DnDoverlay,
 body.portaltype-ftw-file-file .progress-radial #tick,
 body.portaltype-ftw-file-file .progress-radial #fail {
   display: block;
@@ -28,7 +28,7 @@ body.portaltype-ftw-file-file .progress-radial #fail {
   box-sizing: border-box;
 }
 
-body.portaltype-ftw-file-file .progress-radial .overlay {
+body.portaltype-ftw-file-file .progress-radial .DnDoverlay {
   text-align: center;
   line-height: 90px;
   font-size: 16px;

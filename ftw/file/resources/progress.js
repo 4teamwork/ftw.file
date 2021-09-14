@@ -36,7 +36,7 @@
     build = function(selector) {
       element = document.getElementById(selector);
       overlay = document.createElement('div');
-      overlay.className = 'overlay';
+      overlay.className = 'DnDoverlay';
       tick = document.createElement('img');
       tick.id = 'tick';
       tick.src = '++resource++ftw.file.resources/tick.png';
