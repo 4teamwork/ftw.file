@@ -3,9 +3,7 @@ from ftw.file.content.dxfile import BlobImageValueType
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
 from zExceptions import BadRequest
-from zope.event import notify
 from zope.i18n import translate
-from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
 import json
 import ntpath
@@ -41,5 +39,5 @@ class FileUpload(BrowserView):
         self.context.file = BlobImageValueType(data=self.file.read(),
                                                filename=self.filename)
 
-        notify(ObjectModifiedEvent(self.context))
+        self.context.setModificationDate()  # Updates to current date
         return json.dumps({'success': True})

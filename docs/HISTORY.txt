@@ -5,7 +5,7 @@ Changelog
 2.6.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Set modification date on Dnd upload manually. [mathias.leimgruber]
 
 
 2.6.3 (2021-09-14)
