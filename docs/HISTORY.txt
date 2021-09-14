@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.3 (unreleased)
+2.6.3 (2021-09-14)
 ------------------
 
 - Remove DnD upload mask (from acient jquerytools), it does no longer work. [mathias.leimgruber]
