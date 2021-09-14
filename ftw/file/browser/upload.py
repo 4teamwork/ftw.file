@@ -1,12 +1,14 @@
-from Products.CMFPlone.utils import safe_unicode
 from ftw.file import _
 from ftw.file.content.dxfile import BlobImageValueType
 from plone import api
+from Products.CMFPlone.utils import safe_unicode
 from zExceptions import BadRequest
+from zope.event import notify
 from zope.i18n import translate
+from zope.lifecycleevent import ObjectModifiedEvent
 from zope.publisher.browser import BrowserView
-import ntpath
 import json
+import ntpath
 
 
 class FileUpload(BrowserView):
@@ -38,4 +40,6 @@ class FileUpload(BrowserView):
         self.file.seek(0)
         self.context.file = BlobImageValueType(data=self.file.read(),
                                                filename=self.filename)
+
+        notify(ObjectModifiedEvent(self.context))
         return json.dumps({'success': True})
