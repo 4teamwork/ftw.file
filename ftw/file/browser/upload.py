@@ -40,4 +40,5 @@ class FileUpload(BrowserView):
                                                filename=self.filename)
 
         self.context.setModificationDate()  # Updates to current date
+        self.context.reindexObject(idxs=['modified'])
         return json.dumps({'success': True})

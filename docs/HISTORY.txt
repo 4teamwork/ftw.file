@@ -5,7 +5,7 @@ Changelog
 2.6.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Reindex modified date on DnD upload. [mathias.leimgruber]
 
 
 2.6.4 (2021-09-14)
