@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.5 (unreleased)
+2.6.5 (2021-09-22)
 ------------------
 
 - Reindex modified date on DnD upload. [mathias.leimgruber]
