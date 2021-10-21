@@ -100,5 +100,8 @@
       name="documentDate"
       factory=".indexer.document_date"
       />
+  <adapter
+      name="SearchableText"
+      factory=".indexer.SearchableText_ftwfile" />
 
 </configure>
