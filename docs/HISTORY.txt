@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.6 (unreleased)
+2.6.6 (2021-10-21)
 ------------------
 
 - Add ftw.file.File SearchableText index. [mathias.leimgruber]
