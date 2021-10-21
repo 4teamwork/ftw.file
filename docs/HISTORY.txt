@@ -5,7 +5,7 @@ Changelog
 2.6.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add ftw.file.File SearchableText index. [mathias.leimgruber]
 
 
 2.6.5 (2021-09-22)
