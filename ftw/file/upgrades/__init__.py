@@ -71,7 +71,6 @@ class ATToDXMixin(object):
             ignore_fields=(
                 'excludeFromNav',
                 'lastModifier',
-                'topics',
                 'height',  # flowplayer
                 'width',  # flowplayer
             ),
